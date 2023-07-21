@@ -1,0 +1,17 @@
+server:
+  port: 8080
+
+spring:
+#  Mysql
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/demo?useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: root
+  #    MVC搜索路径
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  #      模板校验关闭
+  thymeleaf:
+    check-template-location: false
