@@ -75,6 +75,9 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-log4j2</artifactId>
         </dependency>
+
+
+
     </dependencies>
 
     <!--构建-->

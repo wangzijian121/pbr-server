@@ -45,6 +45,8 @@
         <guava.version>23.0</guava.version>
         <springfox-swagger.version>3.0.0</springfox-swagger.version>
         <spring-boot-starter-log4j2.version>3.1.0</spring-boot-starter-log4j2.version>
+        <argon2-jvm.version>2.11</argon2-jvm.version>
+        <junit.version>4.1.2</junit.version>
 
     </properties>
 
@@ -166,7 +168,22 @@
                 <artifactId>spring-boot-starter-log4j2</artifactId>
                 <version>${spring-boot-starter-log4j2.version}</version>
             </dependency>
+            <!--Argon2 加密-->
+            <dependency>
+                <groupId>de.mkammerer</groupId>
+                <artifactId>argon2-jvm</artifactId>
+                <version>${argon2-jvm.version}</version>
+            </dependency>
+            <!-- junit 4 -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
         </dependencies>
+
+
     </dependencyManagement>
     <dependencies>
         <dependency>
