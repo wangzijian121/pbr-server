@@ -47,6 +47,7 @@
         <spring-boot-starter-log4j2.version>3.1.0</spring-boot-starter-log4j2.version>
         <argon2-jvm.version>2.11</argon2-jvm.version>
         <junit.version>4.1.2</junit.version>
+        <jackson.version>2.12.5</jackson.version>
 
     </properties>
 
@@ -180,6 +181,27 @@
                 <artifactId>junit</artifactId>
                 <version>${junit.version}</version>
                 <scope>test</scope>
+            </dependency>
+
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+
+            <!-- Jackson Databind -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+
+            <!-- Jackson Annotations -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>${jackson.version}</version>
             </dependency>
         </dependencies>
 
