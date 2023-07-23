@@ -14,6 +14,7 @@ import com.zlht.pose.management.dao.entity.User;
 import com.zlht.pose.management.dao.mapper.UserMapper;
 
 
+import com.zlht.pose.management.tools.service.Argon2PasswordEncoder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,13 +56,13 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
     public Result<User> createUser(User user) {
 
         //exist?
-        if(checkUserExist(user)){
-            return faild(400, "用户重复");
+        if (checkUserExist(user)) {
+            return faild(400, "用户名重复！");
         }
         //管理员的话加密 密码
 
-        int resNum = userMapper.insert(user);
-        if (resNum == 1) {
+        int resNum = userMapper.insert(encipher(user));
+        if (resNum >= 1) {
             return success(null);
         } else {
             return faild(400, "插入用户失败");
@@ -69,6 +70,29 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
 
     }
 
+
+    @Override
+    public Result<User> updateUser(int id, User user) {
+        //exist?
+        if (checkUserExist(user)) {
+            return faild(400, "用户名重复！");
+        }
+
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("id", id);
+        int update = userMapper.update(encipher(user), queryWrapper);
+        if (update >= 1) {
+            return success(null);
+        } else {
+            return faild(400, "更新用户失败");
+        }
+    }
+
+    /**
+     * 检查用户是否重复
+     * @param user
+     * @return
+     */
     @Override
     public boolean checkUserExist(User user) {
         QueryWrapper queryWrapper = new QueryWrapper<>();
@@ -76,4 +100,14 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
         return userMapper.exists(queryWrapper);
     }
 
+    /**
+     * 加密
+     * @param user
+     * @return
+     */
+    private User encipher(User user) {
+        String passwordFromArgon2 = Argon2PasswordEncoder.encode(user.getPassword());
+        user.setPassword(passwordFromArgon2);
+        return user;
+    }
 }

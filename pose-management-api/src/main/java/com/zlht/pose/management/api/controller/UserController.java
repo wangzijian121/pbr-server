@@ -55,9 +55,34 @@ public class UserController extends BaseController {
     @PostMapping(value = "/createUser")
     @ResponseStatus(HttpStatus.OK)
     public Result<User> createUser(@RequestBody User user) {
-
         return userServices.createUser(user);
     }
+    /**
+     * 更新用户
+     *
+     * @return User
+     */
+    @ApiOperation(value = "updateUser", notes = "更新用户")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "需要更新的用户ID", required = true, dataTypeClass = int.class)
+    })
+    @PutMapping(value = "/updateUser")
+    @ResponseStatus(HttpStatus.OK)
+    public Result<User> updateUser(@RequestParam int id,
+                                   @RequestBody User user) {
+        return userServices.updateUser(id, user);
+    }
     //更新用户
-    //删除用户
+
+    /**
+     * 删除用户
+     *
+     * @return User
+     */
+    @ApiOperation(value = "deleteUser", notes = "删除用户")
+    @DeleteMapping(value = "/deleteUser")
+    @ResponseStatus(HttpStatus.OK)
+    public Result<User> deleteUser(@RequestBody User user) {
+        return userServices.createUser(user);
+    }
 }
