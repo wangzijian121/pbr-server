@@ -48,6 +48,7 @@
         <argon2-jvm.version>2.11</argon2-jvm.version>
         <junit.version>4.1.2</junit.version>
         <jackson.version>2.12.5</jackson.version>
+        <commons-lang3.version>3.12.0</commons-lang3.version>
 
     </properties>
 
@@ -202,6 +203,12 @@
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-annotations</artifactId>
                 <version>${jackson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
             </dependency>
         </dependencies>
 

@@ -15,6 +15,7 @@ import com.zlht.pose.management.dao.mapper.UserMapper;
 
 
 import com.zlht.pose.management.tools.service.Argon2PasswordEncoder;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +60,9 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
     @Override
     public Result<User> createUser(User user) {
 
+        if (!validateUserName(user)) {
+            return faild(400, "用户名或昵称不符合规范！");
+        }
         //exist?
         if (checkUserExist(user)) {
             return faild(400, "用户名重复！");
@@ -150,5 +154,22 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
         String passwordFromArgon2 = Argon2PasswordEncoder.encode(user.getPassword());
         user.setPassword(passwordFromArgon2);
         return user;
+    }
+
+    private static boolean validateUserName(User user) {
+        if (user == null) {
+            return false;
+        }
+
+        String username = user.getUsername();
+        String nickname = user.getNickname();
+
+        // 校验 username 和 nickname 不为空，并且没有空格
+        if (StringUtils.isBlank(username) || StringUtils.isBlank(nickname)
+                || StringUtils.containsWhitespace(username) || StringUtils.containsWhitespace(nickname)) {
+            return false;
+        }
+
+        return true;
     }
 }
