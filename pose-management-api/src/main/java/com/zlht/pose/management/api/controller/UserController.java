@@ -72,7 +72,6 @@ public class UserController extends BaseController {
                                    @RequestBody User user) {
         return userServices.updateUser(id, user);
     }
-    //更新用户
 
     /**
      * 删除用户
@@ -82,7 +81,25 @@ public class UserController extends BaseController {
     @ApiOperation(value = "deleteUser", notes = "删除用户")
     @DeleteMapping(value = "/deleteUser")
     @ResponseStatus(HttpStatus.OK)
-    public Result<User> deleteUser(@RequestBody User user) {
-        return userServices.createUser(user);
+    public Result<User> deleteUser(@RequestParam int  userId) {
+        return userServices.deleteUser(userId);
+    }
+
+    /**
+     * 登录
+     * @param username
+     * @param password
+     * @return
+     */
+    @ApiOperation(value = "login", notes = "用户登录")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "username", value = "用户名", required = true, dataTypeClass = String.class),
+            @ApiImplicitParam(name = "password", value = "密码", required = true, dataTypeClass = String.class)
+    })
+    @PostMapping(value = "/login")
+    @ResponseStatus(HttpStatus.OK)
+    public Result<User> login(@RequestParam String username,
+                              @RequestParam String password) {
+        return userServices.authorizedUser(username,password);
     }
 }

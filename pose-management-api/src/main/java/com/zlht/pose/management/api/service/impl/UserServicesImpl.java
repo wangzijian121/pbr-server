@@ -73,10 +73,6 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
 
     @Override
     public Result<User> updateUser(int id, User user) {
-        //exist?
-        if (checkUserExist(user)) {
-            return faild(400, "用户名重复！");
-        }
 
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("id", id);
@@ -88,8 +84,48 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
         }
     }
 
+    @Override
+    public Result<User> deleteUser(int id) {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("id", id);
+        int delete = userMapper.delete(queryWrapper);
+        if (delete >= 1) {
+            return success(null);
+        } else {
+            return faild(400, "删除用户失败！");
+        }
+
+    }
+
+    /**
+     * 用户认证
+     *
+     * @param username
+     * @param password
+     * @return
+     */
+    public Result authorizedUser(String username, String password) {
+
+        if (username == null) return faild(400, "请输入用户名！");
+        if (password == null) return faild(400, "请输入密码！");
+
+        User user = userMapper.queryUserByUserName(username);
+        if (user != null) {
+            String encipherPassword = user.getPassword();
+            boolean check = Argon2PasswordEncoder.matches(encipherPassword, password);
+            if (check) {
+                return success(null);
+            } else {
+                return faild(400, "登录失败！");
+            }
+        } else {
+            return faild(400, "登录失败！");
+        }
+    }
+
     /**
      * 检查用户是否重复
+     *
      * @param user
      * @return
      */
@@ -102,6 +138,7 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
 
     /**
      * 加密
+     *
      * @param user
      * @return
      */

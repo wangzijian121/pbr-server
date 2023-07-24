@@ -33,5 +33,23 @@ public interface UserServicesI {
      */
     Result<User> updateUser(int id, User user);
 
+    /**
+     * 删除用户
+     *
+     * @param id
+     * @return
+     */
+    Result<User> deleteUser(int id);
+
+
+    /**
+     * 认证用户
+     *
+     * @param username
+     * @param password
+     * @return
+     */
+    Result<User> authorizedUser(String username, String password);
+
     boolean checkUserExist(User user);
 }
