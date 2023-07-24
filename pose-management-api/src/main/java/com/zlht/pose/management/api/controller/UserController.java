@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@Api(tags = "user")
+@Api(tags = "用户管理", description = "用户管理与用户登录校验")
 public class UserController extends BaseController {
 
     private static final Logger logger = LogManager.getLogger(UserController.class);
