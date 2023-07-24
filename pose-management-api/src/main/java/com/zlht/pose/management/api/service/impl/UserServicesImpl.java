@@ -33,13 +33,17 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
     UserMapper userMapper;
 
     @Override
-    public Result<User> queryUserList(int type, int pageNum, int pageSize) {
+    public Result<User> queryUserList(int type, int pageNum, int pageSize, String nickname) {
+
 
         List<User> userList = new ArrayList<>();
         Page<User> page = new Page<>(pageNum, pageSize);
 
         QueryWrapper<User> wapper = new QueryWrapper<User>();
         wapper.eq("type", type);
+        if (nickname != null) {
+            wapper.and(nc -> nc.like("nickname", nickname));
+        }
         Page<User> userPage = userMapper.selectPage(page, wapper);
         if (userPage != null) {
             for (User user : userPage.getRecords()) {

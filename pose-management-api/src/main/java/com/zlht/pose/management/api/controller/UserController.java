@@ -1,6 +1,7 @@
 package com.zlht.pose.management.api.controller;
 
 
+import com.zlht.pose.management.api.enums.Status;
 import com.zlht.pose.management.api.service.UserServicesI;
 
 import com.zlht.pose.management.api.utils.Result;
@@ -12,6 +13,8 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @Api(tags = "user")
@@ -29,21 +32,23 @@ public class UserController extends BaseController {
      */
     @ApiOperation(value = "getUser", notes = "查询用户")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "type", value = "用户类型:(0:管理员,1:机构管理员,2: 开发者,3 机构用户)", required = true, dataTypeClass = int.class),
-            @ApiImplicitParam(name = "pageNum", value = "页数", required = true, dataTypeClass = int.class),
-            @ApiImplicitParam(name = "pageSize", value = "页大小", required = true, dataTypeClass = int.class)
+            @ApiImplicitParam(name = "type", value = "用户类型:(0:管理员,1:机构管理员,2: 开发者,3 机构用户)", dataTypeClass = int.class),
+            @ApiImplicitParam(name = "pageNum", value = "页数(默认1)", dataTypeClass = int.class),
+            @ApiImplicitParam(name = "pageSize", value = "页大小(默认10)", dataTypeClass = int.class),
+            @ApiImplicitParam(name = "nickname", value = "用户昵称", dataTypeClass = String.class)
     })
     @GetMapping(value = "/getUser")
     @ResponseStatus(HttpStatus.OK)
     public Result<User> queryUserList(@RequestParam int type,
-                                      @RequestParam int pageNum,
-                                      @RequestParam int pageSize) {
+                                      @RequestParam(required = false, defaultValue = "1") int pageNum,
+                                      @RequestParam(required = false, defaultValue = "10") int pageSize,
+                                      @RequestParam(required = false) String nickname) {
 
         Result result = checkPageParams(pageNum, pageSize);
         if (!result.checkResult()) {
             return result;
         }
-        return userServices.queryUserList(type, pageNum, pageSize);
+        return userServices.queryUserList(type, pageNum, pageSize, nickname);
     }
 
     /**
@@ -57,6 +62,7 @@ public class UserController extends BaseController {
     public Result<User> createUser(@RequestBody User user) {
         return userServices.createUser(user);
     }
+
     /**
      * 更新用户
      *
@@ -81,12 +87,13 @@ public class UserController extends BaseController {
     @ApiOperation(value = "deleteUser", notes = "删除用户")
     @DeleteMapping(value = "/deleteUser")
     @ResponseStatus(HttpStatus.OK)
-    public Result<User> deleteUser(@RequestParam int  userId) {
+    public Result<User> deleteUser(@RequestParam int userId) {
         return userServices.deleteUser(userId);
     }
 
     /**
      * 登录
+     *
      * @param username
      * @param password
      * @return
@@ -100,6 +107,13 @@ public class UserController extends BaseController {
     @ResponseStatus(HttpStatus.OK)
     public Result<User> login(@RequestParam String username,
                               @RequestParam String password) {
-        return userServices.authorizedUser(username,password);
+
+        Result result = null;
+        try {
+            result = userServices.authorizedUser(username, password);
+        } catch (Exception e) {
+            logger.error(Status.AUTHORIZED_USER_ERROR.getMsg(), e);
+        }
+        return result;
     }
 }

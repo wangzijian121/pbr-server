@@ -13,7 +13,7 @@ public interface UserServicesI {
      * @param pageSize
      * @return
      */
-    Result<User> queryUserList(int type, int pageNum, int pageSize);
+    Result<User> queryUserList(int type, int pageNum, int pageSize, String nickname);
 
     /**
      * 创建用户
