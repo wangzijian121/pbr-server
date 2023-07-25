@@ -18,20 +18,20 @@ public interface InstitutionServicesI {
     /**
      * 创建机构
      *
-     * @param Institution
+     * @param institution
      * @return
      */
 
-    Result<Institution> createInstitution(Institution Institution);
+    Result<Institution> createInstitution(Institution institution);
 
     /**
      * 更新机构
      *
      * @param id
-     * @param Institution
+     * @param institution
      * @return
      */
-    Result<Institution> updateInstitution(int id, Institution Institution);
+    Result<Institution> updateInstitution(int id, Institution institution);
 
     /**
      * 删除机构

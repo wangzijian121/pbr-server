@@ -7,6 +7,7 @@ import com.zlht.pose.management.api.service.InstitutionServicesI;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.Institution;
 import com.zlht.pose.management.dao.mapper.InstitutionMapper;
+import com.zlht.pose.management.tools.service.ValidateService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -25,23 +26,23 @@ public class InstitutionServicesImpl extends BaseServiceImpl<Institution> implem
     InstitutionMapper institutionMapper;
 
     @Override
-    public Result<Institution> queryInstitutionList(int type, int pageNum, int pageSize, String nickname) {
+    public Result<Institution> queryInstitutionList(int type, int pageNum, int pageSize, String name) {
 
 
-        List<Institution> InstitutionList = new ArrayList<>();
+        List<Institution> institutionList = new ArrayList<>();
         Page<Institution> page = new Page<>(pageNum, pageSize);
 
         QueryWrapper<Institution> wapper = new QueryWrapper<Institution>();
         wapper.eq("type", type);
-        if (nickname != null) {
-            wapper.and(nc -> nc.like("nickname", nickname));
+        if (name != null) {
+            wapper.and(nc -> nc.like("name", name));
         }
-        Page<Institution> InstitutionPage = institutionMapper.selectPage(page, wapper);
-        if (InstitutionPage != null) {
-            for (Institution Institution : InstitutionPage.getRecords()) {
-                InstitutionList.add(Institution);
+        Page<Institution> institutionPage = institutionMapper.selectPage(page, wapper);
+        if (institutionPage != null) {
+            for (Institution institution : institutionPage.getRecords()) {
+                institutionList.add(institution);
             }
-            return success(InstitutionList);
+            return success(institutionList);
         } else {
             return faild(400, "未查询到机构！");
         }
@@ -50,15 +51,17 @@ public class InstitutionServicesImpl extends BaseServiceImpl<Institution> implem
 
     @Override
     public Result<Institution> createInstitution(Institution institution) {
-
-        if (!validateInstitutionName(institution)) {
-            return faild(400, "机构名或昵称不符合规范！");
-        }
         //exist?
         if (checkInstitutionExist(institution)) {
             return faild(400, "机构名重复！");
         }
-        //管理员的话加密 密码
+
+        if (!validateInstitutionName(institution)) {
+            return faild(400, "机构名或昵称不符合规范！");
+        }
+        if (!ValidateService.validateEmail(institution.getEmail())) {
+            return faild(400, "邮箱格式不满足！");
+        }
 
         int resNum = institutionMapper.insert(institution);
         if (resNum >= 1) {
@@ -106,7 +109,7 @@ public class InstitutionServicesImpl extends BaseServiceImpl<Institution> implem
     @Override
     public boolean checkInstitutionExist(Institution institution) {
         QueryWrapper queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("Institutionname", institution.getName());
+        queryWrapper.eq("name", institution.getName());
         return institutionMapper.exists(queryWrapper);
     }
 
@@ -118,8 +121,7 @@ public class InstitutionServicesImpl extends BaseServiceImpl<Institution> implem
 
         String name = institution.getName();
         // 校验 Institutionname 和 nickname 不为空，并且没有空格
-        if (StringUtils.isBlank(name) || StringUtils.isBlank(name)
-                || StringUtils.containsWhitespace(name) || StringUtils.containsWhitespace(name)) {
+        if (StringUtils.isBlank(name) || StringUtils.containsWhitespace(name)) {
             return false;
         }
 

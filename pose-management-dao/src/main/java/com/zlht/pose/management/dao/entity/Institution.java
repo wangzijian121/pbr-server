@@ -34,7 +34,7 @@ public class Institution {
 
     @TableField
     @ApiModelProperty(name = "phone", value = "手机", required = true)
-    private String username;
+    private String phone;
 
     @TableField
     @ApiModelProperty(name = "email", value = "邮箱", required = true)
