@@ -33,10 +33,8 @@ public class InstitutionServicesImpl extends BaseServiceImpl<Institution> implem
         Page<Institution> page = new Page<>(pageNum, pageSize);
 
         QueryWrapper<Institution> wapper = new QueryWrapper<Institution>();
-        wapper.eq("type", type);
-        if (name != null) {
-            wapper.and(nc -> nc.like("name", name));
-        }
+        if (type != -1) wapper.eq("type", type);
+        if (name != null) wapper.and(nc -> nc.like("name", name));
         Page<Institution> institutionPage = institutionMapper.selectPage(page, wapper);
         if (institutionPage != null) {
             for (Institution institution : institutionPage.getRecords()) {

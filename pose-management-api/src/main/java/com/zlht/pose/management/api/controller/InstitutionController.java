@@ -33,11 +33,11 @@ public class InstitutionController extends BaseController {
             @ApiImplicitParam(name = "type", value = "机构类型:(0：培训机构，1：健身场所)", dataTypeClass = int.class),
             @ApiImplicitParam(name = "pageNum", value = "页数(默认1)", dataTypeClass = int.class),
             @ApiImplicitParam(name = "pageSize", value = "页大小(默认10)", dataTypeClass = int.class),
-            @ApiImplicitParam(name = "name", value = "机构昵称", dataTypeClass = String.class)
+            @ApiImplicitParam(name = "name", value = "机构名", dataTypeClass = String.class)
     })
     @GetMapping(value = "/getInstitution")
     @ResponseStatus(HttpStatus.OK)
-    public Result<Institution> queryInstitutionList(@RequestParam int type,
+    public Result<Institution> queryInstitutionList(@RequestParam(required = false,defaultValue = "-1") int type,
                                                     @RequestParam(required = false, defaultValue = "1") int pageNum,
                                                     @RequestParam(required = false, defaultValue = "10") int pageSize,
                                                     @RequestParam(required = false) String name) {
