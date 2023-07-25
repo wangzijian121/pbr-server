@@ -28,7 +28,7 @@ public class AuthInstitutionController extends BaseController {
      *
      * @return institution
      */
-    @ApiOperation(value = "getAuthInstitution", notes = "查询授权的机构")
+    @ApiOperation(value = "查询授权的机构", notes = "查询授权的机构")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "auth_type", value = "授权类型:(0：算法授权，1：功能授权)", dataTypeClass = int.class),
             @ApiImplicitParam(name = "pageNum", value = "页数(默认1)", dataTypeClass = int.class),
@@ -54,7 +54,7 @@ public class AuthInstitutionController extends BaseController {
      *
      * @return AuthInstitution
      */
-    @ApiOperation(value = "createAuthInstitution", notes = "创建机构")
+    @ApiOperation(value = "创建机构授权", notes = "创建机构授权")
     @PostMapping(value = "/createAuthInstitution")
     @ResponseStatus(HttpStatus.OK)
     public Result<AuthInstitution> createAuthInstitution(@RequestBody AuthInstitution authInstitution) {
@@ -66,9 +66,9 @@ public class AuthInstitutionController extends BaseController {
      *
      * @return AuthInstitution
      */
-    @ApiOperation(value = "updateAuthInstitution", notes = "更新机构")
+    @ApiOperation(value = "更新机构授权", notes = "更新机构授权")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "需要更新的机构ID", required = true, dataTypeClass = int.class)
+            @ApiImplicitParam(name = "id", value = "需要更新的机构授权的ID", required = true, dataTypeClass = int.class)
     })
     @PutMapping(value = "/updateAuthInstitution")
     @ResponseStatus(HttpStatus.OK)
@@ -82,7 +82,7 @@ public class AuthInstitutionController extends BaseController {
      *
      * @return AuthInstitution
      */
-    @ApiOperation(value = "deleteAuthInstitution", notes = "删除机构")
+    @ApiOperation(value = "删除机构授权", notes = "删除机构授权")
     @DeleteMapping(value = "/deleteAuthInstitution")
     @ResponseStatus(HttpStatus.OK)
     public Result<AuthInstitution> deleteAuthInstitution(@RequestParam int id) {

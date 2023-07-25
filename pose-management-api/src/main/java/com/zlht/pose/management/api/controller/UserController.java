@@ -30,7 +30,7 @@ public class UserController extends BaseController {
      *
      * @return User
      */
-    @ApiOperation(value = "getUser", notes = "查询用户")
+    @ApiOperation(value = "查询用户", notes = "查询用户")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "type", value = "用户类型:(0:管理员,1:机构管理员,2: 开发者,3 机构用户)", dataTypeClass = int.class),
             @ApiImplicitParam(name = "pageNum", value = "页数(默认1)", dataTypeClass = int.class),
@@ -56,7 +56,7 @@ public class UserController extends BaseController {
      *
      * @return User
      */
-    @ApiOperation(value = "createUser", notes = "创建用户")
+    @ApiOperation(value = "创建用户", notes = "创建用户")
     @PostMapping(value = "/createUser")
     @ResponseStatus(HttpStatus.OK)
     public Result<User> createUser(@RequestBody User user) {
@@ -68,7 +68,7 @@ public class UserController extends BaseController {
      *
      * @return User
      */
-    @ApiOperation(value = "updateUser", notes = "更新用户")
+    @ApiOperation(value = "更新用户", notes = "更新用户")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "需要更新的用户ID", required = true, dataTypeClass = int.class)
     })
@@ -84,7 +84,7 @@ public class UserController extends BaseController {
      *
      * @return User
      */
-    @ApiOperation(value = "deleteUser", notes = "删除用户")
+    @ApiOperation(value = "删除用户", notes = "删除用户")
     @DeleteMapping(value = "/deleteUser")
     @ResponseStatus(HttpStatus.OK)
     public Result<User> deleteUser(@RequestParam int userId) {
@@ -98,7 +98,7 @@ public class UserController extends BaseController {
      * @param password
      * @return
      */
-    @ApiOperation(value = "login", notes = "用户登录")
+    @ApiOperation(value = "用户登录", notes = "用户登录")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "username", value = "用户名", required = true, dataTypeClass = String.class),
             @ApiImplicitParam(name = "password", value = "密码", required = true, dataTypeClass = String.class)

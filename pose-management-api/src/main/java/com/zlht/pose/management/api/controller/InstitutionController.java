@@ -28,7 +28,7 @@ public class InstitutionController extends BaseController {
      *
      * @return institution
      */
-    @ApiOperation(value = "getInstitution", notes = "查询机构")
+    @ApiOperation(value = "查询机构", notes = "查询机构")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "type", value = "机构类型:(0：培训机构，1：健身场所)", dataTypeClass = int.class),
             @ApiImplicitParam(name = "pageNum", value = "页数(默认1)", dataTypeClass = int.class),
@@ -54,7 +54,7 @@ public class InstitutionController extends BaseController {
      *
      * @return Institution
      */
-    @ApiOperation(value = "createInstitution", notes = "创建机构")
+    @ApiOperation(value = "创建机构", notes = "创建机构")
     @PostMapping(value = "/createInstitution")
     @ResponseStatus(HttpStatus.OK)
     public Result<Institution> createInstitution(@RequestBody Institution institution) {
@@ -66,7 +66,7 @@ public class InstitutionController extends BaseController {
      *
      * @return Institution
      */
-    @ApiOperation(value = "updateInstitution", notes = "更新机构")
+    @ApiOperation(value = "更新机构", notes = "更新机构")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "需要更新的机构ID", required = true, dataTypeClass = int.class)
     })
@@ -82,7 +82,7 @@ public class InstitutionController extends BaseController {
      *
      * @return Institution
      */
-    @ApiOperation(value = "deleteInstitution", notes = "删除机构")
+    @ApiOperation(value = "删除机构", notes = "删除机构")
     @DeleteMapping(value = "/deleteInstitution")
     @ResponseStatus(HttpStatus.OK)
     public Result<Institution> deleteInstitution(@RequestParam int id) {
