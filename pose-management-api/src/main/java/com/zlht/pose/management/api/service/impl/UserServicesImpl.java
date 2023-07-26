@@ -10,7 +10,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlht.pose.management.api.service.UserServicesI;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.User;
-import com.zlht.pose.management.dao.entity.User;
 import com.zlht.pose.management.dao.mapper.UserMapper;
 
 
@@ -21,7 +20,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.jws.soap.SOAPBinding;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +41,7 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
         QueryWrapper<User> wapper = new QueryWrapper<User>();
         wapper.eq("type", type);
         if (nickname != null) {
-            wapper.and(nc -> nc.like("nickname", nickname));
+            wapper.like("nickname", nickname);
         }
         Page<User> userPage = userMapper.selectPage(page, wapper);
         if (userPage != null) {
@@ -54,7 +52,6 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
         } else {
             return faild(400, "未查询到用户！");
         }
-
     }
 
     @Override
