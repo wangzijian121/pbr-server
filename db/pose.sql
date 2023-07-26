@@ -23,50 +23,51 @@ DROP TABLE IF EXISTS `algorithm`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `algorithm` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `type` int DEFAULT NULL,
-  `sport_category` int DEFAULT NULL,
-  `file` varchar(255) DEFAULT NULL,
-  `template_id` int DEFAULT NULL,
-  `install_type` int DEFAULT NULL,
-  `uploader` int DEFAULT NULL,
-  `docs` text,
-  `example` int DEFAULT NULL,
-  `atrr` json NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='算法表';
+                             `id` int NOT NULL AUTO_INCREMENT,
+                             `name` varchar(255) DEFAULT NULL,
+                             `type` int DEFAULT NULL,
+                             `sport_category` int DEFAULT NULL,
+                             `file` varchar(255) DEFAULT NULL,
+                             `template_id` int DEFAULT NULL,
+                             `install_type` int DEFAULT NULL,
+                             `uploader` int DEFAULT NULL,
+                             `docs` text,
+                             `example` int DEFAULT NULL,
+                             `atrr` json NOT NULL,
+                             PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='算法表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `algorithm`
 --
 
+INSERT INTO `algorithm` VALUES (1,'篮球投篮算法',1,1,'1',1,1,1,'1',1,'1');
 
 --
--- Table structure for table `auth_institution`
+-- Table structure for table `auth_institution_alg`
 --
 
-DROP TABLE IF EXISTS `auth_institution`;
+DROP TABLE IF EXISTS `auth_institution_alg`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `auth_institution` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `institution_name` varchar(255) DEFAULT NULL COMMENT '授权机构',
-  `auth_type` int DEFAULT NULL COMMENT '授权类型(0：算法，1：功能)',
-  `auth_content` int DEFAULT NULL COMMENT '授权内容',
-  `auth_admin` int DEFAULT NULL COMMENT '授权人',
-  `mark` varchar(255) DEFAULT NULL COMMENT '备注',
-  `auth_time` datetime DEFAULT NULL COMMENT '授权时间',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='授权机构表';
+CREATE TABLE `auth_institution_alg` (
+                                        `id` int NOT NULL AUTO_INCREMENT,
+                                        `institution_id` int DEFAULT NULL COMMENT '授权机构',
+                                        `auth_type` int DEFAULT NULL COMMENT '授权类型(0：算法，1：功能)',
+                                        `auth_alg_id` int DEFAULT NULL COMMENT '授权ID',
+                                        `auth_admin` int DEFAULT NULL COMMENT '授权人',
+                                        `mark` varchar(255) DEFAULT NULL COMMENT '备注',
+                                        `auth_time` datetime DEFAULT NULL COMMENT '授权时间',
+                                        PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='授权机构算法表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `auth_institution`
+-- Dumping data for table `auth_institution_alg`
 --
 
-INSERT INTO `auth_institution` VALUES (1,'润迪润迪',0,4,1,'备注','2023-07-25 00:00:00'),(2,'乐刻健身',0,5,1,'备注','2023-07-26 00:00:00'),(3,'XX体育',0,2,1,'备注','2023-07-26 00:00:00'),(4,'北体大学',0,1,1,'备注','2023-07-25 00:00:00');
+INSERT INTO `auth_institution_alg` VALUES (1,1,0,1,1,'备注','2023-07-25 00:00:00'),(2,2,0,1,1,'备注','2023-07-26 00:00:00'),(3,3,0,1,1,'备注','2023-07-26 00:00:00'),(4,1,0,1,1,'备注','2023-07-25 00:00:00'),(5,1,0,1,1,'王子健备注','2023-07-26 21:53:00'),(6,1,0,1,0,'王子健创建的','2023-07-26 23:37:52'),(7,1,0,1,0,'王子健创建的最新的','2023-07-26 23:37:52'),(11,2,0,1,0,'456','2023-07-27 00:32:44'),(12,2,0,2,0,'wangzijian','2023-07-27 00:34:13');
 
 --
 -- Table structure for table `data_set`
@@ -76,8 +77,8 @@ DROP TABLE IF EXISTS `data_set`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `data_set` (
-  `id` int DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL
+                            `id` int DEFAULT NULL,
+                            `name` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='数据集表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -94,8 +95,8 @@ DROP TABLE IF EXISTS `developer`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `developer` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`)
+                             `id` int NOT NULL AUTO_INCREMENT,
+                             PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='开发者表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -112,23 +113,23 @@ DROP TABLE IF EXISTS `institution`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `institution` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL COMMENT '机构名',
-  `type` int DEFAULT NULL COMMENT '机构类型（0：培训机构，1：健身场所）',
-  `phone` varchar(255) DEFAULT NULL COMMENT '联系人电话',
-  `email` varchar(255) DEFAULT NULL COMMENT '邮箱 ',
-  `address` varchar(255) DEFAULT NULL COMMENT '地址',
-  `map` varchar(255) DEFAULT NULL COMMENT '地图位置 ',
-  `create_time` datetime DEFAULT NULL COMMENT '添加时间',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='机构表';
+                               `id` int NOT NULL AUTO_INCREMENT,
+                               `name` varchar(255) DEFAULT NULL COMMENT '机构名',
+                               `type` int DEFAULT NULL COMMENT '机构类型（0：培训机构，1：健身场所）',
+                               `phone` varchar(255) DEFAULT NULL COMMENT '联系人电话',
+                               `email` varchar(255) DEFAULT NULL COMMENT '邮箱 ',
+                               `address` varchar(255) DEFAULT NULL COMMENT '地址',
+                               `map` varchar(255) DEFAULT NULL COMMENT '地图位置 ',
+                               `create_time` datetime DEFAULT NULL COMMENT '添加时间',
+                               PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='机构表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `institution`
 --
 
-INSERT INTO `institution` VALUES (1,'北京市乐刻健身',1,'10085','123','北京市乐刻健身1234','123','2023-07-25 22:09:53');
+INSERT INTO `institution` VALUES (1,'北京市乐刻健身',1,'10085','123456@qq.com','北京市乐刻健身1234','123','2023-07-25 22:09:53'),(2,'润迪',1,'10085','123456@qq.com','中国','123','2023-07-25 22:09:53'),(3,'XT体育',1,'10085','123456@qq.com','中国','123','2023-07-25 22:09:53');
 
 --
 -- Table structure for table `sport_category`
@@ -138,13 +139,13 @@ DROP TABLE IF EXISTS `sport_category`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `sport_category` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `type` varchar(255) DEFAULT NULL COMMENT '体育类型(0:学校体育 1:群众体育 2:竞技体育)',
-  `name` varchar(255) DEFAULT NULL COMMENT '分类名',
-  `creator` int DEFAULT NULL COMMENT '添加人',
-  `mark` text COMMENT '备注',
-  `create_time` datetime DEFAULT NULL COMMENT '授权时间 ',
-  PRIMARY KEY (`id`)
+                                  `id` int NOT NULL AUTO_INCREMENT,
+                                  `type` varchar(255) DEFAULT NULL COMMENT '体育类型(0:学校体育 1:群众体育 2:竞技体育)',
+                                  `name` varchar(255) DEFAULT NULL COMMENT '分类名',
+                                  `creator` int DEFAULT NULL COMMENT '添加人',
+                                  `mark` text COMMENT '备注',
+                                  `create_time` datetime DEFAULT NULL COMMENT '授权时间 ',
+                                  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='体育类别表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -162,8 +163,8 @@ DROP TABLE IF EXISTS `system_info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `system_info` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`)
+                               `id` int NOT NULL AUTO_INCREMENT,
+                               PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='系统信息表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -180,8 +181,8 @@ DROP TABLE IF EXISTS `template`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `template` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`)
+                            `id` int NOT NULL AUTO_INCREMENT,
+                            PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='模板表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -198,15 +199,15 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `type` int DEFAULT NULL,
-  `nickname` varchar(255) DEFAULT NULL COMMENT '昵称',
-  `username` varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
-  `mark` text,
-  `create_time` datetime DEFAULT NULL COMMENT '授权时间',
-  `attr` json DEFAULT NULL,
-  PRIMARY KEY (`id`)
+                        `id` int NOT NULL AUTO_INCREMENT,
+                        `type` int DEFAULT NULL,
+                        `nickname` varchar(255) DEFAULT NULL COMMENT '昵称',
+                        `username` varchar(255) DEFAULT NULL,
+                        `password` varchar(255) DEFAULT NULL,
+                        `mark` text,
+                        `create_time` datetime DEFAULT NULL COMMENT '授权时间',
+                        `attr` json DEFAULT NULL,
+                        PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -224,7 +225,7 @@ DROP TABLE IF EXISTS `wechat`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `wechat` (
-  `id` int DEFAULT NULL
+    `id` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='小程序表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -242,4 +243,4 @@ CREATE TABLE `wechat` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-07-26 21:04:55
+-- Dump completed on 2023-07-27  1:21:30
