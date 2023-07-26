@@ -21,25 +21,22 @@ import java.util.List;
 import java.util.Properties;
 
 @Slf4j
-public class LizzMybatisIntercepts implements InnerInterceptor {
-    private static final Logger logger = LogManager.getLogger(LizzMybatisIntercepts.class);
+public class queryMybatisIntercepts implements InnerInterceptor {
+    private static final Logger logger = LogManager.getLogger(queryMybatisIntercepts.class);
 
     @Override
     public boolean willDoQuery(Executor executor, MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) throws SQLException {
-        logger.info("#####willDoQuery");
         logger.info(boundSql.getSql());
         return true;
     }
 
     @Override
     public void beforeQuery(Executor executor, MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) throws SQLException {
-        logger.info("#####beforeQuery");
         logger.info(boundSql.getSql());
     }
 
     @Override
     public boolean willDoUpdate(Executor executor, MappedStatement ms, Object parameter) throws SQLException {
-        logger.info("#####willDoUpdate");
         // 一堆sql处理仅供参考
         BoundSql boundSql = ms.getBoundSql(parameter);
         ms.getSqlSource().getClass();
@@ -52,8 +49,8 @@ public class LizzMybatisIntercepts implements InnerInterceptor {
         }
         TablesNamesFinder tablesNamesFinder = new TablesNamesFinder();
         List<String> tableList = tablesNamesFinder.getTableList(statement);
-        logger.info("sql:{}"+ sql);
-        return false;
+        logger.info("sql:{}" + sql);
+        return true;
     }
 
     @Override

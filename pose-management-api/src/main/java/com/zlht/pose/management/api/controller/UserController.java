@@ -39,7 +39,7 @@ public class UserController extends BaseController {
     })
     @GetMapping(value = "/getUser")
     @ResponseStatus(HttpStatus.OK)
-    public Result<User> queryUserList(@RequestParam(required = false) int type,
+    public Result<User> queryUserList(@RequestParam(required = false,defaultValue = "-1") int type,
                                       @RequestParam(required = false, defaultValue = "1") int pageNum,
                                       @RequestParam(required = false, defaultValue = "10") int pageSize,
                                       @RequestParam(required = false) String nickname) {

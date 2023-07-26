@@ -1,9 +1,9 @@
 package com.zlht.pose.management.api.controller;
 
 
-import com.zlht.pose.management.api.service.AuthInstitutionServicesI;
+import com.zlht.pose.management.api.service.AuthInstitutionAlgServicesI;
 import com.zlht.pose.management.api.utils.Result;
-import com.zlht.pose.management.dao.entity.AuthInstitution;
+import com.zlht.pose.management.dao.entity.AuthInstitutionAlg;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -18,11 +18,11 @@ import java.util.Map;
 
 @RestController
 @Api(tags = "机构授权管理", description = "机构授权管理")
-public class AuthInstitutionController extends BaseController {
+public class AuthInstitutionAlgController extends BaseController {
 
-    private static final Logger logger = LogManager.getLogger(AuthInstitutionController.class);
+    private static final Logger logger = LogManager.getLogger(AuthInstitutionAlgController.class);
     @Autowired
-    AuthInstitutionServicesI institutionServices;
+    AuthInstitutionAlgServicesI institutionServices;
 
 
     /**
@@ -35,20 +35,20 @@ public class AuthInstitutionController extends BaseController {
             @ApiImplicitParam(name = "auth_type", value = "授权类型:(0：算法授权，1：功能授权)", dataTypeClass = int.class),
             @ApiImplicitParam(name = "pageNum", value = "页数(默认1)", dataTypeClass = int.class),
             @ApiImplicitParam(name = "pageSize", value = "页大小(默认10)", dataTypeClass = int.class),
-            @ApiImplicitParam(name = "institutionName", value = "机构名", dataTypeClass = String.class)
+            @ApiImplicitParam(name = "keyword", value = "机构名搜索关键字", dataTypeClass = String.class)
     })
     @GetMapping(value = "/getAuthInstitution")
     @ResponseStatus(HttpStatus.OK)
     public Result queryAuthInstitutionList(@RequestParam(required = false, defaultValue = "-1") int auth_type,
                                            @RequestParam(required = false, defaultValue = "1") int pageNum,
                                            @RequestParam(required = false, defaultValue = "10") int pageSize,
-                                           @RequestParam(required = false) String institutionName) {
+                                           @RequestParam(required = false) String keyword) {
 
         Result result = checkPageParams(pageNum, pageSize);
         if (!result.checkResult()) {
             return result;
         }
-        Result res = institutionServices.queryAuthInstitutionList(auth_type, pageNum, pageSize, institutionName);
+        Result res = institutionServices.queryAuthInstitutionAlgList(auth_type, pageNum, pageSize, keyword);
         return res;
     }
 
@@ -60,8 +60,9 @@ public class AuthInstitutionController extends BaseController {
     @ApiOperation(value = "创建机构授权", notes = "创建机构授权")
     @PostMapping(value = "/createAuthInstitution")
     @ResponseStatus(HttpStatus.OK)
-    public Result<AuthInstitution> createAuthInstitution(@RequestBody AuthInstitution authInstitution) {
-        return institutionServices.createAuthInstitution(authInstitution);
+    public Result createAuthInstitution(@RequestBody AuthInstitutionAlg authInstitutionAlg) {
+        Map<String, Object> map = institutionServices.createAuthInstitution(authInstitutionAlg);
+        return returnDataList(map);
     }
 
     /**
@@ -75,9 +76,10 @@ public class AuthInstitutionController extends BaseController {
     })
     @PutMapping(value = "/updateAuthInstitution")
     @ResponseStatus(HttpStatus.OK)
-    public Result<AuthInstitution> updateAuthInstitution(@RequestParam int id,
-                                                         @RequestBody AuthInstitution authInstitution) {
-        return institutionServices.updateAuthInstitution(id, authInstitution);
+    public Result updateAuthInstitution(@RequestParam int id,
+                                        @RequestBody AuthInstitutionAlg authInstitutionAlg) {
+        Map<String, Object> map = institutionServices.updateAuthInstitution(id, authInstitutionAlg);
+        return returnDataList(map);
     }
 
     /**
@@ -88,7 +90,8 @@ public class AuthInstitutionController extends BaseController {
     @ApiOperation(value = "删除机构授权", notes = "删除机构授权")
     @DeleteMapping(value = "/deleteAuthInstitution")
     @ResponseStatus(HttpStatus.OK)
-    public Result<AuthInstitution> deleteAuthInstitution(@RequestParam int id) {
-        return institutionServices.deleteAuthInstitution(id);
+    public Result deleteAuthInstitution(@RequestParam int id) {
+        Map<String, Object> map = institutionServices.deleteAuthInstitution(id);
+        return returnDataList(map);
     }
 }

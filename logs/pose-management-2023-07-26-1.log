@@ -1,0 +1,423 @@
+2023-07-26 21:14:10.994 [main] INFO  com.zlht.pose.management.api.PoseManagementApi - Starting PoseManagementApi using Java 1.8.0_341 on SC-202102120022 with PID 16520 (C:\Users\Administrator\Desktop\pose-management\pose-management-api\target\classes started by Administrator in C:\Users\Administrator\Desktop\pose-management)
+2023-07-26 21:14:11.011 [main] INFO  com.zlht.pose.management.api.PoseManagementApi - No active profile set, falling back to 1 default profile: "default"
+2023-07-26 21:14:12.374 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-07-26 21:14:12.510 [main] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1422 ms
+2023-07-26 21:14:13.669 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2023-07-26 21:14:13.920 [main] INFO  com.zlht.pose.management.api.PoseManagementApi - Started PoseManagementApi in 3.343 seconds (JVM running for 4.689)
+2023-07-26 21:15:28.677 [http-nio-8080-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2023-07-26 21:15:28.678 [http-nio-8080-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2023-07-26 21:15:35.617 [http-nio-8080-exec-3] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - #####willDoQuery
+2023-07-26 21:15:35.618 [http-nio-8080-exec-3] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - select * from (select a.id, a.auth_type, a.institution_name, u.nickname as auth_admin, sc.name, a.mark, a.auth_time from auth_institution a left join sport_category sc on a.auth_content = sc.id left join user u on a.auth_admin = u.id) res  where (? is NULL OR res.institution_name LIKE CONCAT('%', ?, '%')) AND     (? =-1  OR res.auth_type = ?)
+2023-07-26 21:15:35.618 [http-nio-8080-exec-3] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - #####beforeQuery
+2023-07-26 21:15:35.618 [http-nio-8080-exec-3] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - select * from (select a.id, a.auth_type, a.institution_name, u.nickname as auth_admin, sc.name, a.mark, a.auth_time from auth_institution a left join sport_category sc on a.auth_content = sc.id left join user u on a.auth_admin = u.id) res  where (? is NULL OR res.institution_name LIKE CONCAT('%', ?, '%')) AND     (? =-1  OR res.auth_type = ?)
+2023-07-26 21:15:36.134 [http-nio-8080-exec-3] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - #####beforePrepare
+2023-07-26 21:15:36.179 [http-nio-8080-exec-3] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - #####beforePrepare
+2023-07-26 21:16:08.201 [http-nio-8080-exec-1] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - #####willDoQuery
+2023-07-26 21:16:08.201 [http-nio-8080-exec-1] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - select * from (select a.id, a.auth_type, a.institution_name, u.nickname as auth_admin, sc.name, a.mark, a.auth_time from auth_institution a left join sport_category sc on a.auth_content = sc.id left join user u on a.auth_admin = u.id) res  where (? is NULL OR res.institution_name LIKE CONCAT('%', ?, '%')) AND     (? =-1  OR res.auth_type = ?)
+2023-07-26 21:16:08.201 [http-nio-8080-exec-1] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - #####beforeQuery
+2023-07-26 21:16:08.202 [http-nio-8080-exec-1] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - select * from (select a.id, a.auth_type, a.institution_name, u.nickname as auth_admin, sc.name, a.mark, a.auth_time from auth_institution a left join sport_category sc on a.auth_content = sc.id left join user u on a.auth_admin = u.id) res  where (? is NULL OR res.institution_name LIKE CONCAT('%', ?, '%')) AND     (? =-1  OR res.auth_type = ?)
+2023-07-26 21:16:08.208 [http-nio-8080-exec-1] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - #####beforePrepare
+2023-07-26 21:16:08.210 [http-nio-8080-exec-1] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - #####beforePrepare
+2023-07-26 21:52:36.798 [main] INFO  com.zlht.pose.management.api.PoseManagementApi - Starting PoseManagementApi using Java 1.8.0_341 on SC-202102120022 with PID 4028 (C:\Users\Administrator\Desktop\pose-management\pose-management-api\target\classes started by Administrator in C:\Users\Administrator\Desktop\pose-management)
+2023-07-26 21:52:36.806 [main] INFO  com.zlht.pose.management.api.PoseManagementApi - No active profile set, falling back to 1 default profile: "default"
+2023-07-26 21:52:37.989 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-07-26 21:52:38.113 [main] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1271 ms
+2023-07-26 21:52:39.149 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2023-07-26 21:52:39.379 [main] INFO  com.zlht.pose.management.api.PoseManagementApi - Started PoseManagementApi in 2.919 seconds (JVM running for 3.805)
+2023-07-26 21:52:42.393 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2023-07-26 21:52:42.394 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2023-07-26 21:53:32.696 [http-nio-8080-exec-6] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - SELECT COUNT( * ) AS total FROM auth_institution 
+ 
+ WHERE (institution_name = ?)
+2023-07-26 21:53:32.696 [http-nio-8080-exec-6] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - SELECT COUNT( * ) AS total FROM auth_institution 
+ 
+ WHERE (institution_name = ?)
+2023-07-26 21:53:33.078 [http-nio-8080-exec-6] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - #####beforePrepare
+2023-07-26 21:53:33.137 [http-nio-8080-exec-6] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - sql:{}INSERT INTO auth_institution  ( institution_name,
+auth_type,
+auth_content,
+auth_admin,
+mark,
+auth_time )  VALUES  ( ?,
+?,
+?,
+?,
+?,
+? )
+2023-07-26 21:54:04.464 [http-nio-8080-exec-8] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - select * from (select a.id, a.auth_type, a.institution_name, u.nickname as auth_admin, sc.name, a.mark, a.auth_time from auth_institution a left join sport_category sc on a.auth_content = sc.id left join user u on a.auth_admin = u.id) res  where (? is NULL OR res.institution_name LIKE CONCAT('%', ?, '%')) AND     (? =-1  OR res.auth_type = ?)
+2023-07-26 21:54:04.464 [http-nio-8080-exec-8] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - select * from (select a.id, a.auth_type, a.institution_name, u.nickname as auth_admin, sc.name, a.mark, a.auth_time from auth_institution a left join sport_category sc on a.auth_content = sc.id left join user u on a.auth_admin = u.id) res  where (? is NULL OR res.institution_name LIKE CONCAT('%', ?, '%')) AND     (? =-1  OR res.auth_type = ?)
+2023-07-26 21:54:04.482 [http-nio-8080-exec-8] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - #####beforePrepare
+2023-07-26 21:54:04.491 [http-nio-8080-exec-8] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - #####beforePrepare
+2023-07-26 22:25:49.709 [main] INFO  com.zlht.pose.management.api.PoseManagementApi - Starting PoseManagementApi using Java 1.8.0_341 on SC-202102120022 with PID 3232 (C:\Users\Administrator\Desktop\pose-management\pose-management-api\target\classes started by Administrator in C:\Users\Administrator\Desktop\pose-management)
+2023-07-26 22:25:49.725 [main] INFO  com.zlht.pose.management.api.PoseManagementApi - No active profile set, falling back to 1 default profile: "default"
+2023-07-26 22:25:50.815 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-07-26 22:25:50.936 [main] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1178 ms
+2023-07-26 22:25:51.952 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2023-07-26 22:25:52.182 [main] INFO  com.zlht.pose.management.api.PoseManagementApi - Started PoseManagementApi in 2.757 seconds (JVM running for 3.598)
+2023-07-26 22:26:08.870 [http-nio-8080-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2023-07-26 22:26:08.871 [http-nio-8080-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2023-07-26 22:26:08.991 [http-nio-8080-exec-2] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - SELECT COUNT( * ) AS total FROM auth_institution 
+ 
+ WHERE (institution_name = ?)
+2023-07-26 22:26:08.991 [http-nio-8080-exec-2] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - SELECT COUNT( * ) AS total FROM auth_institution 
+ 
+ WHERE (institution_name = ?)
+2023-07-26 22:26:09.477 [http-nio-8080-exec-2] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - #####beforePrepare
+2023-07-26 22:26:09.561 [http-nio-8080-exec-2] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - sql:{}INSERT INTO auth_institution  ( institution_name,
+auth_type,
+auth_content,
+auth_admin,
+mark,
+auth_time )  VALUES  ( ?,
+?,
+?,
+?,
+?,
+? )
+2023-07-26 22:28:19.054 [main] INFO  com.zlht.pose.management.api.PoseManagementApi - Starting PoseManagementApi using Java 1.8.0_341 on SC-202102120022 with PID 19984 (C:\Users\Administrator\Desktop\pose-management\pose-management-api\target\classes started by Administrator in C:\Users\Administrator\Desktop\pose-management)
+2023-07-26 22:28:19.062 [main] INFO  com.zlht.pose.management.api.PoseManagementApi - No active profile set, falling back to 1 default profile: "default"
+2023-07-26 22:28:20.267 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-07-26 22:28:20.389 [main] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1253 ms
+2023-07-26 22:28:21.403 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2023-07-26 22:28:21.630 [main] INFO  com.zlht.pose.management.api.PoseManagementApi - Started PoseManagementApi in 2.922 seconds (JVM running for 3.987)
+2023-07-26 22:28:36.293 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2023-07-26 22:28:36.294 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2023-07-26 22:28:36.418 [http-nio-8080-exec-1] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - SELECT COUNT( * ) AS total FROM auth_institution 
+ 
+ WHERE (institution_name = ?)
+2023-07-26 22:28:36.418 [http-nio-8080-exec-1] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - SELECT COUNT( * ) AS total FROM auth_institution 
+ 
+ WHERE (institution_name = ?)
+2023-07-26 22:28:36.864 [http-nio-8080-exec-1] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - #####beforePrepare
+2023-07-26 22:28:36.936 [http-nio-8080-exec-1] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - sql:{}INSERT INTO auth_institution  ( institution_name,
+auth_type,
+auth_content,
+auth_admin,
+mark,
+auth_time )  VALUES  ( ?,
+?,
+?,
+?,
+?,
+? )
+2023-07-26 22:30:26.545 [main] INFO  com.zlht.pose.management.api.PoseManagementApi - Starting PoseManagementApi using Java 1.8.0_341 on SC-202102120022 with PID 15620 (C:\Users\Administrator\Desktop\pose-management\pose-management-api\target\classes started by Administrator in C:\Users\Administrator\Desktop\pose-management)
+2023-07-26 22:30:26.553 [main] INFO  com.zlht.pose.management.api.PoseManagementApi - No active profile set, falling back to 1 default profile: "default"
+2023-07-26 22:30:27.668 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-07-26 22:30:27.791 [main] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1175 ms
+2023-07-26 22:30:28.961 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2023-07-26 22:30:29.232 [main] INFO  com.zlht.pose.management.api.PoseManagementApi - Started PoseManagementApi in 3.041 seconds (JVM running for 3.94)
+2023-07-26 22:30:31.568 [http-nio-8080-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2023-07-26 22:30:31.569 [http-nio-8080-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2023-07-26 22:30:31.822 [http-nio-8080-exec-2] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - SELECT COUNT( * ) AS total FROM auth_institution 
+ 
+ WHERE (institution_name = ?)
+2023-07-26 22:30:31.822 [http-nio-8080-exec-2] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - SELECT COUNT( * ) AS total FROM auth_institution 
+ 
+ WHERE (institution_name = ?)
+2023-07-26 22:30:32.862 [http-nio-8080-exec-2] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - #####beforePrepare
+2023-07-26 22:30:32.946 [http-nio-8080-exec-2] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - sql:{}INSERT INTO auth_institution  ( institution_name,
+auth_type,
+auth_content,
+auth_admin,
+mark,
+auth_time )  VALUES  ( ?,
+?,
+?,
+?,
+?,
+? )
+2023-07-26 22:31:02.461 [main] INFO  com.zlht.pose.management.api.PoseManagementApi - Starting PoseManagementApi using Java 1.8.0_341 on SC-202102120022 with PID 20248 (C:\Users\Administrator\Desktop\pose-management\pose-management-api\target\classes started by Administrator in C:\Users\Administrator\Desktop\pose-management)
+2023-07-26 22:31:02.471 [main] INFO  com.zlht.pose.management.api.PoseManagementApi - No active profile set, falling back to 1 default profile: "default"
+2023-07-26 22:31:03.797 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-07-26 22:31:03.936 [main] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1390 ms
+2023-07-26 22:31:05.364 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2023-07-26 22:31:05.677 [main] INFO  com.zlht.pose.management.api.PoseManagementApi - Started PoseManagementApi in 3.619 seconds (JVM running for 5.205)
+2023-07-26 22:31:08.019 [http-nio-8080-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2023-07-26 22:31:08.020 [http-nio-8080-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2023-07-26 22:31:43.507 [http-nio-8080-exec-2] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - SELECT COUNT( * ) AS total FROM auth_institution 
+ 
+ WHERE (institution_name = ?)
+2023-07-26 22:31:43.507 [http-nio-8080-exec-2] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - SELECT COUNT( * ) AS total FROM auth_institution 
+ 
+ WHERE (institution_name = ?)
+2023-07-26 22:31:47.911 [http-nio-8080-exec-2] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - #####beforePrepare
+2023-07-26 22:33:39.478 [http-nio-8080-exec-2] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - sql:{}INSERT INTO auth_institution  ( institution_name,
+auth_type,
+auth_content,
+auth_admin,
+mark,
+auth_time )  VALUES  ( ?,
+?,
+?,
+?,
+?,
+? )
+2023-07-26 22:33:46.625 [main] INFO  com.zlht.pose.management.api.PoseManagementApi - Starting PoseManagementApi using Java 1.8.0_341 on SC-202102120022 with PID 16588 (C:\Users\Administrator\Desktop\pose-management\pose-management-api\target\classes started by Administrator in C:\Users\Administrator\Desktop\pose-management)
+2023-07-26 22:33:46.638 [main] INFO  com.zlht.pose.management.api.PoseManagementApi - No active profile set, falling back to 1 default profile: "default"
+2023-07-26 22:33:48.654 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-07-26 22:33:48.884 [main] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2169 ms
+2023-07-26 22:33:50.959 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2023-07-26 22:33:51.274 [main] INFO  com.zlht.pose.management.api.PoseManagementApi - Started PoseManagementApi in 5.129 seconds (JVM running for 6.64)
+2023-07-26 22:33:52.901 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2023-07-26 22:33:52.902 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2023-07-26 22:33:53.063 [http-nio-8080-exec-1] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - SELECT COUNT( * ) AS total FROM auth_institution 
+ 
+ WHERE (institution_name = ?)
+2023-07-26 22:33:53.063 [http-nio-8080-exec-1] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - SELECT COUNT( * ) AS total FROM auth_institution 
+ 
+ WHERE (institution_name = ?)
+2023-07-26 22:33:53.498 [http-nio-8080-exec-1] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - #####beforePrepare
+2023-07-26 22:33:53.571 [http-nio-8080-exec-1] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - sql:{}INSERT INTO auth_institution  ( institution_name,
+auth_type,
+auth_content,
+auth_admin,
+mark,
+auth_time )  VALUES  ( ?,
+?,
+?,
+?,
+?,
+? )
+2023-07-26 22:36:13.540 [main] INFO  com.zlht.pose.management.api.PoseManagementApi - Starting PoseManagementApi using Java 1.8.0_341 on SC-202102120022 with PID 12020 (C:\Users\Administrator\Desktop\pose-management\pose-management-api\target\classes started by Administrator in C:\Users\Administrator\Desktop\pose-management)
+2023-07-26 22:36:13.550 [main] INFO  com.zlht.pose.management.api.PoseManagementApi - No active profile set, falling back to 1 default profile: "default"
+2023-07-26 22:36:14.970 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-07-26 22:36:15.128 [main] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1504 ms
+2023-07-26 22:36:16.491 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2023-07-26 22:36:16.796 [main] INFO  com.zlht.pose.management.api.PoseManagementApi - Started PoseManagementApi in 3.722 seconds (JVM running for 5.01)
+2023-07-26 22:36:18.111 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2023-07-26 22:36:18.112 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2023-07-26 22:36:18.362 [http-nio-8080-exec-1] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - SELECT COUNT( * ) AS total FROM auth_institution 
+ 
+ WHERE (institution_name = ?)
+2023-07-26 22:36:18.362 [http-nio-8080-exec-1] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - SELECT COUNT( * ) AS total FROM auth_institution 
+ 
+ WHERE (institution_name = ?)
+2023-07-26 22:36:18.851 [http-nio-8080-exec-1] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - #####beforePrepare
+2023-07-26 22:36:18.932 [http-nio-8080-exec-1] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - sql:{}INSERT INTO auth_institution  ( institution_name,
+auth_type,
+auth_content,
+auth_admin,
+mark,
+auth_time )  VALUES  ( ?,
+?,
+?,
+?,
+?,
+? )
+2023-07-26 22:36:18.933 [http-nio-8080-exec-1] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - #####beforeUpdate
+2023-07-26 22:36:18.933 [http-nio-8080-exec-1] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - #####beforePrepare
+2023-07-26 23:22:41.759 [main] INFO  com.zlht.pose.management.api.PoseManagementApi - Starting PoseManagementApi using Java 1.8.0_341 on SC-202102120022 with PID 7400 (C:\Users\Administrator\Desktop\pose-management\pose-management-api\target\classes started by Administrator in C:\Users\Administrator\Desktop\pose-management)
+2023-07-26 23:22:41.769 [main] INFO  com.zlht.pose.management.api.PoseManagementApi - No active profile set, falling back to 1 default profile: "default"
+2023-07-26 23:22:43.214 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-07-26 23:22:43.363 [main] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1515 ms
+2023-07-26 23:22:44.632 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2023-07-26 23:22:44.958 [main] INFO  com.zlht.pose.management.api.PoseManagementApi - Started PoseManagementApi in 3.65 seconds (JVM running for 4.817)
+2023-07-26 23:26:36.316 [main] INFO  com.zlht.pose.management.api.PoseManagementApi - Starting PoseManagementApi using Java 1.8.0_341 on SC-202102120022 with PID 18540 (C:\Users\Administrator\Desktop\pose-management\pose-management-api\target\classes started by Administrator in C:\Users\Administrator\Desktop\pose-management)
+2023-07-26 23:26:36.326 [main] INFO  com.zlht.pose.management.api.PoseManagementApi - No active profile set, falling back to 1 default profile: "default"
+2023-07-26 23:26:37.471 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-07-26 23:26:37.600 [main] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1217 ms
+2023-07-26 23:26:38.686 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2023-07-26 23:26:38.940 [main] INFO  com.zlht.pose.management.api.PoseManagementApi - Started PoseManagementApi in 2.974 seconds (JVM running for 3.926)
+2023-07-26 23:27:16.246 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2023-07-26 23:27:16.247 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2023-07-26 23:27:39.905 [http-nio-8080-exec-1] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - select *
+from (select a.id, a.auth_type, i.name as institution, u.nickname as authAdmin, alg.name, a.mark, a.auth_time
+      from auth_institution_alg a
+               left join algorithm alg on a.auth_alg_id = alg.id
+               left join user u on a.auth_admin = u.id
+               left join institution i on a.institution_id = i.id) res
+where (? IS NULL OR res.institution_name LIKE CONCAT('%', ?, '%'))
+2023-07-26 23:27:39.906 [http-nio-8080-exec-1] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - select *
+from (select a.id, a.auth_type, i.name as institution, u.nickname as authAdmin, alg.name, a.mark, a.auth_time
+      from auth_institution_alg a
+               left join algorithm alg on a.auth_alg_id = alg.id
+               left join user u on a.auth_admin = u.id
+               left join institution i on a.institution_id = i.id) res
+where (? IS NULL OR res.institution_name LIKE CONCAT('%', ?, '%'))
+2023-07-26 23:28:17.282 [main] INFO  com.zlht.pose.management.api.PoseManagementApi - Starting PoseManagementApi using Java 1.8.0_341 on SC-202102120022 with PID 19452 (C:\Users\Administrator\Desktop\pose-management\pose-management-api\target\classes started by Administrator in C:\Users\Administrator\Desktop\pose-management)
+2023-07-26 23:28:17.290 [main] INFO  com.zlht.pose.management.api.PoseManagementApi - No active profile set, falling back to 1 default profile: "default"
+2023-07-26 23:28:18.550 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-07-26 23:28:18.673 [main] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1312 ms
+2023-07-26 23:28:19.748 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2023-07-26 23:28:19.996 [main] INFO  com.zlht.pose.management.api.PoseManagementApi - Started PoseManagementApi in 3.085 seconds (JVM running for 4.257)
+2023-07-26 23:31:09.884 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2023-07-26 23:31:09.886 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2023-07-26 23:31:09.980 [http-nio-8080-exec-1] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - select *
+from (select a.id, a.auth_type, i.name as institution, u.nickname as authAdmin, alg.name, a.mark, a.auth_time
+      from auth_institution_alg a
+               left join algorithm alg on a.auth_alg_id = alg.id
+               left join user u on a.auth_admin = u.id
+               left join institution i on a.institution_id = i.id) res
+where (? IS NULL OR res.institution_name LIKE CONCAT('%', ?, '%'))
+2023-07-26 23:31:09.980 [http-nio-8080-exec-1] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - select *
+from (select a.id, a.auth_type, i.name as institution, u.nickname as authAdmin, alg.name, a.mark, a.auth_time
+      from auth_institution_alg a
+               left join algorithm alg on a.auth_alg_id = alg.id
+               left join user u on a.auth_admin = u.id
+               left join institution i on a.institution_id = i.id) res
+where (? IS NULL OR res.institution_name LIKE CONCAT('%', ?, '%'))
+2023-07-26 23:31:10.513 [http-nio-8080-exec-1] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - #####beforePrepare
+2023-07-26 23:32:06.191 [main] INFO  com.zlht.pose.management.api.PoseManagementApi - Starting PoseManagementApi using Java 1.8.0_341 on SC-202102120022 with PID 9160 (C:\Users\Administrator\Desktop\pose-management\pose-management-api\target\classes started by Administrator in C:\Users\Administrator\Desktop\pose-management)
+2023-07-26 23:32:06.199 [main] INFO  com.zlht.pose.management.api.PoseManagementApi - No active profile set, falling back to 1 default profile: "default"
+2023-07-26 23:32:07.340 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-07-26 23:32:07.465 [main] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1209 ms
+2023-07-26 23:32:08.657 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2023-07-26 23:32:08.940 [main] INFO  com.zlht.pose.management.api.PoseManagementApi - Started PoseManagementApi in 3.073 seconds (JVM running for 4.214)
+2023-07-26 23:33:06.841 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2023-07-26 23:33:06.842 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2023-07-26 23:33:06.894 [http-nio-8080-exec-1] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - select *
+from (select a.id, a.auth_type, i.name as institution, u.nickname as authAdmin, alg.name, a.mark, a.auth_time
+      from auth_institution_alg a
+               left join algorithm alg on a.auth_alg_id = alg.id
+               left join user u on a.auth_admin = u.id
+               left join institution i on a.institution_id = i.id) res
+where (? IS NULL OR res.institution LIKE CONCAT('%', ?, '%'))
+2023-07-26 23:33:06.894 [http-nio-8080-exec-1] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - select *
+from (select a.id, a.auth_type, i.name as institution, u.nickname as authAdmin, alg.name, a.mark, a.auth_time
+      from auth_institution_alg a
+               left join algorithm alg on a.auth_alg_id = alg.id
+               left join user u on a.auth_admin = u.id
+               left join institution i on a.institution_id = i.id) res
+where (? IS NULL OR res.institution LIKE CONCAT('%', ?, '%'))
+2023-07-26 23:33:07.399 [http-nio-8080-exec-1] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - #####beforePrepare
+2023-07-26 23:33:07.444 [http-nio-8080-exec-1] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - #####beforePrepare
+2023-07-26 23:34:44.136 [http-nio-8080-exec-2] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - select *
+from (select a.id, a.auth_type, i.name as institution, u.nickname as authAdmin, alg.name, a.mark, a.auth_time
+      from auth_institution_alg a
+               left join algorithm alg on a.auth_alg_id = alg.id
+               left join user u on a.auth_admin = u.id
+               left join institution i on a.institution_id = i.id) res
+where (? IS NULL OR res.institution LIKE CONCAT('%', ?, '%'))
+2023-07-26 23:34:44.136 [http-nio-8080-exec-2] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - select *
+from (select a.id, a.auth_type, i.name as institution, u.nickname as authAdmin, alg.name, a.mark, a.auth_time
+      from auth_institution_alg a
+               left join algorithm alg on a.auth_alg_id = alg.id
+               left join user u on a.auth_admin = u.id
+               left join institution i on a.institution_id = i.id) res
+where (? IS NULL OR res.institution LIKE CONCAT('%', ?, '%'))
+2023-07-26 23:34:44.143 [http-nio-8080-exec-2] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - #####beforePrepare
+2023-07-26 23:34:44.144 [http-nio-8080-exec-2] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - #####beforePrepare
+2023-07-26 23:34:58.711 [http-nio-8080-exec-4] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - select *
+from (select a.id, a.auth_type, i.name as institution, u.nickname as authAdmin, alg.name, a.mark, a.auth_time
+      from auth_institution_alg a
+               left join algorithm alg on a.auth_alg_id = alg.id
+               left join user u on a.auth_admin = u.id
+               left join institution i on a.institution_id = i.id) res
+where (? IS NULL OR res.institution LIKE CONCAT('%', ?, '%'))
+2023-07-26 23:34:58.712 [http-nio-8080-exec-4] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - select *
+from (select a.id, a.auth_type, i.name as institution, u.nickname as authAdmin, alg.name, a.mark, a.auth_time
+      from auth_institution_alg a
+               left join algorithm alg on a.auth_alg_id = alg.id
+               left join user u on a.auth_admin = u.id
+               left join institution i on a.institution_id = i.id) res
+where (? IS NULL OR res.institution LIKE CONCAT('%', ?, '%'))
+2023-07-26 23:34:58.720 [http-nio-8080-exec-4] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - #####beforePrepare
+2023-07-26 23:34:58.723 [http-nio-8080-exec-4] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - #####beforePrepare
+2023-07-26 23:35:05.793 [http-nio-8080-exec-5] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - select *
+from (select a.id, a.auth_type, i.name as institution, u.nickname as authAdmin, alg.name, a.mark, a.auth_time
+      from auth_institution_alg a
+               left join algorithm alg on a.auth_alg_id = alg.id
+               left join user u on a.auth_admin = u.id
+               left join institution i on a.institution_id = i.id) res
+where (? IS NULL OR res.institution LIKE CONCAT('%', ?, '%'))
+2023-07-26 23:35:05.794 [http-nio-8080-exec-5] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - select *
+from (select a.id, a.auth_type, i.name as institution, u.nickname as authAdmin, alg.name, a.mark, a.auth_time
+      from auth_institution_alg a
+               left join algorithm alg on a.auth_alg_id = alg.id
+               left join user u on a.auth_admin = u.id
+               left join institution i on a.institution_id = i.id) res
+where (? IS NULL OR res.institution LIKE CONCAT('%', ?, '%'))
+2023-07-26 23:35:05.797 [http-nio-8080-exec-5] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - #####beforePrepare
+2023-07-26 23:35:05.801 [http-nio-8080-exec-5] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - #####beforePrepare
+2023-07-26 23:35:11.266 [http-nio-8080-exec-9] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - select *
+from (select a.id, a.auth_type, i.name as institution, u.nickname as authAdmin, alg.name, a.mark, a.auth_time
+      from auth_institution_alg a
+               left join algorithm alg on a.auth_alg_id = alg.id
+               left join user u on a.auth_admin = u.id
+               left join institution i on a.institution_id = i.id) res
+where (? IS NULL OR res.institution LIKE CONCAT('%', ?, '%'))
+2023-07-26 23:35:11.266 [http-nio-8080-exec-9] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - select *
+from (select a.id, a.auth_type, i.name as institution, u.nickname as authAdmin, alg.name, a.mark, a.auth_time
+      from auth_institution_alg a
+               left join algorithm alg on a.auth_alg_id = alg.id
+               left join user u on a.auth_admin = u.id
+               left join institution i on a.institution_id = i.id) res
+where (? IS NULL OR res.institution LIKE CONCAT('%', ?, '%'))
+2023-07-26 23:35:11.270 [http-nio-8080-exec-9] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - #####beforePrepare
+2023-07-26 23:35:11.272 [http-nio-8080-exec-9] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - #####beforePrepare
+2023-07-26 23:35:23.858 [http-nio-8080-exec-10] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - select *
+from (select a.id, a.auth_type, i.name as institution, u.nickname as authAdmin, alg.name, a.mark, a.auth_time
+      from auth_institution_alg a
+               left join algorithm alg on a.auth_alg_id = alg.id
+               left join user u on a.auth_admin = u.id
+               left join institution i on a.institution_id = i.id) res
+where (? IS NULL OR res.institution LIKE CONCAT('%', ?, '%'))
+2023-07-26 23:35:23.859 [http-nio-8080-exec-10] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - select *
+from (select a.id, a.auth_type, i.name as institution, u.nickname as authAdmin, alg.name, a.mark, a.auth_time
+      from auth_institution_alg a
+               left join algorithm alg on a.auth_alg_id = alg.id
+               left join user u on a.auth_admin = u.id
+               left join institution i on a.institution_id = i.id) res
+where (? IS NULL OR res.institution LIKE CONCAT('%', ?, '%'))
+2023-07-26 23:35:23.862 [http-nio-8080-exec-10] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - #####beforePrepare
+2023-07-26 23:35:23.863 [http-nio-8080-exec-10] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - #####beforePrepare
+2023-07-26 23:35:31.394 [http-nio-8080-exec-8] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - select *
+from (select a.id, a.auth_type, i.name as institution, u.nickname as authAdmin, alg.name, a.mark, a.auth_time
+      from auth_institution_alg a
+               left join algorithm alg on a.auth_alg_id = alg.id
+               left join user u on a.auth_admin = u.id
+               left join institution i on a.institution_id = i.id) res
+where (? IS NULL OR res.institution LIKE CONCAT('%', ?, '%'))
+2023-07-26 23:35:31.394 [http-nio-8080-exec-8] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - select *
+from (select a.id, a.auth_type, i.name as institution, u.nickname as authAdmin, alg.name, a.mark, a.auth_time
+      from auth_institution_alg a
+               left join algorithm alg on a.auth_alg_id = alg.id
+               left join user u on a.auth_admin = u.id
+               left join institution i on a.institution_id = i.id) res
+where (? IS NULL OR res.institution LIKE CONCAT('%', ?, '%'))
+2023-07-26 23:35:31.397 [http-nio-8080-exec-8] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - #####beforePrepare
+2023-07-26 23:35:31.399 [http-nio-8080-exec-8] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - #####beforePrepare
+2023-07-26 23:37:24.571 [main] INFO  com.zlht.pose.management.api.PoseManagementApi - Starting PoseManagementApi using Java 1.8.0_341 on SC-202102120022 with PID 13760 (C:\Users\Administrator\Desktop\pose-management\pose-management-api\target\classes started by Administrator in C:\Users\Administrator\Desktop\pose-management)
+2023-07-26 23:37:24.579 [main] INFO  com.zlht.pose.management.api.PoseManagementApi - No active profile set, falling back to 1 default profile: "default"
+2023-07-26 23:37:25.793 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-07-26 23:37:25.951 [main] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1313 ms
+2023-07-26 23:37:27.330 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2023-07-26 23:37:27.633 [main] INFO  com.zlht.pose.management.api.PoseManagementApi - Started PoseManagementApi in 3.395 seconds (JVM running for 4.372)
+2023-07-26 23:37:28.629 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2023-07-26 23:37:28.631 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2023-07-26 23:37:46.905 [http-nio-8080-exec-6] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - select *
+from (select a.id, a.auth_type, i.name as institution, u.nickname as authAdmin, alg.name, a.mark, a.auth_time
+      from auth_institution_alg a
+               left join algorithm alg on a.auth_alg_id = alg.id
+               left join user u on a.auth_admin = u.id
+               left join institution i on a.institution_id = i.id) res
+where (? IS NULL OR res.institution LIKE CONCAT('%', ?, '%'))
+2023-07-26 23:37:46.905 [http-nio-8080-exec-6] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - select *
+from (select a.id, a.auth_type, i.name as institution, u.nickname as authAdmin, alg.name, a.mark, a.auth_time
+      from auth_institution_alg a
+               left join algorithm alg on a.auth_alg_id = alg.id
+               left join user u on a.auth_admin = u.id
+               left join institution i on a.institution_id = i.id) res
+where (? IS NULL OR res.institution LIKE CONCAT('%', ?, '%'))
+2023-07-26 23:37:47.396 [http-nio-8080-exec-6] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - #####beforePrepare
+2023-07-26 23:37:47.430 [http-nio-8080-exec-6] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - #####beforePrepare
+2023-07-26 23:38:07.320 [http-nio-8080-exec-7] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - SELECT COUNT( * ) AS total FROM auth_institution_alg 
+ 
+ WHERE (institution_id = ? AND auth_alg_id = ?)
+2023-07-26 23:38:07.321 [http-nio-8080-exec-7] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - SELECT COUNT( * ) AS total FROM auth_institution_alg 
+ 
+ WHERE (institution_id = ? AND auth_alg_id = ?)
+2023-07-26 23:38:07.322 [http-nio-8080-exec-7] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - #####beforePrepare
+2023-07-26 23:38:07.333 [http-nio-8080-exec-7] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - sql:{}INSERT INTO auth_institution_alg  ( institution_id,
+auth_type,
+auth_alg_id,
+auth_admin,
+mark,
+auth_time )  VALUES  ( ?,
+?,
+?,
+?,
+?,
+? )
+2023-07-26 23:38:07.333 [http-nio-8080-exec-7] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - #####beforeUpdate
+2023-07-26 23:38:07.334 [http-nio-8080-exec-7] INFO  com.zlht.pose.management.dao.queryMybatisIntercepts - #####beforePrepare

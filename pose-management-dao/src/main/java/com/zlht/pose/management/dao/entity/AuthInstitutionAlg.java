@@ -16,24 +16,23 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName(value = "auth_institution", autoResultMap = true)
-public class AuthInstitution {
+@TableName(value = "auth_institution_alg", autoResultMap = true)
+public class AuthInstitutionAlg {
     @TableId(type = IdType.AUTO)
     @JsonIgnore
     private Integer id;
 
     @TableField
-    @ApiModelProperty(name = "institutionName", value = "机构名", required = true)
-    private String institutionName;
+    @ApiModelProperty(name = "institution_id", value = "授权机构ID", required = true)
+    private Integer institution_id;
 
     @TableField
     @ApiModelProperty(name = "authType", value = "授权类型", required = true)
     private Integer authType;
 
-
     @TableField
-    @ApiModelProperty(name = "authContent", value = "授权内容", required = true)
-    private Integer authContent;
+    @ApiModelProperty(name = "auth_alg_id", value = "授权算法ID", required = true)
+    private Integer auth_alg_id;
 
     @TableField
     @ApiModelProperty(name = "authAdmin", value = "授权人", required = true)
@@ -46,6 +45,4 @@ public class AuthInstitution {
     @TableField
     @ApiModelProperty(name = "authTime", value = "授权时间", required = true)
     private Date authTime;
-
-
 }

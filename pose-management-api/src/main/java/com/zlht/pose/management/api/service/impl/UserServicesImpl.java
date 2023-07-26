@@ -39,7 +39,7 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
         Page<User> page = new Page<>(pageNum, pageSize);
 
         QueryWrapper<User> wapper = new QueryWrapper<User>();
-        wapper.eq("type", type);
+        if (type != -1) wapper.eq("type", type);
         if (nickname != null) {
             wapper.like("nickname", nickname);
         }
