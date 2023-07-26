@@ -2,7 +2,9 @@ package com.zlht.pose.management.api.service.impl;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zlht.pose.management.api.enums.Status;
 import com.zlht.pose.management.api.service.AuthInstitutionServicesI;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.AuthInstitution;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class AuthInstitutionServicesImpl extends BaseServiceImpl<AuthInstitution> implements AuthInstitutionServicesI {
@@ -26,25 +29,18 @@ public class AuthInstitutionServicesImpl extends BaseServiceImpl<AuthInstitution
     AuthInstitutionMapper authInstitutionMapper;
 
     @Override
-    public Result<AuthInstitution> queryAuthInstitutionList(int auth_type, int pageNum, int pageSize, String institutionName) {
+    public Result queryAuthInstitutionList(int auth_type, int pageNum, int pageSize, String institutionName) {
 
-
+        Result result = new Result();
         List<AuthInstitution> authInstitutionList = new ArrayList<>();
-        Page<AuthInstitution> page = new Page<>(pageNum, pageSize);
-
-        QueryWrapper<AuthInstitution> wapper = new QueryWrapper<AuthInstitution>();
-        if (auth_type != -1) wapper.eq("auth_type", auth_type);
-        if (institutionName != null) wapper.and(nc -> nc.like("institution_name", institutionName));
-        Page<AuthInstitution> institutionPage = authInstitutionMapper.selectPage(page, wapper);
-        if (institutionPage != null) {
-            for (AuthInstitution authInstitution : institutionPage.getRecords()) {
-                authInstitutionList.add(authInstitution);
-            }
-            return success(authInstitutionList);
-        } else {
-            return faild(400, "未查询到机构！");
-        }
-
+        Page page = new Page<>(pageNum, pageSize);
+        System.out.println(auth_type);
+        System.out.println(institutionName);
+        Page<Map<String, Object>> institutionPage = authInstitutionMapper.selectAuthInstitutionsWithNickname(page, institutionName, auth_type);
+        System.out.println(institutionPage);
+        System.out.println(institutionPage.getRecords());
+        result.setData(institutionPage.getRecords());
+        return result;
     }
 
     @Override
@@ -123,4 +119,6 @@ public class AuthInstitutionServicesImpl extends BaseServiceImpl<AuthInstitution
 
         return true;
     }
+
+
 }

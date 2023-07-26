@@ -3,6 +3,8 @@ package com.zlht.pose.management.api.service;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.AuthInstitution;
 
+import java.util.Map;
+
 public interface AuthInstitutionServicesI {
 
     /**
@@ -13,7 +15,7 @@ public interface AuthInstitutionServicesI {
      * @param pageSize
      * @return
      */
-    Result<AuthInstitution> queryAuthInstitutionList(int auth_type, int pageNum, int pageSize, String institutionName);
+    Result queryAuthInstitutionList(int auth_type, int pageNum, int pageSize, String institutionName);
 
     /**
      * 创建机构

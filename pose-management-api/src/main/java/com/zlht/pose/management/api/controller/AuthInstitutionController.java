@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @Api(tags = "机构授权管理", description = "机构授权管理")
 public class AuthInstitutionController extends BaseController {
@@ -37,16 +39,17 @@ public class AuthInstitutionController extends BaseController {
     })
     @GetMapping(value = "/getAuthInstitution")
     @ResponseStatus(HttpStatus.OK)
-    public Result<AuthInstitution> queryAuthInstitutionList(@RequestParam(required = false,defaultValue = "-1") int auth_type,
-                                                    @RequestParam(required = false, defaultValue = "1") int pageNum,
-                                                    @RequestParam(required = false, defaultValue = "10") int pageSize,
-                                                    @RequestParam(required = false) String institutionName) {
+    public Result queryAuthInstitutionList(@RequestParam(required = false, defaultValue = "-1") int auth_type,
+                                           @RequestParam(required = false, defaultValue = "1") int pageNum,
+                                           @RequestParam(required = false, defaultValue = "10") int pageSize,
+                                           @RequestParam(required = false) String institutionName) {
 
         Result result = checkPageParams(pageNum, pageSize);
         if (!result.checkResult()) {
             return result;
         }
-        return institutionServices.queryAuthInstitutionList(auth_type, pageNum, pageSize, institutionName);
+        Result res = institutionServices.queryAuthInstitutionList(auth_type, pageNum, pageSize, institutionName);
+        return res;
     }
 
     /**
@@ -73,7 +76,7 @@ public class AuthInstitutionController extends BaseController {
     @PutMapping(value = "/updateAuthInstitution")
     @ResponseStatus(HttpStatus.OK)
     public Result<AuthInstitution> updateAuthInstitution(@RequestParam int id,
-                                                 @RequestBody AuthInstitution authInstitution) {
+                                                         @RequestBody AuthInstitution authInstitution) {
         return institutionServices.updateAuthInstitution(id, authInstitution);
     }
 

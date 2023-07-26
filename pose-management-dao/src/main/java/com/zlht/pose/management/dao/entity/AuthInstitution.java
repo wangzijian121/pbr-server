@@ -33,7 +33,7 @@ public class AuthInstitution {
 
     @TableField
     @ApiModelProperty(name = "authContent", value = "授权内容", required = true)
-    private String authContent;
+    private Integer authContent;
 
     @TableField
     @ApiModelProperty(name = "authAdmin", value = "授权人", required = true)
