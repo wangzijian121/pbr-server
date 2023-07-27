@@ -35,14 +35,14 @@ CREATE TABLE `algorithm` (
                              `example` int DEFAULT NULL,
                              `atrr` json NOT NULL,
                              PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='算法表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='算法表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `algorithm`
 --
 
-INSERT INTO `algorithm` VALUES (1,'篮球投篮算法',1,1,'1',1,1,1,'1',1,'1');
+INSERT INTO `algorithm` VALUES (1,'篮球投篮算法',1,1,'1',1,1,1,'1',1,'1'),(2,'足球算法',1,1,'1',1,1,1,'1',1,'1');
 
 --
 -- Table structure for table `auth_institution_alg`
@@ -60,14 +60,14 @@ CREATE TABLE `auth_institution_alg` (
                                         `mark` varchar(255) DEFAULT NULL COMMENT '备注',
                                         `auth_time` datetime DEFAULT NULL COMMENT '授权时间',
                                         PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='授权机构算法表';
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='授权机构算法表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `auth_institution_alg`
 --
 
-INSERT INTO `auth_institution_alg` VALUES (1,1,0,1,1,'备注','2023-07-25 00:00:00'),(2,2,0,1,1,'备注','2023-07-26 00:00:00'),(3,3,0,1,1,'备注','2023-07-26 00:00:00'),(4,1,0,1,1,'备注','2023-07-25 00:00:00'),(5,1,0,1,1,'王子健备注','2023-07-26 21:53:00'),(6,1,0,1,0,'王子健创建的','2023-07-26 23:37:52'),(7,1,0,1,0,'王子健创建的最新的','2023-07-26 23:37:52'),(11,2,0,1,0,'456','2023-07-27 00:32:44'),(12,2,0,2,0,'wangzijian','2023-07-27 00:34:13');
+INSERT INTO `auth_institution_alg` VALUES (1,1,0,1,1,'备注','2023-07-25 00:00:00'),(2,2,0,1,1,'备注','2023-07-26 00:00:00'),(3,3,0,1,1,'备注','2023-07-26 00:00:00'),(4,1,0,1,1,'备注','2023-07-25 00:00:00'),(5,1,0,1,1,'王子健备注','2023-07-26 21:53:00'),(6,1,0,1,0,'王子健创建的','2023-07-26 23:37:52'),(7,1,0,1,0,'王子健创建的最新的','2023-07-26 23:37:52'),(11,2,0,1,0,'456','2023-07-27 00:32:44'),(12,3,0,3,0,'这是我新建的授权','2023-07-27 10:09:22'),(18,3,0,2,0,'1111','2023-07-27 13:44:28');
 
 --
 -- Table structure for table `data_set`
@@ -122,14 +122,14 @@ CREATE TABLE `institution` (
                                `map` varchar(255) DEFAULT NULL COMMENT '地图位置 ',
                                `create_time` datetime DEFAULT NULL COMMENT '添加时间',
                                PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='机构表';
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='机构表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `institution`
 --
 
-INSERT INTO `institution` VALUES (1,'北京市乐刻健身',1,'10085','123456@qq.com','北京市乐刻健身1234','123','2023-07-25 22:09:53'),(2,'润迪',1,'10085','123456@qq.com','中国','123','2023-07-25 22:09:53'),(3,'XT体育',1,'10085','123456@qq.com','中国','123','2023-07-25 22:09:53');
+INSERT INTO `institution` VALUES (1,'lekeJS',0,'10086','123@qq.com','beijing','map','2023-07-27 13:50:06'),(2,'润迪',1,'10085','123456@qq.com','中国','123','2023-07-25 22:09:53'),(3,'XT体育',1,'10085','123456@qq.com','中国','123','2023-07-25 22:09:53');
 
 --
 -- Table structure for table `sport_category`
@@ -142,18 +142,18 @@ CREATE TABLE `sport_category` (
                                   `id` int NOT NULL AUTO_INCREMENT,
                                   `type` varchar(255) DEFAULT NULL COMMENT '体育类型(0:学校体育 1:群众体育 2:竞技体育)',
                                   `name` varchar(255) DEFAULT NULL COMMENT '分类名',
-                                  `creator` int DEFAULT NULL COMMENT '添加人',
+                                  `user_id` int DEFAULT NULL COMMENT '添加人',
                                   `mark` text COMMENT '备注',
                                   `create_time` datetime DEFAULT NULL COMMENT '授权时间 ',
                                   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='体育类别表';
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='体育类别表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `sport_category`
 --
 
-INSERT INTO `sport_category` VALUES (1,'0','田径',0,'备注','2023-07-26 13:47:32'),(2,'0','铅球',0,'备注','2023-07-26 13:47:32'),(3,'0','标枪',0,'备注','2023-07-26 13:47:32'),(4,'0','跳远',0,'备注','2023-07-26 13:47:32'),(5,'0','立定跳远',0,'备注','2023-07-26 13:47:32'),(6,'1','羽毛球',0,'备注','2023-07-26 13:47:32'),(7,'1','篮球',0,'备注','2023-07-26 13:47:32'),(8,'1','游泳',0,'备注','2023-07-26 13:47:32'),(9,'2','击剑',0,'备注','2023-07-26 13:47:32'),(10,'2','拳击',0,'备注','2023-07-26 13:47:32'),(11,'2','乒乓球',0,'备注','2023-07-26 13:47:32');
+INSERT INTO `sport_category` VALUES (1,'0','田径',0,'备注','2023-07-26 13:47:32'),(2,'0','铅球',0,'备注','2023-07-26 13:47:32'),(3,'0','标枪',0,'备注','2023-07-26 13:47:32'),(4,'0','跳远',0,'备注','2023-07-26 13:47:32'),(5,'0','立定跳远',0,'备注','2023-07-26 13:47:32'),(6,'1','羽毛球',0,'备注','2023-07-26 13:47:32'),(7,'1','篮球',0,'备注','2023-07-26 13:47:32'),(8,'1','游泳',0,'备注','2023-07-26 13:47:32'),(9,'2','击剑',0,'备注','2023-07-26 13:47:32'),(11,'2','乒乓球',0,'备注','2023-07-26 13:47:32'),(12,'0','网球2',1,'网球添加2','2023-07-27 15:12:28'),(13,'1','铅球',1,'汪汪汪','2023-07-27 15:26:35'),(14,'0','wang',1,'备注','2023-07-27 15:49:14'),(15,'0','jm测试',1,'备注','2023-07-27 15:49:14');
 
 --
 -- Table structure for table `system_info`
@@ -208,14 +208,14 @@ CREATE TABLE `user` (
                         `create_time` datetime DEFAULT NULL COMMENT '授权时间',
                         `attr` json DEFAULT NULL,
                         PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` VALUES (1,0,'王子健管理员','admin','$argon2id$v=19$m=65536,t=2,p=1$7k/vYSb0uoa/uXsxLDo0lQ$It3hw3HFGfoswOVr2U0in1BHHpcj8c1vFhTToxSn/Zc','备注','2023-07-24 22:47:20','{}'),(4,0,'123','1234','123','123','2023-07-23 18:02:37','{}'),(5,0,'123','12345','123','123','2023-07-23 18:02:37','{}'),(6,0,'王子健昵称','wangzijian123','$argon2id$v=19$m=65536,t=2,p=1$8DLavyqz+npDmF3DT2wI5g$XE/GCCbR5K7TDFmdxenuByhfMhdaFLals2APTPYtwWo','记录一下','2023-07-23 22:24:19','{}');
+INSERT INTO `user` VALUES (1,0,'王子健','root','$argon2id$v=19$m=65536,t=2,p=1$1VdMY/Yxaal5oXNyd10g5A$jNxdp7UHCVNgp8M5EV9lkRi15ZheMaRbSqKGpWuNCbI','密码123456','2023-07-27 15:02:54','{}'),(4,0,'小明','xiaoming','$argon2id$v=19$m=65536,t=2,p=1$h9ytDIhD11wEAYZni1bKrQ$2nfKdIEqNMPgsb+TYbu+vzPz0ymTT+Hb9NEqyEpXd04','王子健修改','2023-07-27 15:08:12','{}'),(6,0,'王子健昵称','wangzijian123','$argon2id$v=19$m=65536,t=2,p=1$8DLavyqz+npDmF3DT2wI5g$XE/GCCbR5K7TDFmdxenuByhfMhdaFLals2APTPYtwWo','记录一下','2023-07-23 22:24:19','{}');
 
 --
 -- Table structure for table `wechat`
@@ -243,4 +243,4 @@ CREATE TABLE `wechat` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-07-27  1:21:30
+-- Dump completed on 2023-07-27 20:17:58
