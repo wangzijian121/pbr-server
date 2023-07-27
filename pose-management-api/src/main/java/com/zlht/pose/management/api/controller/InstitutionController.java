@@ -53,6 +53,18 @@ public class InstitutionController extends BaseController {
     }
 
     /**
+     * 查询已添加机构
+     *
+     * @return institution
+     */
+    @ApiOperation(value = "查询已添加机构", notes = "查询已添加机构")
+    @GetMapping(value = "/getInstitutionMap")
+    @ResponseStatus(HttpStatus.OK)
+    public Result queryInstitutionList() {
+        return institutionServices.queryInstitutionMap();
+    }
+
+    /**
      * 创建机构
      *
      * @return Institution

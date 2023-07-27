@@ -15,7 +15,14 @@ public interface InstitutionServicesI {
      * @param pageSize
      * @return
      */
-    Result<Institution> queryInstitutionList(int type, int pageNum, int pageSize, String name);
+    Result queryInstitutionList(int type, int pageNum, int pageSize, String name);
+
+    /**
+     * 查询已添加的机构(去重)
+     *
+     * @return
+     */
+    Result queryInstitutionMap();
 
     /**
      * 创建机构

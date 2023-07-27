@@ -42,7 +42,16 @@ public class InstitutionServicesImpl extends BaseServiceImpl<Institution> implem
         result.setMsg(Status.SUCCESS.getMsg());
         result.setData(institutionPage.getRecords());
         return result;
+    }
+    @Override
+    public Result queryInstitutionMap() {
 
+        Result result = new Result();
+        List<Map<String,Object>> list = institutionMapper.queryInstitutionMap();
+        result.setCode(Status.SUCCESS.getCode());
+        result.setMsg(Status.SUCCESS.getMsg());
+        result.setData(list);
+        return result;
     }
 
     @Override
@@ -82,8 +91,8 @@ public class InstitutionServicesImpl extends BaseServiceImpl<Institution> implem
             return map;
         }
 
-        if (checkInstitutionExistById(id)) {
-            putMsg(map, 400, "所更新的机构名不存在!");
+        if (!checkInstitutionExistById(id)) {
+            putMsg(map, 400, "所更新的机构ID不存在!");
             return map;
         }
         //exist?
@@ -112,8 +121,8 @@ public class InstitutionServicesImpl extends BaseServiceImpl<Institution> implem
     public Map<String, Object> deleteInstitution(int id) {
 
         Map<String, Object> map = new HashMap<>();
-        if (checkInstitutionExistById(id)) {
-            putMsg(map, 400, "所删除的机构名不存在!");
+        if (!checkInstitutionExistById(id)) {
+            putMsg(map, 400, "所删除的机构ID不存在!");
             return map;
         }
         QueryWrapper queryWrapper = new QueryWrapper();
