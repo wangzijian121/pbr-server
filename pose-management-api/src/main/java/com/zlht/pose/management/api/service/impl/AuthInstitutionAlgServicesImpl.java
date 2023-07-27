@@ -42,19 +42,19 @@ public class AuthInstitutionAlgServicesImpl extends BaseServiceImpl<AuthInstitut
 
     @Override
     public Map<String, Object> createAuthInstitution(AuthInstitutionAlg authInstitutionAlg) {
-        Map<String, Object> result = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         //check Duplication
         if (checkAuthDuplication(authInstitutionAlg)) {
-            putMsg(result, 400, "机构授权已存在!");
-            return result;
+            putMsg(map, 400, "机构授权已存在!");
+            return map;
         }
         int resNum = authInstitutionAlgMapper.insert(authInstitutionAlg);
         if (resNum >= 1) {
-            putMsg(result, Status.SUCCESS.getCode(), "创建授权成功！");
+            putMsg(map, Status.SUCCESS.getCode(), "创建授权成功！");
         } else {
-            putMsg(result, 400, "新建机构授权失败！");
+            putMsg(map, 400, "新建机构授权失败！");
         }
-        return result;
+        return map;
 
     }
 
@@ -62,45 +62,47 @@ public class AuthInstitutionAlgServicesImpl extends BaseServiceImpl<AuthInstitut
     @Override
     public Map<String, Object> updateAuthInstitution(int id, AuthInstitutionAlg authInstitutionAlg) {
 
-        Map<String, Object> result = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         //check Exist
         if (!checkAuthExistById(id)) {
-            putMsg(result, 400, "所更新机构不存在！");
-            return result;
+            logger.error("所更新机构不存在！");
+            putMsg(map, 400, "所更新机构不存在！");
+            return map;
         }
 
         //check Duplication
         if (checkAuthDuplication(authInstitutionAlg)) {
-            putMsg(result, 400, "机构授权已存在!");
-            return result;
+            putMsg(map, 400, "机构授权已存在!");
+            return map;
         }
         authInstitutionAlg.setId(id);
         int update = authInstitutionAlgMapper.updateById(authInstitutionAlg);
         if (update >= 1) {
-            putMsg(result, Status.SUCCESS.getCode(), "更新授权成功！");
+            putMsg(map, Status.SUCCESS.getCode(), "更新授权成功！");
         } else {
-            putMsg(result, 400, "更新授权失败！");
+            putMsg(map, 400, "更新授权失败！");
         }
-        return result;
+        return map;
     }
 
     @Override
     public Map<String, Object> deleteAuthInstitution(int id) {
-        Map<String, Object> result = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
 
         if (!checkAuthExistById(id)) {
-            putMsg(result, 400, "所删除机构不存在！");
-            return result;
+            logger.error("所删除机构不存在！");
+            putMsg(map, 400, "所删除机构不存在！");
+            return map;
         }
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("id", id);
         int delete = authInstitutionAlgMapper.delete(queryWrapper);
         if (delete >= 1) {
-            putMsg(result, Status.SUCCESS.getCode(), "删除授权成功！");
+            putMsg(map, Status.SUCCESS.getCode(), "删除授权成功！");
         } else {
-            putMsg(result, 400, "删除机构失败！");
+            putMsg(map, 400, "删除机构失败！");
         }
-        return result;
+        return map;
 
     }
 

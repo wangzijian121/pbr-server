@@ -39,7 +39,7 @@ public class UserController extends BaseController {
     })
     @GetMapping(value = "/getUser")
     @ResponseStatus(HttpStatus.OK)
-    public Result<User> queryUserList(@RequestParam(required = false,defaultValue = "-1") int type,
+    public Result<User> queryUserList(@RequestParam(required = false, defaultValue = "-1") int type,
                                       @RequestParam(required = false, defaultValue = "1") int pageNum,
                                       @RequestParam(required = false, defaultValue = "10") int pageSize,
                                       @RequestParam(required = false) String nickname) {
@@ -59,8 +59,9 @@ public class UserController extends BaseController {
     @ApiOperation(value = "创建用户", notes = "创建用户")
     @PostMapping(value = "/createUser")
     @ResponseStatus(HttpStatus.OK)
-    public Result<User> createUser(@RequestBody User user) {
-        return userServices.createUser(user);
+    public Map<String, Object> createUser(@RequestBody User user) {
+        Map<String, Object> map = userServices.createUser(user);
+        return map;
     }
 
     /**
@@ -74,9 +75,10 @@ public class UserController extends BaseController {
     })
     @PutMapping(value = "/updateUser")
     @ResponseStatus(HttpStatus.OK)
-    public Result<User> updateUser(@RequestParam int id,
-                                   @RequestBody User user) {
-        return userServices.updateUser(id, user);
+    public Map<String, Object> updateUser(@RequestParam int id,
+                                          @RequestBody User user) {
+        Map<String, Object> map = userServices.updateUser(id, user);
+        return map;
     }
 
     /**
@@ -87,8 +89,9 @@ public class UserController extends BaseController {
     @ApiOperation(value = "删除用户", notes = "删除用户")
     @DeleteMapping(value = "/deleteUser")
     @ResponseStatus(HttpStatus.OK)
-    public Result<User> deleteUser(@RequestParam int userId) {
-        return userServices.deleteUser(userId);
+    public Map<String, Object> deleteUser(@RequestParam int userId) {
+        Map<String, Object> map = userServices.deleteUser(userId);
+        return map;
     }
 
     /**
@@ -105,15 +108,14 @@ public class UserController extends BaseController {
     })
     @PostMapping(value = "/login")
     @ResponseStatus(HttpStatus.OK)
-    public Result<User> login(@RequestParam String username,
-                              @RequestParam String password) {
-
-        Result result = null;
+    public Result login(@RequestParam String username,
+                        @RequestParam String password) {
+        Map<String, Object> map = null;
         try {
-            result = userServices.authorizedUser(username, password);
+            map = userServices.authorizedUser(username, password);
         } catch (Exception e) {
             logger.error(Status.AUTHORIZED_USER_ERROR.getMsg(), e);
         }
-        return result;
+        return returnDataList(map);
     }
 }

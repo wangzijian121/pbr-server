@@ -3,6 +3,8 @@ package com.zlht.pose.management.api.service;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.Sport;
 
+import java.util.Map;
+
 public interface SportServicesI {
 
     /**
@@ -22,7 +24,7 @@ public interface SportServicesI {
      * @return
      */
 
-    Result<Sport> createSport(Sport sport);
+    Map<String, Object> createSport(Sport sport);
 
     /**
      * 更新体育
@@ -31,7 +33,7 @@ public interface SportServicesI {
      * @param authInstitution
      * @return
      */
-    Result<Sport> updateSport(int id, Sport authInstitution);
+    Map<String, Object> updateSport(int id, Sport authInstitution);
 
     /**
      * 删除体育
@@ -39,8 +41,24 @@ public interface SportServicesI {
      * @param id
      * @return
      */
-    Result<Sport> deleteSport(int id);
+    Map<String, Object> deleteSport(int id);
 
 
-    boolean checkSportExist(Sport authInstitution);
+    /**
+     * 判断是否已存在
+     *
+     * @param authInstitution
+     * @return
+     */
+    boolean checkSportExistByNameAndType(Sport authInstitution);
+
+    /**
+     * 通过ID判断是否存在（删除更新判断）
+     *
+     * @param id
+     * @return
+     */
+    boolean checkSportExistById(int id );
+
+
 }

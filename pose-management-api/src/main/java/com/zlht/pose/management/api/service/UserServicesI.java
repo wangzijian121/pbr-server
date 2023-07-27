@@ -1,7 +1,10 @@
 package com.zlht.pose.management.api.service;
 
 import com.zlht.pose.management.api.utils.Result;
+import com.zlht.pose.management.dao.entity.Sport;
 import com.zlht.pose.management.dao.entity.User;
+
+import java.util.Map;
 
 public interface UserServicesI {
 
@@ -22,7 +25,7 @@ public interface UserServicesI {
      * @return
      */
 
-    Result<User> createUser(User user);
+    Map<String, Object> createUser(User user);
 
     /**
      * 更新用户
@@ -31,7 +34,7 @@ public interface UserServicesI {
      * @param user
      * @return
      */
-    Result<User> updateUser(int id, User user);
+    Map<String, Object> updateUser(int id, User user);
 
     /**
      * 删除用户
@@ -39,7 +42,7 @@ public interface UserServicesI {
      * @param id
      * @return
      */
-    Result<User> deleteUser(int id);
+    Map<String, Object> deleteUser(int id);
 
 
     /**
@@ -49,7 +52,21 @@ public interface UserServicesI {
      * @param password
      * @return
      */
-    Result<User> authorizedUser(String username, String password);
+    Map<String, Object> authorizedUser(String username, String password);
 
-    boolean checkUserExist(User user);
+    /**
+     * 检查用户是否已存在
+     *
+     * @param user
+     * @return
+     */
+    boolean checkUserExistByName(User user);
+
+    /**
+     * 通过ID判断是否存在（删除更新判断）
+     *
+     * @param user
+     * @return
+     */
+    boolean checkUserExistById(int id);
 }

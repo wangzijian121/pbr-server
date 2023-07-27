@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @Api(tags = "体育管理", description = "体育管理")
 public class SportController extends BaseController {
@@ -58,7 +60,8 @@ public class SportController extends BaseController {
     @PostMapping(value = "/createSport")
     @ResponseStatus(HttpStatus.OK)
     public Result<Sport> createSport(@RequestBody Sport sport) {
-        return sportServices.createSport(sport);
+        Map<String, Object> map = sportServices.createSport(sport);
+        return returnDataList(map);
     }
 
     /**
@@ -74,7 +77,8 @@ public class SportController extends BaseController {
     @ResponseStatus(HttpStatus.OK)
     public Result<Sport> updateSport(@RequestParam int id,
                                      @RequestBody Sport sport) {
-        return sportServices.updateSport(id, sport);
+        Map<String, Object> map = sportServices.updateSport(id, sport);
+        return returnDataList(map);
     }
 
     /**
@@ -86,6 +90,7 @@ public class SportController extends BaseController {
     @DeleteMapping(value = "/deleteSport")
     @ResponseStatus(HttpStatus.OK)
     public Result<Sport> deleteSport(@RequestParam int id) {
-        return sportServices.deleteSport(id);
+        Map<String, Object> map = sportServices.deleteSport(id);
+        return returnDataList(map);
     }
 }

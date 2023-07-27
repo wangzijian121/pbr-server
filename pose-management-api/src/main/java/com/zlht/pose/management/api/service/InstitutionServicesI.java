@@ -3,6 +3,8 @@ package com.zlht.pose.management.api.service;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.Institution;
 
+import java.util.Map;
+
 public interface InstitutionServicesI {
 
     /**
@@ -22,7 +24,7 @@ public interface InstitutionServicesI {
      * @return
      */
 
-    Result<Institution> createInstitution(Institution institution);
+    Map<String, Object> createInstitution(Institution institution);
 
     /**
      * 更新机构
@@ -31,7 +33,7 @@ public interface InstitutionServicesI {
      * @param institution
      * @return
      */
-    Result<Institution> updateInstitution(int id, Institution institution);
+    Map<String, Object> updateInstitution(int id, Institution institution);
 
     /**
      * 删除机构
@@ -39,8 +41,23 @@ public interface InstitutionServicesI {
      * @param id
      * @return
      */
-    Result<Institution> deleteInstitution(int id);
+    Map<String, Object> deleteInstitution(int id);
 
 
-    boolean checkInstitutionExist(Institution Institution);
+    /**
+     * 通过机构名判断是否存在
+     *
+     * @param Institution
+     * @return
+     */
+    boolean checkInstitutionExistByName(Institution Institution);
+
+
+    /**
+     * 通过机构ID判断是否存在
+     *
+     * @param id
+     * @return
+     */
+    boolean checkInstitutionExistById(int id);
 }

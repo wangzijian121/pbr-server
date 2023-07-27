@@ -1,6 +1,7 @@
 package com.zlht.pose.management.api.controller;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zlht.pose.management.api.service.InstitutionServicesI;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.Institution;
@@ -13,6 +14,8 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @Api(tags = "机构管理", description = "机构管理")
@@ -37,7 +40,7 @@ public class InstitutionController extends BaseController {
     })
     @GetMapping(value = "/getInstitution")
     @ResponseStatus(HttpStatus.OK)
-    public Result<Institution> queryInstitutionList(@RequestParam(required = false,defaultValue = "-1") int type,
+    public Result<Institution> queryInstitutionList(@RequestParam(required = false, defaultValue = "-1") int type,
                                                     @RequestParam(required = false, defaultValue = "1") int pageNum,
                                                     @RequestParam(required = false, defaultValue = "10") int pageSize,
                                                     @RequestParam(required = false) String name) {
@@ -57,8 +60,10 @@ public class InstitutionController extends BaseController {
     @ApiOperation(value = "创建机构", notes = "创建机构")
     @PostMapping(value = "/createInstitution")
     @ResponseStatus(HttpStatus.OK)
+    @JsonIgnoreProperties(value = "id")
     public Result<Institution> createInstitution(@RequestBody Institution institution) {
-        return institutionServices.createInstitution(institution);
+        Map<String, Object> map = institutionServices.createInstitution(institution);
+        return returnDataList(map);
     }
 
     /**
@@ -74,7 +79,8 @@ public class InstitutionController extends BaseController {
     @ResponseStatus(HttpStatus.OK)
     public Result<Institution> updateInstitution(@RequestParam int id,
                                                  @RequestBody Institution institution) {
-        return institutionServices.updateInstitution(id, institution);
+        Map<String, Object> map = institutionServices.updateInstitution(id, institution);
+        return returnDataList(map);
     }
 
     /**
@@ -86,6 +92,7 @@ public class InstitutionController extends BaseController {
     @DeleteMapping(value = "/deleteInstitution")
     @ResponseStatus(HttpStatus.OK)
     public Result<Institution> deleteInstitution(@RequestParam int id) {
-        return institutionServices.deleteInstitution(id);
+        Map<String, Object> map = institutionServices.deleteInstitution(id);
+        return returnDataList(map);
     }
 }

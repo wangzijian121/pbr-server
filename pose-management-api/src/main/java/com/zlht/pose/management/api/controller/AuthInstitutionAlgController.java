@@ -1,6 +1,8 @@
 package com.zlht.pose.management.api.controller;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zlht.pose.management.api.service.AuthInstitutionAlgServicesI;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.AuthInstitutionAlg;
@@ -8,6 +10,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +63,8 @@ public class AuthInstitutionAlgController extends BaseController {
     @ApiOperation(value = "创建机构授权", notes = "创建机构授权")
     @PostMapping(value = "/createAuthInstitution")
     @ResponseStatus(HttpStatus.OK)
-    public Result createAuthInstitution(@RequestBody AuthInstitutionAlg authInstitutionAlg) {
+    @JsonIgnoreProperties(value = "id")
+    public Result<AuthInstitutionAlg> createAuthInstitution(@RequestBody AuthInstitutionAlg authInstitutionAlg) {
         Map<String, Object> map = institutionServices.createAuthInstitution(authInstitutionAlg);
         return returnDataList(map);
     }
@@ -76,7 +80,7 @@ public class AuthInstitutionAlgController extends BaseController {
     })
     @PutMapping(value = "/updateAuthInstitution")
     @ResponseStatus(HttpStatus.OK)
-    public Result updateAuthInstitution(@RequestParam int id,
+    public Result<AuthInstitutionAlg> updateAuthInstitution(@RequestParam int id,
                                         @RequestBody AuthInstitutionAlg authInstitutionAlg) {
         Map<String, Object> map = institutionServices.updateAuthInstitution(id, authInstitutionAlg);
         return returnDataList(map);
@@ -90,7 +94,7 @@ public class AuthInstitutionAlgController extends BaseController {
     @ApiOperation(value = "删除机构授权", notes = "删除机构授权")
     @DeleteMapping(value = "/deleteAuthInstitution")
     @ResponseStatus(HttpStatus.OK)
-    public Result deleteAuthInstitution(@RequestParam int id) {
+    public Result<AuthInstitutionAlg> deleteAuthInstitution(@RequestParam int id) {
         Map<String, Object> map = institutionServices.deleteAuthInstitution(id);
         return returnDataList(map);
     }

@@ -3,6 +3,7 @@ package com.zlht.pose.management.api.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zlht.pose.management.api.enums.Status;
 import com.zlht.pose.management.api.service.InstitutionServicesI;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.Institution;
@@ -15,7 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class InstitutionServicesImpl extends BaseServiceImpl<Institution> implements InstitutionServicesI {
@@ -26,103 +29,130 @@ public class InstitutionServicesImpl extends BaseServiceImpl<Institution> implem
     InstitutionMapper institutionMapper;
 
     @Override
-    public Result<Institution> queryInstitutionList(int type, int pageNum, int pageSize, String name) {
+    public Result queryInstitutionList(int type, int pageNum, int pageSize, String keyword) {
 
-
-        List<Institution> institutionList = new ArrayList<>();
+        Result result = new Result();
         Page<Institution> page = new Page<>(pageNum, pageSize);
 
         QueryWrapper<Institution> wapper = new QueryWrapper<Institution>();
         if (type != -1) wapper.eq("type", type);
-        if (name != null) wapper.and(nc -> nc.like("name", name));
+        if (keyword != null) wapper.and(nc -> nc.like("name", keyword));
         Page<Institution> institutionPage = institutionMapper.selectPage(page, wapper);
-        if (institutionPage != null) {
-            for (Institution institution : institutionPage.getRecords()) {
-                institutionList.add(institution);
-            }
-            return success(institutionList);
-        } else {
-            return faild(400, "未查询到机构！");
-        }
+        result.setCode(Status.SUCCESS.getCode());
+        result.setMsg(Status.SUCCESS.getMsg());
+        result.setData(institutionPage.getRecords());
+        return result;
 
     }
 
     @Override
-    public Result<Institution> createInstitution(Institution institution) {
+    public Map<String, Object> createInstitution(Institution institution) {
+        Map<String, Object> map = new HashMap<>();
         //exist?
-        if (checkInstitutionExist(institution)) {
-            return faild(400, "机构名重复！");
+        if (checkInstitutionExistByName(institution)) {
+            putMsg(map, 400, "机构名已存在!");
+            return map;
         }
-
         if (!validateInstitutionName(institution)) {
-            return faild(400, "机构名或昵称不符合规范！");
+            putMsg(map, 400, "机构名或昵称不符合规范！");
+            return map;
         }
         if (!ValidateService.validateEmail(institution.getEmail())) {
-            return faild(400, "邮箱格式不满足！");
+            putMsg(map, 400, "邮箱格式不满足！");
+            return map;
         }
 
         int resNum = institutionMapper.insert(institution);
         if (resNum >= 1) {
-            return success(null);
+            putMsg(map, Status.SUCCESS.getCode(), "创建机构成功！");
         } else {
-            return faild(400, "插入机构失败");
+            putMsg(map, 400, "创建机构失败！");
         }
+        return map;
 
     }
 
 
     @Override
-    public Result<Institution> updateInstitution(int id, Institution institution) {
+    public Map<String, Object> updateInstitution(int id, Institution institution) {
+
+        Map<String, Object> map = new HashMap<>();
+        if (!validateInstitutionName(institution)) {
+            putMsg(map, 400, "机构名或昵称不符合规范！");
+            return map;
+        }
+
+        if (checkInstitutionExistById(id)) {
+            putMsg(map, 400, "所更新的机构名不存在!");
+            return map;
+        }
+        //exist?
+        if (checkInstitutionExistByName(institution)) {
+            putMsg(map, 400, "机构名已存在!");
+            return map;
+        }
+
+        if (!ValidateService.validateEmail(institution.getEmail())) {
+            putMsg(map, 400, "邮箱格式不满足！");
+            return map;
+        }
 
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("id", id);
         int update = institutionMapper.update(institution, queryWrapper);
         if (update >= 1) {
-            return success(null);
+            putMsg(map, Status.SUCCESS.getCode(), "更新机构成功！");
         } else {
-            return faild(400, "更新机构失败");
+            putMsg(map, 400, "更新机构失败");
         }
+        return map;
     }
 
     @Override
-    public Result<Institution> deleteInstitution(int id) {
+    public Map<String, Object> deleteInstitution(int id) {
+
+        Map<String, Object> map = new HashMap<>();
+        if (checkInstitutionExistById(id)) {
+            putMsg(map, 400, "所删除的机构名不存在!");
+            return map;
+        }
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("id", id);
         int delete = institutionMapper.delete(queryWrapper);
         if (delete >= 1) {
-            return success(null);
+            putMsg(map, Status.SUCCESS.getCode(), "删除机构成功！");
         } else {
-            return faild(400, "删除机构失败！");
+            putMsg(map, 400, "删除机构失败！");
         }
-
+        return map;
     }
 
 
-    /**
-     * 检查机构是否重复
-     *
-     * @param institution
-     * @return
-     */
     @Override
-    public boolean checkInstitutionExist(Institution institution) {
+    public boolean checkInstitutionExistByName(Institution institution) {
         QueryWrapper queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("name", institution.getName());
         return institutionMapper.exists(queryWrapper);
     }
 
 
-    private static boolean validateInstitutionName(Institution institution) {
+    @Override
+    public boolean checkInstitutionExistById(int id) {
+        QueryWrapper queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("id", id);
+        return institutionMapper.exists(queryWrapper);
+    }
+
+
+    private boolean validateInstitutionName(Institution institution) {
         if (institution == null) {
             return false;
         }
 
         String name = institution.getName();
-        // 校验 Institutionname 和 nickname 不为空，并且没有空格
         if (StringUtils.isBlank(name) || StringUtils.containsWhitespace(name)) {
             return false;
         }
-
         return true;
     }
 }

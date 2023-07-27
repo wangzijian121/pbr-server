@@ -7,13 +7,14 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
-import java.util.Map;
+
 
 @Data
 @AllArgsConstructor
@@ -21,7 +22,7 @@ import java.util.Map;
 @TableName(value = "institution", autoResultMap = true)
 public class Institution {
     @TableId(type = IdType.AUTO)
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Integer id;
 
     @ApiModelProperty(name = "type", value = "机构类型", required = true)
@@ -50,7 +51,6 @@ public class Institution {
 
     @ApiModelProperty(name = "createTime", value = "创建时间 iso:YYYY-MM-DDTHH:mm:ss.sssZ", required = true)
     private Date createTime;
-
 
 
 }

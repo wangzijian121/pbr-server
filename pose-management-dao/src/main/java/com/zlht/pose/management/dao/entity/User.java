@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,34 +29,33 @@ import java.util.Objects;
 public class User {
 
     @TableId(type = IdType.AUTO)
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Integer id;
 
-
-    @ApiModelProperty(name = "type", value = "用户类型", required = true)
+    @ApiModelProperty(value = "用户类型", required = true)
     private Integer type;
 
-    @ApiModelProperty(name = "nickname", value = "昵称", required = false)
+    @ApiModelProperty(value = "昵称", required = false)
     private String nickname;
 
 
-    @ApiModelProperty(name = "username", value = "用户名", required = true)
+    @ApiModelProperty(value = "用户名", required = true)
     private String username;
 
 
-    @ApiModelProperty(name = "password", value = "123456", required = true)
+    @ApiModelProperty(value = "123456", required = true)
     private String password;
 
 
-    @ApiModelProperty(name = "mark", value = "备注", required = false)
+    @ApiModelProperty(value = "备注", required = false)
     private String mark;
 
 
-    @ApiModelProperty(name = "createTime", value = "创建时间 iso:YYYY-MM-DDTHH:mm:ss.sssZ", required = true)
+    @ApiModelProperty(value = "创建时间 iso:YYYY-MM-DDTHH:mm:ss.sssZ", required = true)
     private Date createTime;
 
     @TableField(typeHandler = JacksonTypeHandler.class)
-    @ApiModelProperty(name = "attr", value = "{\"creator\": 0, \"institution\": \"润迪体育\", \"lastUsedTime\": \"2021-10-01 10:30:00\", \"lastUsedDuration\": \"2\", \"configurableMiniProgram\": false}", required = true)
+    @ApiModelProperty(value = "{\"creator\": 0, \"institution\": \"润迪体育\", \"lastUsedTime\": \"2021-10-01 10:30:00\", \"lastUsedDuration\": \"2\", \"configurableMiniProgram\": false}", required = true)
     private Map<String, Object> attr;
 
 
