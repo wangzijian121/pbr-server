@@ -22,24 +22,24 @@ public class Sport {
     @JsonIgnore
     private Integer id;
 
-    @TableField
+
     @ApiModelProperty(name = "type", value = "体育类型(0:学校体育 1:群众体育 2:竞技体育)", required = true)
     private Integer type;
 
-    @TableField
+
     @ApiModelProperty(name = "name", value = "体育名", required = true)
     private String name;
 
-    @TableField
+
     @ApiModelProperty(name = "creator", value = "添加人", required = true)
     private String creator;
 
 
-    @TableField
+
     @ApiModelProperty(name = "mark", value = "备注", required = false)
     private String mark;
 
-    @TableField
+
     @ApiModelProperty(name = "createTime", value = "授权时间", required = true)
     private Date createTime;
 

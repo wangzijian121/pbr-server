@@ -24,31 +24,30 @@ public class Institution {
     @JsonIgnore
     private Integer id;
 
-    @TableField
     @ApiModelProperty(name = "type", value = "机构类型", required = true)
     private Integer type;
 
-    @TableField
+
     @ApiModelProperty(name = "name", value = "机构名", required = true)
     private String name;
 
-    @TableField
+
     @ApiModelProperty(name = "phone", value = "手机", required = true)
     private String phone;
 
-    @TableField
+
     @ApiModelProperty(name = "email", value = "邮箱", required = true)
     private String email;
 
-    @TableField
+
     @ApiModelProperty(name = "address", value = "地址", required = true)
     private String address;
 
-    @TableField
+
     @ApiModelProperty(name = "map", value = "地图位置", required = false)
     private String map;
 
-    @TableField
+
     @ApiModelProperty(name = "createTime", value = "创建时间 iso:YYYY-MM-DDTHH:mm:ss.sssZ", required = true)
     private Date createTime;
 
