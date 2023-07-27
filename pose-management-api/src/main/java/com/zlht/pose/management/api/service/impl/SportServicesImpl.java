@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -37,6 +38,16 @@ public class SportServicesImpl extends BaseServiceImpl<Sport> implements SportSe
         result.setCode(Status.SUCCESS.getCode());
         result.setMsg(Status.SUCCESS.getMsg());
         result.setData(sportPage.getRecords());
+        return result;
+    }
+
+    @Override
+    public Result<Sport> querySportMap() {
+        Result result = new Result();
+        List<Map<String, Object>> list = sportMapper.querySportMap();
+        result.setCode(Status.SUCCESS.getCode());
+        result.setMsg(Status.SUCCESS.getMsg());
+        result.setData(list);
         return result;
     }
 

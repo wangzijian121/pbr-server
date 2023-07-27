@@ -18,6 +18,13 @@ public interface SportServicesI {
     Result<Sport> querySportList(int type, int pageNum, int pageSize, String sportName);
 
     /**
+     * 查询已添加的体育
+     *
+     * @return
+     */
+    Result<Sport> querySportMap();
+
+    /**
      * 创建体育
      *
      * @param sport

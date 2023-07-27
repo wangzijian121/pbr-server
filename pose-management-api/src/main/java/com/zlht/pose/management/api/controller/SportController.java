@@ -30,7 +30,7 @@ public class SportController extends BaseController {
      *
      * @return sport
      */
-    @ApiOperation(value = "查询的体育", notes = "查询的体育")
+    @ApiOperation(value = "查询体育", notes = "查询体育")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "type", value = "体育类型(0:学校体育 1:群众体育 2:竞技体育)", dataTypeClass = int.class),
             @ApiImplicitParam(name = "pageNum", value = "页数(默认1)", dataTypeClass = int.class),
@@ -49,6 +49,19 @@ public class SportController extends BaseController {
             return result;
         }
         return sportServices.querySportList(type, pageNum, pageSize, name);
+    }
+
+    /**
+     * 查询已添加体育
+     *
+     * @return sport
+     */
+    @ApiOperation(value = "查询已添加体育", notes = "查询已添加体育")
+
+    @GetMapping(value = "/getSportMap")
+    @ResponseStatus(HttpStatus.OK)
+    public Result<Sport> querySportMap() {
+        return sportServices.querySportMap();
     }
 
     /**
