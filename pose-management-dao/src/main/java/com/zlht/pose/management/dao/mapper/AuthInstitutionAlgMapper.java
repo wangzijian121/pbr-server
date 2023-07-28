@@ -18,7 +18,7 @@ public interface AuthInstitutionAlgMapper extends BaseMapper<AuthInstitutionAlg>
             "               left join algorithm alg on a.auth_alg_id = alg.id\n" +
             "               left join user u on a.auth_admin = u.id\n" +
             "               left join institution i on a.institution_id = i.id) res\n" +
-            "where (#{keyword} IS NULL OR res.institution LIKE CONCAT('%', #{keyword}, '%'))")
+            "where (#{keyword} IS NULL OR res.institution LIKE CONCAT('%', #{keyword}, '%'))  and  (#{auth_type}  = -1 OR res.auth_type =#{auth_type})")
     Page<Map<String, Object>> selectAuthInstitutionsWithNickname(Page<?> page,
                                                                  @Param("keyword") String keyword,
                                                                  @Param("auth_type") int auth_type);
