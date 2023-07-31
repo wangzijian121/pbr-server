@@ -2,10 +2,14 @@ server:
   port: 8080
 
 spring:
-#  Mysql
+  servlet:
+    multipart:
+      maxFileSize: 100MB
+      maxRequestSize: 100MB
+  #  Mysql
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/pose-management?useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://127.0.0.1:3308/pose-management?useUnicode=true&characterEncoding=UTF-8
     username: root
     password: root
   #    MVC搜索路径
@@ -15,3 +19,13 @@ spring:
   #      模板校验关闭
   thymeleaf:
     check-template-location: false
+
+files:
+  upload:
+    local:
+      path: C:\Users\Administrator\Desktop\上传\
+      maxFileSize: 104857600
+    oss:
+    #.....
+    hadoop:
+    #.....
