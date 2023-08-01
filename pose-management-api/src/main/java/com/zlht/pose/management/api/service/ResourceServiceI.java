@@ -1,6 +1,7 @@
 package com.zlht.pose.management.api.service;
 
 import com.zlht.pose.management.dao.entity.User;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Map;
@@ -19,7 +20,7 @@ public interface ResourceServiceI {
     /**
      * 下载文件
      */
-    org.springframework.core.io.Resource downloadResource(String resourceId);
+    ResponseEntity downloadResource(int resourceId);
 
     /**
      * 校验资源类型

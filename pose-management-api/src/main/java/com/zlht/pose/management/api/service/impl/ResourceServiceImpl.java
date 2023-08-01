@@ -9,10 +9,16 @@ import com.zlht.pose.management.dao.entity.User;
 import com.zlht.pose.management.dao.mapper.ResourceMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
@@ -62,14 +68,13 @@ public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServ
         Resource resource = new Resource(user.getType(), user.getId(), fullName, uuid,
                 "这是王子健上传的文件！", size, new Date(), new Date());
         if (resourceExist(user, fullName)) {
-
             UpdateWrapper<Resource> updateWrapper = new UpdateWrapper<>();
+            updateWrapper.eq("full_name", resource.getFullName());
             updateWrapper.set("full_name", resource.getFullName())
                     .set("alias", resource.getAlias())
                     .set("description", resource.getDescription())
                     .set("size", resource.getSize())
                     .set("update_time", resource.getUpdateTime());
-
             resourceMapper.update(null, updateWrapper);
         } else {
             resourceMapper.insert(resource);
@@ -91,9 +96,30 @@ public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServ
     }
 
     @Override
-    public org.springframework.core.io.Resource downloadResource(String resourceId) {
+    public ResponseEntity downloadResource(int resourceId) {
 
-        return null;
+        Resource resource = resourceMapper.selectById(resourceId);
+        if (resource == null) {
+            return ResponseEntity.badRequest().body("未找到资源！");
+        }
+        // 从文件存储中读取文件
+        File file = new File(fileUploadPath + resource.getAlias() + ".zip");
+        InputStreamResource inputStreamResource = null;
+        try {
+            inputStreamResource = new InputStreamResource(new FileInputStream(file));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        // 设置HTTP头
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFullName().toLowerCase() + "\"");
+        headers.add(HttpHeaders.CONTENT_TYPE, "application/octet-stream");
+        headers.add(HttpHeaders.CONTENT_LENGTH, String.valueOf(file.length()));
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentLength(file.length())
+                .body(inputStreamResource);
     }
 
     @Override
