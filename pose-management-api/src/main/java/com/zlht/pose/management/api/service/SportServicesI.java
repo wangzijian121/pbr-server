@@ -37,10 +37,10 @@ public interface SportServicesI {
      * 更新体育
      *
      * @param id
-     * @param authInstitution
+     * @param sport
      * @return
      */
-    Map<String, Object> updateSport(int id, Sport authInstitution);
+    Map<String, Object> updateSport(int id, Sport sport);
 
     /**
      * 删除体育
