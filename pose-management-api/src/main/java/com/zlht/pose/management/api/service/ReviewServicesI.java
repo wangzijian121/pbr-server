@@ -1,6 +1,9 @@
 package com.zlht.pose.management.api.service;
 
 import com.zlht.pose.management.api.utils.Result;
+import com.zlht.pose.management.dao.entity.Resource;
+import com.zlht.pose.management.dao.entity.User;
+import org.springframework.http.ResponseEntity;
 
 import java.util.Map;
 
@@ -25,6 +28,14 @@ public interface ReviewServicesI {
      */
     Map<String, Object> updateReviewStatus(int id, int status, String mark);
 
+    /**
+     * 下载资源
+     *
+     * @param developer_id
+     * @param alias
+     * @return
+     */
+    ResponseEntity downloadResource(int  developer_id, String alias);
 
     /**
      * 通过审核信息ID判断是否存在

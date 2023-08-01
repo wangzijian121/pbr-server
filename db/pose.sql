@@ -139,24 +139,6 @@ CREATE TABLE `data_set` (
 
 
 --
--- Table structure for table `developer`
---
-
-DROP TABLE IF EXISTS `developer`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `developer` (
-                             `id` int NOT NULL AUTO_INCREMENT,
-                             PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='开发者表';
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `developer`
---
-
-
---
 -- Table structure for table `developer_review`
 --
 
@@ -218,7 +200,7 @@ DROP TABLE IF EXISTS `resources`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `resources` (
                              `id` int NOT NULL AUTO_INCREMENT,
-                             `upload_user_type` int DEFAULT NULL,
+                             `type` int DEFAULT NULL COMMENT '上传类型（0：普通算法 1：专用算法 2普通数据集 3：专用数据集）',
                              `user_id` int DEFAULT NULL,
                              `full_name` varchar(255) DEFAULT NULL,
                              `alias` varchar(255) DEFAULT NULL,
@@ -234,7 +216,7 @@ CREATE TABLE `resources` (
 -- Dumping data for table `resources`
 --
 
-INSERT INTO `resources` VALUES (3,1,6,'v2rayN-Core.zip','4b4901b8-7af4-444a-b044-3067902cfaf2','这是王子健上传的文件！',69606626,'2023-08-01 13:43:28','2023-08-01 13:55:17');
+INSERT INTO `resources` VALUES (3,0,6,'v2rayN-Core.zip','4b4901b8-7af4-444a-b044-3067902cfaf2','这是王子健上传的文件！',69606626,'2023-08-01 13:43:28','2023-08-01 13:55:17');
 
 --
 -- Table structure for table `sport_category`
@@ -361,4 +343,4 @@ INSERT INTO `wechat` VALUES (1,'1289371982739123','润迪体育助手',1,0,'润�
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-01 22:22:54
+-- Dump completed on 2023-08-01 23:03:42

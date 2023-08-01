@@ -15,6 +15,7 @@ public interface ReviewMapper extends BaseMapper<Review> {
 
     @Select("select * from (select dr.id,\n" +
             "             dr.commit_name,\n" +
+            "             dr.developer_id,\n" +
             "             u.nickname,\n" +
             "             dr.type,\n" +
             "             dr.file,\n" +

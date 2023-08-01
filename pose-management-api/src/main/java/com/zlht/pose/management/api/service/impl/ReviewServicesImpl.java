@@ -11,6 +11,7 @@ import com.zlht.pose.management.dao.mapper.ReviewMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -52,6 +53,12 @@ public class ReviewServicesImpl extends BaseServiceImpl<Review> implements Revie
             putMsg(map, 400, "更新审核状态失败");
         }
         return map;
+    }
+
+    @Override
+    public ResponseEntity downloadResource(int developer_id, String alias) {
+        //todo
+        return null;
     }
 
     @Override
