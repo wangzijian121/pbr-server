@@ -8,13 +8,11 @@ import org.apache.ibatis.annotations.Select;
 
 public interface ResourceMapper extends BaseMapper<Resource> {
 
-    @Select("select *  from  resources " +
-            "where" +
-            " upload_user_type=#{uploadUserType} " +
-            "and  user_id =#{userId} " +
-            "and  full_name =#{fullName}  " +
-            "limit 1 ")
-    Resource resourceExist(@Param("uploadUserType") int upload_user_type, @Param("userId") int userId, @Param("fullName") String fullName);
+    @Select("select *\n" +
+            "from `pose-management`.resources\n" +
+            "where user_id = #{userId}\n" +
+            "  and full_name = #{fullName} limit 1")
+    Resource resourceExist(@Param("userId") int userId, @Param("fullName") String fullName);
 
 
 }

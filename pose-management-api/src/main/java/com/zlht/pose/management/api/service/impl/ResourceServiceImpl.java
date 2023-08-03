@@ -61,9 +61,9 @@ public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServ
             return map;
         }
         User user = new User();
-        user.setId(1);
+        user.setId(6);
         user.setType(1);
-        String uuid = UUID.randomUUID().toString();
+        String uuid = UUID.randomUUID().toString() + user.getId();
         String fileName = fileUploadPath + uuid + StrUtil.DOT;
         Resource resource = new Resource(user.getType(), user.getId(), fullName, uuid,
                 "这是王子健上传的文件！", size, new Date(), new Date());
@@ -140,6 +140,6 @@ public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServ
 
     @Override
     public boolean resourceExist(User user, String fullName) {
-        return resourceMapper.resourceExist(user.getType(), user.getId(), fullName) != null;
+        return resourceMapper.resourceExist(user.getId(), fullName) != null;
     }
 }
