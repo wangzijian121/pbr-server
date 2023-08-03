@@ -1,14 +1,14 @@
 package com.zlht.pose.management.dao.entity;
 
-import java.util.Date;
-
-import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -21,17 +21,7 @@ public class Resource {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    /**
-     * upload user type
-     */
-    @TableField
-    private Integer uploadUserType;
 
-    /**
-     * user id
-     */
-    @TableField
-    private Integer userId;
 
     /**
      * full name 123.zip
@@ -39,16 +29,14 @@ public class Resource {
     private String fullName;
 
     /**
-     * full name 834bb3d8-6cf1-4d2d-9351-b0a1698f2839
+     * alias 834bb3d8-6cf1-4d2d-9351-b0a1698f2839
      */
     private String alias;
 
     /**
-     * description
+     *suffix : .zip
      */
-    private String description;
-
-
+    private String suffix;
     /**
      * resource size
      */
@@ -66,12 +54,11 @@ public class Resource {
     @ApiModelProperty(value = "更新时间 iso:YYYY-MM-DDTHH:mm:ss.sssZ", required = true)
     private Date updateTime;
 
-    public Resource(Integer uploadUserType, Integer userId, String fullName, String alias, String description, long size, Date createTime, Date updateTime) {
-        this.uploadUserType = uploadUserType;
-        this.userId = userId;
+    public Resource(String fullName, String alias, String  suffix, long size, Date createTime, Date updateTime) {
+
         this.fullName = fullName;
         this.alias = alias;
-        this.description = description;
+        this.suffix=suffix;
         this.size = size;
         this.createTime = createTime;
         this.updateTime = updateTime;

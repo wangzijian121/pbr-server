@@ -15,12 +15,13 @@ public interface ResourceServiceI {
     /**
      * 删除文件
      */
-    int deleteResource(String name);
+    Map<String, Object> deleteResource(String uuid);
+
 
     /**
      * 下载文件
      */
-    ResponseEntity downloadResource(int resourceId);
+    ResponseEntity downloadResource(String  uuid);
 
     /**
      * 校验资源类型
@@ -35,6 +36,6 @@ public interface ResourceServiceI {
     /**
      * 判断资源元数据 是否存在
      */
-    boolean resourceExist(User user, String fullName);
+    boolean resourceExist(String fullName);
 
 }

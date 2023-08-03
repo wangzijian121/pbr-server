@@ -2,10 +2,10 @@ package com.zlht.pose.management.api.service.impl;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.zlht.pose.management.api.enums.Status;
 import com.zlht.pose.management.api.service.ResourceServiceI;
 import com.zlht.pose.management.dao.entity.Resource;
-import com.zlht.pose.management.dao.entity.User;
 import com.zlht.pose.management.dao.mapper.ResourceMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -45,41 +45,29 @@ public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServ
     @Override
     public Map<String, Object> createResource(MultipartFile file) {
 
+        //TODO 中文文件上传
         Map<String, Object> map = new HashMap<>();
         //获取文件原始名称
         String fullName = file.getOriginalFilename();
 
         //获取文件的类型
-        String type = FileUtil.extName(fullName);
-        if (!checkFileType(type)) {
+        String suffix = FileUtil.extName(fullName);
+        if (!checkFileType(suffix)) {
             putMsg(map, 400, "不支持的文件类型！");
             return map;
         }
         long size = file.getSize();
         if (!checkFileSize(size)) {
-            putMsg(map, 400, "文件过大！");
+            putMsg(map, 400, "文件过大,无法上传！");
             return map;
         }
-        User user = new User();
-        user.setId(1);
-        user.setType(1);
         String uuid = UUID.randomUUID().toString();
         String fileName = fileUploadPath + uuid + StrUtil.DOT;
-        Resource resource = new Resource(user.getType(), user.getId(), fullName, uuid,
-                "这是王子健上传的文件！", size, new Date(), new Date());
-        if (resourceExist(user, fullName)) {
-            UpdateWrapper<Resource> updateWrapper = new UpdateWrapper<>();
-            updateWrapper.eq("full_name", resource.getFullName());
-            updateWrapper.set("full_name", resource.getFullName())
-                    .set("alias", resource.getAlias())
-                    .set("description", resource.getDescription())
-                    .set("size", resource.getSize())
-                    .set("update_time", resource.getUpdateTime());
-            resourceMapper.update(null, updateWrapper);
-        } else {
-            resourceMapper.insert(resource);
-        }
-        File uploadResource = new File(fileName + type);
+        Resource resource = new Resource(fullName, uuid, suffix, size, new Date(), new Date());
+        resourceMapper.insert(resource);
+        putMsg(map, Status.SUCCESS.getCode(), "上传成功");
+        map.put("data", uuid);
+        File uploadResource = new File(fileName + suffix);
         //将临时文件转存到指定磁盘位置
         try {
             file.transferTo(uploadResource);
@@ -91,14 +79,39 @@ public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServ
     }
 
     @Override
-    public int deleteResource(String name) {
-        return 0;
+    public Map<String, Object> deleteResource(String uuid) {
+
+        Map<String, Object> map = new HashMap<>();
+        if (!resourceExist(uuid)) {
+            putMsg(map, 400, "删除文件不存在！");
+            return map;
+        }
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("alias", uuid);
+        Resource resource = resourceMapper.selectOne(queryWrapper);
+        //local
+        File deleteResource = new File(fileUploadPath+uuid + "." + resource.getSuffix());
+        boolean local_delete = deleteResource.delete();
+        int delete = 0;
+        if (local_delete) {
+            //database
+            delete = resourceMapper.delete(queryWrapper);
+        }
+        if (local_delete && delete > 0) {
+            putMsg(map, Status.SUCCESS.getCode(), "删除成功！");
+        } else {
+            putMsg(map, 400, "刪除失败！");
+        }
+        return map;
     }
 
-    @Override
-    public ResponseEntity downloadResource(int resourceId) {
 
-        Resource resource = resourceMapper.selectById(resourceId);
+    @Override
+    public ResponseEntity downloadResource(String uuid) {
+
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("alias", uuid);
+        Resource resource = resourceMapper.selectOne(queryWrapper);
         if (resource == null) {
             return ResponseEntity.badRequest().body("未找到资源！");
         }
@@ -133,13 +146,12 @@ public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServ
 
     @Override
     public boolean checkFileSize(long size) {
-
         return size < maxFileSize ? true : false;
     }
 
 
     @Override
-    public boolean resourceExist(User user, String fullName) {
-        return resourceMapper.resourceExist(user.getType(), user.getId(), fullName) != null;
+    public boolean resourceExist(String uuid) {
+        return resourceMapper.resourceExist(uuid) != null;
     }
 }

@@ -10,11 +10,7 @@ public interface ResourceMapper extends BaseMapper<Resource> {
 
     @Select("select *  from  resources " +
             "where" +
-            " upload_user_type=#{uploadUserType} " +
-            "and  user_id =#{userId} " +
-            "and  full_name =#{fullName}  " +
+            " alias =#{uuid}  " +
             "limit 1 ")
-    Resource resourceExist(@Param("uploadUserType") int upload_user_type, @Param("userId") int userId, @Param("fullName") String fullName);
-
-
+    Resource resourceExist(@Param("uuid") String uuid);
 }

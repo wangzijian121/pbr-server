@@ -4,8 +4,8 @@ server:
 spring:
   servlet:
     multipart:
-      maxFileSize: 100MB
-      maxRequestSize: 100MB
+      maxFileSize: 10000MB
+      maxRequestSize: 10000MB
   #  Mysql
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver

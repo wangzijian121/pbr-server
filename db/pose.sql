@@ -156,14 +156,14 @@ CREATE TABLE `developer_review` (
                                     `mark` varchar(255) DEFAULT NULL COMMENT '备注',
                                     `create_time` datetime DEFAULT NULL COMMENT '创建时间',
                                     PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='开发者审核表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='开发者审核表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `developer_review`
 --
 
-INSERT INTO `developer_review` VALUES (1,'王子健提交的算法',6,0,'4b4901b8-7af4-444a-b044-3067902cfaf2','1234',2,'算法运行失败','2023-07-31 20:43:54');
+INSERT INTO `developer_review` VALUES (1,'王子健提交的算法',6,0,'4b4901b8-7af4-444a-b044-3067902cfaf2','1234',2,'算法运行失败','2023-07-31 20:43:54'),(2,'王子健提交的算法2',6,2,'661c9006-37e0-41d9-8ced-f25f77802ebb','1234',2,'备注','2023-08-03 22:09:54');
 
 --
 -- Table structure for table `institution`
@@ -200,23 +200,21 @@ DROP TABLE IF EXISTS `resources`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `resources` (
                              `id` int NOT NULL AUTO_INCREMENT,
-                             `type` int DEFAULT NULL COMMENT '上传类型（0：普通算法 1：专用算法 2普通数据集 3：专用数据集）',
-                             `user_id` int DEFAULT NULL,
                              `full_name` varchar(255) DEFAULT NULL,
                              `alias` varchar(255) DEFAULT NULL,
-                             `description` varchar(255) DEFAULT NULL,
+                             `suffix` varchar(255) DEFAULT NULL COMMENT '后缀',
                              `size` bigint DEFAULT NULL,
                              `create_time` datetime DEFAULT NULL,
                              `update_time` datetime DEFAULT NULL,
                              PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='资源表元数据表';
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='资源表元数据表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `resources`
 --
 
-INSERT INTO `resources` VALUES (3,0,6,'v2rayN-Core.zip','4b4901b8-7af4-444a-b044-3067902cfaf2','这是王子健上传的文件！',69606626,'2023-08-01 13:43:28','2023-08-01 13:55:17');
+INSERT INTO `resources` VALUES (19,'特征识别平台.zip','a3bb355f-ade5-4fec-8855-021cb7c5f7e0','zip',4975585,'2023-08-04 00:24:21','2023-08-04 00:24:21');
 
 --
 -- Table structure for table `sport_category`
@@ -343,4 +341,4 @@ INSERT INTO `wechat` VALUES (1,'1289371982739123','润迪体育助手',1,0,'润�
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-01 23:03:42
+-- Dump completed on 2023-08-04  0:25:42
