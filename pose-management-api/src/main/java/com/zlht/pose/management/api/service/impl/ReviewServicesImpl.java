@@ -55,11 +55,6 @@ public class ReviewServicesImpl extends BaseServiceImpl<Review> implements Revie
         return map;
     }
 
-    @Override
-    public ResponseEntity downloadResource(int developer_id, String alias) {
-        //todo
-        return null;
-    }
 
     @Override
     public boolean checkReviewExistById(int id) {

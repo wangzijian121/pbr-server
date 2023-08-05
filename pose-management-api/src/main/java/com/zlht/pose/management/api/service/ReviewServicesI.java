@@ -26,14 +26,6 @@ public interface ReviewServicesI {
      */
     Map<String, Object> updateReviewStatus(int id, int status, String mark);
 
-    /**
-     * 下载审核资源
-     *
-     * @param developer_id
-     * @param alias
-     * @return
-     */
-    ResponseEntity downloadResource(int  developer_id, String alias);
 
     /**
      * 通过审核信息ID判断是否存在
