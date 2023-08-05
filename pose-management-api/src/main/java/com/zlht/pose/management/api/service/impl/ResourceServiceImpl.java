@@ -16,10 +16,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -90,7 +89,7 @@ public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServ
         queryWrapper.eq("alias", uuid);
         Resource resource = resourceMapper.selectOne(queryWrapper);
         //local
-        File deleteResource = new File(fileUploadPath+uuid + "." + resource.getSuffix());
+        File deleteResource = new File(fileUploadPath + uuid + "." + resource.getSuffix());
         boolean local_delete = deleteResource.delete();
         int delete = 0;
         if (local_delete) {
@@ -125,7 +124,11 @@ public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServ
         }
         // 设置HTTP头
         HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFullName().toLowerCase() + "\"");
+        try {
+            headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename*=UTF-8''" + URLEncoder.encode(resource.getFullName(), "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
         headers.add(HttpHeaders.CONTENT_TYPE, "application/octet-stream");
         headers.add(HttpHeaders.CONTENT_LENGTH, String.valueOf(file.length()));
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
