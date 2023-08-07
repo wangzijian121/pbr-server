@@ -43,11 +43,12 @@ public class InstitutionServicesImpl extends BaseServiceImpl<Institution> implem
         result.setData(institutionPage.getRecords());
         return result;
     }
+
     @Override
     public Result queryInstitutionMap() {
 
         Result result = new Result();
-        List<Map<String,Object>> list = institutionMapper.queryInstitutionMap();
+        List<Map<String, Object>> list = institutionMapper.queryInstitutionMap();
         result.setCode(Status.SUCCESS.getCode());
         result.setMsg(Status.SUCCESS.getMsg());
         result.setData(list);
@@ -57,8 +58,10 @@ public class InstitutionServicesImpl extends BaseServiceImpl<Institution> implem
     @Override
     public Map<String, Object> createInstitution(Institution institution) {
         Map<String, Object> map = new HashMap<>();
+        QueryWrapper queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("name", institution.getName());
         //exist?
-        if (checkInstitutionExistByName(institution)) {
+        if (institutionMapper.exists(queryWrapper)) {
             putMsg(map, 400, "机构名已存在!");
             return map;
         }
@@ -95,8 +98,11 @@ public class InstitutionServicesImpl extends BaseServiceImpl<Institution> implem
             putMsg(map, 400, "所更新的机构ID不存在!");
             return map;
         }
+        QueryWrapper checkWrapper = new QueryWrapper<>();
+        checkWrapper.eq("name", institution.getName());
+        checkWrapper.ne("id", id);
         //exist?
-        if (checkInstitutionExistByName(institution)) {
+        if (institutionMapper.exists(checkWrapper)) {
             putMsg(map, 400, "机构名已存在!");
             return map;
         }
@@ -135,15 +141,6 @@ public class InstitutionServicesImpl extends BaseServiceImpl<Institution> implem
         }
         return map;
     }
-
-
-    @Override
-    public boolean checkInstitutionExistByName(Institution institution) {
-        QueryWrapper queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("name", institution.getName());
-        return institutionMapper.exists(queryWrapper);
-    }
-
 
     @Override
     public boolean checkInstitutionExistById(int id) {

@@ -58,9 +58,11 @@ public class SportServicesImpl extends BaseServiceImpl<Sport> implements SportSe
             putMsg(map, 400, "体育名或昵称不符合规范！");
             return map;
         }
-
+        QueryWrapper checkWrapper = new QueryWrapper<>();
+        checkWrapper.eq("name", sport.getName());
+        checkWrapper.eq("type", sport.getType());
         //exist?
-        if (checkSportExistByNameAndType(sport)) {
+        if (sportMapper.exists(checkWrapper)) {
             putMsg(map, 400, "该体育类型下已存在该体育！");
             return map;
         }
@@ -87,9 +89,12 @@ public class SportServicesImpl extends BaseServiceImpl<Sport> implements SportSe
             putMsg(map, 400, "体育名不符合规范！");
             return map;
         }
-
+        QueryWrapper checkWrapper = new QueryWrapper<>();
+        checkWrapper.eq("name", sport.getName());
+        checkWrapper.eq("type", sport.getType());
+        checkWrapper.ne("id", id);
         //exist?
-        if (checkSportExistByNameAndType(sport)) {
+        if (sportMapper.exists(checkWrapper)) {
             putMsg(map, 400, "该体育类型下已存在该体育！");
             return map;
         }
@@ -121,15 +126,6 @@ public class SportServicesImpl extends BaseServiceImpl<Sport> implements SportSe
             putMsg(map, 400, "删除体育失败！");
         }
         return map;
-    }
-
-
-    @Override
-    public boolean checkSportExistByNameAndType(Sport sport) {
-        QueryWrapper queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("name", sport.getName());
-        queryWrapper.eq("type", sport.getType());
-        return sportMapper.exists(queryWrapper);
     }
 
     @Override

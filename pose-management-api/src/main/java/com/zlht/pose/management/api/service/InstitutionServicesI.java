@@ -52,15 +52,6 @@ public interface InstitutionServicesI {
 
 
     /**
-     * 通过机构名判断是否存在
-     *
-     * @param Institution
-     * @return
-     */
-    boolean checkInstitutionExistByName(Institution Institution);
-
-
-    /**
      * 通过机构ID判断是否存在
      *
      * @param id

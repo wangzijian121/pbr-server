@@ -50,22 +50,13 @@ public interface SportServicesI {
      */
     Map<String, Object> deleteSport(int id);
 
-
-    /**
-     * 判断是否已存在
-     *
-     * @param authInstitution
-     * @return
-     */
-    boolean checkSportExistByNameAndType(Sport authInstitution);
-
     /**
      * 通过ID判断是否存在（删除更新判断）
      *
      * @param id
      * @return
      */
-    boolean checkSportExistById(int id );
+    boolean checkSportExistById(int id);
 
 
 }

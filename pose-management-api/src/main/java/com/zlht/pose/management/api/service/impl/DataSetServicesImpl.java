@@ -45,9 +45,12 @@ public class DataSetServicesImpl extends BaseServiceImpl<DataSet> implements Dat
             putMsg(map, 400, "数据集名或昵称不符合规范！");
             return map;
         }
+        QueryWrapper checkWrapper = new QueryWrapper<>();
+        checkWrapper.eq("name", dataSet.getName());
+        checkWrapper.eq("type", dataSet.getType());
 
         //exist?
-        if (checkDataSetExistByNameAndType(dataSet)) {
+        if (dataSetMapper.exists(checkWrapper)) {
             putMsg(map, 400, "该数据集类型下已存在该数据集！");
             return map;
         }
@@ -74,9 +77,13 @@ public class DataSetServicesImpl extends BaseServiceImpl<DataSet> implements Dat
             putMsg(map, 400, "数据集名不符合规范！");
             return map;
         }
+        QueryWrapper checkWrapper = new QueryWrapper<>();
+        checkWrapper.eq("name", dataSet.getName());
+        checkWrapper.eq("type", dataSet.getType());
+        checkWrapper.ne("id", id);
 
         //exist?
-        if (checkDataSetExistByNameAndType(dataSet)) {
+        if (dataSetMapper.exists(checkWrapper)) {
             putMsg(map, 400, "该数据集类型下已存在该数据集！");
             return map;
         }
@@ -110,14 +117,6 @@ public class DataSetServicesImpl extends BaseServiceImpl<DataSet> implements Dat
         return map;
     }
 
-
-    @Override
-    public boolean checkDataSetExistByNameAndType(DataSet dataSet) {
-        QueryWrapper queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("name", dataSet.getName());
-        queryWrapper.eq("type", dataSet.getType());
-        return dataSetMapper.exists(queryWrapper);
-    }
 
     @Override
     public boolean checkDataSetExistById(int id) {

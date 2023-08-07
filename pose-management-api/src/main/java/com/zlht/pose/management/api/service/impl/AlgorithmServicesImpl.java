@@ -46,9 +46,11 @@ public class AlgorithmServicesImpl extends BaseServiceImpl<Algorithm> implements
             putMsg(map, 400, "算法名或昵称不符合规范！");
             return map;
         }
-
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("name", algorithm.getName());
+        queryWrapper.eq("type", algorithm.getType());
         //exist?
-        if (checkAlgorithmExistByNameAndType(algorithm)) {
+        if (algorithmMapper.exists(queryWrapper)) {
             putMsg(map, 400, "该算法类型下已存在该算法！");
             return map;
         }
@@ -75,16 +77,19 @@ public class AlgorithmServicesImpl extends BaseServiceImpl<Algorithm> implements
             putMsg(map, 400, "算法名不符合规范！");
             return map;
         }
-
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("name", algorithm.getName());
+        queryWrapper.eq("type", algorithm.getType());
+        queryWrapper.ne("id", id);
         //exist?
-        if (checkAlgorithmExistByNameAndType(algorithm)) {
+        if (algorithmMapper.exists(queryWrapper)) {
             putMsg(map, 400, "该算法类型下已存在该算法！");
             return map;
         }
 
-        QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.eq("id", id);
-        int update = algorithmMapper.update(algorithm, queryWrapper);
+        QueryWrapper updateWrapper = new QueryWrapper();
+        updateWrapper.eq("id", id);
+        int update = algorithmMapper.update(algorithm, updateWrapper);
         if (update >= 1) {
             putMsg(map, Status.SUCCESS.getCode(), "更新算法成功！");
         } else {
@@ -111,14 +116,6 @@ public class AlgorithmServicesImpl extends BaseServiceImpl<Algorithm> implements
         return map;
     }
 
-
-    @Override
-    public boolean checkAlgorithmExistByNameAndType(Algorithm algorithm) {
-        QueryWrapper queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("name", algorithm.getName());
-        queryWrapper.eq("type", algorithm.getType());
-        return algorithmMapper.exists(queryWrapper);
-    }
 
     @Override
     public boolean checkAlgorithmExistById(int id) {

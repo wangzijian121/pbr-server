@@ -41,8 +41,10 @@ public class CommissionServicesImpl extends BaseServiceImpl<Commission> implemen
     @Override
     public Map<String, Object> createCommission(Commission commission) {
         Map<String, Object> map = new HashMap<>();
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("review_id", commission.getReviewId());
         //exist?
-        if (checkSportExistByReviewId(commission)) {
+        if (commissionMapper.exists(queryWrapper)) {
             putMsg(map, 400, "该佣金项类型下已存在该佣金项！");
             return map;
         }
@@ -64,10 +66,11 @@ public class CommissionServicesImpl extends BaseServiceImpl<Commission> implemen
             putMsg(map, 400, "更新的佣金项ID不存在！");
             return map;
         }
-
-
+        QueryWrapper checkWrapper = new QueryWrapper();
+        checkWrapper.eq("review_id", commission.getReviewId());
+        checkWrapper.ne("id", id);
         //exist?
-        if (checkSportExistByReviewId(commission)) {
+        if (commissionMapper.exists(checkWrapper)) {
             putMsg(map, 400, "该佣金项类型下已存在该佣金项！");
             return map;
         }
@@ -99,14 +102,6 @@ public class CommissionServicesImpl extends BaseServiceImpl<Commission> implemen
             putMsg(map, 400, "删除佣金项失败！");
         }
         return map;
-    }
-
-
-    @Override
-    public boolean checkSportExistByReviewId(Commission commission) {
-        QueryWrapper queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("review_id", commission.getReviewId());
-        return commissionMapper.exists(queryWrapper);
     }
 
     @Override

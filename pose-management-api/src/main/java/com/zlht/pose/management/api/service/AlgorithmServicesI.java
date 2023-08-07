@@ -44,15 +44,6 @@ public interface AlgorithmServicesI {
      */
     Map<String, Object> deleteAlgorithm(int id);
 
-
-    /**
-     * 判断是否已存在
-     *
-     * @param authInstitution
-     * @return
-     */
-    boolean checkAlgorithmExistByNameAndType(Algorithm authInstitution);
-
     /**
      * 通过ID判断是否存在（删除更新判断）
      *

@@ -35,7 +35,9 @@ public class TemplateServicesImpl extends BaseServiceImpl implements TemplateSer
     public Map<String, Object> createTemplate(Template template) {
 
         Map<String, Object> map = new HashMap<>();
-        if (checkSportExistByName(template)) {
+        QueryWrapper checkWrapper = new QueryWrapper<>();
+        checkWrapper.eq("name", template.getName());
+        if (templateMapper.exists(checkWrapper)) {
             putMsg(map, 400, "模板信息已存在！");
             return map;
         }
@@ -56,6 +58,13 @@ public class TemplateServicesImpl extends BaseServiceImpl implements TemplateSer
         Map<String, Object> map = new HashMap<>();
         if (!checkTemplateExistById(id)) {
             putMsg(map, 400, "所更新的模板信息ID不存在!");
+            return map;
+        }
+        QueryWrapper checkWrapper = new QueryWrapper<>();
+        checkWrapper.eq("name", template.getName());
+        checkWrapper.ne("id", id);
+        if(templateMapper.exists(checkWrapper)){
+            putMsg(map, 400, "模板信息已存在!");
             return map;
         }
         QueryWrapper queryWrapper = new QueryWrapper();
@@ -88,13 +97,6 @@ public class TemplateServicesImpl extends BaseServiceImpl implements TemplateSer
         return map;
     }
 
-    @Override
-    public boolean checkSportExistByName(Template template) {
-
-        QueryWrapper queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("name", template.getName());
-        return templateMapper.exists(queryWrapper);
-    }
 
 
     @Override

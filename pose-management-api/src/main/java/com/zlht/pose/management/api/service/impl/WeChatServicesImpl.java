@@ -33,7 +33,9 @@ public class WeChatServicesImpl extends BaseServiceImpl implements WeChatService
     public Map<String, Object> createWeChat(WeChat weChat) {
 
         Map<String, Object> map = new HashMap<>();
-        if (checkSportExistByName(weChat)) {
+        QueryWrapper checkWrapper = new QueryWrapper<>();
+        checkWrapper.eq("name", weChat.getName());
+        if (weChatMapper.exists(checkWrapper)) {
             putMsg(map, 400, "小程序信息已存在！");
             return map;
         }
@@ -54,6 +56,13 @@ public class WeChatServicesImpl extends BaseServiceImpl implements WeChatService
         Map<String, Object> map = new HashMap<>();
         if (!checkWeChatExistById(id)) {
             putMsg(map, 400, "所更新的小程序信息ID不存在!");
+            return map;
+        }
+        QueryWrapper checkWrapper = new QueryWrapper<>();
+        checkWrapper.eq("name", weChat.getName());
+        checkWrapper.ne("id", id);
+        if (weChatMapper.exists(checkWrapper)) {
+            putMsg(map, 400, "所更换小程序信息已存在!");
             return map;
         }
         QueryWrapper queryWrapper = new QueryWrapper();

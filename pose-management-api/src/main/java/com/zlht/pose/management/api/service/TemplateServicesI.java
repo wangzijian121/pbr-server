@@ -45,14 +45,6 @@ public interface TemplateServicesI {
     Map<String, Object> deleteTemplate(int id);
 
     /**
-     * 判断是否已存在
-     *
-     * @param template
-     * @return
-     */
-    boolean checkSportExistByName(Template template);
-
-    /**
      * 通过模板信息ID判断是否存在
      *
      * @param id

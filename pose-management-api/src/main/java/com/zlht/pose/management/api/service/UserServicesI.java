@@ -60,12 +60,20 @@ public interface UserServicesI {
      * @param user
      * @return
      */
-    boolean checkUserExistByName(User user);
+    boolean checkUserExistByIdName(int id ,User user);
+
+    /**
+     * 检查用户是否已存在
+     *
+     * @param user
+     * @return
+     */
+    boolean checkUserExistByUserName(User user);
 
     /**
      * 通过ID判断是否存在（删除更新判断）
      *
-     * @param user
+     * @param id
      * @return
      */
     boolean checkUserExistById(int id);

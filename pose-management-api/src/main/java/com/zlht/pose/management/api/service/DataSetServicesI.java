@@ -44,15 +44,6 @@ public interface DataSetServicesI {
      */
     Map<String, Object> deleteDataSet(int id);
 
-
-    /**
-     * 判断是否已存在
-     *
-     * @param authInstitution
-     * @return
-     */
-    boolean checkDataSetExistByNameAndType(DataSet authInstitution);
-
     /**
      * 通过ID判断是否存在（删除更新判断）
      *

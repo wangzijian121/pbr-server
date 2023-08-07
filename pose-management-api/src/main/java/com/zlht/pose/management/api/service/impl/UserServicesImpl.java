@@ -48,7 +48,7 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
     public Map<String, Object> createUser(User user) {
 
         Map<String, Object> map = new HashMap<>();
-        if (checkUserExistByName(user)) {
+        if (checkUserExistByUserName(user)) {
             putMsg(map, 400, "用户已存在！");
             return map;
         }
@@ -77,7 +77,7 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
             return map;
         }
 
-        if (checkUserExistByName(user)) {
+        if (checkUserExistByIdName(id, user)) {
             putMsg(map, 400, "用户已存在！");
             return map;
         }
@@ -151,7 +151,21 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
      * @return
      */
     @Override
-    public boolean checkUserExistByName(User user) {
+    public boolean checkUserExistByIdName(int id, User user) {
+        QueryWrapper queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("username", user.getUsername());
+        queryWrapper.ne("id", id);
+        return userMapper.exists(queryWrapper);
+    }
+
+    /**
+     * 检查用户是否重复
+     *
+     * @param user
+     * @return
+     */
+    @Override
+    public boolean checkUserExistByUserName(User user) {
         QueryWrapper queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", user.getUsername());
         return userMapper.exists(queryWrapper);
@@ -186,10 +200,8 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
         if (user == null) {
             return false;
         }
-
         String username = user.getUsername();
         String nickname = user.getNickname();
-
         // 校验 username 和 nickname 不为空，并且没有空格
         if (StringUtils.isBlank(username) || StringUtils.isBlank(nickname)
                 || StringUtils.containsWhitespace(username) || StringUtils.containsWhitespace(nickname)) {
