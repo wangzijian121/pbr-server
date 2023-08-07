@@ -17,4 +17,4 @@ JAVA_OPTS=${JAVA_OPTS:-"-server -Duser.timezone=${SPRING_JACKSON_TIME_ZONE}
 
 $JAVA_HOME/bin/java $JAVA_OPTS \
   -cp "$PROJECT_HOME/conf":"$PROJECT_HOME/libs/*" \
-  com.example.Main
+com.zlht.pose.management.api.PoseManagementApi
