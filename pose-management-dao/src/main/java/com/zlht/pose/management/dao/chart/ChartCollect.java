@@ -1,11 +1,13 @@
 package com.zlht.pose.management.dao.chart;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.List;
 import java.util.Map;
 
+@Builder
 @Data
 public class ChartCollect {
 
@@ -17,4 +19,6 @@ public class ChartCollect {
 
     @JsonProperty("lineChartData")
     private Map<String, LineTypeChart> lineChartDataMap;
+
+
 }
