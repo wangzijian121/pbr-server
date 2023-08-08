@@ -2,10 +2,13 @@ package com.zlht.pose.management.dao.mapper;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.zlht.pose.management.dao.chart.PieTypeChart;
 import com.zlht.pose.management.dao.chart.ValueTypeChart;
 import com.zlht.pose.management.dao.entity.Charge;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 public interface ChartMapper extends BaseMapper<Charge> {
 
@@ -39,5 +42,14 @@ public interface ChartMapper extends BaseMapper<Charge> {
             "from institution\n" +
             "WHERE DATE(create_time) = #{date};")
     ValueTypeChart getInstitutionCount(@Param("date") String date);
+
+
+    @Select("select a.name as name, count(auth_alg_id) as value\n" +
+            "from auth_institution_alg aia\n" +
+            "         left join institution i on i.id = aia.institution_id\n" +
+            "         left join algorithm a on a.id = aia.auth_alg_id\n" +
+            "         left join sport_category sc on a.sport_category = sc.id\n" +
+            "group by auth_alg_id;")
+    List<PieTypeChart> getInstitutionAlgorithmRanking();
 
 }
