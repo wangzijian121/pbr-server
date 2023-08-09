@@ -20,6 +20,7 @@ package com.zlht.pose.management.api.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
+import com.zlht.pose.management.api.controller.BaseController;
 import com.zlht.pose.management.api.service.SessionServiceI;
 import com.zlht.pose.management.dao.entity.Session;
 import com.zlht.pose.management.dao.entity.User;
@@ -85,34 +86,24 @@ public class SessionServiceImpl extends BaseServiceImpl implements SessionServic
     public String createSession(User user, String ip) {
         Session session = null;
 
-        // logined
+        // login
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("user_id", user.getId());
-        List<Session> sessionList = sessionMapper.selectList(queryWrapper);
-        Date now = new Date();
-
-        /**
-         *  清理已经存在的session
-         */
-        if (CollectionUtils.isNotEmpty(sessionList)) {
-
-            if (sessionList.size() > 1) {
-                for (int i = 1; i < sessionList.size(); i++) {
-                    sessionMapper.deleteById(sessionList.get(i).getId());
-                }
-            }
+        queryWrapper.eq("ip", ip);
+        int delete = sessionMapper.delete(queryWrapper);
+        if (delete >= 0) {
+            Date now = new Date();
+            // assign new session
+            session = new Session();
+            session.setId(UUID.randomUUID().toString());
+            session.setIp(ip);
+            session.setUserId(user.getId());
+            session.setLastLoginTime(now);
+            sessionMapper.insert(session);
+            return session.getId();
+        }else{
+            return  null;
         }
-        // assign new session
-        session = new Session();
-
-        session.setId(UUID.randomUUID().toString());
-        session.setIp(ip);
-        session.setUserId(user.getId());
-        session.setLastLoginTime(now);
-
-        sessionMapper.insert(session);
-
-        return session.getId();
     }
 
     /**
@@ -127,10 +118,7 @@ public class SessionServiceImpl extends BaseServiceImpl implements SessionServic
     public void signOut(String ip, User loginUser) {
         try {
             */
-/**
- * query session by user id and ip
- *//*
-
+/*
             Session session = sessionMapper.queryByUserIdAndIp(loginUser.getId(), ip);
 
             //delete session

@@ -138,8 +138,13 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
             String encipherPassword = user.getPassword();
             boolean check = Argon2PasswordEncoder.matches(encipherPassword, password);
             if (check) {
+                String session_id = sessionServiceI.createSession(user, ip);
+                if (session_id == null) {
+                    putMsg(map, 400, "session创建错误,登录失败!");
+                    return map;
+                }
                 putMsg(map, Status.SUCCESS.getCode(), "登录成功！");
-                sessionServiceI.createSession(user, ip);
+                map.put("data", session_id);
             } else {
                 putMsg(map, 400, "用户名或密码错误！");
                 return map;

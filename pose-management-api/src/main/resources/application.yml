@@ -29,3 +29,6 @@ files:
     #.....
     hadoop:
     #.....
+#session timeout minutes
+session:
+  timeout: 43200000
