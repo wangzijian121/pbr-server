@@ -32,9 +32,14 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
 
 
     @Override
-    public Result<User> queryUserList(int type, int pageNum, int pageSize, String keyword) {
+    public Result queryUserList(User loginUser, int type, int pageNum, int pageSize, String keyword) {
 
         Result result = new Result();
+        if (!canOperator(loginUser)) {
+            result.setMsg(Status.USER_NO_OPERATION_PERM.getMsg());
+            result.setCode(Status.USER_NO_OPERATION_PERM.getCode());
+            return  result;
+        }
         Page<User> page = new Page<>(pageNum, pageSize);
 
         QueryWrapper<User> wapper = new QueryWrapper<User>();
@@ -116,44 +121,6 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
         return map;
     }
 
-    /**
-     * 用户认证
-     *
-     * @param username
-     * @param password
-     * @return
-     */
-    public Map<String, Object> authenticate(String username, String password, String ip) {
-        Map<String, Object> map = new HashMap<>();
-        if (username == null) {
-            putMsg(map, 400, "请输入用户名！");
-            return map;
-        }
-        if (password == null) {
-            putMsg(map, 400, "请输入密码！");
-            return map;
-        }
-        User user = userMapper.queryUserByUserName(username);
-        if (user != null) {
-            String encipherPassword = user.getPassword();
-            boolean check = Argon2PasswordEncoder.matches(encipherPassword, password);
-            if (check) {
-                String session_id = sessionServiceI.createSession(user, ip);
-                if (session_id == null) {
-                    putMsg(map, 400, "session创建错误,登录失败!");
-                    return map;
-                }
-                putMsg(map, Status.SUCCESS.getCode(), "登录成功！");
-                map.put("data", session_id);
-            } else {
-                putMsg(map, 400, "用户名或密码错误！");
-                return map;
-            }
-        } else {
-            putMsg(map, 400, "用户名或密码错误！");
-        }
-        return map;
-    }
 
     /**
      * 检查用户是否重复

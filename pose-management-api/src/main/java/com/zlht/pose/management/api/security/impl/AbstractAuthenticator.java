@@ -27,11 +27,13 @@ import com.zlht.pose.management.tools.service.Argon2PasswordEncoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class AbstractAuthenticator extends BaseServiceImpl<User> implements Authenticator {
+@Service
+public class AbstractAuthenticator extends BaseServiceImpl<User> implements Authenticator {
     private static final Logger logger = LoggerFactory.getLogger(AbstractAuthenticator.class);
 
     @Autowired
@@ -42,7 +44,7 @@ public abstract class AbstractAuthenticator extends BaseServiceImpl<User> implem
 
 
     @Override
-    public  Map<String, Object> authenticate(String username, String password, String ip) {
+    public Map<String, Object> authenticate(String username, String password, String ip) {
         Map<String, Object> map = new HashMap<>();
         if (username == null) {
             putMsg(map, 400, "请输入用户名！");
@@ -73,5 +75,4 @@ public abstract class AbstractAuthenticator extends BaseServiceImpl<User> implem
         }
         return map;
     }
-
 }

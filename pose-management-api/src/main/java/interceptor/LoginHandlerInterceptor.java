@@ -52,6 +52,8 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
         if (session == null) {
             response.setStatus(401);
             logger.info("未找到session,请登录后重试！" + sessionId + ",ip:" + ip);
+            //todo   response 不返回
+            request.setAttribute("session.user", null);
             return false;
         } else {
             Date expireTime = new Date();
@@ -61,6 +63,7 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
             if (user == null) {
                 response.setStatus(401);
                 logger.info("用户session已过期!");
+                request.setAttribute("session.user", null);
                 return false;
             }
         }

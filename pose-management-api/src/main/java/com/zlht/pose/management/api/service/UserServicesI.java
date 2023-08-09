@@ -15,7 +15,7 @@ public interface UserServicesI {
      * @param pageSize
      * @return
      */
-    Result<User> queryUserList(int type, int pageNum, int pageSize, String nickname);
+    Result queryUserList(User loginUser, int type, int pageNum, int pageSize, String nickname);
 
     /**
      * 创建用户
@@ -44,14 +44,6 @@ public interface UserServicesI {
     Map<String, Object> deleteUser(int id);
 
 
-    /**
-     * 认证用户
-     *
-     * @param username
-     * @param password
-     * @return
-     */
-    Map<String, Object> authenticate(String username, String password, String ip);
 
     /**
      * 检查用户是否已存在

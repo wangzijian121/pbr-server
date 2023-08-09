@@ -1,7 +1,9 @@
 package com.zlht.pose.management.api.controller;
 
 
+import com.zlht.pose.management.api.enums.Constants;
 import com.zlht.pose.management.api.enums.Status;
+import com.zlht.pose.management.api.security.impl.AbstractAuthenticator;
 import com.zlht.pose.management.api.service.UserServicesI;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.User;
@@ -15,6 +17,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,6 +31,9 @@ public class UserController extends BaseController {
     @Autowired
     UserServicesI userServices;
 
+
+    @Autowired
+    AbstractAuthenticator authenticator;
 
     /**
      * 查询用户信息
@@ -43,7 +49,8 @@ public class UserController extends BaseController {
     })
     @GetMapping(value = "/getUser")
     @ResponseStatus(HttpStatus.OK)
-    public Result<User> queryUserList(@RequestParam(required = false, defaultValue = "-1") int type,
+    public Result queryUserList(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                                      @RequestParam(required = false, defaultValue = "-1") int type,
                                       @RequestParam(required = false, defaultValue = "1") int pageNum,
                                       @RequestParam(required = false, defaultValue = "10") int pageSize,
                                       @RequestParam(required = false) String nickname) {
@@ -52,7 +59,7 @@ public class UserController extends BaseController {
         if (!result.checkResult()) {
             return result;
         }
-        return userServices.queryUserList(type, pageNum, pageSize, nickname);
+        return userServices.queryUserList(loginUser, type, pageNum, pageSize, nickname);
     }
 
     /**
@@ -121,10 +128,9 @@ public class UserController extends BaseController {
         if (StringUtils.isEmpty(ip)) {
             return error(10125, "获取不到IP！");
         }
-
         Map<String, Object> map = null;
         try {
-            map = userServices.authenticate(username, password, ip);
+            map = authenticator.authenticate(username, password, ip);
         } catch (Exception e) {
             logger.error(Status.AUTHORIZED_USER_ERROR.getMsg(), e);
         }
