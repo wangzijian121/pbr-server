@@ -3,9 +3,10 @@ package com.zlht.pose.management.api.controller;
 import com.zlht.pose.management.api.enums.Constants;
 import com.zlht.pose.management.api.enums.Status;
 import com.zlht.pose.management.api.utils.Result;
+import org.apache.commons.lang3.StringUtils;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.MessageFormat;
-import java.util.List;
 import java.util.Map;
 
 public class BaseController {
@@ -59,5 +60,25 @@ public class BaseController {
         result.setMsg(msg);
         result.setData(null);
         return result;
+    }
+
+    public static String getClientIpAddress(HttpServletRequest request) {
+        String clientIp = request.getHeader("X-Forwarded-For");
+
+        if (StringUtils.isNotEmpty(clientIp) && !clientIp.equalsIgnoreCase("unKnown")) {
+            int index = clientIp.indexOf(",");
+            if (index != -1) {
+                return clientIp.substring(0, index);
+            } else {
+                return clientIp;
+            }
+        }
+
+        clientIp = request.getHeader("X-Real-IP");
+        if (StringUtils.isNotEmpty(clientIp) && !clientIp.equalsIgnoreCase("unKnown")) {
+            return clientIp;
+        }
+
+        return request.getRemoteAddr();
     }
 }

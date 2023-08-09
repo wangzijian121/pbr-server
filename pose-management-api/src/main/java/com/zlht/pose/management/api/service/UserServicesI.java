@@ -1,7 +1,6 @@
 package com.zlht.pose.management.api.service;
 
 import com.zlht.pose.management.api.utils.Result;
-import com.zlht.pose.management.dao.entity.Sport;
 import com.zlht.pose.management.dao.entity.User;
 
 import java.util.Map;
@@ -52,7 +51,7 @@ public interface UserServicesI {
      * @param password
      * @return
      */
-    Map<String, Object> authorizedUser(String username, String password);
+    Map<String, Object> authenticate(String username, String password, String ip);
 
     /**
      * 检查用户是否已存在

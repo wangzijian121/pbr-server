@@ -4,6 +4,7 @@ package com.zlht.pose.management.api.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlht.pose.management.api.enums.Status;
+import com.zlht.pose.management.api.service.SessionServiceI;
 import com.zlht.pose.management.api.service.UserServicesI;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.User;
@@ -25,6 +26,10 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
 
     @Autowired
     UserMapper userMapper;
+
+    @Autowired
+    SessionServiceI sessionServiceI;
+
 
     @Override
     public Result<User> queryUserList(int type, int pageNum, int pageSize, String keyword) {
@@ -118,7 +123,7 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
      * @param password
      * @return
      */
-    public Map<String, Object> authorizedUser(String username, String password) {
+    public Map<String, Object> authenticate(String username, String password, String ip) {
         Map<String, Object> map = new HashMap<>();
         if (username == null) {
             putMsg(map, 400, "请输入用户名！");
@@ -134,6 +139,7 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
             boolean check = Argon2PasswordEncoder.matches(encipherPassword, password);
             if (check) {
                 putMsg(map, Status.SUCCESS.getCode(), "登录成功！");
+                sessionServiceI.createSession(user, ip);
             } else {
                 putMsg(map, 400, "用户名或密码错误！");
                 return map;

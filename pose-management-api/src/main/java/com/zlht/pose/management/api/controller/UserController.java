@@ -3,17 +3,21 @@ package com.zlht.pose.management.api.controller;
 
 import com.zlht.pose.management.api.enums.Status;
 import com.zlht.pose.management.api.service.UserServicesI;
-
 import com.zlht.pose.management.api.utils.Result;
-
 import com.zlht.pose.management.dao.entity.User;
-import io.swagger.annotations.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 @RestController
@@ -109,10 +113,18 @@ public class UserController extends BaseController {
     @PostMapping(value = "/login")
     @ResponseStatus(HttpStatus.OK)
     public Result login(@RequestParam String username,
-                        @RequestParam String password) {
+                        @RequestParam String password,
+                        HttpServletRequest request,
+                        HttpServletResponse response) {
+        // user ip check
+        String ip = getClientIpAddress(request);
+        if (StringUtils.isEmpty(ip)) {
+            return error(10125, "获取不到IP！");
+        }
+
         Map<String, Object> map = null;
         try {
-            map = userServices.authorizedUser(username, password);
+            map = userServices.authenticate(username, password, ip);
         } catch (Exception e) {
             logger.error(Status.AUTHORIZED_USER_ERROR.getMsg(), e);
         }
