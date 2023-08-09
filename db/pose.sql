@@ -128,24 +128,44 @@ DROP TABLE IF EXISTS `data_set`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `data_set` (
-                            `id` int NOT NULL AUTO_INCREMENT,
-                            `name` varchar(255) DEFAULT NULL COMMENT '数据集名',
-                            `type` int DEFAULT NULL COMMENT '数据集类型（0:普通数据集 ,1:专用数据集）',
-                            `sport_category` int DEFAULT NULL COMMENT '支持的体育类型',
-                            `file` varchar(255) DEFAULT NULL COMMENT '文件',
-                            `demo` text COMMENT '数据集样例',
-                            `install_type` int DEFAULT NULL COMMENT '部署方式（0：云端部署 1：本地部署）',
-                            `uploader` int DEFAULT NULL COMMENT '上传人',
-                            `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+                            `id`             int NOT NULL AUTO_INCREMENT,
+                            `name`           varchar(255) DEFAULT NULL COMMENT '数据集名',
+                            `type`           int          DEFAULT NULL COMMENT '数据集类型（0:普通数据集 ,1:专用数据集）',
+                            `sport_category` int          DEFAULT NULL COMMENT '支持的体育类型',
+                            `file`           varchar(255) DEFAULT NULL COMMENT '文件',
+                            `demo`           text COMMENT '数据集样例',
+                            `install_type`   int          DEFAULT NULL COMMENT '部署方式（0：云端部署 1：本地部署）',
+                            `uploader`       int          DEFAULT NULL COMMENT '上传人',
+                            `create_time`    datetime     DEFAULT NULL COMMENT '创建时间',
                             PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='数据集表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='数据集表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `data_set`
 --
 
-INSERT INTO `data_set` VALUES (1,'足球数据集',1,1,'4b4901b8-7af4-444a-b044-3067902cfaf2','demo',1,1,'2023-08-05 23:57:51');
+INSERT INTO `data_set`
+VALUES (1, '足球数据集', 1, 1, '4b4901b8-7af4-444a-b044-3067902cfaf2', 'demo', 1, 1, '2023-08-08 23:57:51');
+
+--
+-- Table structure for table `developer`
+--
+
+DROP TABLE IF EXISTS `developer`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `developer`
+(
+    `id` int NOT NULL AUTO_INCREMENT,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='开发者表';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `developer`
+--
+
 
 --
 -- Table structure for table `developer_review`
@@ -154,7 +174,8 @@ INSERT INTO `data_set` VALUES (1,'足球数据集',1,1,'4b4901b8-7af4-444a-b044-
 DROP TABLE IF EXISTS `developer_review`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `developer_review` (
+CREATE TABLE `developer_review`
+(
                                     `id` int NOT NULL AUTO_INCREMENT,
                                     `commit_name` varchar(255) DEFAULT NULL COMMENT '提交名',
                                     `developer_id` int DEFAULT NULL COMMENT '开发者',
@@ -182,14 +203,14 @@ DROP TABLE IF EXISTS `institution`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `institution` (
-                               `id` int NOT NULL AUTO_INCREMENT,
-                               `name` varchar(255) DEFAULT NULL COMMENT '机构名',
-                               `type` int DEFAULT NULL COMMENT '机构类型（0：培训机构，1：健身场所）',
-                               `phone` varchar(255) DEFAULT NULL COMMENT '联系人电话',
-                               `email` varchar(255) DEFAULT NULL COMMENT '邮箱 ',
-                               `address` varchar(255) DEFAULT NULL COMMENT '地址',
-                               `map` varchar(255) DEFAULT NULL COMMENT '地图位置 ',
-                               `create_time` datetime DEFAULT NULL COMMENT '添加时间',
+                               `id`          int NOT NULL AUTO_INCREMENT,
+                               `name`        varchar(255) DEFAULT NULL COMMENT '机构名',
+                               `type`        int          DEFAULT NULL COMMENT '机构类型（0：培训机构，1：健身场所）',
+                               `phone`       varchar(255) DEFAULT NULL COMMENT '联系人电话',
+                               `email`       varchar(255) DEFAULT NULL COMMENT '邮箱 ',
+                               `address`     varchar(255) DEFAULT NULL COMMENT '地址',
+                               `map`         varchar(255) DEFAULT NULL COMMENT '地图位置 ',
+                               `create_time` datetime     DEFAULT NULL COMMENT '添加时间',
                                PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='机构表';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -198,7 +219,10 @@ CREATE TABLE `institution` (
 -- Dumping data for table `institution`
 --
 
-INSERT INTO `institution` VALUES (1,'lekeJS',0,'10086','123@qq.com','beijing','map','2023-07-27 13:50:06'),(2,'润迪2',1,'10085','123456@qq.com','中国','123','2023-07-25 22:09:53'),(3,'XT体育',1,'10085','123456@qq.com','中国','123','2023-07-25 22:09:53');
+INSERT INTO `institution`
+VALUES (1, 'lekeJS', 0, '10086', '123@qq.com', 'beijing', 'map', '2023-07-27 13:50:06'),
+       (2, '润迪2', 1, '10085', '123456@qq.com', '中国', '123', '2023-07-25 22:09:53'),
+       (3, 'XT体育', 1, '10085', '123456@qq.com', '中国', '123', '2023-08-08 22:09:53');
 
 --
 -- Table structure for table `resources`
@@ -207,15 +231,16 @@ INSERT INTO `institution` VALUES (1,'lekeJS',0,'10086','123@qq.com','beijing','m
 DROP TABLE IF EXISTS `resources`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `resources` (
-                             `id` int NOT NULL AUTO_INCREMENT,
-                             `full_name` varchar(255) DEFAULT NULL,
-                             `alias` varchar(255) DEFAULT NULL,
-                             `suffix` varchar(255) DEFAULT NULL COMMENT '后缀',
-                             `size` bigint DEFAULT NULL,
-                             `create_time` datetime DEFAULT NULL,
-                             `update_time` datetime DEFAULT NULL,
-                             PRIMARY KEY (`id`)
+CREATE TABLE `resources`
+(
+    `id`          int NOT NULL AUTO_INCREMENT,
+    `full_name`   varchar(255) DEFAULT NULL,
+    `alias`       varchar(255) DEFAULT NULL,
+    `suffix`      varchar(255) DEFAULT NULL COMMENT '后缀',
+    `size`        bigint       DEFAULT NULL,
+    `create_time` datetime     DEFAULT NULL,
+    `update_time` datetime     DEFAULT NULL,
+    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='资源表元数据表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -223,7 +248,42 @@ CREATE TABLE `resources` (
 -- Dumping data for table `resources`
 --
 
-INSERT INTO `resources` VALUES (19,'特征识别平台.zip','a3bb355f-ade5-4fec-8855-021cb7c5f7e0','zip',4975585,'2023-08-04 00:24:21','2023-08-04 00:24:21'),(20,'特征识别平台.zip','a2279d7d-f6d0-424f-891b-34a892680d35','zip',4975585,'2023-08-04 22:22:56','2023-08-04 22:22:56'),(21,'特征识别平台.zip','f91af1f9-7452-4cb4-847c-978b8bd6d2ae','zip',4975585,'2023-08-04 22:23:29','2023-08-04 22:23:29'),(22,'特征识别平台.zip','8fef3000-edf4-4944-809e-f580565879f4','zip',4975585,'2023-08-05 17:33:19','2023-08-05 17:33:19'),(23,'DG5501488_x64.ZIP','1cbee4af-507a-4102-9c24-22b4c0911c98','ZIP',39449361,'2023-08-05 17:58:33','2023-08-05 17:58:33'),(24,'特征识别平台.zip','879fbbe5-49f0-4a9f-8fbf-602fc8537ced','zip',4975585,'2023-08-05 17:58:37','2023-08-05 17:58:37');
+INSERT INTO `resources`
+VALUES (19, '特征识别平台.zip', '4b4901b8-7af4-444a-b044-3067902cfaf2', 'zip', 4975585, '2023-08-04 00:24:21',
+        '2023-08-04 00:24:21'),
+       (20, '特征识别平台.zip', 'a2279d7d-f6d0-424f-891b-34a892680d35', 'zip', 4975585, '2023-08-04 22:22:56',
+        '2023-08-04 22:22:56'),
+       (21, '特征识别平台.zip', 'f91af1f9-7452-4cb4-847c-978b8bd6d2ae', 'zip', 4975585, '2023-08-04 22:23:29',
+        '2023-08-04 22:23:29'),
+       (22, '特征识别平台.zip', '8fef3000-edf4-4944-809e-f580565879f4', 'zip', 4975585, '2023-08-05 17:33:19',
+        '2023-08-05 17:33:19'),
+       (23, 'DG5501488_x64.ZIP', '1cbee4af-507a-4102-9c24-22b4c0911c98', 'ZIP', 39449361, '2023-08-05 17:58:33',
+        '2023-08-05 17:58:33'),
+       (24, '特征识别平台.zip', '879fbbe5-49f0-4a9f-8fbf-602fc8537ced', 'zip', 4975585, '2023-08-08 17:58:37',
+        '2023-08-05 17:58:37');
+
+--
+-- Table structure for table `session`
+--
+
+DROP TABLE IF EXISTS `session`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `session`
+(
+    `id`              varchar(255) NOT NULL COMMENT 'id',
+    `user_id`         int          DEFAULT NULL COMMENT '用户ID',
+    `ip`              varchar(255) DEFAULT NULL COMMENT 'ip地址',
+    `last_login_time` datetime     DEFAULT NULL COMMENT '最后登录时间'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='登录session表';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `session`
+--
+
+INSERT INTO `session`
+VALUES ('94c983c9-0a51-4150-aa74-8a17eb55fd43', 1, '172.27.224.1', '2023-08-09 15:06:01');
 
 --
 -- Table structure for table `sport_category`
@@ -232,14 +292,15 @@ INSERT INTO `resources` VALUES (19,'特征识别平台.zip','a3bb355f-ade5-4fec-
 DROP TABLE IF EXISTS `sport_category`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `sport_category` (
-                                  `id` int NOT NULL AUTO_INCREMENT,
-                                  `type` varchar(255) DEFAULT NULL COMMENT '体育类型(0:学校体育 1:群众体育 2:竞技体育)',
-                                  `name` varchar(255) DEFAULT NULL COMMENT '分类名',
-                                  `user_id` int DEFAULT NULL COMMENT '添加人',
-                                  `mark` text COMMENT '备注',
-                                  `create_time` datetime DEFAULT NULL COMMENT '授权时间 ',
-                                  PRIMARY KEY (`id`)
+CREATE TABLE `sport_category`
+(
+    `id`          int NOT NULL AUTO_INCREMENT,
+    `type`        varchar(255) DEFAULT NULL COMMENT '体育类型(0:学校体育 1:群众体育 2:竞技体育)',
+    `name`        varchar(255) DEFAULT NULL COMMENT '分类名',
+    `user_id`     int DEFAULT NULL COMMENT '添加人',
+    `mark`        text COMMENT '备注',
+    `create_time` datetime     DEFAULT NULL COMMENT '授权时间 ',
+    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='体育类别表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -247,7 +308,23 @@ CREATE TABLE `sport_category` (
 -- Dumping data for table `sport_category`
 --
 
-INSERT INTO `sport_category` VALUES (1,'0','田径2',0,'备注','2023-07-26 13:47:32'),(2,'0','铅球',0,'备注','2023-07-26 13:47:32'),(3,'0','标枪',0,'备注','2023-07-26 13:47:32'),(4,'0','跳远',0,'备注','2023-07-26 13:47:32'),(5,'0','立定跳远',0,'备注','2023-07-26 13:47:32'),(6,'1','羽毛球',0,'备注','2023-07-26 13:47:32'),(7,'1','篮球',0,'备注','2023-07-26 13:47:32'),(8,'1','游泳',0,'备注','2023-07-26 13:47:32'),(9,'2','击剑',0,'备注','2023-07-26 13:47:32'),(11,'2','乒乓球',0,'备注','2023-07-26 13:47:32'),(12,'0','网球2',1,'网球添加2','2023-07-27 15:12:28'),(13,'1','铅球',1,'汪汪汪','2023-07-27 15:26:35'),(14,'0','wang',1,'备注','2023-07-27 15:49:14'),(15,'0','jm测试',1,'备注','2023-07-27 15:49:14'),(16,'0','测试',1,'测试','2023-07-27 20:50:30'),(17,'0','更新后',1,'更新后','2023-07-27 20:50:24');
+INSERT INTO `sport_category`
+VALUES (1, '0', '田径2', 0, '备注', '2023-07-26 13:47:32'),
+       (2, '0', '铅球', 0, '备注', '2023-07-26 13:47:32'),
+       (3, '0', '标枪', 0, '备注', '2023-07-26 13:47:32'),
+       (4, '0', '跳远', 0, '备注', '2023-07-26 13:47:32'),
+       (5, '0', '立定跳远', 0, '备注', '2023-07-26 13:47:32'),
+       (6, '1', '羽毛球', 0, '备注', '2023-07-26 13:47:32'),
+       (7, '1', '篮球', 0, '备注', '2023-07-26 13:47:32'),
+       (8, '1', '游泳', 0, '备注', '2023-07-26 13:47:32'),
+       (9, '2', '击剑', 0, '备注', '2023-07-26 13:47:32'),
+       (11, '2', '乒乓球', 0, '备注', '2023-07-26 13:47:32'),
+       (12, '0', '网球2', 1, '网球添加2', '2023-07-27 15:12:28'),
+       (13, '1', '铅球', 1, '汪汪汪', '2023-07-27 15:26:35'),
+       (14, '0', 'wang', 1, '备注', '2023-07-27 15:49:14'),
+       (15, '0', 'jm测试', 1, '备注', '2023-07-27 15:49:14'),
+       (16, '0', '测试', 1, '测试', '2023-07-27 20:50:30'),
+       (17, '0', '更新后', 1, '更新后', '2023-08-08 20:50:24');
 
 --
 -- Table structure for table `system_info`
@@ -256,8 +333,9 @@ INSERT INTO `sport_category` VALUES (1,'0','田径2',0,'备注','2023-07-26 13:4
 DROP TABLE IF EXISTS `system_info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `system_info` (
-                               `id` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `system_info`
+(
+    `id` int NOT NULL AUTO_INCREMENT,
                                PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='系统信息表';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -350,4 +428,4 @@ INSERT INTO `wechat` VALUES (1,'1289371982739123','润迪体育助手',1,0,'润�
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-06 20:03:52
+-- Dump completed on 2023-08-09 20:37:52
