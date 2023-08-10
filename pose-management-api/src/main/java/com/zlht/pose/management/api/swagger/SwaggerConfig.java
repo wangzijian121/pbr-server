@@ -22,7 +22,7 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("AI体态识别系统-算法商家后台管理接口") // 设置文档标题
-                .description("目前包含功能: 【用户管理】、【用户登录校验】、【机构管理】、【机构授权管理】、【收款项管理】、【小程序信息管理】、【体育管理】、【模板管理】") // 设置文档描述
+                .description("AI body recognition system-algorithm business background management interface") // 设置文档描述
                 .version("1.0.0") // 设置文档版本
                 .build();
     }
