@@ -7,6 +7,7 @@ import com.zlht.pose.management.api.enums.Status;
 import com.zlht.pose.management.api.service.DataSetServicesI;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.DataSet;
+import com.zlht.pose.management.dao.entity.User;
 import com.zlht.pose.management.dao.mapper.DataSetMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
@@ -26,9 +27,14 @@ public class DataSetServicesImpl extends BaseServiceImpl<DataSet> implements Dat
     DataSetMapper dataSetMapper;
 
     @Override
-    public Result<DataSet> queryDataSetList(int type, int pageNum, int pageSize, String keyword) {
+    public Result<DataSet> queryDataSetList(User loginUser, int type, int pageNum, int pageSize, String keyword) {
 
         Result result = new Result();
+        if (!canOperator(loginUser)) {
+            result.setMsg(Status.USER_NO_OPERATION_PERM.getMsg());
+            result.setCode(Status.USER_NO_OPERATION_PERM.getCode());
+            return result;
+        }
         Page<DataSet> page = new Page<>(pageNum, pageSize);
         Page<Map<String, Object>> dataSetPage = dataSetMapper.selectDataSet(page, keyword, type);
         result.setCode(Status.SUCCESS.getCode());
@@ -39,8 +45,12 @@ public class DataSetServicesImpl extends BaseServiceImpl<DataSet> implements Dat
 
 
     @Override
-    public Map<String, Object> createDataSet(DataSet dataSet) {
+    public Map<String, Object> createDataSet(User loginUser, DataSet dataSet) {
         Map<String, Object> map = new HashMap<>();
+        if (!canOperator(loginUser)) {
+            putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
+            return map;
+        }
         if (!validateDataSetName(dataSet)) {
             putMsg(map, 400, "数据集名或昵称不符合规范！");
             return map;
@@ -66,8 +76,12 @@ public class DataSetServicesImpl extends BaseServiceImpl<DataSet> implements Dat
 
 
     @Override
-    public Map<String, Object> updateDataSet(int id, DataSet dataSet) {
+    public Map<String, Object> updateDataSet(User loginUser, int id, DataSet dataSet) {
         Map<String, Object> map = new HashMap<>();
+        if (!canOperator(loginUser)) {
+            putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
+            return map;
+        }
         if (!checkDataSetExistById(id)) {
             putMsg(map, 400, "更新的数据集ID不存在！");
             return map;
@@ -100,8 +114,12 @@ public class DataSetServicesImpl extends BaseServiceImpl<DataSet> implements Dat
     }
 
     @Override
-    public Map<String, Object> deleteDataSet(int id) {
+    public Map<String, Object> deleteDataSet(User loginUser, int id) {
         Map<String, Object> map = new HashMap<>();
+        if (!canOperator(loginUser)) {
+            putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
+            return map;
+        }
         if (!checkDataSetExistById(id)) {
             putMsg(map, 400, "删除的数据集ID不存在！");
             return map;

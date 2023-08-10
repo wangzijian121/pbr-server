@@ -7,16 +7,14 @@ import com.zlht.pose.management.api.enums.Status;
 import com.zlht.pose.management.api.service.ChargeServicesI;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.Charge;
+import com.zlht.pose.management.dao.entity.User;
 import com.zlht.pose.management.dao.mapper.ChargeMapper;
-import com.zlht.pose.management.tools.service.ValidateService;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Service
@@ -28,9 +26,14 @@ public class ChargeServicesImpl extends BaseServiceImpl<Charge> implements Charg
     ChargeMapper chargeMapper;
 
     @Override
-    public Result queryChargeList(int type, int pageNum, int pageSize, String keyword) {
+    public Result queryChargeList(User loginUser, int type, int pageNum, int pageSize, String keyword) {
 
         Result result = new Result();
+        if (!canOperator(loginUser)) {
+            result.setMsg(Status.USER_NO_OPERATION_PERM.getMsg());
+            result.setCode(Status.USER_NO_OPERATION_PERM.getCode());
+            return result;
+        }
         Page page = new Page<>(pageNum, pageSize);
         Page<Map<String, Object>> chargePage = chargeMapper.selectCharge(page, keyword, type);
         result.setCode(Status.SUCCESS.getCode());
@@ -40,8 +43,12 @@ public class ChargeServicesImpl extends BaseServiceImpl<Charge> implements Charg
     }
 
     @Override
-    public Map<String, Object> createCharge(Charge charge) {
+    public Map<String, Object> createCharge(User loginUser, Charge charge) {
         Map<String, Object> map = new HashMap<>();
+        if (!canOperator(loginUser)) {
+            putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
+            return map;
+        }
         int resNum = chargeMapper.insert(charge);
         if (resNum >= 1) {
             putMsg(map, Status.SUCCESS.getCode(), "创建收款项成功！");
@@ -54,9 +61,13 @@ public class ChargeServicesImpl extends BaseServiceImpl<Charge> implements Charg
 
 
     @Override
-    public Map<String, Object> updateCharge(int id, Charge charge) {
+    public Map<String, Object> updateCharge(User loginUser, int id, Charge charge) {
 
         Map<String, Object> map = new HashMap<>();
+        if (!canOperator(loginUser)) {
+            putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
+            return map;
+        }
         if (!checkChargeExistById(id)) {
             putMsg(map, 400, "所更新的收款项ID不存在!");
             return map;
@@ -73,9 +84,13 @@ public class ChargeServicesImpl extends BaseServiceImpl<Charge> implements Charg
     }
 
     @Override
-    public Map<String, Object> deleteCharge(int id) {
+    public Map<String, Object> deleteCharge(User loginUser, int id) {
 
         Map<String, Object> map = new HashMap<>();
+        if (!canOperator(loginUser)) {
+            putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
+            return map;
+        }
         if (!checkChargeExistById(id)) {
             putMsg(map, 400, "所删除的收款项ID不存在!");
             return map;

@@ -6,6 +6,7 @@ import com.zlht.pose.management.api.enums.Status;
 import com.zlht.pose.management.api.service.TemplateServicesI;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.Template;
+import com.zlht.pose.management.dao.entity.User;
 import com.zlht.pose.management.dao.mapper.TemplateMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,8 +20,13 @@ public class TemplateServicesImpl extends BaseServiceImpl implements TemplateSer
     TemplateMapper templateMapper;
 
     @Override
-    public Result queryTemplateList(int pageNum, int pageSize, int status, String keyword) {
+    public Result queryTemplateList(User loginUser, int pageNum, int pageSize, int status, String keyword) {
         Result result = new Result();
+        if (!canOperator(loginUser)) {
+            result.setMsg(Status.USER_NO_OPERATION_PERM.getMsg());
+            result.setCode(Status.USER_NO_OPERATION_PERM.getCode());
+            return result;
+        }
         Page page = new Page<>(pageNum, pageSize);
         QueryWrapper queryWrapper = new QueryWrapper();
         if (keyword != null) queryWrapper.eq("name", keyword);
@@ -32,9 +38,13 @@ public class TemplateServicesImpl extends BaseServiceImpl implements TemplateSer
     }
 
     @Override
-    public Map<String, Object> createTemplate(Template template) {
+    public Map<String, Object> createTemplate(User loginUser, Template template) {
 
         Map<String, Object> map = new HashMap<>();
+        if (!canOperator(loginUser)) {
+            putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
+            return map;
+        }
         QueryWrapper checkWrapper = new QueryWrapper<>();
         checkWrapper.eq("name", template.getName());
         if (templateMapper.exists(checkWrapper)) {
@@ -53,9 +63,13 @@ public class TemplateServicesImpl extends BaseServiceImpl implements TemplateSer
 
 
     @Override
-    public Map<String, Object> updateTemplate(int id, Template template) {
+    public Map<String, Object> updateTemplate(User loginUser, int id, Template template) {
 
         Map<String, Object> map = new HashMap<>();
+        if (!canOperator(loginUser)) {
+            putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
+            return map;
+        }
         if (!checkTemplateExistById(id)) {
             putMsg(map, 400, "所更新的模板信息ID不存在!");
             return map;
@@ -63,7 +77,7 @@ public class TemplateServicesImpl extends BaseServiceImpl implements TemplateSer
         QueryWrapper checkWrapper = new QueryWrapper<>();
         checkWrapper.eq("name", template.getName());
         checkWrapper.ne("id", id);
-        if(templateMapper.exists(checkWrapper)){
+        if (templateMapper.exists(checkWrapper)) {
             putMsg(map, 400, "模板信息已存在!");
             return map;
         }
@@ -79,9 +93,13 @@ public class TemplateServicesImpl extends BaseServiceImpl implements TemplateSer
     }
 
     @Override
-    public Map<String, Object> deleteTemplate(int id) {
+    public Map<String, Object> deleteTemplate(User loginUser, int id) {
 
         Map<String, Object> map = new HashMap<>();
+        if (!canOperator(loginUser)) {
+            putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
+            return map;
+        }
         if (!checkTemplateExistById(id)) {
             putMsg(map, 400, "所删除的模板信息ID不存在!");
             return map;
@@ -96,7 +114,6 @@ public class TemplateServicesImpl extends BaseServiceImpl implements TemplateSer
         }
         return map;
     }
-
 
 
     @Override

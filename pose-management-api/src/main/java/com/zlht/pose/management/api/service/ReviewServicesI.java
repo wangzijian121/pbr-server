@@ -1,7 +1,7 @@
 package com.zlht.pose.management.api.service;
 
 import com.zlht.pose.management.api.utils.Result;
-import org.springframework.http.ResponseEntity;
+import com.zlht.pose.management.dao.entity.User;
 
 import java.util.Map;
 
@@ -14,7 +14,7 @@ public interface ReviewServicesI {
      * @param pageSize
      * @return
      */
-    Result queryReviewList(int pageNum, int pageSize, String keyword);
+    Result queryReviewList(User loginUser, int pageNum, int pageSize, String keyword);
 
 
     /**
@@ -24,7 +24,7 @@ public interface ReviewServicesI {
      * @param mark
      * @return
      */
-    Map<String, Object> updateReviewStatus(int id, int status, String mark);
+    Map<String, Object> updateReviewStatus(User loginUser, int id, int status, String mark);
 
 
     /**

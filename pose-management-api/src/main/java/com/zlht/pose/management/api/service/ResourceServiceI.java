@@ -10,18 +10,18 @@ public interface ResourceServiceI {
     /**
      * 上传
      */
-    Map<String, Object> createResource(MultipartFile file);
+    Map<String, Object> createResource(User loginUser, MultipartFile file);
 
     /**
      * 删除文件
      */
-    Map<String, Object> deleteResource(String uuid);
+    Map<String, Object> deleteResource(User loginUser, String uuid);
 
 
     /**
      * 下载文件
      */
-    ResponseEntity downloadResource(String  uuid);
+    ResponseEntity downloadResource(User loginUser, String uuid);
 
     /**
      * 校验资源类型

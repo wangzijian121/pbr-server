@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zlht.pose.management.api.service.ChargeServicesI;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.Charge;
+import com.zlht.pose.management.dao.entity.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -14,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.Map;
 
@@ -40,7 +42,8 @@ public class ChargeController extends BaseController {
     })
     @GetMapping(value = "/getCharge")
     @ResponseStatus(HttpStatus.OK)
-    public Result<Charge> queryChargeList(@RequestParam(required = false, defaultValue = "-1") int type,
+    public Result<Charge> queryChargeList(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                                          @RequestParam(required = false, defaultValue = "-1") int type,
                                           @RequestParam(required = false, defaultValue = "1") int pageNum,
                                           @RequestParam(required = false, defaultValue = "10") int pageSize,
                                           @RequestParam(required = false) String name) {
@@ -49,7 +52,7 @@ public class ChargeController extends BaseController {
         if (!result.checkResult()) {
             return result;
         }
-        return chargeServices.queryChargeList(type, pageNum, pageSize, name);
+        return chargeServices.queryChargeList(loginUser, type, pageNum, pageSize, name);
     }
 
     /**
@@ -61,8 +64,9 @@ public class ChargeController extends BaseController {
     @PostMapping(value = "/createCharge")
     @ResponseStatus(HttpStatus.OK)
     @JsonIgnoreProperties(value = "id")
-    public Result<Charge> createCharge(@RequestBody Charge charge) {
-        Map<String, Object> map = chargeServices.createCharge(charge);
+    public Result<Charge> createCharge(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                                       @RequestBody Charge charge) {
+        Map<String, Object> map = chargeServices.createCharge(loginUser, charge);
         return returnDataList(map);
     }
 
@@ -77,9 +81,10 @@ public class ChargeController extends BaseController {
     })
     @PutMapping(value = "/updateCharge")
     @ResponseStatus(HttpStatus.OK)
-    public Result<Charge> updateCharge(@RequestParam int id,
+    public Result<Charge> updateCharge(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                                       @RequestParam int id,
                                        @RequestBody Charge charge) {
-        Map<String, Object> map = chargeServices.updateCharge(id, charge);
+        Map<String, Object> map = chargeServices.updateCharge(loginUser, id, charge);
         return returnDataList(map);
     }
 
@@ -91,8 +96,9 @@ public class ChargeController extends BaseController {
     @ApiOperation(value = "删除收款项", notes = "删除收款项")
     @DeleteMapping(value = "/deleteCharge")
     @ResponseStatus(HttpStatus.OK)
-    public Result<Charge> deleteCharge(@RequestParam int id) {
-        Map<String, Object> map = chargeServices.deleteCharge(id);
+    public Result<Charge> deleteCharge(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                                       @RequestParam int id) {
+        Map<String, Object> map = chargeServices.deleteCharge(loginUser, id);
         return returnDataList(map);
     }
 }

@@ -3,6 +3,7 @@ package com.zlht.pose.management.api.controller;
 
 import com.zlht.pose.management.api.service.ResourceServiceI;
 import com.zlht.pose.management.api.utils.Result;
+import com.zlht.pose.management.dao.entity.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -10,10 +11,10 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.Map;
 
@@ -35,10 +36,11 @@ public class FileController extends BaseController {
             @ApiImplicitParam(name = "文件", paramType = "form", value = "文件", dataType = "file", required = true)
     })
     @PostMapping(value = "/upload", consumes = "multipart/*", headers = "content-type=multipart/form-data")
-    public Result upload(@RequestPart("file") MultipartFile file) {
+    public Result upload(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                         @RequestPart("file") MultipartFile file) {
         Map<String, Object> map = null;
         try {
-            map = resourceServiceI.createResource(file);
+            map = resourceServiceI.createResource(loginUser, file);
         } catch (Exception e) {
             logger.error(e.getMessage(), "文件上传失败！");
         }
@@ -48,10 +50,11 @@ public class FileController extends BaseController {
     @ApiOperation(value = "删除资源", notes = "删除资源")
 
     @DeleteMapping(value = "/delete")
-    public Result delete(@RequestParam String uuid) {
+    public Result delete(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                         @RequestParam String uuid) {
         Map<String, Object> map = null;
         try {
-            map = resourceServiceI.deleteResource(uuid);
+            map = resourceServiceI.deleteResource(loginUser, uuid);
         } catch (Exception e) {
             logger.error(e.getMessage(), "文件上传失败！");
         }
@@ -61,8 +64,9 @@ public class FileController extends BaseController {
     @ApiOperation(value = "下载接口")
     @ApiImplicitParam(name = "uuid", value = "资源的uuid", paramType = "query", required = true, dataType = "String")
     @GetMapping("/download")
-    public ResponseEntity download(@RequestParam String uuid) {
-        return resourceServiceI.downloadResource(uuid);
+    public ResponseEntity download(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                                   @RequestParam String uuid) {
+        return resourceServiceI.downloadResource(loginUser, uuid);
     }
 }
 

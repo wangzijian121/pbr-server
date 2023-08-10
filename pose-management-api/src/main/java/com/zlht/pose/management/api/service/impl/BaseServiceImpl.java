@@ -3,11 +3,8 @@ package com.zlht.pose.management.api.service.impl;
 
 import com.zlht.pose.management.api.enums.Status;
 import com.zlht.pose.management.api.service.BaseServiceI;
-import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.User;
 
-import java.text.MessageFormat;
-import java.util.List;
 import java.util.Map;
 
 public class BaseServiceImpl<T> implements BaseServiceI<T> {
@@ -20,11 +17,8 @@ public class BaseServiceImpl<T> implements BaseServiceI<T> {
         }
     }
 
-
     @Override
     public boolean canOperator(User operateUser) {
-        return operateUser == null || operateUser.getId() == 0;
+        return operateUser != null && operateUser.getType() == 0;
     }
-
-
 }

@@ -4,6 +4,7 @@ package com.zlht.pose.management.api.controller;
 import com.zlht.pose.management.api.service.AlgorithmServicesI;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.Algorithm;
+import com.zlht.pose.management.dao.entity.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -13,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.Map;
 
@@ -39,7 +41,8 @@ public class AlgorithmController extends BaseController {
     })
     @GetMapping(value = "/getAlgorithm")
     @ResponseStatus(HttpStatus.OK)
-    public Result<Algorithm> queryAlgorithmList(@RequestParam(required = false, defaultValue = "-1") int type,
+    public Result<Algorithm> queryAlgorithmList(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                                                @RequestParam(required = false, defaultValue = "-1") int type,
                                                 @RequestParam(required = false, defaultValue = "1") int pageNum,
                                                 @RequestParam(required = false, defaultValue = "10") int pageSize,
                                                 @RequestParam(required = false) String name) {
@@ -48,7 +51,7 @@ public class AlgorithmController extends BaseController {
         if (!result.checkResult()) {
             return result;
         }
-        return algorithmServices.queryAlgorithmList(type, pageNum, pageSize, name);
+        return algorithmServices.queryAlgorithmList(loginUser, type, pageNum, pageSize, name);
     }
 
     /**
@@ -59,8 +62,9 @@ public class AlgorithmController extends BaseController {
     @ApiOperation(value = "创建算法", notes = "创建算法")
     @PostMapping(value = "/createAlgorithm")
     @ResponseStatus(HttpStatus.OK)
-    public Result<Algorithm> createAlgorithm(@RequestBody Algorithm algorithm) {
-        Map<String, Object> map = algorithmServices.createAlgorithm(algorithm);
+    public Result<Algorithm> createAlgorithm(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                                             @RequestBody Algorithm algorithm) {
+        Map<String, Object> map = algorithmServices.createAlgorithm(loginUser, algorithm);
         return returnDataList(map);
     }
 
@@ -75,9 +79,10 @@ public class AlgorithmController extends BaseController {
     })
     @PutMapping(value = "/updateAlgorithm")
     @ResponseStatus(HttpStatus.OK)
-    public Result<Algorithm> updateAlgorithm(@RequestParam int id,
+    public Result<Algorithm> updateAlgorithm(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                                             @RequestParam int id,
                                              @RequestBody Algorithm algorithm) {
-        Map<String, Object> map = algorithmServices.updateAlgorithm(id, algorithm);
+        Map<String, Object> map = algorithmServices.updateAlgorithm(loginUser, id, algorithm);
         return returnDataList(map);
     }
 
@@ -89,8 +94,9 @@ public class AlgorithmController extends BaseController {
     @ApiOperation(value = "删除算法", notes = "删除算法")
     @DeleteMapping(value = "/deleteAlgorithm")
     @ResponseStatus(HttpStatus.OK)
-    public Result<Algorithm> deleteAlgorithm(@RequestParam int id) {
-        Map<String, Object> map = algorithmServices.deleteAlgorithm(id);
+    public Result<Algorithm> deleteAlgorithm(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                                             @RequestParam int id) {
+        Map<String, Object> map = algorithmServices.deleteAlgorithm(loginUser, id);
         return returnDataList(map);
     }
 }

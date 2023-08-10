@@ -4,6 +4,7 @@ package com.zlht.pose.management.api.controller;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zlht.pose.management.api.service.WeChatServicesI;
 import com.zlht.pose.management.api.utils.Result;
+import com.zlht.pose.management.dao.entity.User;
 import com.zlht.pose.management.dao.entity.WeChat;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -14,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.Map;
 
@@ -40,7 +42,8 @@ public class WeChatController extends BaseController {
     })
     @GetMapping(value = "/getWeChat")
     @ResponseStatus(HttpStatus.OK)
-    public Result<WeChat> queryWeChatList(@RequestParam(required = false, defaultValue = "-1") int status,
+    public Result<WeChat> queryWeChatList(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                                          @RequestParam(required = false, defaultValue = "-1") int status,
                                           @RequestParam(required = false, defaultValue = "1") int pageNum,
                                           @RequestParam(required = false, defaultValue = "10") int pageSize,
                                           @RequestParam(required = false) String keyword) {
@@ -49,7 +52,7 @@ public class WeChatController extends BaseController {
         if (!result.checkResult()) {
             return result;
         }
-        return weChatServices.queryWeChatList(pageNum, pageSize, status, keyword);
+        return weChatServices.queryWeChatList(loginUser, pageNum, pageSize, status, keyword);
     }
 
     /**
@@ -61,8 +64,9 @@ public class WeChatController extends BaseController {
     @PostMapping(value = "/createWeChat")
     @ResponseStatus(HttpStatus.OK)
     @JsonIgnoreProperties(value = "id")
-    public Result<WeChat> createWeChat(@RequestBody WeChat weChat) {
-        Map<String, Object> map = weChatServices.createWeChat(weChat);
+    public Result<WeChat> createWeChat(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                                       @RequestBody WeChat weChat) {
+        Map<String, Object> map = weChatServices.createWeChat(loginUser, weChat);
         return returnDataList(map);
     }
 
@@ -77,9 +81,10 @@ public class WeChatController extends BaseController {
     })
     @PutMapping(value = "/updateWeChat")
     @ResponseStatus(HttpStatus.OK)
-    public Result<WeChat> updateWeChat(@RequestParam int id,
+    public Result<WeChat> updateWeChat(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                                       @RequestParam int id,
                                        @RequestBody WeChat weChat) {
-        Map<String, Object> map = weChatServices.updateWeChat(id, weChat);
+        Map<String, Object> map = weChatServices.updateWeChat(loginUser, id, weChat);
         return returnDataList(map);
     }
 
@@ -91,8 +96,9 @@ public class WeChatController extends BaseController {
     @ApiOperation(value = "删除小程序信息", notes = "删除小程序信息")
     @DeleteMapping(value = "/deleteWeChat")
     @ResponseStatus(HttpStatus.OK)
-    public Result<WeChat> deleteWeChat(@RequestParam int id) {
-        Map<String, Object> map = weChatServices.deleteWeChat(id);
+    public Result<WeChat> deleteWeChat(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                                       @RequestParam int id) {
+        Map<String, Object> map = weChatServices.deleteWeChat(loginUser, id);
         return returnDataList(map);
     }
 }

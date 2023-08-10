@@ -2,7 +2,7 @@ package com.zlht.pose.management.api.service;
 
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.Commission;
-import com.zlht.pose.management.dao.entity.Sport;
+import com.zlht.pose.management.dao.entity.User;
 
 import java.util.Map;
 
@@ -15,7 +15,7 @@ public interface CommissionServicesI {
      * @param pageSize
      * @return
      */
-    Result<Commission> queryCommissionList(int pageNum, int pageSize, String reviewName);
+    Result<Commission> queryCommissionList(User loginUser, int pageNum, int pageSize, String reviewName);
 
     /**
      * 创建佣金
@@ -24,7 +24,7 @@ public interface CommissionServicesI {
      * @return
      */
 
-    Map<String, Object> createCommission(Commission commission);
+    Map<String, Object> createCommission(User loginUser, Commission commission);
 
     /**
      * 更新佣金
@@ -33,7 +33,7 @@ public interface CommissionServicesI {
      * @param commission
      * @return
      */
-    Map<String, Object> updateCommission(int id, Commission commission);
+    Map<String, Object> updateCommission(User loginUser, int id, Commission commission);
 
     /**
      * 删除佣金
@@ -41,7 +41,7 @@ public interface CommissionServicesI {
      * @param id
      * @return
      */
-    Map<String, Object> deleteCommission(int id);
+    Map<String, Object> deleteCommission(User loginUser, int id);
 
     /**
      * 通过ID判断是否存在（删除更新判断）
@@ -49,7 +49,7 @@ public interface CommissionServicesI {
      * @param id
      * @return
      */
-    boolean checkCommissionExistById(int id );
+    boolean checkCommissionExistById(int id);
 
 
 }

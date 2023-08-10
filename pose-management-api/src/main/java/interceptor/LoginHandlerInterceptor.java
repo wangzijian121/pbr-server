@@ -12,8 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import org.thymeleaf.util.StringUtils;
 
-import javax.jws.soap.SOAPBinding;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
@@ -40,33 +41,30 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-
-        // get token
+        Session session = null;
+        //get token
         String sessionId = request.getHeader("sessionId");
         String ip = BaseController.getClientIpAddress(request);
-
-        QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.eq("id", sessionId);
-        queryWrapper.eq("ip", ip);
-        Session session = sessionMapper.selectOne(queryWrapper);
-        if (session == null) {
-            response.setStatus(401);
-            logger.info("未找到session,请登录后重试！" + sessionId + ",ip:" + ip);
-            //todo   response 不返回
-            request.setAttribute("session.user", null);
-            return false;
-        } else {
-            Date expireTime = new Date();
-            // 添加1000毫秒
-            expireTime.setTime(session.getLastLoginTime().getTime() + sessionTimeout);
-            User user = userMapper.queryUserByToken(session.getId(), expireTime, new Date());
-            if (user == null) {
+        //sessionId in cookie
+        if (StringUtils.isEmpty(sessionId)) {
+            Cookie[] cookie = request.getCookies();
+            if (cookie == null) {
                 response.setStatus(401);
-                logger.info("用户session已过期!");
-                request.setAttribute("session.user", null);
                 return false;
             }
+            for (Cookie c : cookie) {
+                if (("sessionId").equals(c.getName()) && !StringUtils.isEmpty(c.getValue())) {
+                    session = getSession(request, response, c.getValue(), ip);
+                } else {
+                    return false;
+                }
+            }
+
+        } else {
+            // sessionId in header
+            session = getSession(request, response, sessionId, ip);
         }
+        if (session == null) return false;
         User user = userMapper.selectById(session.getUserId());
         if (user == null) {
             response.setStatus(402);
@@ -76,6 +74,31 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
         request.setAttribute("session.user", user);
         return true;
     }
+
+    private Session getSession(HttpServletRequest request, HttpServletResponse response, String sessionId, String ip) {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("id", sessionId);
+        queryWrapper.eq("ip", ip);
+        Session session = sessionMapper.selectOne(queryWrapper);
+        if (session == null) {
+            response.setStatus(401);
+            logger.info("未找到session,请登录后重试！" + sessionId + ",ip:" + ip);
+            request.setAttribute("session.user", null);
+            return null;
+        } else {
+            Date expireTime = new Date();
+            expireTime.setTime(session.getLastLoginTime().getTime() + sessionTimeout);
+            User user = userMapper.queryUserByToken(session.getId(), expireTime, new Date());
+            if (user == null) {
+                response.setStatus(401);
+                logger.info("用户session已过期!");
+                request.setAttribute("session.user", null);
+                return null;
+            }
+        }
+        return session;
+    }
+
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,

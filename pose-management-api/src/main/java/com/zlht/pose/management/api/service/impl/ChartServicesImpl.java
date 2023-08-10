@@ -9,6 +9,7 @@ import com.zlht.pose.management.dao.chart.LineTypeChart;
 import com.zlht.pose.management.dao.chart.PieTypeChart;
 import com.zlht.pose.management.dao.chart.ValueTypeChart;
 import com.zlht.pose.management.dao.entity.Charge;
+import com.zlht.pose.management.dao.entity.User;
 import com.zlht.pose.management.dao.mapper.ChartMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,9 +27,13 @@ public class ChartServicesImpl extends BaseServiceImpl<Charge> implements ChartS
     ChartMapper chartMapper;
 
     @Override
-    public Result getChart(String date) {
+    public Result getChart(User loginUser, String date) {
         Result result = new Result();
-
+        if (!canOperator(loginUser)) {
+            result.setMsg(Status.USER_NO_OPERATION_PERM.getMsg());
+            result.setCode(Status.USER_NO_OPERATION_PERM.getCode());
+            return result;
+        }
         Map<String, ValueTypeChart> valueTypeChartMap = new HashMap<>();
         Map<String, List<PieTypeChart>> pieChartDataMap = new HashMap<>();
         Map<String, LineTypeChart> lineTypeChartMap = new HashMap<>();
@@ -119,7 +124,7 @@ public class ChartServicesImpl extends BaseServiceImpl<Charge> implements ChartS
         //TODO
         List<String> xList = new ArrayList<>();
         for (int i = 1; i <= 30; i++) {
-            xList.add(i+"");
+            xList.add(i + "");
         }
 
         Map<String, List<String>> mapY = new HashMap<>();
@@ -137,7 +142,7 @@ public class ChartServicesImpl extends BaseServiceImpl<Charge> implements ChartS
     LineTypeChart getMonthlyInstitutionAlgorithmUsageCount() {
         List<String> xList = new ArrayList<>();
         for (int i = 1; i <= 30; i++) {
-            xList.add(i+"");
+            xList.add(i + "");
         }
         Map<String, List<String>> mapY = new HashMap<>();
         List<String> basketballList = Arrays.asList("12", "6", "7", "9", "5", "11", "1", "14", "2", "34", "2", "6", "7", "8", "6", "9", "5", "10", "12", "11", "88", "9", "19", "13", "12", "5", "6", "2", "12", "14");

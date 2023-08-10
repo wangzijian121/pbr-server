@@ -2,6 +2,7 @@ package com.zlht.pose.management.api.service;
 
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.Charge;
+import com.zlht.pose.management.dao.entity.User;
 
 import java.util.Map;
 
@@ -15,7 +16,7 @@ public interface ChargeServicesI {
      * @param pageSize
      * @return
      */
-    Result queryChargeList(int type, int pageNum, int pageSize, String keyword);
+    Result queryChargeList(User loginUser, int type, int pageNum, int pageSize, String keyword);
 
 
     /**
@@ -25,7 +26,7 @@ public interface ChargeServicesI {
      * @return
      */
 
-    Map<String, Object> createCharge(Charge charge);
+    Map<String, Object> createCharge(User loginUser, Charge charge);
 
     /**
      * 更新收费信息
@@ -34,7 +35,7 @@ public interface ChargeServicesI {
      * @param charge
      * @return
      */
-    Map<String, Object> updateCharge(int id, Charge charge);
+    Map<String, Object> updateCharge(User loginUser, int id, Charge charge);
 
     /**
      * 删除收费信息
@@ -42,8 +43,8 @@ public interface ChargeServicesI {
      * @param id
      * @return
      */
-    Map<String, Object> deleteCharge(int id);
-    
+    Map<String, Object> deleteCharge(User loginUser, int id);
+
 
     /**
      * 通过收费信息ID判断是否存在

@@ -7,6 +7,7 @@ import com.zlht.pose.management.api.enums.Status;
 import com.zlht.pose.management.api.service.SportServicesI;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.Sport;
+import com.zlht.pose.management.dao.entity.User;
 import com.zlht.pose.management.dao.mapper.SportMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
@@ -27,9 +28,14 @@ public class SportServicesImpl extends BaseServiceImpl<Sport> implements SportSe
     SportMapper sportMapper;
 
     @Override
-    public Result<Sport> querySportList(int type, int pageNum, int pageSize, String keyword) {
+    public Result<Sport> querySportList(User loginUser, int type, int pageNum, int pageSize, String keyword) {
 
         Result result = new Result();
+        if (!canOperator(loginUser)) {
+            result.setMsg(Status.USER_NO_OPERATION_PERM.getMsg());
+            result.setCode(Status.USER_NO_OPERATION_PERM.getCode());
+            return result;
+        }
         Page<Sport> page = new Page<>(pageNum, pageSize);
         QueryWrapper<Sport> wapper = new QueryWrapper<Sport>();
         if (type != -1) wapper.eq("type", type);
@@ -42,8 +48,13 @@ public class SportServicesImpl extends BaseServiceImpl<Sport> implements SportSe
     }
 
     @Override
-    public Result<Sport> querySportMap() {
+    public Result<Sport> querySportMap(User loginUser) {
         Result result = new Result();
+        if (!canOperator(loginUser)) {
+            result.setMsg(Status.USER_NO_OPERATION_PERM.getMsg());
+            result.setCode(Status.USER_NO_OPERATION_PERM.getCode());
+            return result;
+        }
         List<Map<String, Object>> list = sportMapper.querySportMap();
         result.setCode(Status.SUCCESS.getCode());
         result.setMsg(Status.SUCCESS.getMsg());
@@ -52,8 +63,12 @@ public class SportServicesImpl extends BaseServiceImpl<Sport> implements SportSe
     }
 
     @Override
-    public Map<String, Object> createSport(Sport sport) {
+    public Map<String, Object> createSport(User loginUser, Sport sport) {
         Map<String, Object> map = new HashMap<>();
+        if (!canOperator(loginUser)) {
+            putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
+            return map;
+        }
         if (!validateSportName(sport)) {
             putMsg(map, 400, "体育名或昵称不符合规范！");
             return map;
@@ -78,8 +93,12 @@ public class SportServicesImpl extends BaseServiceImpl<Sport> implements SportSe
 
 
     @Override
-    public Map<String, Object> updateSport(int id, Sport sport) {
+    public Map<String, Object> updateSport(User loginUser, int id, Sport sport) {
         Map<String, Object> map = new HashMap<>();
+        if (!canOperator(loginUser)) {
+            putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
+            return map;
+        }
         if (!checkSportExistById(id)) {
             putMsg(map, 400, "更新的体育ID不存在！");
             return map;
@@ -111,8 +130,12 @@ public class SportServicesImpl extends BaseServiceImpl<Sport> implements SportSe
     }
 
     @Override
-    public Map<String, Object> deleteSport(int id) {
+    public Map<String, Object> deleteSport(User loginUser, int id) {
         Map<String, Object> map = new HashMap<>();
+        if (!canOperator(loginUser)) {
+            putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
+            return map;
+        }
         if (!checkSportExistById(id)) {
             putMsg(map, 400, "删除的体育ID不存在！");
             return map;

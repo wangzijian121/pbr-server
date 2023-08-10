@@ -4,6 +4,7 @@ package com.zlht.pose.management.api.controller;
 import com.zlht.pose.management.api.service.DataSetServicesI;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.DataSet;
+import com.zlht.pose.management.dao.entity.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -13,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.Map;
 
@@ -39,16 +41,17 @@ public class DataSetController extends BaseController {
     })
     @GetMapping(value = "/getDataSet")
     @ResponseStatus(HttpStatus.OK)
-    public Result<DataSet> queryDataSetList(@RequestParam(required = false, defaultValue = "-1") int type,
-                                                @RequestParam(required = false, defaultValue = "1") int pageNum,
-                                                @RequestParam(required = false, defaultValue = "10") int pageSize,
-                                                @RequestParam(required = false) String name) {
+    public Result<DataSet> queryDataSetList(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                                            @RequestParam(required = false, defaultValue = "-1") int type,
+                                            @RequestParam(required = false, defaultValue = "1") int pageNum,
+                                            @RequestParam(required = false, defaultValue = "10") int pageSize,
+                                            @RequestParam(required = false) String name) {
 
         Result result = checkPageParams(pageNum, pageSize);
         if (!result.checkResult()) {
             return result;
         }
-        return dataSetServices.queryDataSetList(type, pageNum, pageSize, name);
+        return dataSetServices.queryDataSetList(loginUser, type, pageNum, pageSize, name);
     }
 
     /**
@@ -59,8 +62,9 @@ public class DataSetController extends BaseController {
     @ApiOperation(value = "创建数据集", notes = "创建数据集")
     @PostMapping(value = "/createDataSet")
     @ResponseStatus(HttpStatus.OK)
-    public Result<DataSet> createDataSet(@RequestBody DataSet dataSet) {
-        Map<String, Object> map = dataSetServices.createDataSet(dataSet);
+    public Result<DataSet> createDataSet(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                                         @RequestBody DataSet dataSet) {
+        Map<String, Object> map = dataSetServices.createDataSet(loginUser, dataSet);
         return returnDataList(map);
     }
 
@@ -75,9 +79,10 @@ public class DataSetController extends BaseController {
     })
     @PutMapping(value = "/updateDataSet")
     @ResponseStatus(HttpStatus.OK)
-    public Result<DataSet> updateDataSet(@RequestParam int id,
-                                             @RequestBody DataSet dataSet) {
-        Map<String, Object> map = dataSetServices.updateDataSet(id, dataSet);
+    public Result<DataSet> updateDataSet(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                                         @RequestParam int id,
+                                         @RequestBody DataSet dataSet) {
+        Map<String, Object> map = dataSetServices.updateDataSet(loginUser, id, dataSet);
         return returnDataList(map);
     }
 
@@ -89,8 +94,9 @@ public class DataSetController extends BaseController {
     @ApiOperation(value = "删除数据集", notes = "删除数据集")
     @DeleteMapping(value = "/deleteDataSet")
     @ResponseStatus(HttpStatus.OK)
-    public Result<DataSet> deleteDataSet(@RequestParam int id) {
-        Map<String, Object> map = dataSetServices.deleteDataSet(id);
+    public Result<DataSet> deleteDataSet(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                                         @RequestParam int id) {
+        Map<String, Object> map = dataSetServices.deleteDataSet(loginUser, id);
         return returnDataList(map);
     }
 }

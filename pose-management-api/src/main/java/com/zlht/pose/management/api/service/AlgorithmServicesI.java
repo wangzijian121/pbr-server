@@ -2,6 +2,7 @@ package com.zlht.pose.management.api.service;
 
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.Algorithm;
+import com.zlht.pose.management.dao.entity.User;
 
 import java.util.Map;
 
@@ -15,7 +16,7 @@ public interface AlgorithmServicesI {
      * @param pageSize
      * @return
      */
-    Result<Algorithm> queryAlgorithmList(int type, int pageNum, int pageSize, String algorithmName);
+    Result<Algorithm> queryAlgorithmList(User loginUser, int type, int pageNum, int pageSize, String algorithmName);
 
 
     /**
@@ -25,7 +26,7 @@ public interface AlgorithmServicesI {
      * @return
      */
 
-    Map<String, Object> createAlgorithm(Algorithm algorithm);
+    Map<String, Object> createAlgorithm(User loginUser, Algorithm algorithm);
 
     /**
      * 更新算法
@@ -34,7 +35,7 @@ public interface AlgorithmServicesI {
      * @param algorithm
      * @return
      */
-    Map<String, Object> updateAlgorithm(int id, Algorithm algorithm);
+    Map<String, Object> updateAlgorithm(User loginUser, int id, Algorithm algorithm);
 
     /**
      * 删除算法
@@ -42,7 +43,7 @@ public interface AlgorithmServicesI {
      * @param id
      * @return
      */
-    Map<String, Object> deleteAlgorithm(int id);
+    Map<String, Object> deleteAlgorithm(User loginUser, int id);
 
     /**
      * 通过ID判断是否存在（删除更新判断）

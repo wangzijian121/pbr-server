@@ -1,7 +1,6 @@
 package com.zlht.pose.management.api.controller;
 
 
-import com.zlht.pose.management.api.enums.Constants;
 import com.zlht.pose.management.api.enums.Status;
 import com.zlht.pose.management.api.security.impl.AbstractAuthenticator;
 import com.zlht.pose.management.api.service.UserServicesI;
@@ -19,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
@@ -50,10 +50,10 @@ public class UserController extends BaseController {
     @GetMapping(value = "/getUser")
     @ResponseStatus(HttpStatus.OK)
     public Result queryUserList(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
-                                      @RequestParam(required = false, defaultValue = "-1") int type,
-                                      @RequestParam(required = false, defaultValue = "1") int pageNum,
-                                      @RequestParam(required = false, defaultValue = "10") int pageSize,
-                                      @RequestParam(required = false) String nickname) {
+                                @RequestParam(required = false, defaultValue = "-1") int type,
+                                @RequestParam(required = false, defaultValue = "1") int pageNum,
+                                @RequestParam(required = false, defaultValue = "10") int pageSize,
+                                @RequestParam(required = false) String nickname) {
 
         Result result = checkPageParams(pageNum, pageSize);
         if (!result.checkResult()) {
@@ -70,8 +70,9 @@ public class UserController extends BaseController {
     @ApiOperation(value = "创建用户", notes = "创建用户")
     @PostMapping(value = "/createUser")
     @ResponseStatus(HttpStatus.OK)
-    public Map<String, Object> createUser(@RequestBody User user) {
-        Map<String, Object> map = userServices.createUser(user);
+    public Map<String, Object> createUser(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                                          @RequestBody User user) {
+        Map<String, Object> map = userServices.createUser(loginUser, user);
         return map;
     }
 
@@ -86,9 +87,10 @@ public class UserController extends BaseController {
     })
     @PutMapping(value = "/updateUser")
     @ResponseStatus(HttpStatus.OK)
-    public Map<String, Object> updateUser(@RequestParam int id,
+    public Map<String, Object> updateUser(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                                          @RequestParam int id,
                                           @RequestBody User user) {
-        Map<String, Object> map = userServices.updateUser(id, user);
+        Map<String, Object> map = userServices.updateUser(loginUser, id, user);
         return map;
     }
 
@@ -100,8 +102,9 @@ public class UserController extends BaseController {
     @ApiOperation(value = "删除用户", notes = "删除用户")
     @DeleteMapping(value = "/deleteUser")
     @ResponseStatus(HttpStatus.OK)
-    public Map<String, Object> deleteUser(@RequestParam int userId) {
-        Map<String, Object> map = userServices.deleteUser(userId);
+    public Map<String, Object> deleteUser(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                                          @RequestParam int userId) {
+        Map<String, Object> map = userServices.deleteUser(loginUser, userId);
         return map;
     }
 
@@ -131,9 +134,16 @@ public class UserController extends BaseController {
         Map<String, Object> map = null;
         try {
             map = authenticator.authenticate(username, password, ip);
+            if (Integer.valueOf(map.get("code").toString()) != 0) {
+                return returnDataList(map);
+            }
         } catch (Exception e) {
             logger.error(Status.AUTHORIZED_USER_ERROR.getMsg(), e);
         }
+
+        Cookie cookie = new Cookie("sessionId", map.get("data").toString());
+        cookie.setHttpOnly(true);
+        response.addCookie(cookie);
         return returnDataList(map);
     }
 }

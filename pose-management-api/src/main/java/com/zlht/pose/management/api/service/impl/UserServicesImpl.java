@@ -38,7 +38,7 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
         if (!canOperator(loginUser)) {
             result.setMsg(Status.USER_NO_OPERATION_PERM.getMsg());
             result.setCode(Status.USER_NO_OPERATION_PERM.getCode());
-            return  result;
+            return result;
         }
         Page<User> page = new Page<>(pageNum, pageSize);
 
@@ -55,9 +55,13 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
     }
 
     @Override
-    public Map<String, Object> createUser(User user) {
+    public Map<String, Object> createUser(User loginUser, User user) {
 
         Map<String, Object> map = new HashMap<>();
+        if (!canOperator(loginUser)) {
+            putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
+            return map;
+        }
         if (checkUserExistByUserName(user)) {
             putMsg(map, 400, "用户已存在！");
             return map;
@@ -79,7 +83,7 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
 
 
     @Override
-    public Map<String, Object> updateUser(int id, User user) {
+    public Map<String, Object> updateUser(User loginUser, int id, User user) {
 
         Map<String, Object> map = new HashMap<>();
         if (!checkUserExistById(id)) {
@@ -104,7 +108,7 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
     }
 
     @Override
-    public Map<String, Object> deleteUser(int id) {
+    public Map<String, Object> deleteUser(User loginUser, int id) {
         Map<String, Object> map = new HashMap<>();
         if (!checkUserExistById(id)) {
             putMsg(map, 400, "所更新用户不存在！");

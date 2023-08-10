@@ -2,6 +2,7 @@ package com.zlht.pose.management.api.service;
 
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.Institution;
+import com.zlht.pose.management.dao.entity.User;
 
 import java.util.Map;
 
@@ -15,14 +16,14 @@ public interface InstitutionServicesI {
      * @param pageSize
      * @return
      */
-    Result queryInstitutionList(int type, int pageNum, int pageSize, String name);
+    Result queryInstitutionList(User loginUser, int type, int pageNum, int pageSize, String name);
 
     /**
      * 查询已添加的机构(去重)
      *
      * @return
      */
-    Result queryInstitutionMap();
+    Result queryInstitutionMap(User loginUser);
 
     /**
      * 创建机构
@@ -31,7 +32,7 @@ public interface InstitutionServicesI {
      * @return
      */
 
-    Map<String, Object> createInstitution(Institution institution);
+    Map<String, Object> createInstitution(User loginUser, Institution institution);
 
     /**
      * 更新机构
@@ -40,7 +41,7 @@ public interface InstitutionServicesI {
      * @param institution
      * @return
      */
-    Map<String, Object> updateInstitution(int id, Institution institution);
+    Map<String, Object> updateInstitution(User loginUser, int id, Institution institution);
 
     /**
      * 删除机构
@@ -48,7 +49,7 @@ public interface InstitutionServicesI {
      * @param id
      * @return
      */
-    Map<String, Object> deleteInstitution(int id);
+    Map<String, Object> deleteInstitution(User loginUser, int id);
 
 
     /**

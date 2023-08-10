@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zlht.pose.management.api.service.TemplateServicesI;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.Template;
+import com.zlht.pose.management.dao.entity.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -14,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.Map;
 
@@ -40,7 +42,8 @@ public class TemplateController extends BaseController {
     })
     @GetMapping(value = "/getTemplate")
     @ResponseStatus(HttpStatus.OK)
-    public Result<Template> queryTemplateList(@RequestParam(required = false, defaultValue = "-1") int status,
+    public Result<Template> queryTemplateList(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                                              @RequestParam(required = false, defaultValue = "-1") int status,
                                               @RequestParam(required = false, defaultValue = "1") int pageNum,
                                               @RequestParam(required = false, defaultValue = "10") int pageSize,
                                               @RequestParam(required = false) String keyword) {
@@ -49,7 +52,7 @@ public class TemplateController extends BaseController {
         if (!result.checkResult()) {
             return result;
         }
-        return templateServices.queryTemplateList(pageNum, pageSize, status, keyword);
+        return templateServices.queryTemplateList(loginUser, pageNum, pageSize, status, keyword);
     }
 
     /**
@@ -61,8 +64,9 @@ public class TemplateController extends BaseController {
     @PostMapping(value = "/createTemplate")
     @ResponseStatus(HttpStatus.OK)
     @JsonIgnoreProperties(value = "id")
-    public Result<Template> createTemplate(@RequestBody Template template) {
-        Map<String, Object> map = templateServices.createTemplate(template);
+    public Result<Template> createTemplate(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                                           @RequestBody Template template) {
+        Map<String, Object> map = templateServices.createTemplate(loginUser, template);
         return returnDataList(map);
     }
 
@@ -77,9 +81,10 @@ public class TemplateController extends BaseController {
     })
     @PutMapping(value = "/updateTemplate")
     @ResponseStatus(HttpStatus.OK)
-    public Result<Template> updateTemplate(@RequestParam int id,
+    public Result<Template> updateTemplate(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                                           @RequestParam int id,
                                            @RequestBody Template template) {
-        Map<String, Object> map = templateServices.updateTemplate(id, template);
+        Map<String, Object> map = templateServices.updateTemplate(loginUser, id, template);
         return returnDataList(map);
     }
 
@@ -91,8 +96,9 @@ public class TemplateController extends BaseController {
     @ApiOperation(value = "删除模板", notes = "删除模板")
     @DeleteMapping(value = "/deleteTemplate")
     @ResponseStatus(HttpStatus.OK)
-    public Result<Template> deleteTemplate(@RequestParam int id) {
-        Map<String, Object> map = templateServices.deleteTemplate(id);
+    public Result<Template> deleteTemplate(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                                           @RequestParam int id) {
+        Map<String, Object> map = templateServices.deleteTemplate(loginUser, id);
         return returnDataList(map);
     }
 }

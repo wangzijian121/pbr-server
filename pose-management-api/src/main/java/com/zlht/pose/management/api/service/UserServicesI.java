@@ -24,7 +24,7 @@ public interface UserServicesI {
      * @return
      */
 
-    Map<String, Object> createUser(User user);
+    Map<String, Object> createUser(User loginUser, User user);
 
     /**
      * 更新用户
@@ -33,7 +33,7 @@ public interface UserServicesI {
      * @param user
      * @return
      */
-    Map<String, Object> updateUser(int id, User user);
+    Map<String, Object> updateUser(User loginUser, int id, User user);
 
     /**
      * 删除用户
@@ -41,8 +41,7 @@ public interface UserServicesI {
      * @param id
      * @return
      */
-    Map<String, Object> deleteUser(int id);
-
+    Map<String, Object> deleteUser(User loginUser, int id);
 
 
     /**
@@ -51,7 +50,7 @@ public interface UserServicesI {
      * @param user
      * @return
      */
-    boolean checkUserExistByIdName(int id ,User user);
+    boolean checkUserExistByIdName(int id, User user);
 
     /**
      * 检查用户是否已存在

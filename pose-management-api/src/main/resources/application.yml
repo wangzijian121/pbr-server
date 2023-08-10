@@ -1,6 +1,8 @@
 server:
   port: 8080
-
+  servlet:
+    session:
+      timeout: 120m
 spring:
   servlet:
     multipart:
@@ -9,7 +11,7 @@ spring:
   #  Mysql
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3308/pose-management?useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://127.0.0.1:3306/pose-management?useUnicode=true&characterEncoding=UTF-8
     username: root
     password: root
   #    MVC搜索路径
@@ -25,8 +27,7 @@ files:
     local:
       path: C:\Users\Administrator\Desktop\上传\
       maxFileSize: 104857600
-    oss:
-    #.....
+    oss:    #.....
     hadoop:
     #.....
 #session timeout minutes

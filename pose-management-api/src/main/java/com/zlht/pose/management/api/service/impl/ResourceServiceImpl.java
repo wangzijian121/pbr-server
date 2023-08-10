@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zlht.pose.management.api.enums.Status;
 import com.zlht.pose.management.api.service.ResourceServiceI;
 import com.zlht.pose.management.dao.entity.Resource;
+import com.zlht.pose.management.dao.entity.User;
 import com.zlht.pose.management.dao.mapper.ResourceMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -42,10 +42,13 @@ public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServ
     ResourceMapper resourceMapper;
 
     @Override
-    public Map<String, Object> createResource(MultipartFile file) {
+    public Map<String, Object> createResource(User loginUser, MultipartFile file) {
 
-        //TODO 中文文件上传
         Map<String, Object> map = new HashMap<>();
+        if (!canOperator(loginUser)) {
+            putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
+            return map;
+        }
         //获取文件原始名称
         String fullName = file.getOriginalFilename();
 
@@ -78,9 +81,13 @@ public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServ
     }
 
     @Override
-    public Map<String, Object> deleteResource(String uuid) {
+    public Map<String, Object> deleteResource(User loginUser, String uuid) {
 
         Map<String, Object> map = new HashMap<>();
+        if (!canOperator(loginUser)) {
+            putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
+            return map;
+        }
         if (!resourceExist(uuid)) {
             putMsg(map, 400, "删除文件不存在！");
             return map;
@@ -106,8 +113,12 @@ public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServ
 
 
     @Override
-    public ResponseEntity downloadResource(String uuid) {
-
+    public ResponseEntity downloadResource(User loginUser, String uuid) {
+        Map<String, Object> map = new HashMap<>();
+        if (!canOperator(loginUser)) {
+            putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
+            return (ResponseEntity) ResponseEntity.status(401);
+        }
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("alias", uuid);
         Resource resource = resourceMapper.selectOne(queryWrapper);

@@ -4,6 +4,7 @@ package com.zlht.pose.management.api.controller;
 import com.zlht.pose.management.api.service.CommissionServicesI;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.Commission;
+import com.zlht.pose.management.dao.entity.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -13,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.Map;
 
@@ -38,7 +40,8 @@ public class CommissionController extends BaseController {
     })
     @GetMapping(value = "/getCommission")
     @ResponseStatus(HttpStatus.OK)
-    public Result<Commission> queryCommissionList(@RequestParam(required = false, defaultValue = "1") int pageNum,
+    public Result<Commission> queryCommissionList(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                                                  @RequestParam(required = false, defaultValue = "1") int pageNum,
                                                   @RequestParam(required = false, defaultValue = "10") int pageSize,
                                                   @RequestParam(required = false) String name) {
 
@@ -46,7 +49,7 @@ public class CommissionController extends BaseController {
         if (!result.checkResult()) {
             return result;
         }
-        return commissionServices.queryCommissionList(pageNum, pageSize, name);
+        return commissionServices.queryCommissionList(loginUser, pageNum, pageSize, name);
     }
 
 
@@ -58,8 +61,9 @@ public class CommissionController extends BaseController {
     @ApiOperation(value = "创建佣金项", notes = "创建佣金项")
     @PostMapping(value = "/createCommission")
     @ResponseStatus(HttpStatus.OK)
-    public Result<Commission> createCommission(@RequestBody Commission commission) {
-        Map<String, Object> map = commissionServices.createCommission(commission);
+    public Result<Commission> createCommission(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                                               @RequestBody Commission commission) {
+        Map<String, Object> map = commissionServices.createCommission(loginUser, commission);
         return returnDataList(map);
     }
 
@@ -74,9 +78,10 @@ public class CommissionController extends BaseController {
     })
     @PutMapping(value = "/updateCommission")
     @ResponseStatus(HttpStatus.OK)
-    public Result<Commission> updateCommission(@RequestParam int id,
+    public Result<Commission> updateCommission(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                                               @RequestParam int id,
                                                @RequestBody Commission commission) {
-        Map<String, Object> map = commissionServices.updateCommission(id, commission);
+        Map<String, Object> map = commissionServices.updateCommission(loginUser, id, commission);
         return returnDataList(map);
     }
 
@@ -88,8 +93,9 @@ public class CommissionController extends BaseController {
     @ApiOperation(value = "删除佣金项", notes = "删除佣金项")
     @DeleteMapping(value = "/deleteCommission")
     @ResponseStatus(HttpStatus.OK)
-    public Result<Commission> deleteCommission(@RequestParam int id) {
-        Map<String, Object> map = commissionServices.deleteCommission(id);
+    public Result<Commission> deleteCommission(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                                               @RequestParam int id) {
+        Map<String, Object> map = commissionServices.deleteCommission(loginUser, id);
         return returnDataList(map);
     }
 }

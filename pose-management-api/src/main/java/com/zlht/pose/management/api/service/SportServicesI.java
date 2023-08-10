@@ -2,6 +2,7 @@ package com.zlht.pose.management.api.service;
 
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.Sport;
+import com.zlht.pose.management.dao.entity.User;
 
 import java.util.Map;
 
@@ -15,14 +16,14 @@ public interface SportServicesI {
      * @param pageSize
      * @return
      */
-    Result<Sport> querySportList(int type, int pageNum, int pageSize, String sportName);
+    Result<Sport> querySportList(User loginUser, int type, int pageNum, int pageSize, String sportName);
 
     /**
      * 查询已添加的体育
      *
      * @return
      */
-    Result<Sport> querySportMap();
+    Result<Sport> querySportMap(User loginUser);
 
     /**
      * 创建体育
@@ -31,7 +32,7 @@ public interface SportServicesI {
      * @return
      */
 
-    Map<String, Object> createSport(Sport sport);
+    Map<String, Object> createSport(User loginUser, Sport sport);
 
     /**
      * 更新体育
@@ -40,7 +41,7 @@ public interface SportServicesI {
      * @param sport
      * @return
      */
-    Map<String, Object> updateSport(int id, Sport sport);
+    Map<String, Object> updateSport(User loginUser, int id, Sport sport);
 
     /**
      * 删除体育
@@ -48,7 +49,7 @@ public interface SportServicesI {
      * @param id
      * @return
      */
-    Map<String, Object> deleteSport(int id);
+    Map<String, Object> deleteSport(User loginUser, int id);
 
     /**
      * 通过ID判断是否存在（删除更新判断）

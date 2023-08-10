@@ -4,6 +4,7 @@ package com.zlht.pose.management.api.controller;
 import com.zlht.pose.management.api.service.ReviewServicesI;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.Review;
+import com.zlht.pose.management.dao.entity.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -13,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.Map;
 
@@ -38,7 +40,8 @@ public class ReviewController extends BaseController {
     })
     @GetMapping(value = "/getReview")
     @ResponseStatus(HttpStatus.OK)
-    public Result<Review> queryReviewList(@RequestParam(required = false, defaultValue = "1") int pageNum,
+    public Result<Review> queryReviewList(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                                          @RequestParam(required = false, defaultValue = "1") int pageNum,
                                           @RequestParam(required = false, defaultValue = "10") int pageSize,
                                           @RequestParam(required = false) String name) {
 
@@ -46,7 +49,7 @@ public class ReviewController extends BaseController {
         if (!result.checkResult()) {
             return result;
         }
-        return reviewServices.queryReviewList(pageNum, pageSize, name);
+        return reviewServices.queryReviewList(loginUser, pageNum, pageSize, name);
     }
 
 
@@ -62,10 +65,11 @@ public class ReviewController extends BaseController {
     })
     @PutMapping(value = "/updateReviewStatus")
     @ResponseStatus(HttpStatus.OK)
-    public Result<Review> updateReview(@RequestParam int id,
+    public Result<Review> updateReview(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                                       @RequestParam int id,
                                        @RequestParam int status,
                                        @RequestBody String mark) {
-        Map<String, Object> map = reviewServices.updateReviewStatus(id, status, mark);
+        Map<String, Object> map = reviewServices.updateReviewStatus(loginUser, id, status, mark);
         return returnDataList(map);
     }
 

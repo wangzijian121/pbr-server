@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlht.pose.management.api.enums.Status;
 import com.zlht.pose.management.api.service.WeChatServicesI;
 import com.zlht.pose.management.api.utils.Result;
+import com.zlht.pose.management.dao.entity.User;
 import com.zlht.pose.management.dao.entity.WeChat;
 import com.zlht.pose.management.dao.mapper.WeChatMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,13 @@ public class WeChatServicesImpl extends BaseServiceImpl implements WeChatService
     WeChatMapper weChatMapper;
 
     @Override
-    public Result queryWeChatList(int pageNum, int pageSize, int status, String keyword) {
+    public Result queryWeChatList(User loginUser, int pageNum, int pageSize, int status, String keyword) {
         Result result = new Result();
+        if (!canOperator(loginUser)) {
+            result.setMsg(Status.USER_NO_OPERATION_PERM.getMsg());
+            result.setCode(Status.USER_NO_OPERATION_PERM.getCode());
+            return result;
+        }
         Page page = new Page<>(pageNum, pageSize);
         Page<Map<String, Object>> weChatPage = weChatMapper.selectWechat(page, keyword, status);
         result.setCode(Status.SUCCESS.getCode());
@@ -30,9 +36,13 @@ public class WeChatServicesImpl extends BaseServiceImpl implements WeChatService
     }
 
     @Override
-    public Map<String, Object> createWeChat(WeChat weChat) {
+    public Map<String, Object> createWeChat(User loginUser, WeChat weChat) {
 
         Map<String, Object> map = new HashMap<>();
+        if (!canOperator(loginUser)) {
+            putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
+            return map;
+        }
         QueryWrapper checkWrapper = new QueryWrapper<>();
         checkWrapper.eq("name", weChat.getName());
         if (weChatMapper.exists(checkWrapper)) {
@@ -51,9 +61,14 @@ public class WeChatServicesImpl extends BaseServiceImpl implements WeChatService
 
 
     @Override
-    public Map<String, Object> updateWeChat(int id, WeChat weChat) {
+    public Map<String, Object> updateWeChat(User loginUser, int id, WeChat weChat) {
 
         Map<String, Object> map = new HashMap<>();
+        if (!canOperator(loginUser)) {
+            putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
+            return map;
+        }
+
         if (!checkWeChatExistById(id)) {
             putMsg(map, 400, "所更新的小程序信息ID不存在!");
             return map;
@@ -77,9 +92,13 @@ public class WeChatServicesImpl extends BaseServiceImpl implements WeChatService
     }
 
     @Override
-    public Map<String, Object> deleteWeChat(int id) {
+    public Map<String, Object> deleteWeChat(User loginUser, int id) {
 
         Map<String, Object> map = new HashMap<>();
+        if (!canOperator(loginUser)) {
+            putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
+            return map;
+        }
         if (!checkWeChatExistById(id)) {
             putMsg(map, 400, "所删除的小程序信息ID不存在!");
             return map;

@@ -1,7 +1,7 @@
 package com.zlht.pose.management.api.service;
 
 import com.zlht.pose.management.api.utils.Result;
-import com.zlht.pose.management.dao.entity.Sport;
+import com.zlht.pose.management.dao.entity.User;
 import com.zlht.pose.management.dao.entity.WeChat;
 
 import java.util.Map;
@@ -16,7 +16,7 @@ public interface WeChatServicesI {
      * @param pageSize
      * @return
      */
-    Result queryWeChatList(int pageNum, int pageSize, int status, String keyword);
+    Result queryWeChatList(User loginUser, int pageNum, int pageSize, int status, String keyword);
 
 
     /**
@@ -26,7 +26,7 @@ public interface WeChatServicesI {
      * @return
      */
 
-    Map<String, Object> createWeChat(WeChat wechat);
+    Map<String, Object> createWeChat(User loginUser, WeChat wechat);
 
     /**
      * 更新小程序信息
@@ -35,7 +35,7 @@ public interface WeChatServicesI {
      * @param wechat
      * @return
      */
-    Map<String, Object> updateWeChat(int id, WeChat wechat);
+    Map<String, Object> updateWeChat(User loginUser, int id, WeChat wechat);
 
     /**
      * 删除小程序信息
@@ -43,7 +43,8 @@ public interface WeChatServicesI {
      * @param id
      * @return
      */
-    Map<String, Object> deleteWeChat(int id);
+    Map<String, Object> deleteWeChat(User loginUser, int id);
+
     /**
      * 判断是否已存在
      *

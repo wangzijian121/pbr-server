@@ -7,6 +7,7 @@ import com.zlht.pose.management.api.enums.Status;
 import com.zlht.pose.management.api.service.CommissionServicesI;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.Commission;
+import com.zlht.pose.management.dao.entity.User;
 import com.zlht.pose.management.dao.mapper.CommissionMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Service
@@ -26,9 +26,14 @@ public class CommissionServicesImpl extends BaseServiceImpl<Commission> implemen
     CommissionMapper commissionMapper;
 
     @Override
-    public Result<Commission> queryCommissionList(int pageNum, int pageSize, String keyword) {
+    public Result<Commission> queryCommissionList(User loginUser, int pageNum, int pageSize, String keyword) {
 
         Result result = new Result();
+        if (!canOperator(loginUser)) {
+            result.setMsg(Status.USER_NO_OPERATION_PERM.getMsg());
+            result.setCode(Status.USER_NO_OPERATION_PERM.getCode());
+            return result;
+        }
         Page<Commission> page = new Page<>(pageNum, pageSize);
 
         Page<Map<String, Object>> commissionPage = commissionMapper.selectCommission(page, keyword);
@@ -39,8 +44,12 @@ public class CommissionServicesImpl extends BaseServiceImpl<Commission> implemen
     }
 
     @Override
-    public Map<String, Object> createCommission(Commission commission) {
+    public Map<String, Object> createCommission(User loginUser, Commission commission) {
         Map<String, Object> map = new HashMap<>();
+        if (!canOperator(loginUser)) {
+            putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
+            return map;
+        }
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("review_id", commission.getReviewId());
         //exist?
@@ -60,8 +69,12 @@ public class CommissionServicesImpl extends BaseServiceImpl<Commission> implemen
 
 
     @Override
-    public Map<String, Object> updateCommission(int id, Commission commission) {
+    public Map<String, Object> updateCommission(User loginUser, int id, Commission commission) {
         Map<String, Object> map = new HashMap<>();
+        if (!canOperator(loginUser)) {
+            putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
+            return map;
+        }
         if (!checkCommissionExistById(id)) {
             putMsg(map, 400, "更新的佣金项ID不存在！");
             return map;
@@ -87,8 +100,12 @@ public class CommissionServicesImpl extends BaseServiceImpl<Commission> implemen
     }
 
     @Override
-    public Map<String, Object> deleteCommission(int id) {
+    public Map<String, Object> deleteCommission(User loginUser, int id) {
         Map<String, Object> map = new HashMap<>();
+        if (!canOperator(loginUser)) {
+            putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
+            return map;
+        }
         if (!checkCommissionExistById(id)) {
             putMsg(map, 400, "删除的佣金项ID不存在！");
             return map;

@@ -7,11 +7,11 @@ import com.zlht.pose.management.api.enums.Status;
 import com.zlht.pose.management.api.service.ReviewServicesI;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.Review;
+import com.zlht.pose.management.dao.entity.User;
 import com.zlht.pose.management.dao.mapper.ReviewMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -26,9 +26,14 @@ public class ReviewServicesImpl extends BaseServiceImpl<Review> implements Revie
     ReviewMapper reviewMapper;
 
     @Override
-    public Result queryReviewList(int pageNum, int pageSize, String keyword) {
+    public Result queryReviewList(User loginUser, int pageNum, int pageSize, String keyword) {
 
         Result result = new Result();
+        if (!canOperator(loginUser)) {
+            result.setMsg(Status.USER_NO_OPERATION_PERM.getMsg());
+            result.setCode(Status.USER_NO_OPERATION_PERM.getCode());
+            return result;
+        }
         Page page = new Page<>(pageNum, pageSize);
         Page<Map<String, Object>> reviewPage = reviewMapper.selectReview(page, keyword);
         result.setCode(Status.SUCCESS.getCode());
@@ -39,9 +44,13 @@ public class ReviewServicesImpl extends BaseServiceImpl<Review> implements Revie
 
 
     @Override
-    public Map<String, Object> updateReviewStatus(int id, int status, String mark) {
+    public Map<String, Object> updateReviewStatus(User loginUser, int id, int status, String mark) {
 
         Map<String, Object> map = new HashMap<>();
+        if (!canOperator(loginUser)) {
+            putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
+            return map;
+        }
         if (!checkReviewExistById(id)) {
             putMsg(map, 400, "所更新的审核ID不存在!");
             return map;

@@ -7,6 +7,7 @@ import com.zlht.pose.management.api.enums.Status;
 import com.zlht.pose.management.api.service.InstitutionServicesI;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.Institution;
+import com.zlht.pose.management.dao.entity.User;
 import com.zlht.pose.management.dao.mapper.InstitutionMapper;
 import com.zlht.pose.management.tools.service.ValidateService;
 import org.apache.commons.lang3.StringUtils;
@@ -15,7 +16,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,9 +29,14 @@ public class InstitutionServicesImpl extends BaseServiceImpl<Institution> implem
     InstitutionMapper institutionMapper;
 
     @Override
-    public Result queryInstitutionList(int type, int pageNum, int pageSize, String keyword) {
+    public Result queryInstitutionList(User loginUser, int type, int pageNum, int pageSize, String keyword) {
 
         Result result = new Result();
+        if (!canOperator(loginUser)) {
+            result.setMsg(Status.USER_NO_OPERATION_PERM.getMsg());
+            result.setCode(Status.USER_NO_OPERATION_PERM.getCode());
+            return result;
+        }
         Page<Institution> page = new Page<>(pageNum, pageSize);
 
         QueryWrapper<Institution> wapper = new QueryWrapper<Institution>();
@@ -45,9 +50,14 @@ public class InstitutionServicesImpl extends BaseServiceImpl<Institution> implem
     }
 
     @Override
-    public Result queryInstitutionMap() {
+    public Result queryInstitutionMap(User loginUser) {
 
         Result result = new Result();
+        if (!canOperator(loginUser)) {
+            result.setMsg(Status.USER_NO_OPERATION_PERM.getMsg());
+            result.setCode(Status.USER_NO_OPERATION_PERM.getCode());
+            return result;
+        }
         List<Map<String, Object>> list = institutionMapper.queryInstitutionMap();
         result.setCode(Status.SUCCESS.getCode());
         result.setMsg(Status.SUCCESS.getMsg());
@@ -56,8 +66,12 @@ public class InstitutionServicesImpl extends BaseServiceImpl<Institution> implem
     }
 
     @Override
-    public Map<String, Object> createInstitution(Institution institution) {
+    public Map<String, Object> createInstitution(User loginUser, Institution institution) {
         Map<String, Object> map = new HashMap<>();
+        if (!canOperator(loginUser)) {
+            putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
+            return map;
+        }
         QueryWrapper queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("name", institution.getName());
         //exist?
@@ -86,9 +100,13 @@ public class InstitutionServicesImpl extends BaseServiceImpl<Institution> implem
 
 
     @Override
-    public Map<String, Object> updateInstitution(int id, Institution institution) {
+    public Map<String, Object> updateInstitution(User loginUser, int id, Institution institution) {
 
         Map<String, Object> map = new HashMap<>();
+        if (!canOperator(loginUser)) {
+            putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
+            return map;
+        }
         if (!validateInstitutionName(institution)) {
             putMsg(map, 400, "机构名或昵称不符合规范！");
             return map;
@@ -124,9 +142,13 @@ public class InstitutionServicesImpl extends BaseServiceImpl<Institution> implem
     }
 
     @Override
-    public Map<String, Object> deleteInstitution(int id) {
+    public Map<String, Object> deleteInstitution(User loginUser, int id) {
 
         Map<String, Object> map = new HashMap<>();
+        if (!canOperator(loginUser)) {
+            putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
+            return map;
+        }
         if (!checkInstitutionExistById(id)) {
             putMsg(map, 400, "所删除的机构ID不存在!");
             return map;

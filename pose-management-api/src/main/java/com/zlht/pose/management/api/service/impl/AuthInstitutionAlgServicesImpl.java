@@ -7,7 +7,7 @@ import com.zlht.pose.management.api.enums.Status;
 import com.zlht.pose.management.api.service.AuthInstitutionAlgServicesI;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.AuthInstitutionAlg;
-
+import com.zlht.pose.management.dao.entity.User;
 import com.zlht.pose.management.dao.mapper.AuthInstitutionAlgMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,9 +26,15 @@ public class AuthInstitutionAlgServicesImpl extends BaseServiceImpl<AuthInstitut
     AuthInstitutionAlgMapper authInstitutionAlgMapper;
 
     @Override
-    public Result queryAuthInstitutionAlgList(int auth_type, int pageNum, int pageSize, String keyword) {
+    public Result queryAuthInstitutionAlgList(User loginUser, int auth_type, int pageNum, int pageSize, String keyword) {
 
         Result result = new Result();
+        if (!canOperator(loginUser)) {
+            result.setMsg(Status.USER_NO_OPERATION_PERM.getMsg());
+            result.setCode(Status.USER_NO_OPERATION_PERM.getCode());
+            return result;
+        }
+
         Page page = new Page<>(pageNum, pageSize);
 
         Page<Map<String, Object>> institutionPage = authInstitutionAlgMapper.selectAuthInstitutionsWithNickname(page, keyword, auth_type);
@@ -41,8 +47,12 @@ public class AuthInstitutionAlgServicesImpl extends BaseServiceImpl<AuthInstitut
     }
 
     @Override
-    public Map<String, Object> createAuthInstitution(AuthInstitutionAlg authInstitutionAlg) {
+    public Map<String, Object> createAuthInstitution(User loginUser, AuthInstitutionAlg authInstitutionAlg) {
         Map<String, Object> map = new HashMap<>();
+        if (!canOperator(loginUser)) {
+            putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
+            return map;
+        }
         //check Duplication
         if (checkAuthDuplication(authInstitutionAlg)) {
             putMsg(map, 400, "机构授权已存在!");
@@ -60,9 +70,13 @@ public class AuthInstitutionAlgServicesImpl extends BaseServiceImpl<AuthInstitut
 
 
     @Override
-    public Map<String, Object> updateAuthInstitution(int id, AuthInstitutionAlg authInstitutionAlg) {
+    public Map<String, Object> updateAuthInstitution(User loginUser, int id, AuthInstitutionAlg authInstitutionAlg) {
 
         Map<String, Object> map = new HashMap<>();
+        if (!canOperator(loginUser)) {
+            putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
+            return map;
+        }
         //check Exist
         if (!checkAuthExistById(id)) {
             logger.error("所更新机构不存在！");
@@ -86,9 +100,12 @@ public class AuthInstitutionAlgServicesImpl extends BaseServiceImpl<AuthInstitut
     }
 
     @Override
-    public Map<String, Object> deleteAuthInstitution(int id) {
+    public Map<String, Object> deleteAuthInstitution(User loginUser, int id) {
         Map<String, Object> map = new HashMap<>();
-
+        if (!canOperator(loginUser)) {
+            putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
+            return map;
+        }
         if (!checkAuthExistById(id)) {
             logger.error("所删除机构不存在！");
             putMsg(map, 400, "所删除机构不存在！");

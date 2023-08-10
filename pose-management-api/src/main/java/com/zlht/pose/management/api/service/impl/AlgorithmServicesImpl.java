@@ -7,6 +7,7 @@ import com.zlht.pose.management.api.enums.Status;
 import com.zlht.pose.management.api.service.AlgorithmServicesI;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.Algorithm;
+import com.zlht.pose.management.dao.entity.User;
 import com.zlht.pose.management.dao.mapper.AlgorithmMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
@@ -15,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Service
@@ -27,9 +27,14 @@ public class AlgorithmServicesImpl extends BaseServiceImpl<Algorithm> implements
     AlgorithmMapper algorithmMapper;
 
     @Override
-    public Result<Algorithm> queryAlgorithmList(int type, int pageNum, int pageSize, String keyword) {
+    public Result<Algorithm> queryAlgorithmList(User loginUser, int type, int pageNum, int pageSize, String keyword) {
 
         Result result = new Result();
+        if (!canOperator(loginUser)) {
+            result.setMsg(Status.USER_NO_OPERATION_PERM.getMsg());
+            result.setCode(Status.USER_NO_OPERATION_PERM.getCode());
+            return result;
+        }
         Page<Algorithm> page = new Page<>(pageNum, pageSize);
         Page<Map<String, Object>> algorithmPage = algorithmMapper.selectAlgorithm(page, keyword, type);
         result.setCode(Status.SUCCESS.getCode());
@@ -40,8 +45,12 @@ public class AlgorithmServicesImpl extends BaseServiceImpl<Algorithm> implements
 
 
     @Override
-    public Map<String, Object> createAlgorithm(Algorithm algorithm) {
+    public Map<String, Object> createAlgorithm(User loginUser, Algorithm algorithm) {
         Map<String, Object> map = new HashMap<>();
+        if (!canOperator(loginUser)) {
+            putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
+            return map;
+        }
         if (!validateAlgorithmName(algorithm)) {
             putMsg(map, 400, "算法名或昵称不符合规范！");
             return map;
@@ -66,8 +75,12 @@ public class AlgorithmServicesImpl extends BaseServiceImpl<Algorithm> implements
 
 
     @Override
-    public Map<String, Object> updateAlgorithm(int id, Algorithm algorithm) {
+    public Map<String, Object> updateAlgorithm(User loginUser, int id, Algorithm algorithm) {
         Map<String, Object> map = new HashMap<>();
+        if (!canOperator(loginUser)) {
+            putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
+            return map;
+        }
         if (!checkAlgorithmExistById(id)) {
             putMsg(map, 400, "更新的算法ID不存在！");
             return map;
@@ -99,8 +112,12 @@ public class AlgorithmServicesImpl extends BaseServiceImpl<Algorithm> implements
     }
 
     @Override
-    public Map<String, Object> deleteAlgorithm(int id) {
+    public Map<String, Object> deleteAlgorithm(User loginUser, int id) {
         Map<String, Object> map = new HashMap<>();
+        if (!canOperator(loginUser)) {
+            putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
+            return map;
+        }
         if (!checkAlgorithmExistById(id)) {
             putMsg(map, 400, "删除的算法ID不存在！");
             return map;

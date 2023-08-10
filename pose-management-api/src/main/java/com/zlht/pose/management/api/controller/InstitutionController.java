@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zlht.pose.management.api.service.InstitutionServicesI;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.Institution;
+import com.zlht.pose.management.dao.entity.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -14,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.Map;
 
@@ -40,7 +42,8 @@ public class InstitutionController extends BaseController {
     })
     @GetMapping(value = "/getInstitution")
     @ResponseStatus(HttpStatus.OK)
-    public Result<Institution> queryInstitutionList(@RequestParam(required = false, defaultValue = "-1") int type,
+    public Result<Institution> queryInstitutionList(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                                                    @RequestParam(required = false, defaultValue = "-1") int type,
                                                     @RequestParam(required = false, defaultValue = "1") int pageNum,
                                                     @RequestParam(required = false, defaultValue = "10") int pageSize,
                                                     @RequestParam(required = false) String name) {
@@ -49,7 +52,7 @@ public class InstitutionController extends BaseController {
         if (!result.checkResult()) {
             return result;
         }
-        return institutionServices.queryInstitutionList(type, pageNum, pageSize, name);
+        return institutionServices.queryInstitutionList(loginUser, type, pageNum, pageSize, name);
     }
 
     /**
@@ -60,8 +63,8 @@ public class InstitutionController extends BaseController {
     @ApiOperation(value = "查询已添加机构", notes = "查询已添加机构")
     @GetMapping(value = "/getInstitutionMap")
     @ResponseStatus(HttpStatus.OK)
-    public Result queryInstitutionList() {
-        return institutionServices.queryInstitutionMap();
+    public Result queryInstitutionList(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser) {
+        return institutionServices.queryInstitutionMap(loginUser);
     }
 
     /**
@@ -73,8 +76,9 @@ public class InstitutionController extends BaseController {
     @PostMapping(value = "/createInstitution")
     @ResponseStatus(HttpStatus.OK)
     @JsonIgnoreProperties(value = "id")
-    public Result<Institution> createInstitution(@RequestBody Institution institution) {
-        Map<String, Object> map = institutionServices.createInstitution(institution);
+    public Result<Institution> createInstitution(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                                                 @RequestBody Institution institution) {
+        Map<String, Object> map = institutionServices.createInstitution(loginUser, institution);
         return returnDataList(map);
     }
 
@@ -89,9 +93,10 @@ public class InstitutionController extends BaseController {
     })
     @PutMapping(value = "/updateInstitution")
     @ResponseStatus(HttpStatus.OK)
-    public Result<Institution> updateInstitution(@RequestParam int id,
+    public Result<Institution> updateInstitution(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                                                 @RequestParam int id,
                                                  @RequestBody Institution institution) {
-        Map<String, Object> map = institutionServices.updateInstitution(id, institution);
+        Map<String, Object> map = institutionServices.updateInstitution(loginUser, id, institution);
         return returnDataList(map);
     }
 
@@ -103,8 +108,9 @@ public class InstitutionController extends BaseController {
     @ApiOperation(value = "删除机构", notes = "删除机构")
     @DeleteMapping(value = "/deleteInstitution")
     @ResponseStatus(HttpStatus.OK)
-    public Result<Institution> deleteInstitution(@RequestParam int id) {
-        Map<String, Object> map = institutionServices.deleteInstitution(id);
+    public Result<Institution> deleteInstitution(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                                                 @RequestParam int id) {
+        Map<String, Object> map = institutionServices.deleteInstitution(loginUser, id);
         return returnDataList(map);
     }
 }
