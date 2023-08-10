@@ -26,7 +26,7 @@ public interface AlgorithmMapper extends BaseMapper<Algorithm> {
             "               left join template t on t.id = a.template_id\n" +
             "               left join sport_category sc on a.sport_category = sc.id\n" +
             "               left join user u on a.uploader = u.id) res\n  " +
-            "where (#{keyword} IS NULL OR res.name LIKE CONCAT('%', #{keyword}, '%')) and  (#{type}  = -1 OR res.id =#{type})")
+            "where (#{keyword} IS NULL OR res.name LIKE CONCAT('%', #{keyword}, '%')) and  (#{type}  = -1 OR res.type =#{type})")
     Page<Map<String, Object>> selectAlgorithm(Page<?> page, @Param("keyword") String keyword,
                                            @Param("type") int type);
 }

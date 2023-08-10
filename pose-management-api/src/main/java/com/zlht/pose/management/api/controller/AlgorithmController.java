@@ -34,7 +34,7 @@ public class AlgorithmController extends BaseController {
      */
     @ApiOperation(value = "查询算法", notes = "查询算法")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "type", value = "算法类型(0普通算法 1专用算法  2普通数据集 3 专用数据集)", dataTypeClass = int.class),
+            @ApiImplicitParam(name = "type", value = "算法类型(0普通算法 1专用算法)", dataTypeClass = int.class),
             @ApiImplicitParam(name = "pageNum", value = "页数(默认1)", dataTypeClass = int.class),
             @ApiImplicitParam(name = "pageSize", value = "页大小(默认10)", dataTypeClass = int.class),
             @ApiImplicitParam(name = "name", value = "算法名", dataTypeClass = String.class)

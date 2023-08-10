@@ -24,7 +24,7 @@ public interface DataSetMapper extends BaseMapper<DataSet> {
             "      from data_set ds\n" +
             "               left join user u on ds.uploader = u.id\n" +
             "               left join sport_category sc on ds.type = sc.id) res\n " +
-            "where (#{keyword} IS NULL OR res.name LIKE CONCAT('%', #{keyword}, '%')) and  (#{type}  = -1 OR res.id =#{type})")
+            "where (#{keyword} IS NULL OR res.name LIKE CONCAT('%', #{keyword}, '%')) and  (#{type}  = -1 OR res.type =#{type})")
     Page<Map<String, Object>> selectDataSet(Page<?> page, @Param("keyword") String keyword,
                                             @Param("type") int type);
 }

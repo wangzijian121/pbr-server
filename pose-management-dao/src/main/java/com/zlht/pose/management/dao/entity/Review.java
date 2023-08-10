@@ -30,7 +30,7 @@ public class Review {
     private Integer developer_id;
 
 
-    @ApiModelProperty(value = "数据集类型(0普通算法 1专用算法  2普通数据集 3 专用数据集)", required = true)
+    @ApiModelProperty(value = "数据集类型(0普通数据集 1专用数据集)", required = true)
     private int type;
 
 

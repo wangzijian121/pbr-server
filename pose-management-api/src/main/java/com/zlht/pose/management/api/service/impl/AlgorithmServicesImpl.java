@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlht.pose.management.api.enums.Status;
 import com.zlht.pose.management.api.service.AlgorithmServicesI;
+import com.zlht.pose.management.api.utils.PageInfo;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.Algorithm;
 import com.zlht.pose.management.dao.entity.User;
@@ -30,16 +31,21 @@ public class AlgorithmServicesImpl extends BaseServiceImpl<Algorithm> implements
     public Result<Algorithm> queryAlgorithmList(User loginUser, int type, int pageNum, int pageSize, String keyword) {
 
         Result result = new Result();
+        PageInfo pageInfo = new PageInfo(pageNum, pageSize);
         if (!canOperator(loginUser)) {
             result.setMsg(Status.USER_NO_OPERATION_PERM.getMsg());
             result.setCode(Status.USER_NO_OPERATION_PERM.getCode());
             return result;
         }
+
         Page<Algorithm> page = new Page<>(pageNum, pageSize);
         Page<Map<String, Object>> algorithmPage = algorithmMapper.selectAlgorithm(page, keyword, type);
+
         result.setCode(Status.SUCCESS.getCode());
         result.setMsg(Status.SUCCESS.getMsg());
-        result.setData(algorithmPage.getRecords());
+        pageInfo.setTotal((int) page.getTotal());
+        pageInfo.setTotalList(algorithmPage.getRecords());
+        result.setData(pageInfo);
         return result;
     }
 

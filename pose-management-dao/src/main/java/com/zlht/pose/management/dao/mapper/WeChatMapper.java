@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Select;
 
 import java.util.Map;
 
-public interface WeChatMapper extends BaseMapper<WeChat> {
+public interface  WeChatMapper extends BaseMapper<WeChat> {
 
 
     @Select("select *\n" +

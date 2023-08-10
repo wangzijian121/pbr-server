@@ -25,7 +25,7 @@ public interface ChargeMapper extends BaseMapper<Charge> {
             "      from charge c\n" +
             "               left join institution i on i.id = c.institution_id\n" +
             "               left join user u on u.id = c.confirm_people) res" +
-            "  where (#{keyword} IS NULL OR res.institution_name LIKE CONCAT('%', #{keyword}, '%')) and  (#{type}  = -1 OR res.id =#{type})")
+            "  where (#{keyword} IS NULL OR res.institution_name LIKE CONCAT('%', #{keyword}, '%')) and  (#{type}  = -1 OR res.type =#{type})")
     Page<Map<String, Object>> selectCharge(Page<?> page, @Param("keyword") String keyword,
                                            @Param("type") int type);
 
