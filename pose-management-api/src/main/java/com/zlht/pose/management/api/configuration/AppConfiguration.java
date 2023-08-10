@@ -20,8 +20,7 @@ package com.zlht.pose.management.api.configuration;
 
 import java.util.Locale;
 
-import interceptor.LoginHandlerInterceptor;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.zlht.pose.management.api.interceptor.LoginHandlerInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
@@ -34,7 +33,6 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
-import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
 /**
  * application configuration

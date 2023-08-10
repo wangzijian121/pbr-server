@@ -3,6 +3,7 @@ package com.zlht.pose.management.api.controller;
 
 import com.zlht.pose.management.api.enums.Status;
 import com.zlht.pose.management.api.security.impl.AbstractAuthenticator;
+import com.zlht.pose.management.api.service.SessionServiceI;
 import com.zlht.pose.management.api.service.UserServicesI;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.User;
@@ -31,9 +32,11 @@ public class UserController extends BaseController {
     @Autowired
     UserServicesI userServices;
 
-
     @Autowired
     AbstractAuthenticator authenticator;
+
+    @Autowired
+    SessionServiceI sessionServiceI;
 
     /**
      * 查询用户信息
@@ -144,6 +147,23 @@ public class UserController extends BaseController {
         Cookie cookie = new Cookie("sessionId", map.get("data").toString());
         cookie.setHttpOnly(true);
         response.addCookie(cookie);
+        return returnDataList(map);
+    }
+
+
+    /**
+     * 用户注销
+     *
+     * @return
+     */
+    @ApiOperation(value = "用户登出", notes = "用户登出")
+    @PostMapping(value = "/logout")
+    @ResponseStatus(HttpStatus.OK)
+    public Result logout(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                         HttpServletRequest request) {
+        String ip = getClientIpAddress(request);
+        Map<String, Object> map = sessionServiceI.signOut(ip, loginUser);
+        request.removeAttribute("session.user");
         return returnDataList(map);
     }
 }

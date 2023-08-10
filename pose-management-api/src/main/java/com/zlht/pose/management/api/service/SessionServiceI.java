@@ -1,6 +1,9 @@
 package com.zlht.pose.management.api.service;
 
+import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.User;
+
+import java.util.Map;
 
 public interface SessionServiceI {
 
@@ -29,5 +32,5 @@ public interface SessionServiceI {
      * @param ip        no use
      * @param loginUser login user
      */
-//    void signOut(String ip, User loginUser);
+    Map<String, Object> signOut(String ip, User loginUser);
 }

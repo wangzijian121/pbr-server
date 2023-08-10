@@ -1,4 +1,4 @@
-package interceptor;
+package com.zlht.pose.management.api.interceptor;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zlht.pose.management.api.controller.BaseController;

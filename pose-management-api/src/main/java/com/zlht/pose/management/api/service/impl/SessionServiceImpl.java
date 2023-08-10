@@ -21,7 +21,9 @@ package com.zlht.pose.management.api.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.zlht.pose.management.api.controller.BaseController;
+import com.zlht.pose.management.api.enums.Status;
 import com.zlht.pose.management.api.service.SessionServiceI;
+import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.Session;
 import com.zlht.pose.management.dao.entity.User;
 import com.zlht.pose.management.dao.mapper.SessionMapper;
@@ -31,9 +33,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * session service implement
@@ -101,8 +101,8 @@ public class SessionServiceImpl extends BaseServiceImpl implements SessionServic
             session.setLastLoginTime(now);
             sessionMapper.insert(session);
             return session.getId();
-        }else{
-            return  null;
+        } else {
+            return null;
         }
     }
 
@@ -113,20 +113,24 @@ public class SessionServiceImpl extends BaseServiceImpl implements SessionServic
      * @param ip        no use
      * @param loginUser login user
      */
-//    @Override
-/*
-    public void signOut(String ip, User loginUser) {
-        try {
-            */
-/*
-            Session session = sessionMapper.queryByUserIdAndIp(loginUser.getId(), ip);
+    @Override
+    public Map<String, Object> signOut(String ip, User loginUser) {
+        Map<String, Object> map =new HashMap<>();
 
+        try {
+            QueryWrapper queryWrapper = new QueryWrapper();
+            queryWrapper.eq("user_id", loginUser.getId());
+            queryWrapper.eq("ip", ip);
+            Session session = sessionMapper.selectOne(queryWrapper);
             //delete session
-            sessionMapper.deleteById(session.getId());
+            int  delete=sessionMapper.deleteById(session.getId());
+            if (delete>0){
+                putMsg(map,Status.SUCCESS.getCode(), Status.SUCCESS.getMsg());
+                return map;
+            }
         } catch (Exception e) {
             logger.warn("userId : {} , ip : {} , find more one session", loginUser.getId(), ip);
         }
+        return map;
     }
-*/
-
 }
