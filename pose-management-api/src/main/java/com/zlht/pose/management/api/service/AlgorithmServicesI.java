@@ -1,5 +1,6 @@
 package com.zlht.pose.management.api.service;
 
+import com.zlht.pose.management.api.utils.PageInfo;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.Algorithm;
 import com.zlht.pose.management.dao.entity.User;
@@ -12,11 +13,11 @@ public interface AlgorithmServicesI {
      * 查询算法
      *
      * @param type
-     * @param pageNum
+     * @param currentPage
      * @param pageSize
      * @return
      */
-    Result<Algorithm> queryAlgorithmList(User loginUser, int type, int pageNum, int pageSize, String algorithmName);
+    Result<PageInfo<Algorithm>> queryAlgorithmList(User loginUser, int type, int currentPage, int pageSize, String algorithmName);
 
 
     /**

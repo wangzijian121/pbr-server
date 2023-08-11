@@ -2,6 +2,7 @@ package com.zlht.pose.management.api.controller;
 
 
 import com.zlht.pose.management.api.service.ReviewServicesI;
+import com.zlht.pose.management.api.utils.PageInfo;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.Review;
 import com.zlht.pose.management.dao.entity.User;
@@ -34,22 +35,22 @@ public class ReviewController extends BaseController {
      */
     @ApiOperation(value = "查询审核", notes = "查询审核")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "pageNum", value = "页数(默认1)", dataTypeClass = int.class),
+            @ApiImplicitParam(name = "currentPage", value = "页数(默认1)", dataTypeClass = int.class),
             @ApiImplicitParam(name = "pageSize", value = "页大小(默认10)", dataTypeClass = int.class),
             @ApiImplicitParam(name = "name", value = "开发者名", dataTypeClass = String.class)
     })
     @GetMapping(value = "/getReview")
     @ResponseStatus(HttpStatus.OK)
-    public Result<Review> queryReviewList(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
-                                          @RequestParam(required = false, defaultValue = "1") int pageNum,
-                                          @RequestParam(required = false, defaultValue = "10") int pageSize,
-                                          @RequestParam(required = false) String name) {
+    public Result<PageInfo> queryReviewList(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                                            @RequestParam(required = false, defaultValue = "1") int currentPage,
+                                            @RequestParam(required = false, defaultValue = "10") int pageSize,
+                                            @RequestParam(required = false) String name) {
 
-        Result result = checkPageParams(pageNum, pageSize);
+        Result result = checkPageParams(currentPage, pageSize);
         if (!result.checkResult()) {
             return result;
         }
-        return reviewServices.queryReviewList(loginUser, pageNum, pageSize, name);
+        return reviewServices.queryReviewList(loginUser, currentPage, pageSize, name);
     }
 
 

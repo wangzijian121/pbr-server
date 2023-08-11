@@ -1,5 +1,6 @@
 package com.zlht.pose.management.api.service;
 
+import com.zlht.pose.management.api.utils.PageInfo;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.Institution;
 import com.zlht.pose.management.dao.entity.User;
@@ -12,11 +13,11 @@ public interface InstitutionServicesI {
      * 查询机构
      *
      * @param type
-     * @param pageNum
+     * @param currentPage
      * @param pageSize
      * @return
      */
-    Result queryInstitutionList(User loginUser, int type, int pageNum, int pageSize, String name);
+    Result<PageInfo<Institution>> queryInstitutionList(User loginUser, int type, int currentPage, int pageSize, String name);
 
     /**
      * 查询已添加的机构(去重)

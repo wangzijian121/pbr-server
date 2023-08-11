@@ -1,5 +1,6 @@
 package com.zlht.pose.management.api.service;
 
+import com.zlht.pose.management.api.utils.PageInfo;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.DataSet;
 import com.zlht.pose.management.dao.entity.User;
@@ -12,11 +13,11 @@ public interface DataSetServicesI {
      * 查询数据集
      *
      * @param type
-     * @param pageNum
+     * @param currentPage
      * @param pageSize
      * @return
      */
-    Result<DataSet> queryDataSetList(User loginUser, int type, int pageNum, int pageSize, String dataSetName);
+    Result<PageInfo<DataSet>> queryDataSetList(User loginUser, int type, int currentPage, int pageSize, String dataSetName);
 
 
     /**

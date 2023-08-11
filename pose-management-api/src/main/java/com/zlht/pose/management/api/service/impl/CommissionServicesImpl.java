@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlht.pose.management.api.enums.Status;
 import com.zlht.pose.management.api.service.CommissionServicesI;
+import com.zlht.pose.management.api.utils.PageInfo;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.Commission;
 import com.zlht.pose.management.dao.entity.User;
@@ -26,7 +27,7 @@ public class CommissionServicesImpl extends BaseServiceImpl<Commission> implemen
     CommissionMapper commissionMapper;
 
     @Override
-    public Result<Commission> queryCommissionList(User loginUser, int pageNum, int pageSize, String keyword) {
+    public Result<PageInfo<Commission>> queryCommissionList(User loginUser, int currentPage, int pageSize, String keyword) {
 
         Result result = new Result();
         if (!canOperator(loginUser)) {
@@ -34,12 +35,13 @@ public class CommissionServicesImpl extends BaseServiceImpl<Commission> implemen
             result.setCode(Status.USER_NO_OPERATION_PERM.getCode());
             return result;
         }
-        Page<Commission> page = new Page<>(pageNum, pageSize);
+        Page<Commission> page = new Page<>(currentPage, pageSize);
 
         Page<Map<String, Object>> commissionPage = commissionMapper.selectCommission(page, keyword);
-        result.setCode(Status.SUCCESS.getCode());
-        result.setMsg(Status.SUCCESS.getMsg());
-        result.setData(commissionPage.getRecords());
+        PageInfo pageInfo = new PageInfo(currentPage, pageSize);
+        pageInfo.setTotal((int) page.getTotal());
+        pageInfo.setTotalList(commissionPage.getRecords());
+        result.setData(pageInfo);
         return result;
     }
 

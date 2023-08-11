@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlht.pose.management.api.enums.Status;
 import com.zlht.pose.management.api.service.DataSetServicesI;
+import com.zlht.pose.management.api.utils.PageInfo;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.DataSet;
 import com.zlht.pose.management.dao.entity.User;
@@ -27,7 +28,7 @@ public class DataSetServicesImpl extends BaseServiceImpl<DataSet> implements Dat
     DataSetMapper dataSetMapper;
 
     @Override
-    public Result<DataSet> queryDataSetList(User loginUser, int type, int pageNum, int pageSize, String keyword) {
+    public Result<PageInfo<DataSet>> queryDataSetList(User loginUser, int type, int currentPage, int pageSize, String keyword) {
 
         Result result = new Result();
         if (!canOperator(loginUser)) {
@@ -35,11 +36,12 @@ public class DataSetServicesImpl extends BaseServiceImpl<DataSet> implements Dat
             result.setCode(Status.USER_NO_OPERATION_PERM.getCode());
             return result;
         }
-        Page<DataSet> page = new Page<>(pageNum, pageSize);
+        Page<DataSet> page = new Page<>(currentPage, pageSize);
         Page<Map<String, Object>> dataSetPage = dataSetMapper.selectDataSet(page, keyword, type);
-        result.setCode(Status.SUCCESS.getCode());
-        result.setMsg(Status.SUCCESS.getMsg());
-        result.setData(dataSetPage.getRecords());
+        PageInfo pageInfo = new PageInfo(currentPage, pageSize);
+        pageInfo.setTotal((int) page.getTotal());
+        pageInfo.setTotalList(dataSetPage.getRecords());
+        result.setData(pageInfo);
         return result;
     }
 

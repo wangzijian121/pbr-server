@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlht.pose.management.api.enums.Status;
 import com.zlht.pose.management.api.service.WeChatServicesI;
+import com.zlht.pose.management.api.utils.PageInfo;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.User;
 import com.zlht.pose.management.dao.entity.WeChat;
@@ -20,18 +21,19 @@ public class WeChatServicesImpl extends BaseServiceImpl implements WeChatService
     WeChatMapper weChatMapper;
 
     @Override
-    public Result queryWeChatList(User loginUser, int pageNum, int pageSize, int status, String keyword) {
+    public Result<PageInfo<WeChat>> queryWeChatList(User loginUser, int currentPage, int pageSize, int status, String keyword) {
         Result result = new Result();
         if (!canOperator(loginUser)) {
             result.setMsg(Status.USER_NO_OPERATION_PERM.getMsg());
             result.setCode(Status.USER_NO_OPERATION_PERM.getCode());
             return result;
         }
-        Page page = new Page<>(pageNum, pageSize);
+        Page page = new Page<>(currentPage, pageSize);
         Page<Map<String, Object>> weChatPage = weChatMapper.selectWechat(page, keyword, status);
-        result.setCode(Status.SUCCESS.getCode());
-        result.setMsg(Status.SUCCESS.getMsg());
-        result.setData(weChatPage.getRecords());
+        PageInfo pageInfo = new PageInfo(currentPage, pageSize);
+        pageInfo.setTotal((int) page.getTotal());
+        pageInfo.setTotalList(weChatPage.getRecords());
+        result.setData(pageInfo);
         return result;
     }
 

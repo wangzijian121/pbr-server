@@ -1,5 +1,6 @@
 package com.zlht.pose.management.api.service;
 
+import com.zlht.pose.management.api.utils.PageInfo;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.User;
 
@@ -10,11 +11,11 @@ public interface ReviewServicesI {
     /**
      * 查询审核信息
      *
-     * @param pageNum
+     * @param currentPage
      * @param pageSize
      * @return
      */
-    Result queryReviewList(User loginUser, int pageNum, int pageSize, String keyword);
+    Result<PageInfo> queryReviewList(User loginUser, int currentPage, int pageSize, String keyword);
 
 
     /**

@@ -1,5 +1,6 @@
 package com.zlht.pose.management.api.service;
 
+import com.zlht.pose.management.api.utils.PageInfo;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.Template;
 import com.zlht.pose.management.dao.entity.User;
@@ -12,11 +13,11 @@ public interface TemplateServicesI {
      * 查询模板信息
      *
      * @param status
-     * @param pageNum
+     * @param currentPage
      * @param pageSize
      * @return
      */
-    Result queryTemplateList(User loginUser, int pageNum, int pageSize, int status, String keyword);
+    Result<PageInfo<Template>> queryTemplateList(User loginUser, int currentPage, int pageSize, int status, String keyword);
 
 
     /**

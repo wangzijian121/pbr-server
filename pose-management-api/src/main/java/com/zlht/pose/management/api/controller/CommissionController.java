@@ -2,6 +2,7 @@ package com.zlht.pose.management.api.controller;
 
 
 import com.zlht.pose.management.api.service.CommissionServicesI;
+import com.zlht.pose.management.api.utils.PageInfo;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.Commission;
 import com.zlht.pose.management.dao.entity.User;
@@ -34,22 +35,22 @@ public class CommissionController extends BaseController {
      */
     @ApiOperation(value = "查询佣金项", notes = "查询佣金项")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "pageNum", value = "页数(默认1)", dataTypeClass = int.class),
+            @ApiImplicitParam(name = "currentPage", value = "页数(默认1)", dataTypeClass = int.class),
             @ApiImplicitParam(name = "pageSize", value = "页大小(默认10)", dataTypeClass = int.class),
             @ApiImplicitParam(name = "name", value = "佣金项名", dataTypeClass = String.class)
     })
     @GetMapping(value = "/getCommission")
     @ResponseStatus(HttpStatus.OK)
-    public Result<Commission> queryCommissionList(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
-                                                  @RequestParam(required = false, defaultValue = "1") int pageNum,
-                                                  @RequestParam(required = false, defaultValue = "10") int pageSize,
-                                                  @RequestParam(required = false) String name) {
+    public Result<PageInfo<Commission>> queryCommissionList(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                                                            @RequestParam(required = false, defaultValue = "1") int currentPage,
+                                                            @RequestParam(required = false, defaultValue = "10") int pageSize,
+                                                            @RequestParam(required = false) String name) {
 
-        Result result = checkPageParams(pageNum, pageSize);
+        Result result = checkPageParams(currentPage, pageSize);
         if (!result.checkResult()) {
             return result;
         }
-        return commissionServices.queryCommissionList(loginUser, pageNum, pageSize, name);
+        return commissionServices.queryCommissionList(loginUser, currentPage, pageSize, name);
     }
 
 

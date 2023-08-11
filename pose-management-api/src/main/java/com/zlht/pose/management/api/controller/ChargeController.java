@@ -3,6 +3,7 @@ package com.zlht.pose.management.api.controller;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zlht.pose.management.api.service.ChargeServicesI;
+import com.zlht.pose.management.api.utils.PageInfo;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.Charge;
 import com.zlht.pose.management.dao.entity.User;
@@ -36,23 +37,23 @@ public class ChargeController extends BaseController {
     @ApiOperation(value = "查询收款项", notes = "查询收款项")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "type", value = "收费项类型（0免费 1按次付费 2按月付费 3按季付费 4 按年付费 5永久） ", dataTypeClass = int.class),
-            @ApiImplicitParam(name = "pageNum", value = "页数(默认1)", dataTypeClass = int.class),
+            @ApiImplicitParam(name = "currentPage", value = "页数(默认1)", dataTypeClass = int.class),
             @ApiImplicitParam(name = "pageSize", value = "页大小(默认10)", dataTypeClass = int.class),
             @ApiImplicitParam(name = "name", value = "收款项名", dataTypeClass = String.class)
     })
     @GetMapping(value = "/getCharge")
     @ResponseStatus(HttpStatus.OK)
-    public Result<Charge> queryChargeList(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
-                                          @RequestParam(required = false, defaultValue = "-1") int type,
-                                          @RequestParam(required = false, defaultValue = "1") int pageNum,
-                                          @RequestParam(required = false, defaultValue = "10") int pageSize,
-                                          @RequestParam(required = false) String name) {
+    public Result<PageInfo<Charge>> queryChargeList(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                                                    @RequestParam(required = false, defaultValue = "-1") int type,
+                                                    @RequestParam(required = false, defaultValue = "1") int currentPage,
+                                                    @RequestParam(required = false, defaultValue = "10") int pageSize,
+                                                    @RequestParam(required = false) String name) {
 
-        Result result = checkPageParams(pageNum, pageSize);
+        Result result = checkPageParams(currentPage, pageSize);
         if (!result.checkResult()) {
             return result;
         }
-        return chargeServices.queryChargeList(loginUser, type, pageNum, pageSize, name);
+        return chargeServices.queryChargeList(loginUser, type, currentPage, pageSize, name);
     }
 
     /**

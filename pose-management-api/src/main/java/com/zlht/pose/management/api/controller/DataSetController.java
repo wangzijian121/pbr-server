@@ -2,6 +2,7 @@ package com.zlht.pose.management.api.controller;
 
 
 import com.zlht.pose.management.api.service.DataSetServicesI;
+import com.zlht.pose.management.api.utils.PageInfo;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.DataSet;
 import com.zlht.pose.management.dao.entity.User;
@@ -35,23 +36,23 @@ public class DataSetController extends BaseController {
     @ApiOperation(value = "查询数据集", notes = "查询数据集")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "type", value = "数据集类型（0:普通数据集 ,1:专用数据集）", dataTypeClass = int.class),
-            @ApiImplicitParam(name = "pageNum", value = "页数(默认1)", dataTypeClass = int.class),
+            @ApiImplicitParam(name = "currentPage", value = "页数(默认1)", dataTypeClass = int.class),
             @ApiImplicitParam(name = "pageSize", value = "页大小(默认10)", dataTypeClass = int.class),
             @ApiImplicitParam(name = "name", value = "数据集名", dataTypeClass = String.class)
     })
     @GetMapping(value = "/getDataSet")
     @ResponseStatus(HttpStatus.OK)
-    public Result<DataSet> queryDataSetList(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
-                                            @RequestParam(required = false, defaultValue = "-1") int type,
-                                            @RequestParam(required = false, defaultValue = "1") int pageNum,
-                                            @RequestParam(required = false, defaultValue = "10") int pageSize,
-                                            @RequestParam(required = false) String name) {
+    public Result<PageInfo<DataSet>> queryDataSetList(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                                                      @RequestParam(required = false, defaultValue = "-1") int type,
+                                                      @RequestParam(required = false, defaultValue = "1") int currentPage,
+                                                      @RequestParam(required = false, defaultValue = "10") int pageSize,
+                                                      @RequestParam(required = false) String name) {
 
-        Result result = checkPageParams(pageNum, pageSize);
+        Result result = checkPageParams(currentPage, pageSize);
         if (!result.checkResult()) {
             return result;
         }
-        return dataSetServices.queryDataSetList(loginUser, type, pageNum, pageSize, name);
+        return dataSetServices.queryDataSetList(loginUser, type, currentPage, pageSize, name);
     }
 
     /**

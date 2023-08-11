@@ -13,7 +13,7 @@ public class BaseController {
 
     private final static int SUCCESS_CODE = 200;
     private final static String SUCCESS_MSG = "success";
-    private final static String PAGE_NUMBER = "pageNum";
+    private final static String PAGE_NUMBER = "currentPage";
     private final static String PAGE_SIZE = "pageSize";
 
     public Result checkPageParams(int pageNo, int pageSize) {

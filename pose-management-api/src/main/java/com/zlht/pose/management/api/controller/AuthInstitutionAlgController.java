@@ -3,6 +3,7 @@ package com.zlht.pose.management.api.controller;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zlht.pose.management.api.service.AuthInstitutionAlgServicesI;
+import com.zlht.pose.management.api.utils.PageInfo;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.AuthInstitutionAlg;
 import com.zlht.pose.management.dao.entity.User;
@@ -36,23 +37,23 @@ public class AuthInstitutionAlgController extends BaseController {
     @ApiOperation(value = "查询授权的机构", notes = "查询授权的机构")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "auth_type", value = "授权类型:(0：算法授权，1：功能授权)", dataTypeClass = int.class),
-            @ApiImplicitParam(name = "pageNum", value = "页数(默认1)", dataTypeClass = int.class),
+            @ApiImplicitParam(name = "currentPage", value = "页数(默认1)", dataTypeClass = int.class),
             @ApiImplicitParam(name = "pageSize", value = "页大小(默认10)", dataTypeClass = int.class),
             @ApiImplicitParam(name = "keyword", value = "机构名搜索关键字", dataTypeClass = String.class)
     })
     @GetMapping(value = "/getAuthInstitution")
     @ResponseStatus(HttpStatus.OK)
-    public Result queryAuthInstitutionList(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
-                                           @RequestParam(required = false, defaultValue = "-1") int auth_type,
-                                           @RequestParam(required = false, defaultValue = "1") int pageNum,
-                                           @RequestParam(required = false, defaultValue = "10") int pageSize,
-                                           @RequestParam(required = false) String keyword) {
+    public Result<PageInfo> queryAuthInstitutionList(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                                                     @RequestParam(required = false, defaultValue = "-1") int auth_type,
+                                                     @RequestParam(required = false, defaultValue = "1") int currentPage,
+                                                     @RequestParam(required = false, defaultValue = "10") int pageSize,
+                                                     @RequestParam(required = false) String keyword) {
 
-        Result result = checkPageParams(pageNum, pageSize);
+        Result result = checkPageParams(currentPage, pageSize);
         if (!result.checkResult()) {
             return result;
         }
-        Result res = institutionServices.queryAuthInstitutionAlgList(loginUser, auth_type, pageNum, pageSize, keyword);
+        Result res = institutionServices.queryAuthInstitutionAlgList(loginUser, auth_type, currentPage, pageSize, keyword);
         return res;
     }
 

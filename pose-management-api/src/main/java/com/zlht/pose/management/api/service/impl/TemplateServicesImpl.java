@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlht.pose.management.api.enums.Status;
 import com.zlht.pose.management.api.service.TemplateServicesI;
+import com.zlht.pose.management.api.utils.PageInfo;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.Template;
 import com.zlht.pose.management.dao.entity.User;
@@ -20,20 +21,21 @@ public class TemplateServicesImpl extends BaseServiceImpl implements TemplateSer
     TemplateMapper templateMapper;
 
     @Override
-    public Result queryTemplateList(User loginUser, int pageNum, int pageSize, int status, String keyword) {
+    public Result<PageInfo<Template>> queryTemplateList(User loginUser, int currentPage, int pageSize, int status, String keyword) {
         Result result = new Result();
         if (!canOperator(loginUser)) {
             result.setMsg(Status.USER_NO_OPERATION_PERM.getMsg());
             result.setCode(Status.USER_NO_OPERATION_PERM.getCode());
             return result;
         }
-        Page page = new Page<>(pageNum, pageSize);
+        Page page = new Page<>(currentPage, pageSize);
         QueryWrapper queryWrapper = new QueryWrapper();
         if (keyword != null) queryWrapper.eq("name", keyword);
         Page<Template> templatePage = templateMapper.selectPage(page, queryWrapper);
-        result.setCode(Status.SUCCESS.getCode());
-        result.setMsg(Status.SUCCESS.getMsg());
-        result.setData(templatePage.getRecords());
+        PageInfo pageInfo = new PageInfo(currentPage, pageSize);
+        pageInfo.setTotal((int) page.getTotal());
+        pageInfo.setTotalList(templatePage.getRecords());
+        result.setData(pageInfo);
         return result;
     }
 

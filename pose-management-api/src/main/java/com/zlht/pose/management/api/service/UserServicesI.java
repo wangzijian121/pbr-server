@@ -1,5 +1,6 @@
 package com.zlht.pose.management.api.service;
 
+import com.zlht.pose.management.api.utils.PageInfo;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.User;
 
@@ -11,11 +12,11 @@ public interface UserServicesI {
      * 查询用户
      *
      * @param type
-     * @param pageNum
+     * @param currentPage
      * @param pageSize
      * @return
      */
-    Result queryUserList(User loginUser, int type, int pageNum, int pageSize, String nickname);
+    Result<PageInfo<User>> queryUserList(User loginUser, int type, int currentPage, int pageSize, String nickname);
 
     /**
      * 创建用户

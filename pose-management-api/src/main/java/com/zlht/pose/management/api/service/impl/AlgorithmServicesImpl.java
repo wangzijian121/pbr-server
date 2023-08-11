@@ -28,17 +28,17 @@ public class AlgorithmServicesImpl extends BaseServiceImpl<Algorithm> implements
     AlgorithmMapper algorithmMapper;
 
     @Override
-    public Result<Algorithm> queryAlgorithmList(User loginUser, int type, int pageNum, int pageSize, String keyword) {
+    public Result<PageInfo<Algorithm>> queryAlgorithmList(User loginUser, int type, int currentPage, int pageSize, String keyword) {
 
         Result result = new Result();
-        PageInfo pageInfo = new PageInfo(pageNum, pageSize);
+        PageInfo pageInfo = new PageInfo(currentPage, pageSize);
         if (!canOperator(loginUser)) {
             result.setMsg(Status.USER_NO_OPERATION_PERM.getMsg());
             result.setCode(Status.USER_NO_OPERATION_PERM.getCode());
             return result;
         }
 
-        Page<Algorithm> page = new Page<>(pageNum, pageSize);
+        Page<Algorithm> page = new Page<>(currentPage, pageSize);
         Page<Map<String, Object>> algorithmPage = algorithmMapper.selectAlgorithm(page, keyword, type);
 
         result.setCode(Status.SUCCESS.getCode());

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlht.pose.management.api.enums.Status;
 import com.zlht.pose.management.api.service.InstitutionServicesI;
+import com.zlht.pose.management.api.utils.PageInfo;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.Institution;
 import com.zlht.pose.management.dao.entity.User;
@@ -29,7 +30,7 @@ public class InstitutionServicesImpl extends BaseServiceImpl<Institution> implem
     InstitutionMapper institutionMapper;
 
     @Override
-    public Result queryInstitutionList(User loginUser, int type, int pageNum, int pageSize, String keyword) {
+    public Result<PageInfo<Institution>> queryInstitutionList(User loginUser, int type, int currentPage, int pageSize, String keyword) {
 
         Result result = new Result();
         if (!canOperator(loginUser)) {
@@ -37,15 +38,16 @@ public class InstitutionServicesImpl extends BaseServiceImpl<Institution> implem
             result.setCode(Status.USER_NO_OPERATION_PERM.getCode());
             return result;
         }
-        Page<Institution> page = new Page<>(pageNum, pageSize);
+        Page<Institution> page = new Page<>(currentPage, pageSize);
 
         QueryWrapper<Institution> wapper = new QueryWrapper<Institution>();
         if (type != -1) wapper.eq("type", type);
         if (keyword != null) wapper.and(nc -> nc.like("name", keyword));
         Page<Institution> institutionPage = institutionMapper.selectPage(page, wapper);
-        result.setCode(Status.SUCCESS.getCode());
-        result.setMsg(Status.SUCCESS.getMsg());
-        result.setData(institutionPage.getRecords());
+        PageInfo pageInfo = new PageInfo(currentPage, pageSize);
+        pageInfo.setTotal((int) page.getTotal());
+        pageInfo.setTotalList(institutionPage.getRecords());
+        result.setData(pageInfo);
         return result;
     }
 

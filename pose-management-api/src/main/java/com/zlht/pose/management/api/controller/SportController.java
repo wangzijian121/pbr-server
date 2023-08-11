@@ -2,6 +2,7 @@ package com.zlht.pose.management.api.controller;
 
 
 import com.zlht.pose.management.api.service.SportServicesI;
+import com.zlht.pose.management.api.utils.PageInfo;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.Sport;
 import com.zlht.pose.management.dao.entity.User;
@@ -35,23 +36,23 @@ public class SportController extends BaseController {
     @ApiOperation(value = "查询体育", notes = "查询体育")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "type", value = "体育类型(0:学校体育 1:群众体育 2:竞技体育)", dataTypeClass = int.class),
-            @ApiImplicitParam(name = "pageNum", value = "页数(默认1)", dataTypeClass = int.class),
+            @ApiImplicitParam(name = "currentPage", value = "页数(默认1)", dataTypeClass = int.class),
             @ApiImplicitParam(name = "pageSize", value = "页大小(默认10)", dataTypeClass = int.class),
             @ApiImplicitParam(name = "name", value = "体育名", dataTypeClass = String.class)
     })
     @GetMapping(value = "/getSport")
     @ResponseStatus(HttpStatus.OK)
-    public Result<Sport> querySportList(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
-                                        @RequestParam(required = false, defaultValue = "-1") int type,
-                                        @RequestParam(required = false, defaultValue = "1") int pageNum,
-                                        @RequestParam(required = false, defaultValue = "10") int pageSize,
-                                        @RequestParam(required = false) String name) {
+    public Result<PageInfo<Sport>> querySportList(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                                                  @RequestParam(required = false, defaultValue = "-1") int type,
+                                                  @RequestParam(required = false, defaultValue = "1") int currentPage,
+                                                  @RequestParam(required = false, defaultValue = "10") int pageSize,
+                                                  @RequestParam(required = false) String name) {
 
-        Result result = checkPageParams(pageNum, pageSize);
+        Result result = checkPageParams(currentPage, pageSize);
         if (!result.checkResult()) {
             return result;
         }
-        return sportServices.querySportList(loginUser, type, pageNum, pageSize, name);
+        return sportServices.querySportList(loginUser, type, currentPage, pageSize, name);
     }
 
     /**

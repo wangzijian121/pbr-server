@@ -1,1 +1,989 @@
-{"apifoxCli":"1.1.0","item":[{"item":[{"id":"ff85c739-6b7c-41e1-becb-516924f526c2","name":"查询用户(查询用户)","request":{"url":{"protocol":"http","port":"8080","path":["","getUser"],"host":["127","0","0","1"],"query":[{"disabled":false,"key":"nickname","value":""},{"disabled":false,"key":"pageNum","value":""},{"disabled":false,"key":"pageSize","value":""},{"disabled":false,"key":"type","value":""}],"variable":[]},"header":[{"key":"User-Agent","value":"Apifox/1.0.0 (https://apifox.com)"}],"method":"GET","baseUrl":"http://127.0.0.1:8080/","body":{},"type":"http"},"response":[],"event":[],"responseDefinition":{"validateDeletedResponse":false},"requestDefinition":{"jsonSchema":{}},"metaInfo":{"httpApiId":100819323,"httpApiCaseId":102251548,"httpApiName":"查询用户","httpApiPath":"/getUser","httpApiMethod":"get","httpApiCaseName":"查询用户","id":"b8bc4da0-0da5-4234-9c84-d25db9d197b5","type":"http"},"type":"http","protocolProfileBehavior":{"useWhatWGUrlParser":false,"disableUrlEncoding":false}},{"id":"8a27f30c-c263-4523-9422-1081f7fdde80","name":"查询算法(查询算法)","request":{"url":{"protocol":"http","port":"8080","path":["","getAlgorithm"],"host":["127","0","0","1"],"query":[{"disabled":false,"key":"name","value":""},{"disabled":false,"key":"pageNum","value":""},{"disabled":false,"key":"pageSize","value":""},{"disabled":false,"key":"type","value":""}],"variable":[]},"header":[{"key":"User-Agent","value":"Apifox/1.0.0 (https://apifox.com)"}],"method":"GET","baseUrl":"http://127.0.0.1:8080/","body":{},"type":"http"},"response":[],"event":[],"responseDefinition":{"validateDeletedResponse":false},"requestDefinition":{"jsonSchema":{}},"metaInfo":{"httpApiId":100819284,"httpApiCaseId":102251547,"httpApiName":"查询算法","httpApiPath":"/getAlgorithm","httpApiMethod":"get","httpApiCaseName":"查询算法","id":"a9817239-e6a6-4b5d-bb22-64199eb6caa0","type":"http"},"type":"http","protocolProfileBehavior":{"useWhatWGUrlParser":false,"disableUrlEncoding":false}},{"id":"3815b373-f4ad-4c3a-ac81-0566ac025bc9","name":"查询授权的机构(查询授权的机构)","request":{"url":{"protocol":"http","port":"8080","path":["","getAuthInstitution"],"host":["127","0","0","1"],"query":[{"disabled":false,"key":"auth_type","value":""},{"disabled":false,"key":"keyword","value":""},{"disabled":false,"key":"pageNum","value":""},{"disabled":false,"key":"pageSize","value":""}],"variable":[]},"header":[{"key":"User-Agent","value":"Apifox/1.0.0 (https://apifox.com)"}],"method":"GET","baseUrl":"http://127.0.0.1:8080/","body":{},"type":"http"},"response":[],"event":[],"responseDefinition":{"validateDeletedResponse":false},"requestDefinition":{"jsonSchema":{}},"metaInfo":{"httpApiId":100819288,"httpApiCaseId":102251546,"httpApiName":"查询授权的机构","httpApiPath":"/getAuthInstitution","httpApiMethod":"get","httpApiCaseName":"查询授权的机构","id":"e64067d9-dd8c-453d-bc55-74ac6f7475f4","type":"http"},"type":"http","protocolProfileBehavior":{"useWhatWGUrlParser":false,"disableUrlEncoding":false}},{"id":"2b9317b9-89a5-402a-91d2-5fdd10d2c3cf","name":"查询收款项(查询收款项)","request":{"url":{"protocol":"http","port":"8080","path":["getCharge"],"host":["127","0","0","1"],"query":[{"disabled":false,"key":"name","value":""},{"disabled":false,"key":"pageNum","value":""},{"disabled":false,"key":"pageSize","value":""},{"disabled":false,"key":"type","value":""}],"variable":[]},"header":[{"key":"User-Agent","value":"Apifox/1.0.0 (https://apifox.com)"}],"method":"GET","baseUrl":"http://127.0.0.1:8080/","body":{},"type":"http"},"response":[],"event":[],"responseDefinition":{"validateDeletedResponse":false},"requestDefinition":{"jsonSchema":{}},"metaInfo":{"httpApiId":100819292,"httpApiCaseId":102251545,"httpApiName":"查询收款项","httpApiPath":"getCharge","httpApiMethod":"get","httpApiCaseName":"查询收款项","id":"f7d5c3a4-5517-4adc-b758-e7dee0240e9b","type":"http"},"type":"http","protocolProfileBehavior":{"useWhatWGUrlParser":false,"disableUrlEncoding":false}},{"id":"bc493c58-4cbb-4a0b-acb4-00856cec91b3","name":"查询佣金项(查询佣金项)","request":{"url":{"protocol":"http","port":"8080","path":["","getCommission"],"host":["127","0","0","1"],"query":[{"disabled":false,"key":"name","value":""},{"disabled":false,"key":"pageNum","value":""},{"disabled":false,"key":"pageSize","value":""}],"variable":[]},"header":[{"key":"User-Agent","value":"Apifox/1.0.0 (https://apifox.com)"}],"method":"GET","baseUrl":"http://127.0.0.1:8080/","body":{},"type":"http"},"response":[],"event":[],"responseDefinition":{"validateDeletedResponse":false},"requestDefinition":{"jsonSchema":{}},"metaInfo":{"httpApiId":100819296,"httpApiCaseId":102251544,"httpApiName":"查询佣金项","httpApiPath":"/getCommission","httpApiMethod":"get","httpApiCaseName":"查询佣金项","id":"86bfbe2e-5ac4-49e9-be1d-35e2442b75dd","type":"http"},"type":"http","protocolProfileBehavior":{"useWhatWGUrlParser":false,"disableUrlEncoding":false}},{"id":"2b518a60-7091-4709-b6c7-e08a82be0e98","name":"查询数据集(查询数据集)","request":{"url":{"protocol":"http","port":"8080","path":["","getDataSet"],"host":["127","0","0","1"],"query":[{"disabled":false,"key":"name","value":""},{"disabled":false,"key":"pageNum","value":""},{"disabled":false,"key":"pageSize","value":""},{"disabled":false,"key":"type","value":""}],"variable":[]},"header":[{"key":"User-Agent","value":"Apifox/1.0.0 (https://apifox.com)"}],"method":"GET","baseUrl":"http://127.0.0.1:8080/","body":{},"type":"http"},"response":[],"event":[],"responseDefinition":{"validateDeletedResponse":false},"requestDefinition":{"jsonSchema":{}},"metaInfo":{"httpApiId":100819300,"httpApiCaseId":102251543,"httpApiName":"查询数据集","httpApiPath":"/getDataSet","httpApiMethod":"get","httpApiCaseName":"查询数据集","id":"e365a773-fa01-47cd-85de-9a53e2a57ac0","type":"http"},"type":"http","protocolProfileBehavior":{"useWhatWGUrlParser":false,"disableUrlEncoding":false}},{"id":"d558dd18-6157-41d0-880b-2b59c1ef054a","name":"查询已添加机构(查询已添加机构)","request":{"url":{"protocol":"http","port":"8080","path":["","getInstitutionMap"],"host":["127","0","0","1"],"query":[],"variable":[]},"header":[{"key":"User-Agent","value":"Apifox/1.0.0 (https://apifox.com)"}],"method":"GET","baseUrl":"http://127.0.0.1:8080/","body":{},"type":"http"},"response":[],"event":[],"responseDefinition":{"validateDeletedResponse":false},"requestDefinition":{"jsonSchema":{}},"metaInfo":{"httpApiId":100819308,"httpApiCaseId":102251542,"httpApiName":"查询已添加机构","httpApiPath":"/getInstitutionMap","httpApiMethod":"get","httpApiCaseName":"查询已添加机构","id":"53b65f1f-2315-411b-a8a5-9e0d4c23e9c7","type":"http"},"type":"http","protocolProfileBehavior":{"useWhatWGUrlParser":false,"disableUrlEncoding":false}},{"id":"f7e8d1f5-5cbb-47d0-85a0-49e8582c91f9","name":"查询机构(查询机构)","request":{"url":{"protocol":"http","port":"8080","path":["","getInstitution"],"host":["127","0","0","1"],"query":[{"disabled":false,"key":"name","value":""},{"disabled":false,"key":"pageNum","value":""},{"disabled":false,"key":"pageSize","value":""},{"disabled":false,"key":"type","value":""}],"variable":[]},"header":[{"key":"User-Agent","value":"Apifox/1.0.0 (https://apifox.com)"}],"method":"GET","baseUrl":"http://127.0.0.1:8080/","body":{},"type":"http"},"response":[],"event":[],"responseDefinition":{"validateDeletedResponse":false},"requestDefinition":{"jsonSchema":{}},"metaInfo":{"httpApiId":100819307,"httpApiCaseId":102251541,"httpApiName":"查询机构","httpApiPath":"/getInstitution","httpApiMethod":"get","httpApiCaseName":"查询机构","id":"d5dec465-a8ac-4aa0-8180-a7e4a0584136","type":"http"},"type":"http","protocolProfileBehavior":{"useWhatWGUrlParser":false,"disableUrlEncoding":false}},{"id":"dca153ae-3529-4c72-aef4-d4f66b24303c","name":"查询审核(查询审核)","request":{"url":{"protocol":"http","port":"8080","path":["","getReview"],"host":["127","0","0","1"],"query":[{"disabled":false,"key":"name","value":""},{"disabled":false,"key":"pageNum","value":""},{"disabled":false,"key":"pageSize","value":""}],"variable":[]},"header":[{"key":"User-Agent","value":"Apifox/1.0.0 (https://apifox.com)"}],"method":"GET","baseUrl":"http://127.0.0.1:8080/","body":{},"type":"http"},"response":[],"event":[],"responseDefinition":{"validateDeletedResponse":false},"requestDefinition":{"jsonSchema":{}},"metaInfo":{"httpApiId":100819310,"httpApiCaseId":102251540,"httpApiName":"查询审核","httpApiPath":"/getReview","httpApiMethod":"get","httpApiCaseName":"查询审核","id":"d573c738-da0b-4b00-ad39-b9e78ca8233a","type":"http"},"type":"http","protocolProfileBehavior":{"useWhatWGUrlParser":false,"disableUrlEncoding":false}},{"id":"66f7759c-e141-44f1-9386-464d11db0702","name":"查询体育(查询体育)","request":{"url":{"protocol":"http","port":"8080","path":["","getSport"],"host":["127","0","0","1"],"query":[{"disabled":false,"key":"name","value":""},{"disabled":false,"key":"pageNum","value":""},{"disabled":false,"key":"pageSize","value":""},{"disabled":false,"key":"type","value":""}],"variable":[]},"header":[{"key":"User-Agent","value":"Apifox/1.0.0 (https://apifox.com)"}],"method":"GET","baseUrl":"http://127.0.0.1:8080/","body":{},"type":"http"},"response":[],"event":[],"responseDefinition":{"validateDeletedResponse":false},"requestDefinition":{"jsonSchema":{}},"metaInfo":{"httpApiId":100819314,"httpApiCaseId":102251539,"httpApiName":"查询体育","httpApiPath":"/getSport","httpApiMethod":"get","httpApiCaseName":"查询体育","id":"f7897305-708b-42cd-93ca-b0e403871699","type":"http"},"type":"http","protocolProfileBehavior":{"useWhatWGUrlParser":false,"disableUrlEncoding":false}},{"id":"8e076262-3850-4979-857e-feedfd1c655c","name":"查询已添加体育(查询已添加体育)","request":{"url":{"protocol":"http","port":"8080","path":["","getSportMap"],"host":["127","0","0","1"],"query":[],"variable":[]},"header":[{"key":"User-Agent","value":"Apifox/1.0.0 (https://apifox.com)"}],"method":"GET","baseUrl":"http://127.0.0.1:8080/","body":{},"type":"http"},"response":[],"event":[],"responseDefinition":{"validateDeletedResponse":false},"requestDefinition":{"jsonSchema":{}},"metaInfo":{"httpApiId":100819315,"httpApiCaseId":102251538,"httpApiName":"查询已添加体育","httpApiPath":"/getSportMap","httpApiMethod":"get","httpApiCaseName":"查询已添加体育","id":"d61f00c8-b4f9-4c1a-be84-9657d8e3557b","type":"http"},"type":"http","protocolProfileBehavior":{"useWhatWGUrlParser":false,"disableUrlEncoding":false}},{"id":"c3aac574-a366-41e5-aadc-bf32cb909ff8","name":"查询模板(查询模板)","request":{"url":{"protocol":"http","port":"8080","path":["","getTemplate"],"host":["127","0","0","1"],"query":[{"disabled":false,"key":"keyword","value":""},{"disabled":false,"key":"pageNum","value":""},{"disabled":false,"key":"pageSize","value":""},{"disabled":false,"key":"status","value":""}],"variable":[]},"header":[{"key":"User-Agent","value":"Apifox/1.0.0 (https://apifox.com)"}],"method":"GET","baseUrl":"http://127.0.0.1:8080/","body":{},"type":"http"},"response":[],"event":[],"responseDefinition":{"validateDeletedResponse":false},"requestDefinition":{"jsonSchema":{}},"metaInfo":{"httpApiId":100819319,"httpApiCaseId":102251537,"httpApiName":"查询模板","httpApiPath":"/getTemplate","httpApiMethod":"get","httpApiCaseName":"查询模板","id":"3e8eb8a5-44d7-40e2-aeb5-97a98cca1b0c","type":"http"},"type":"http","protocolProfileBehavior":{"useWhatWGUrlParser":false,"disableUrlEncoding":false}},{"id":"75919d1a-a5fa-4a3a-9047-f393fd7a756a","name":"查询小程序信息(查询小程序信息)","request":{"url":{"protocol":"http","port":"8080","path":["","getWeChat"],"host":["127","0","0","1"],"query":[{"disabled":false,"key":"keyword","value":""},{"disabled":false,"key":"pageNum","value":""},{"disabled":false,"key":"pageSize","value":""},{"disabled":false,"key":"status","value":""}],"variable":[]},"header":[{"key":"User-Agent","value":"Apifox/1.0.0 (https://apifox.com)"}],"method":"GET","baseUrl":"http://127.0.0.1:8080/","body":{},"type":"http"},"response":[],"event":[],"responseDefinition":{"validateDeletedResponse":false},"requestDefinition":{"jsonSchema":{}},"metaInfo":{"httpApiId":100819328,"httpApiCaseId":102251536,"httpApiName":"查询小程序信息","httpApiPath":"/getWeChat","httpApiMethod":"get","httpApiCaseName":"查询小程序信息","id":"dad7751e-b5a2-4d94-be87-61b3a01c53b4","type":"http"},"type":"http","protocolProfileBehavior":{"useWhatWGUrlParser":false,"disableUrlEncoding":false}}],"name":"select_auto_test_pipeline"}],"info":{"name":"select_auto_test_pipeline"},"dataSchemas":{},"mockRules":{"rules":[],"enableSystemRule":true},"environment":{"id":10240319,"name":"测试环境","baseUrl":"http://127.0.0.1:8080/","baseUrls":{"default":"http://127.0.0.1:8080/"},"variable":{"id":"3546cba0-6cc7-4077-9e79-37bccd2d8e13","name":"测试环境","values":[]},"type":"normal","parameter":{"header":[],"query":[],"body":[],"cookie":[]}},"globals":{"baseUrl":"","baseUrls":{},"variable":{"id":"d1041617-cd65-4b53-8cf4-c3ecbb086201","values":[]},"parameter":{"header":[],"query":[],"body":[],"cookie":[]}},"isServerBuild":false,"isTestFlowControl":false}
+{
+  "apifoxCli": "1.1.0",
+  "item": [
+    {
+      "item": [
+        {
+          "id": "ff85c739-6b7c-41e1-becb-516924f526c2",
+          "name": "查询用户(查询用户)",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "port": "8080",
+              "path": [
+                "",
+                "getUser"
+              ],
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "nickname",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "currentPage",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": ""
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "User-Agent",
+                "value": "Apifox/1.0.0 (https://apifox.com)"
+              }
+            ],
+            "method": "GET",
+            "baseUrl": "http://127.0.0.1:8080/",
+            "body": {},
+            "type": "http"
+          },
+          "response": [],
+          "event": [],
+          "responseDefinition": {
+            "validateDeletedResponse": false
+          },
+          "requestDefinition": {
+            "jsonSchema": {}
+          },
+          "metaInfo": {
+            "httpApiId": 100819323,
+            "httpApiCaseId": 102251548,
+            "httpApiName": "查询用户",
+            "httpApiPath": "/getUser",
+            "httpApiMethod": "get",
+            "httpApiCaseName": "查询用户",
+            "id": "b8bc4da0-0da5-4234-9c84-d25db9d197b5",
+            "type": "http"
+          },
+          "type": "http",
+          "protocolProfileBehavior": {
+            "useWhatWGUrlParser": false,
+            "disableUrlEncoding": false
+          }
+        },
+        {
+          "id": "8a27f30c-c263-4523-9422-1081f7fdde80",
+          "name": "查询算法(查询算法)",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "port": "8080",
+              "path": [
+                "",
+                "getAlgorithm"
+              ],
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "currentPage",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": ""
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "User-Agent",
+                "value": "Apifox/1.0.0 (https://apifox.com)"
+              }
+            ],
+            "method": "GET",
+            "baseUrl": "http://127.0.0.1:8080/",
+            "body": {},
+            "type": "http"
+          },
+          "response": [],
+          "event": [],
+          "responseDefinition": {
+            "validateDeletedResponse": false
+          },
+          "requestDefinition": {
+            "jsonSchema": {}
+          },
+          "metaInfo": {
+            "httpApiId": 100819284,
+            "httpApiCaseId": 102251547,
+            "httpApiName": "查询算法",
+            "httpApiPath": "/getAlgorithm",
+            "httpApiMethod": "get",
+            "httpApiCaseName": "查询算法",
+            "id": "a9817239-e6a6-4b5d-bb22-64199eb6caa0",
+            "type": "http"
+          },
+          "type": "http",
+          "protocolProfileBehavior": {
+            "useWhatWGUrlParser": false,
+            "disableUrlEncoding": false
+          }
+        },
+        {
+          "id": "3815b373-f4ad-4c3a-ac81-0566ac025bc9",
+          "name": "查询授权的机构(查询授权的机构)",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "port": "8080",
+              "path": [
+                "",
+                "getAuthInstitution"
+              ],
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "auth_type",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "keyword",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "currentPage",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": ""
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "User-Agent",
+                "value": "Apifox/1.0.0 (https://apifox.com)"
+              }
+            ],
+            "method": "GET",
+            "baseUrl": "http://127.0.0.1:8080/",
+            "body": {},
+            "type": "http"
+          },
+          "response": [],
+          "event": [],
+          "responseDefinition": {
+            "validateDeletedResponse": false
+          },
+          "requestDefinition": {
+            "jsonSchema": {}
+          },
+          "metaInfo": {
+            "httpApiId": 100819288,
+            "httpApiCaseId": 102251546,
+            "httpApiName": "查询授权的机构",
+            "httpApiPath": "/getAuthInstitution",
+            "httpApiMethod": "get",
+            "httpApiCaseName": "查询授权的机构",
+            "id": "e64067d9-dd8c-453d-bc55-74ac6f7475f4",
+            "type": "http"
+          },
+          "type": "http",
+          "protocolProfileBehavior": {
+            "useWhatWGUrlParser": false,
+            "disableUrlEncoding": false
+          }
+        },
+        {
+          "id": "2b9317b9-89a5-402a-91d2-5fdd10d2c3cf",
+          "name": "查询收款项(查询收款项)",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "port": "8080",
+              "path": [
+                "getCharge"
+              ],
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "currentPage",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": ""
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "User-Agent",
+                "value": "Apifox/1.0.0 (https://apifox.com)"
+              }
+            ],
+            "method": "GET",
+            "baseUrl": "http://127.0.0.1:8080/",
+            "body": {},
+            "type": "http"
+          },
+          "response": [],
+          "event": [],
+          "responseDefinition": {
+            "validateDeletedResponse": false
+          },
+          "requestDefinition": {
+            "jsonSchema": {}
+          },
+          "metaInfo": {
+            "httpApiId": 100819292,
+            "httpApiCaseId": 102251545,
+            "httpApiName": "查询收款项",
+            "httpApiPath": "getCharge",
+            "httpApiMethod": "get",
+            "httpApiCaseName": "查询收款项",
+            "id": "f7d5c3a4-5517-4adc-b758-e7dee0240e9b",
+            "type": "http"
+          },
+          "type": "http",
+          "protocolProfileBehavior": {
+            "useWhatWGUrlParser": false,
+            "disableUrlEncoding": false
+          }
+        },
+        {
+          "id": "bc493c58-4cbb-4a0b-acb4-00856cec91b3",
+          "name": "查询佣金项(查询佣金项)",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "port": "8080",
+              "path": [
+                "",
+                "getCommission"
+              ],
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "currentPage",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": ""
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "User-Agent",
+                "value": "Apifox/1.0.0 (https://apifox.com)"
+              }
+            ],
+            "method": "GET",
+            "baseUrl": "http://127.0.0.1:8080/",
+            "body": {},
+            "type": "http"
+          },
+          "response": [],
+          "event": [],
+          "responseDefinition": {
+            "validateDeletedResponse": false
+          },
+          "requestDefinition": {
+            "jsonSchema": {}
+          },
+          "metaInfo": {
+            "httpApiId": 100819296,
+            "httpApiCaseId": 102251544,
+            "httpApiName": "查询佣金项",
+            "httpApiPath": "/getCommission",
+            "httpApiMethod": "get",
+            "httpApiCaseName": "查询佣金项",
+            "id": "86bfbe2e-5ac4-49e9-be1d-35e2442b75dd",
+            "type": "http"
+          },
+          "type": "http",
+          "protocolProfileBehavior": {
+            "useWhatWGUrlParser": false,
+            "disableUrlEncoding": false
+          }
+        },
+        {
+          "id": "2b518a60-7091-4709-b6c7-e08a82be0e98",
+          "name": "查询数据集(查询数据集)",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "port": "8080",
+              "path": [
+                "",
+                "getDataSet"
+              ],
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "currentPage",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": ""
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "User-Agent",
+                "value": "Apifox/1.0.0 (https://apifox.com)"
+              }
+            ],
+            "method": "GET",
+            "baseUrl": "http://127.0.0.1:8080/",
+            "body": {},
+            "type": "http"
+          },
+          "response": [],
+          "event": [],
+          "responseDefinition": {
+            "validateDeletedResponse": false
+          },
+          "requestDefinition": {
+            "jsonSchema": {}
+          },
+          "metaInfo": {
+            "httpApiId": 100819300,
+            "httpApiCaseId": 102251543,
+            "httpApiName": "查询数据集",
+            "httpApiPath": "/getDataSet",
+            "httpApiMethod": "get",
+            "httpApiCaseName": "查询数据集",
+            "id": "e365a773-fa01-47cd-85de-9a53e2a57ac0",
+            "type": "http"
+          },
+          "type": "http",
+          "protocolProfileBehavior": {
+            "useWhatWGUrlParser": false,
+            "disableUrlEncoding": false
+          }
+        },
+        {
+          "id": "d558dd18-6157-41d0-880b-2b59c1ef054a",
+          "name": "查询已添加机构(查询已添加机构)",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "port": "8080",
+              "path": [
+                "",
+                "getInstitutionMap"
+              ],
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "User-Agent",
+                "value": "Apifox/1.0.0 (https://apifox.com)"
+              }
+            ],
+            "method": "GET",
+            "baseUrl": "http://127.0.0.1:8080/",
+            "body": {},
+            "type": "http"
+          },
+          "response": [],
+          "event": [],
+          "responseDefinition": {
+            "validateDeletedResponse": false
+          },
+          "requestDefinition": {
+            "jsonSchema": {}
+          },
+          "metaInfo": {
+            "httpApiId": 100819308,
+            "httpApiCaseId": 102251542,
+            "httpApiName": "查询已添加机构",
+            "httpApiPath": "/getInstitutionMap",
+            "httpApiMethod": "get",
+            "httpApiCaseName": "查询已添加机构",
+            "id": "53b65f1f-2315-411b-a8a5-9e0d4c23e9c7",
+            "type": "http"
+          },
+          "type": "http",
+          "protocolProfileBehavior": {
+            "useWhatWGUrlParser": false,
+            "disableUrlEncoding": false
+          }
+        },
+        {
+          "id": "f7e8d1f5-5cbb-47d0-85a0-49e8582c91f9",
+          "name": "查询机构(查询机构)",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "port": "8080",
+              "path": [
+                "",
+                "getInstitution"
+              ],
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "currentPage",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": ""
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "User-Agent",
+                "value": "Apifox/1.0.0 (https://apifox.com)"
+              }
+            ],
+            "method": "GET",
+            "baseUrl": "http://127.0.0.1:8080/",
+            "body": {},
+            "type": "http"
+          },
+          "response": [],
+          "event": [],
+          "responseDefinition": {
+            "validateDeletedResponse": false
+          },
+          "requestDefinition": {
+            "jsonSchema": {}
+          },
+          "metaInfo": {
+            "httpApiId": 100819307,
+            "httpApiCaseId": 102251541,
+            "httpApiName": "查询机构",
+            "httpApiPath": "/getInstitution",
+            "httpApiMethod": "get",
+            "httpApiCaseName": "查询机构",
+            "id": "d5dec465-a8ac-4aa0-8180-a7e4a0584136",
+            "type": "http"
+          },
+          "type": "http",
+          "protocolProfileBehavior": {
+            "useWhatWGUrlParser": false,
+            "disableUrlEncoding": false
+          }
+        },
+        {
+          "id": "dca153ae-3529-4c72-aef4-d4f66b24303c",
+          "name": "查询审核(查询审核)",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "port": "8080",
+              "path": [
+                "",
+                "getReview"
+              ],
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "currentPage",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": ""
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "User-Agent",
+                "value": "Apifox/1.0.0 (https://apifox.com)"
+              }
+            ],
+            "method": "GET",
+            "baseUrl": "http://127.0.0.1:8080/",
+            "body": {},
+            "type": "http"
+          },
+          "response": [],
+          "event": [],
+          "responseDefinition": {
+            "validateDeletedResponse": false
+          },
+          "requestDefinition": {
+            "jsonSchema": {}
+          },
+          "metaInfo": {
+            "httpApiId": 100819310,
+            "httpApiCaseId": 102251540,
+            "httpApiName": "查询审核",
+            "httpApiPath": "/getReview",
+            "httpApiMethod": "get",
+            "httpApiCaseName": "查询审核",
+            "id": "d573c738-da0b-4b00-ad39-b9e78ca8233a",
+            "type": "http"
+          },
+          "type": "http",
+          "protocolProfileBehavior": {
+            "useWhatWGUrlParser": false,
+            "disableUrlEncoding": false
+          }
+        },
+        {
+          "id": "66f7759c-e141-44f1-9386-464d11db0702",
+          "name": "查询体育(查询体育)",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "port": "8080",
+              "path": [
+                "",
+                "getSport"
+              ],
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "currentPage",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": ""
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "User-Agent",
+                "value": "Apifox/1.0.0 (https://apifox.com)"
+              }
+            ],
+            "method": "GET",
+            "baseUrl": "http://127.0.0.1:8080/",
+            "body": {},
+            "type": "http"
+          },
+          "response": [],
+          "event": [],
+          "responseDefinition": {
+            "validateDeletedResponse": false
+          },
+          "requestDefinition": {
+            "jsonSchema": {}
+          },
+          "metaInfo": {
+            "httpApiId": 100819314,
+            "httpApiCaseId": 102251539,
+            "httpApiName": "查询体育",
+            "httpApiPath": "/getSport",
+            "httpApiMethod": "get",
+            "httpApiCaseName": "查询体育",
+            "id": "f7897305-708b-42cd-93ca-b0e403871699",
+            "type": "http"
+          },
+          "type": "http",
+          "protocolProfileBehavior": {
+            "useWhatWGUrlParser": false,
+            "disableUrlEncoding": false
+          }
+        },
+        {
+          "id": "8e076262-3850-4979-857e-feedfd1c655c",
+          "name": "查询已添加体育(查询已添加体育)",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "port": "8080",
+              "path": [
+                "",
+                "getSportMap"
+              ],
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "User-Agent",
+                "value": "Apifox/1.0.0 (https://apifox.com)"
+              }
+            ],
+            "method": "GET",
+            "baseUrl": "http://127.0.0.1:8080/",
+            "body": {},
+            "type": "http"
+          },
+          "response": [],
+          "event": [],
+          "responseDefinition": {
+            "validateDeletedResponse": false
+          },
+          "requestDefinition": {
+            "jsonSchema": {}
+          },
+          "metaInfo": {
+            "httpApiId": 100819315,
+            "httpApiCaseId": 102251538,
+            "httpApiName": "查询已添加体育",
+            "httpApiPath": "/getSportMap",
+            "httpApiMethod": "get",
+            "httpApiCaseName": "查询已添加体育",
+            "id": "d61f00c8-b4f9-4c1a-be84-9657d8e3557b",
+            "type": "http"
+          },
+          "type": "http",
+          "protocolProfileBehavior": {
+            "useWhatWGUrlParser": false,
+            "disableUrlEncoding": false
+          }
+        },
+        {
+          "id": "c3aac574-a366-41e5-aadc-bf32cb909ff8",
+          "name": "查询模板(查询模板)",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "port": "8080",
+              "path": [
+                "",
+                "getTemplate"
+              ],
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "keyword",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "currentPage",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": ""
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "User-Agent",
+                "value": "Apifox/1.0.0 (https://apifox.com)"
+              }
+            ],
+            "method": "GET",
+            "baseUrl": "http://127.0.0.1:8080/",
+            "body": {},
+            "type": "http"
+          },
+          "response": [],
+          "event": [],
+          "responseDefinition": {
+            "validateDeletedResponse": false
+          },
+          "requestDefinition": {
+            "jsonSchema": {}
+          },
+          "metaInfo": {
+            "httpApiId": 100819319,
+            "httpApiCaseId": 102251537,
+            "httpApiName": "查询模板",
+            "httpApiPath": "/getTemplate",
+            "httpApiMethod": "get",
+            "httpApiCaseName": "查询模板",
+            "id": "3e8eb8a5-44d7-40e2-aeb5-97a98cca1b0c",
+            "type": "http"
+          },
+          "type": "http",
+          "protocolProfileBehavior": {
+            "useWhatWGUrlParser": false,
+            "disableUrlEncoding": false
+          }
+        },
+        {
+          "id": "75919d1a-a5fa-4a3a-9047-f393fd7a756a",
+          "name": "查询小程序信息(查询小程序信息)",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "port": "8080",
+              "path": [
+                "",
+                "getWeChat"
+              ],
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "keyword",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "currentPage",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": ""
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "User-Agent",
+                "value": "Apifox/1.0.0 (https://apifox.com)"
+              }
+            ],
+            "method": "GET",
+            "baseUrl": "http://127.0.0.1:8080/",
+            "body": {},
+            "type": "http"
+          },
+          "response": [],
+          "event": [],
+          "responseDefinition": {
+            "validateDeletedResponse": false
+          },
+          "requestDefinition": {
+            "jsonSchema": {}
+          },
+          "metaInfo": {
+            "httpApiId": 100819328,
+            "httpApiCaseId": 102251536,
+            "httpApiName": "查询小程序信息",
+            "httpApiPath": "/getWeChat",
+            "httpApiMethod": "get",
+            "httpApiCaseName": "查询小程序信息",
+            "id": "dad7751e-b5a2-4d94-be87-61b3a01c53b4",
+            "type": "http"
+          },
+          "type": "http",
+          "protocolProfileBehavior": {
+            "useWhatWGUrlParser": false,
+            "disableUrlEncoding": false
+          }
+        }
+      ],
+      "name": "select_auto_test_pipeline"
+    }
+  ],
+  "info": {
+    "name": "select_auto_test_pipeline"
+  },
+  "dataSchemas": {},
+  "mockRules": {
+    "rules": [],
+    "enableSystemRule": true
+  },
+  "environment": {
+    "id": 10240319,
+    "name": "测试环境",
+    "baseUrl": "http://127.0.0.1:8080/",
+    "baseUrls": {
+      "default": "http://127.0.0.1:8080/"
+    },
+    "variable": {
+      "id": "3546cba0-6cc7-4077-9e79-37bccd2d8e13",
+      "name": "测试环境",
+      "values": []
+    },
+    "type": "normal",
+    "parameter": {
+      "header": [],
+      "query": [],
+      "body": [],
+      "cookie": []
+    }
+  },
+  "globals": {
+    "baseUrl": "",
+    "baseUrls": {},
+    "variable": {
+      "id": "d1041617-cd65-4b53-8cf4-c3ecbb086201",
+      "values": []
+    },
+    "parameter": {
+      "header": [],
+      "query": [],
+      "body": [],
+      "cookie": []
+    }
+  },
+  "isServerBuild": false,
+  "isTestFlowControl": false
+}

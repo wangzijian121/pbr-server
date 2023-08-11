@@ -1,5 +1,6 @@
 package com.zlht.pose.management.api.service;
 
+import com.zlht.pose.management.api.utils.PageInfo;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.Charge;
 import com.zlht.pose.management.dao.entity.User;
@@ -12,11 +13,11 @@ public interface ChargeServicesI {
      * 查询收费信息
      *
      * @param type
-     * @param pageNum
+     * @param currentPage
      * @param pageSize
      * @return
      */
-    Result queryChargeList(User loginUser, int type, int pageNum, int pageSize, String keyword);
+    Result<PageInfo<Charge>> queryChargeList(User loginUser, int type, int currentPage, int pageSize, String keyword);
 
 
     /**

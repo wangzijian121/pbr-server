@@ -3,6 +3,7 @@ package com.zlht.pose.management.api.controller;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zlht.pose.management.api.service.WeChatServicesI;
+import com.zlht.pose.management.api.utils.PageInfo;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.User;
 import com.zlht.pose.management.dao.entity.WeChat;
@@ -36,23 +37,23 @@ public class WeChatController extends BaseController {
     @ApiOperation(value = "查询小程序信息", notes = "查询小程序信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "status", value = "小程序审核进度(0已部署，1审核中)", dataTypeClass = int.class),
-            @ApiImplicitParam(name = "pageNum", value = "页数(默认1)", dataTypeClass = int.class),
+            @ApiImplicitParam(name = "currentPage", value = "页数(默认1)", dataTypeClass = int.class),
             @ApiImplicitParam(name = "pageSize", value = "页大小(默认10)", dataTypeClass = int.class),
             @ApiImplicitParam(name = "keyword", value = "小程序信息名", dataTypeClass = String.class)
     })
     @GetMapping(value = "/getWeChat")
     @ResponseStatus(HttpStatus.OK)
-    public Result<WeChat> queryWeChatList(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
-                                          @RequestParam(required = false, defaultValue = "-1") int status,
-                                          @RequestParam(required = false, defaultValue = "1") int pageNum,
-                                          @RequestParam(required = false, defaultValue = "10") int pageSize,
-                                          @RequestParam(required = false) String keyword) {
+    public Result<PageInfo<WeChat>> queryWeChatList(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                                                    @RequestParam(required = false, defaultValue = "-1") int status,
+                                                    @RequestParam(required = false, defaultValue = "1") int currentPage,
+                                                    @RequestParam(required = false, defaultValue = "10") int pageSize,
+                                                    @RequestParam(required = false) String keyword) {
 
-        Result result = checkPageParams(pageNum, pageSize);
+        Result result = checkPageParams(currentPage, pageSize);
         if (!result.checkResult()) {
             return result;
         }
-        return weChatServices.queryWeChatList(loginUser, pageNum, pageSize, status, keyword);
+        return weChatServices.queryWeChatList(loginUser, currentPage, pageSize, status, keyword);
     }
 
     /**

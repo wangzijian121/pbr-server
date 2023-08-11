@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlht.pose.management.api.enums.Status;
 import com.zlht.pose.management.api.service.ChargeServicesI;
+import com.zlht.pose.management.api.utils.PageInfo;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.Charge;
 import com.zlht.pose.management.dao.entity.User;
@@ -26,7 +27,7 @@ public class ChargeServicesImpl extends BaseServiceImpl<Charge> implements Charg
     ChargeMapper chargeMapper;
 
     @Override
-    public Result queryChargeList(User loginUser, int type, int pageNum, int pageSize, String keyword) {
+    public Result<PageInfo<Charge>> queryChargeList(User loginUser, int type, int currentPage, int pageSize, String keyword) {
 
         Result result = new Result();
         if (!canOperator(loginUser)) {
@@ -34,11 +35,12 @@ public class ChargeServicesImpl extends BaseServiceImpl<Charge> implements Charg
             result.setCode(Status.USER_NO_OPERATION_PERM.getCode());
             return result;
         }
-        Page page = new Page<>(pageNum, pageSize);
+        Page page = new Page<>(currentPage, pageSize);
         Page<Map<String, Object>> chargePage = chargeMapper.selectCharge(page, keyword, type);
-        result.setCode(Status.SUCCESS.getCode());
-        result.setMsg(Status.SUCCESS.getMsg());
-        result.setData(chargePage.getRecords());
+        PageInfo pageInfo = new PageInfo(currentPage, pageSize);
+        pageInfo.setTotal((int) page.getTotal());
+        pageInfo.setTotalList(chargePage.getRecords());
+        result.setData(pageInfo);
         return result;
     }
 

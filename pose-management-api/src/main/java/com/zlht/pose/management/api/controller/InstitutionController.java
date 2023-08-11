@@ -3,6 +3,7 @@ package com.zlht.pose.management.api.controller;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zlht.pose.management.api.service.InstitutionServicesI;
+import com.zlht.pose.management.api.utils.PageInfo;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.Institution;
 import com.zlht.pose.management.dao.entity.User;
@@ -36,23 +37,23 @@ public class InstitutionController extends BaseController {
     @ApiOperation(value = "查询机构", notes = "查询机构")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "type", value = "机构类型:(0：培训机构，1：健身场所)", dataTypeClass = int.class),
-            @ApiImplicitParam(name = "pageNum", value = "页数(默认1)", dataTypeClass = int.class),
+            @ApiImplicitParam(name = "currentPage", value = "页数(默认1)", dataTypeClass = int.class),
             @ApiImplicitParam(name = "pageSize", value = "页大小(默认10)", dataTypeClass = int.class),
             @ApiImplicitParam(name = "name", value = "机构名", dataTypeClass = String.class)
     })
     @GetMapping(value = "/getInstitution")
     @ResponseStatus(HttpStatus.OK)
-    public Result<Institution> queryInstitutionList(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
-                                                    @RequestParam(required = false, defaultValue = "-1") int type,
-                                                    @RequestParam(required = false, defaultValue = "1") int pageNum,
-                                                    @RequestParam(required = false, defaultValue = "10") int pageSize,
-                                                    @RequestParam(required = false) String name) {
+    public Result<PageInfo<Institution>> queryInstitutionList(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                                                              @RequestParam(required = false, defaultValue = "-1") int type,
+                                                              @RequestParam(required = false, defaultValue = "1") int currentPage,
+                                                              @RequestParam(required = false, defaultValue = "10") int pageSize,
+                                                              @RequestParam(required = false) String name) {
 
-        Result result = checkPageParams(pageNum, pageSize);
+        Result result = checkPageParams(currentPage, pageSize);
         if (!result.checkResult()) {
             return result;
         }
-        return institutionServices.queryInstitutionList(loginUser, type, pageNum, pageSize, name);
+        return institutionServices.queryInstitutionList(loginUser, type, currentPage, pageSize, name);
     }
 
     /**

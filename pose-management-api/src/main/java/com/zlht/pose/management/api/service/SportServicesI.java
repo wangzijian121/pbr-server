@@ -1,5 +1,6 @@
 package com.zlht.pose.management.api.service;
 
+import com.zlht.pose.management.api.utils.PageInfo;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.Sport;
 import com.zlht.pose.management.dao.entity.User;
@@ -12,11 +13,11 @@ public interface SportServicesI {
      * 查询体育
      *
      * @param type
-     * @param pageNum
+     * @param currentPage
      * @param pageSize
      * @return
      */
-    Result<Sport> querySportList(User loginUser, int type, int pageNum, int pageSize, String sportName);
+    Result<PageInfo<Sport>> querySportList(User loginUser, int type, int currentPage, int pageSize, String sportName);
 
     /**
      * 查询已添加的体育

@@ -1,5 +1,6 @@
 package com.zlht.pose.management.api.service;
 
+import com.zlht.pose.management.api.utils.PageInfo;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.User;
 import com.zlht.pose.management.dao.entity.WeChat;
@@ -12,11 +13,11 @@ public interface WeChatServicesI {
      * 查询小程序信息
      *
      * @param status
-     * @param pageNum
+     * @param currentPage
      * @param pageSize
      * @return
      */
-    Result queryWeChatList(User loginUser, int pageNum, int pageSize, int status, String keyword);
+    Result<PageInfo<WeChat>> queryWeChatList(User loginUser, int currentPage, int pageSize, int status, String keyword);
 
 
     /**

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlht.pose.management.api.enums.Status;
 import com.zlht.pose.management.api.service.AuthInstitutionAlgServicesI;
+import com.zlht.pose.management.api.utils.PageInfo;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.AuthInstitutionAlg;
 import com.zlht.pose.management.dao.entity.User;
@@ -26,23 +27,20 @@ public class AuthInstitutionAlgServicesImpl extends BaseServiceImpl<AuthInstitut
     AuthInstitutionAlgMapper authInstitutionAlgMapper;
 
     @Override
-    public Result queryAuthInstitutionAlgList(User loginUser, int auth_type, int pageNum, int pageSize, String keyword) {
+    public Result<PageInfo> queryAuthInstitutionAlgList(User loginUser, int auth_type, int currentPage, int pageSize, String keyword) {
 
         Result result = new Result();
+        PageInfo pageInfo = new PageInfo(currentPage, pageSize);
         if (!canOperator(loginUser)) {
             result.setMsg(Status.USER_NO_OPERATION_PERM.getMsg());
             result.setCode(Status.USER_NO_OPERATION_PERM.getCode());
             return result;
         }
-
-        Page page = new Page<>(pageNum, pageSize);
-
+        Page page = new Page<>(currentPage, pageSize);
         Page<Map<String, Object>> institutionPage = authInstitutionAlgMapper.selectAuthInstitutionsWithNickname(page, keyword, auth_type);
-        if (institutionPage != null) {
-            result.setCode(Status.SUCCESS.getCode());
-            result.setMsg(Status.SUCCESS.getMsg());
-            result.setData(institutionPage.getRecords());
-        }
+        pageInfo.setTotal((int) page.getTotal());
+        pageInfo.setTotalList(institutionPage.getRecords());
+        result.setData(pageInfo);
         return result;
     }
 

@@ -1,5 +1,6 @@
 package com.zlht.pose.management.api.service;
 
+import com.zlht.pose.management.api.utils.PageInfo;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.Commission;
 import com.zlht.pose.management.dao.entity.User;
@@ -11,11 +12,11 @@ public interface CommissionServicesI {
     /**
      * 查询佣金
      *
-     * @param pageNum
+     * @param currentPage
      * @param pageSize
      * @return
      */
-    Result<Commission> queryCommissionList(User loginUser, int pageNum, int pageSize, String reviewName);
+    Result<PageInfo<Commission>> queryCommissionList(User loginUser, int currentPage, int pageSize, String reviewName);
 
     /**
      * 创建佣金

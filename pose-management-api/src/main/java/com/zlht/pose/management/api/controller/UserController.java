@@ -5,6 +5,7 @@ import com.zlht.pose.management.api.enums.Status;
 import com.zlht.pose.management.api.security.impl.AbstractAuthenticator;
 import com.zlht.pose.management.api.service.SessionServiceI;
 import com.zlht.pose.management.api.service.UserServicesI;
+import com.zlht.pose.management.api.utils.PageInfo;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.User;
 import io.swagger.annotations.Api;
@@ -46,23 +47,23 @@ public class UserController extends BaseController {
     @ApiOperation(value = "查询用户", notes = "查询用户")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "type", value = "用户类型:(0:管理员,1:机构管理员,2: 开发者,3 机构用户)", dataTypeClass = int.class),
-            @ApiImplicitParam(name = "pageNum", value = "页数(默认1)", dataTypeClass = int.class),
+            @ApiImplicitParam(name = "currentPage", value = "页数(默认1)", dataTypeClass = int.class),
             @ApiImplicitParam(name = "pageSize", value = "页大小(默认10)", dataTypeClass = int.class),
             @ApiImplicitParam(name = "nickname", value = "用户昵称", dataTypeClass = String.class)
     })
     @GetMapping(value = "/getUser")
     @ResponseStatus(HttpStatus.OK)
-    public Result queryUserList(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
-                                @RequestParam(required = false, defaultValue = "-1") int type,
-                                @RequestParam(required = false, defaultValue = "1") int pageNum,
-                                @RequestParam(required = false, defaultValue = "10") int pageSize,
-                                @RequestParam(required = false) String nickname) {
+    public Result<PageInfo<User>> queryUserList(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                                                @RequestParam(required = false, defaultValue = "-1") int type,
+                                                @RequestParam(required = false, defaultValue = "1") int currentPage,
+                                                @RequestParam(required = false, defaultValue = "10") int pageSize,
+                                                @RequestParam(required = false) String nickname) {
 
-        Result result = checkPageParams(pageNum, pageSize);
+        Result result = checkPageParams(currentPage, pageSize);
         if (!result.checkResult()) {
             return result;
         }
-        return userServices.queryUserList(loginUser, type, pageNum, pageSize, nickname);
+        return userServices.queryUserList(loginUser, type, currentPage, pageSize, nickname);
     }
 
     /**

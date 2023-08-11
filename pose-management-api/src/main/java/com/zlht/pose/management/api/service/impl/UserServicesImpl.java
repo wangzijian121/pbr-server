@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlht.pose.management.api.enums.Status;
 import com.zlht.pose.management.api.service.SessionServiceI;
 import com.zlht.pose.management.api.service.UserServicesI;
+import com.zlht.pose.management.api.utils.PageInfo;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.User;
 import com.zlht.pose.management.dao.mapper.UserMapper;
@@ -32,7 +33,7 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
 
 
     @Override
-    public Result queryUserList(User loginUser, int type, int pageNum, int pageSize, String keyword) {
+    public Result<PageInfo<User>> queryUserList(User loginUser, int type, int currentPage, int pageSize, String keyword) {
 
         Result result = new Result();
         if (!canOperator(loginUser)) {
@@ -40,7 +41,7 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
             result.setCode(Status.USER_NO_OPERATION_PERM.getCode());
             return result;
         }
-        Page<User> page = new Page<>(pageNum, pageSize);
+        Page<User> page = new Page<>(currentPage, pageSize);
 
         QueryWrapper<User> wapper = new QueryWrapper<User>();
         if (type != -1) wapper.eq("type", type);
@@ -48,9 +49,10 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
             wapper.like("nickname", keyword);
         }
         Page<User> userPage = userMapper.selectPage(page, wapper);
-        result.setCode(Status.SUCCESS.getCode());
-        result.setMsg(Status.SUCCESS.getMsg());
-        result.setData(userPage.getRecords());
+        PageInfo pageInfo = new PageInfo(currentPage, pageSize);
+        pageInfo.setTotal((int) page.getTotal());
+        pageInfo.setTotalList(userPage.getRecords());
+        result.setData(pageInfo);
         return result;
     }
 

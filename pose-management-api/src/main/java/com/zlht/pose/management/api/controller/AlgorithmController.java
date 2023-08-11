@@ -2,6 +2,7 @@ package com.zlht.pose.management.api.controller;
 
 
 import com.zlht.pose.management.api.service.AlgorithmServicesI;
+import com.zlht.pose.management.api.utils.PageInfo;
 import com.zlht.pose.management.api.utils.Result;
 import com.zlht.pose.management.dao.entity.Algorithm;
 import com.zlht.pose.management.dao.entity.User;
@@ -35,23 +36,23 @@ public class AlgorithmController extends BaseController {
     @ApiOperation(value = "查询算法", notes = "查询算法")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "type", value = "算法类型(0普通算法 1专用算法)", dataTypeClass = int.class),
-            @ApiImplicitParam(name = "pageNum", value = "页数(默认1)", dataTypeClass = int.class),
+            @ApiImplicitParam(name = "currentPage", value = "页数(默认1)", dataTypeClass = int.class),
             @ApiImplicitParam(name = "pageSize", value = "页大小(默认10)", dataTypeClass = int.class),
             @ApiImplicitParam(name = "name", value = "算法名", dataTypeClass = String.class)
     })
     @GetMapping(value = "/getAlgorithm")
     @ResponseStatus(HttpStatus.OK)
-    public Result<Algorithm> queryAlgorithmList(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
-                                                @RequestParam(required = false, defaultValue = "-1") int type,
-                                                @RequestParam(required = false, defaultValue = "1") int pageNum,
-                                                @RequestParam(required = false, defaultValue = "10") int pageSize,
-                                                @RequestParam(required = false) String name) {
+    public Result<PageInfo<Algorithm>> queryAlgorithmList(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                                                          @RequestParam(required = false, defaultValue = "-1") int type,
+                                                          @RequestParam(required = false, defaultValue = "1") int currentPage,
+                                                          @RequestParam(required = false, defaultValue = "10") int pageSize,
+                                                          @RequestParam(required = false) String name) {
 
-        Result result = checkPageParams(pageNum, pageSize);
+        Result result = checkPageParams(currentPage, pageSize);
         if (!result.checkResult()) {
             return result;
         }
-        return algorithmServices.queryAlgorithmList(loginUser, type, pageNum, pageSize, name);
+        return algorithmServices.queryAlgorithmList(loginUser, type, currentPage, pageSize, name);
     }
 
     /**
