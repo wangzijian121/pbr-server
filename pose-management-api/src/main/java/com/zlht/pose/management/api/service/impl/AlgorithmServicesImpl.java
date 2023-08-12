@@ -70,6 +70,7 @@ public class AlgorithmServicesImpl extends BaseServiceImpl<Algorithm> implements
             return map;
         }
 
+        algorithm.setUploader(loginUser.getId());
         int resNum = algorithmMapper.insert(algorithm);
         if (resNum >= 1) {
             putMsg(map, Status.SUCCESS.getCode(), "新建算法成功！");

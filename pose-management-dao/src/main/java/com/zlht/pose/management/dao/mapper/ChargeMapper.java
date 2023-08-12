@@ -15,8 +15,10 @@ public interface ChargeMapper extends BaseMapper<Charge> {
     @Select("select *\n" +
             "from (select c.id,\n" +
             "             c.type,\n" +
+            "             i.id as institution_id,\n" +
             "             i.name as institution_name,\n" +
             "             c.charge_time,\n" +
+            "             u.nickname as user_id,\n" +
             "             u.nickname as confirm_people,\n" +
             "             c.confirm_time,\n" +
             "             c.status,\n" +

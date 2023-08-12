@@ -37,6 +37,7 @@ public class Algorithm {
     @ApiModelProperty(value = "部署方式（0：云端部署 1：本地部署）", required = true)
     private Integer installType;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @ApiModelProperty(value = "上传人", required = true)
     private Integer uploader;
 

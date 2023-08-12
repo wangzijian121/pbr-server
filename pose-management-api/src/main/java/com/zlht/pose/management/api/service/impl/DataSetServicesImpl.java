@@ -66,7 +66,7 @@ public class DataSetServicesImpl extends BaseServiceImpl<DataSet> implements Dat
             putMsg(map, 400, "该数据集类型下已存在该数据集！");
             return map;
         }
-
+        dataSet.setUploader(loginUser.getId());
         int resNum = dataSetMapper.insert(dataSet);
         if (resNum >= 1) {
             putMsg(map, Status.SUCCESS.getCode(), "新建数据集成功！");

@@ -16,14 +16,17 @@ public interface ReviewMapper extends BaseMapper<Review> {
     @Select("select * from (select dr.id,\n" +
             "             dr.commit_name,\n" +
             "             dr.developer_id,\n" +
+            "             u.id as user_id,\n" +
             "             u.nickname,\n" +
             "             dr.type,\n" +
-            "             dr.file,\n" +
+            "             dr.file as file_uuid,\n" +
+            "             r.full_name as file_name,\n" +
             "             dr.demo,\n" +
             "             dr.mark,\n" +
             "             dr.status,\n" +
             "             dr.create_time\n" +
             "      from developer_review dr\n" +
+            "               left join resources r  on r.alias = dr.file\n" +
             "               left join user u on dr.developer_id = u.id) res \n" +
             "where   (#{keyword} IS NULL OR res.nickname LIKE CONCAT('%', #{keyword}, '%'))")
     Page<Map<String, Object>> selectReview(Page<?> page,

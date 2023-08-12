@@ -13,7 +13,13 @@ import java.util.Map;
 public interface CommissionMapper extends BaseMapper<Commission> {
 
 
-    @Select("select * from (select c.id, dr.commit_name, c.money, c.status, c.mark, c.create_time\n" +
+    @Select("select * from (select c.id, " +
+            "dr.id as commit_id , " +
+            "dr.commit_name, " +
+            "c.money, " +
+            "c.status," +
+            " c.mark," +
+            " c.create_time\n" +
             "from commission c\n" +
             "         left join developer_review dr on c.review_id = dr.id) res " +
             "where   (#{keyword} IS NULL OR res.commit_name LIKE CONCAT('%', #{keyword}, '%'))")
