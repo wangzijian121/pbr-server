@@ -6,6 +6,7 @@ import com.zlht.pose.management.api.enums.Status;
 import com.zlht.pose.management.api.service.TemplateServicesI;
 import com.zlht.pose.management.api.utils.PageInfo;
 import com.zlht.pose.management.api.utils.Result;
+import com.zlht.pose.management.dao.entity.Sport;
 import com.zlht.pose.management.dao.entity.Template;
 import com.zlht.pose.management.dao.entity.User;
 import com.zlht.pose.management.dao.mapper.TemplateMapper;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -36,6 +38,21 @@ public class TemplateServicesImpl extends BaseServiceImpl implements TemplateSer
         pageInfo.setTotal((int) page.getTotal());
         pageInfo.setTotalList(templatePage.getRecords());
         result.setData(pageInfo);
+        return result;
+    }
+
+    @Override
+    public Result<Template> queryTemplateMap(User loginUser) {
+        Result result = new Result();
+        if (!canOperator(loginUser)) {
+            result.setMsg(Status.USER_NO_OPERATION_PERM.getMsg());
+            result.setCode(Status.USER_NO_OPERATION_PERM.getCode());
+            return result;
+        }
+        List<Map<String, Object>> list = templateMapper.queryTemplateMap();
+        result.setCode(Status.SUCCESS.getCode());
+        result.setMsg(Status.SUCCESS.getMsg());
+        result.setData(list);
         return result;
     }
 

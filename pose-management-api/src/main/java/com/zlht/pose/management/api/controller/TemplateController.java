@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zlht.pose.management.api.service.TemplateServicesI;
 import com.zlht.pose.management.api.utils.PageInfo;
 import com.zlht.pose.management.api.utils.Result;
+import com.zlht.pose.management.dao.entity.Sport;
 import com.zlht.pose.management.dao.entity.Template;
 import com.zlht.pose.management.dao.entity.User;
 import io.swagger.annotations.Api;
@@ -54,6 +55,19 @@ public class TemplateController extends BaseController {
             return result;
         }
         return templateServices.queryTemplateList(loginUser, currentPage, pageSize, status, keyword);
+    }
+
+    /**
+     * 查询已添加模版
+     *
+     * @return sport
+     */
+    @ApiOperation(value = "查询已添加模版", notes = "查询已添加模版")
+
+    @GetMapping(value = "/queryTemplateMap")
+    @ResponseStatus(HttpStatus.OK)
+    public Result<Template> queryTemplateMap(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser) {
+        return templateServices.queryTemplateMap(loginUser);
     }
 
     /**

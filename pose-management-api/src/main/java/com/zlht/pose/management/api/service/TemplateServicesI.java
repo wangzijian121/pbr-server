@@ -2,6 +2,7 @@ package com.zlht.pose.management.api.service;
 
 import com.zlht.pose.management.api.utils.PageInfo;
 import com.zlht.pose.management.api.utils.Result;
+import com.zlht.pose.management.dao.entity.Sport;
 import com.zlht.pose.management.dao.entity.Template;
 import com.zlht.pose.management.dao.entity.User;
 
@@ -19,6 +20,12 @@ public interface TemplateServicesI {
      */
     Result<PageInfo<Template>> queryTemplateList(User loginUser, int currentPage, int pageSize, int status, String keyword);
 
+    /**
+     * 查询已添加的体育
+     *
+     * @return
+     */
+    Result<Template> queryTemplateMap(User loginUser);
 
     /**
      * 创建模板信息
