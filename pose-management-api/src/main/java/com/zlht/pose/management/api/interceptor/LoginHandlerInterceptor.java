@@ -55,6 +55,7 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
             for (Cookie c : cookie) {
                 if (("sessionId").equals(c.getName()) && !StringUtils.isEmpty(c.getValue())) {
                     session = getSession(request, response, c.getValue(), ip);
+                    break;
                 } else {
                     return false;
                 }
