@@ -137,7 +137,7 @@ public class UserController extends BaseController {
         }
         Map<String, Object> map = null;
         try {
-            map = authenticator.authenticate(username, password, ip);
+            map = authenticator.authenticate(username, password, ip, 0);
             if (Integer.valueOf(map.get("code").toString()) != 0) {
                 return returnDataList(map);
             }

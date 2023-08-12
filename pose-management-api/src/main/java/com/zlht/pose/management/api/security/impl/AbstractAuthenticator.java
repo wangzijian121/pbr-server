@@ -44,7 +44,7 @@ public class AbstractAuthenticator extends BaseServiceImpl<User> implements Auth
 
 
     @Override
-    public Map<String, Object> authenticate(String username, String password, String ip) {
+    public Map<String, Object> authenticate(String username, String password, String ip, int userType) {
         Map<String, Object> map = new HashMap<>();
         if (username == null) {
             putMsg(map, 400, "请输入用户名！");
@@ -55,6 +55,10 @@ public class AbstractAuthenticator extends BaseServiceImpl<User> implements Auth
             return map;
         }
         User user = userMapper.queryUserByUserName(username);
+        if (user.getType() != userType) {
+            putMsg(map, 401, "非本平台用户,无登录权限!");
+            return map;
+        }
         if (user != null) {
             String encipherPassword = user.getPassword();
             boolean check = Argon2PasswordEncoder.matches(encipherPassword, password);

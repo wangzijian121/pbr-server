@@ -23,6 +23,6 @@ public interface Authenticator {
     /**
      * 通过用户名和密码验证合法性
      */
-    Map<String, Object> authenticate(String username, String password, String ip);
+    Map<String, Object> authenticate(String username, String password, String ip, int userType);
 
 }
