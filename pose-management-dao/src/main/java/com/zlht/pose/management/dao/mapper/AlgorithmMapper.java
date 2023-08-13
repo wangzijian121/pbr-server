@@ -7,6 +7,7 @@ import com.zlht.pose.management.dao.entity.Algorithm;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
 import java.util.Map;
 
 public interface AlgorithmMapper extends BaseMapper<Algorithm> {
@@ -33,5 +34,9 @@ public interface AlgorithmMapper extends BaseMapper<Algorithm> {
             "where (#{keyword} IS NULL OR res.name LIKE CONCAT('%', #{keyword}, '%')) and  (#{type}  = -1 OR res.type =#{type})")
     Page<Map<String, Object>> selectAlgorithm(Page<?> page, @Param("keyword") String keyword,
                                               @Param("type") int type);
+
+
+    @Select("select id,name from  algorithm  group by id,name")
+    List<Map<String,Object>> queryAlgorithmMap();
 }
 

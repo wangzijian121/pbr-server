@@ -19,6 +19,13 @@ public interface AlgorithmServicesI {
      */
     Result<PageInfo<Algorithm>> queryAlgorithmList(User loginUser, int type, int currentPage, int pageSize, String algorithmName);
 
+    /**
+     * 获取算法映射
+     *
+     * @param loginUser
+     * @return
+     */
+    Result queryAlgorithmMap(User loginUser);
 
     /**
      * 创建算法

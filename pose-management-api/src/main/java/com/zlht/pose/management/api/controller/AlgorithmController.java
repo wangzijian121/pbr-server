@@ -54,7 +54,17 @@ public class AlgorithmController extends BaseController {
         }
         return algorithmServices.queryAlgorithmList(loginUser, type, currentPage, pageSize, name);
     }
-
+    /**
+     * 查询已添加算法
+     *
+     * @return institution
+     */
+    @ApiOperation(value = "查询已添加算法", notes = "查询已添加算法")
+    @GetMapping(value = "/getAlgorithmMap")
+    @ResponseStatus(HttpStatus.OK)
+    public Result queryAlgorithmMap(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser) {
+        return algorithmServices.queryAlgorithmMap(loginUser);
+    }
     /**
      * 创建算法
      *
