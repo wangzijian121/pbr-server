@@ -47,6 +47,8 @@ public class InstitutionServicesImpl extends BaseServiceImpl<Institution> implem
         PageInfo pageInfo = new PageInfo(currentPage, pageSize);
         pageInfo.setTotal((int) page.getTotal());
         pageInfo.setTotalList(institutionPage.getRecords());
+        result.setCode(200);
+        result.setMsg(Status.SUCCESS.getMsg());
         result.setData(pageInfo);
         return result;
     }

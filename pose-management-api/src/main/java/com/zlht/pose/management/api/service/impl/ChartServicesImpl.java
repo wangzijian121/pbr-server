@@ -55,7 +55,7 @@ public class ChartServicesImpl extends BaseServiceImpl<Charge> implements ChartS
                 .pieChartDataMap(pieChartDataMap)
                 .lineChartDataMap(lineTypeChartMap)
                 .build();
-        result.setCode(200);
+        result.setCode(Status.SUCCESS.getCode());
         result.setMsg(Status.SUCCESS.getMsg());
         result.setData(chartCollect);
         return result;
@@ -147,8 +147,8 @@ public class ChartServicesImpl extends BaseServiceImpl<Charge> implements ChartS
         Map<String, List<String>> mapY = new HashMap<>();
         List<String> basketballList = Arrays.asList("12", "6", "7", "9", "5", "11", "1", "14", "2", "34", "2", "6", "7", "8", "6", "9", "5", "10", "12", "11", "88", "9", "19", "13", "12", "5", "6", "2", "12", "14");
         List<String> swimmingList = Arrays.asList("72", "15", "86", "45", "99", "6", "27", "81", "59", "33", "70", "92", "4", "51", "18", "38", "67", "23", "54", "40", "88", "9", "63", "79", "36", "48", "12", "97", "31", "76");
-        mapY.put("basketball_list", basketballList);
-        mapY.put("swimming_list", swimmingList);
+        mapY.put("篮球", basketballList);
+        mapY.put("游泳", swimmingList);
         return new LineTypeChart(xList, mapY);
     }
 }

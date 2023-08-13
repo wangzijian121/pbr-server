@@ -17,12 +17,13 @@
 
 package com.zlht.pose.management.api.security;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 public interface Authenticator {
     /**
      * 通过用户名和密码验证合法性
      */
-    Map<String, Object> authenticate(String username, String password, String ip, int userType);
+    Map<String, Object> authenticate(HttpServletResponse response, String username, String password, String ip, int userType);
 
 }

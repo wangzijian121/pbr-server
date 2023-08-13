@@ -137,19 +137,19 @@ public class UserController extends BaseController {
         }
         Map<String, Object> map = null;
         try {
-            map = authenticator.authenticate(username, password, ip, 0);
+            map = authenticator.authenticate(response,username, password, ip, 0);
+
             if (Integer.valueOf(map.get("code").toString()) != 0) {
                 return returnDataList(map);
             }
         } catch (Exception e) {
             logger.error(Status.AUTHORIZED_USER_ERROR.getMsg(), e);
         }
-
-        Cookie cookie = new Cookie("sessionId", map.get("data").toString());
-        cookie.setHttpOnly(true);
-        response.addCookie(cookie);
+        returnDataList(map);
         return returnDataList(map);
     }
+
+
 
 
     /**

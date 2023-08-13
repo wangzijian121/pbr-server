@@ -41,6 +41,8 @@ public class ReviewServicesImpl extends BaseServiceImpl<Review> implements Revie
         pageInfo.setTotal((int) page.getTotal());
         pageInfo.setTotalList(reviewPage.getRecords());
         result.setData(pageInfo);
+        result.setCode(Status.SUCCESS.getCode());
+        result.setMsg(Status.SUCCESS.getMsg());
         return result;
     }
 

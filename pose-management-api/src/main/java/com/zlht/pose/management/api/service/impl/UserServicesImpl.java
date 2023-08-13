@@ -53,6 +53,8 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
         pageInfo.setTotal((int) page.getTotal());
         pageInfo.setTotalList(userPage.getRecords());
         result.setData(pageInfo);
+        result.setCode(Status.SUCCESS.getCode());
+        result.setMsg(Status.SUCCESS.getMsg());
         return result;
     }
 

@@ -34,6 +34,8 @@ public class WeChatServicesImpl extends BaseServiceImpl implements WeChatService
         pageInfo.setTotal((int) page.getTotal());
         pageInfo.setTotalList(weChatPage.getRecords());
         result.setData(pageInfo);
+        result.setCode(Status.SUCCESS.getCode());
+        result.setMsg(Status.SUCCESS.getMsg());
         return result;
     }
 

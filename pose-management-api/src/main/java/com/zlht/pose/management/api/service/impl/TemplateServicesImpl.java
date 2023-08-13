@@ -38,6 +38,8 @@ public class TemplateServicesImpl extends BaseServiceImpl implements TemplateSer
         pageInfo.setTotal((int) page.getTotal());
         pageInfo.setTotalList(templatePage.getRecords());
         result.setData(pageInfo);
+        result.setCode(Status.SUCCESS.getCode());
+        result.setMsg(Status.SUCCESS.getMsg());
         return result;
     }
 

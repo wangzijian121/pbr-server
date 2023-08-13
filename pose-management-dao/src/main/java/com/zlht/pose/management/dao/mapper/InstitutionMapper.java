@@ -11,6 +11,7 @@ import java.util.Map;
 public interface InstitutionMapper extends BaseMapper<Institution> {
 
 
+
     @Select("select id,name from  institution  group by id,name")
     List<Map<String,Object>> queryInstitutionMap();
 }

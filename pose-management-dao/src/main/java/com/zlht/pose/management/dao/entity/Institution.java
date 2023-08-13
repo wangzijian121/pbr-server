@@ -48,9 +48,9 @@ public class Institution {
     @ApiModelProperty(name = "map", value = "地图位置", required = false)
     private String map;
 
-
-    @ApiModelProperty(name = "createTime", value = "创建时间 iso:YYYY-MM-DDTHH:mm:ss.sssZ", required = true)
-    private Date createTime;
+    @TableField(value = "create_time")
+    @ApiModelProperty(name = "create_time", value = "创建时间 iso:YYYY-MM-DDTHH:mm:ss.sssZ", required = true)
+    private Date create_time;
 
 
 }

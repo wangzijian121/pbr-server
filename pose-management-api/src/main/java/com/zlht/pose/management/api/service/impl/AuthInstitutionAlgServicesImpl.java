@@ -41,6 +41,8 @@ public class AuthInstitutionAlgServicesImpl extends BaseServiceImpl<AuthInstitut
         pageInfo.setTotal((int) page.getTotal());
         pageInfo.setTotalList(institutionPage.getRecords());
         result.setData(pageInfo);
+        result.setCode(Status.SUCCESS.getCode());
+        result.setMsg(Status.SUCCESS.getMsg());
         return result;
     }
 

@@ -38,14 +38,13 @@ public class SportServicesImpl extends BaseServiceImpl<Sport> implements SportSe
             return result;
         }
         Page<Sport> page = new Page<>(currentPage, pageSize);
-        QueryWrapper<Sport> wapper = new QueryWrapper<Sport>();
-        if (type != -1) wapper.eq("type", type);
-        if (keyword != null) wapper.and(nc -> nc.like("name", keyword));
-        Page<Sport> sportPage = sportMapper.selectPage(page, wapper);
+        Page sportPage = sportMapper.selectSport(page, keyword);
         PageInfo pageInfo = new PageInfo(currentPage, pageSize);
         pageInfo.setTotal((int) page.getTotal());
         pageInfo.setTotalList(sportPage.getRecords());
         result.setData(pageInfo);
+        result.setCode(Status.SUCCESS.getCode());
+        result.setMsg(Status.SUCCESS.getMsg());
         return result;
     }
 

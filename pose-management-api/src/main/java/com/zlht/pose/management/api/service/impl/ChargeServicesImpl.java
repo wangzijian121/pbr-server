@@ -41,6 +41,8 @@ public class ChargeServicesImpl extends BaseServiceImpl<Charge> implements Charg
         pageInfo.setTotal((int) page.getTotal());
         pageInfo.setTotalList(chargePage.getRecords());
         result.setData(pageInfo);
+        result.setCode(Status.SUCCESS.getCode());
+        result.setMsg(Status.SUCCESS.getMsg());
         return result;
     }
 

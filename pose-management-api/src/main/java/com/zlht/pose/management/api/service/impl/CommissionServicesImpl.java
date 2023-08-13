@@ -42,6 +42,8 @@ public class CommissionServicesImpl extends BaseServiceImpl<Commission> implemen
         pageInfo.setTotal((int) page.getTotal());
         pageInfo.setTotalList(commissionPage.getRecords());
         result.setData(pageInfo);
+        result.setCode(Status.SUCCESS.getCode());
+        result.setMsg(Status.SUCCESS.getMsg());
         return result;
     }
 

@@ -29,6 +29,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,7 +46,7 @@ public class AbstractAuthenticator extends BaseServiceImpl<User> implements Auth
 
 
     @Override
-    public Map<String, Object> authenticate(String username, String password, String ip, int userType) {
+    public Map<String, Object> authenticate(HttpServletResponse response, String username, String password, String ip, int userType) {
         Map<String, Object> map = new HashMap<>();
         if (username == null) {
             putMsg(map, 400, "请输入用户名！");
@@ -63,13 +65,21 @@ public class AbstractAuthenticator extends BaseServiceImpl<User> implements Auth
             String encipherPassword = user.getPassword();
             boolean check = Argon2PasswordEncoder.matches(encipherPassword, password);
             if (check) {
-                String session_id = sessionServiceI.createSession(user, ip);
-                if (session_id == null) {
+                String sessionId = sessionServiceI.createSession(user, ip);
+                if (sessionId == null) {
                     putMsg(map, 400, "session创建错误,登录失败!");
                     return map;
                 }
                 putMsg(map, Status.SUCCESS.getCode(), "登录成功！");
-                map.put("data", session_id);
+                map.put("nickname", user.getNickname());
+                Map<String, Object> userMap = new HashMap<>();
+                userMap.put("session_id", sessionId);
+                userMap.put("nickname", user.getNickname());
+
+                map.put("data", userMap);
+                Cookie cookie = new Cookie("sessionId", sessionId);
+                cookie.setHttpOnly(true);
+                response.addCookie(cookie);
             } else {
                 putMsg(map, 400, "用户名或密码错误！");
                 return map;
@@ -79,4 +89,6 @@ public class AbstractAuthenticator extends BaseServiceImpl<User> implements Auth
         }
         return map;
     }
+
+
 }

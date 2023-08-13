@@ -42,6 +42,8 @@ public class DataSetServicesImpl extends BaseServiceImpl<DataSet> implements Dat
         pageInfo.setTotal((int) page.getTotal());
         pageInfo.setTotalList(dataSetPage.getRecords());
         result.setData(pageInfo);
+        result.setCode(Status.SUCCESS.getCode());
+        result.setMsg(Status.SUCCESS.getMsg());
         return result;
     }
 
