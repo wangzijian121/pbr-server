@@ -57,11 +57,12 @@ public class AbstractAuthenticator extends BaseServiceImpl<User> implements Auth
             return map;
         }
         User user = userMapper.queryUserByUserName(username);
-        if (user.getType() != userType) {
-            putMsg(map, 401, "非本平台用户,无登录权限!");
-            return map;
-        }
+
         if (user != null) {
+            if (user.getType() != userType) {
+                putMsg(map, 401, "非本平台用户,无登录权限!");
+                return map;
+            }
             String encipherPassword = user.getPassword();
             boolean check = Argon2PasswordEncoder.matches(encipherPassword, password);
             if (check) {
