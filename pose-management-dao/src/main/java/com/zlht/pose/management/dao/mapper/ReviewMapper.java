@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.util.List;
 import java.util.Map;
 
 public interface ReviewMapper extends BaseMapper<Review> {
@@ -39,4 +40,7 @@ public interface ReviewMapper extends BaseMapper<Review> {
     int updateReviewStatus(@Param("id") int id,
                            @Param("status") int status,
                            @Param("mark") String mark);
+
+    @Select("select id,commit_name from  developer_review  group by id,commit_name")
+    List<Map<String,Object>> queryReviewMap();
 }

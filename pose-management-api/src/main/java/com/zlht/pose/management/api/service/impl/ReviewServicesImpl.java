@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -45,7 +46,21 @@ public class ReviewServicesImpl extends BaseServiceImpl<Review> implements Revie
         result.setMsg(Status.SUCCESS.getMsg());
         return result;
     }
+    @Override
+    public Result queryReviewMap(User loginUser) {
 
+        Result result = new Result();
+        if (!canOperator(loginUser)) {
+            result.setMsg(Status.USER_NO_OPERATION_PERM.getMsg());
+            result.setCode(Status.USER_NO_OPERATION_PERM.getCode());
+            return result;
+        }
+        List<Map<String, Object>> list = reviewMapper.queryReviewMap();
+        result.setCode(Status.SUCCESS.getCode());
+        result.setMsg(Status.SUCCESS.getMsg());
+        result.setData(list);
+        return result;
+    }
 
     @Override
     public Map<String, Object> updateReviewStatus(User loginUser, int id, int status, String mark) {

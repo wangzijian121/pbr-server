@@ -17,6 +17,12 @@ public interface ReviewServicesI {
      */
     Result<PageInfo> queryReviewList(User loginUser, int currentPage, int pageSize, String keyword);
 
+    /**
+     * 查询提交的审核(去重)
+     *
+     * @return
+     */
+    Result queryReviewMap(User loginUser);
 
     /**
      * 更新审核状态

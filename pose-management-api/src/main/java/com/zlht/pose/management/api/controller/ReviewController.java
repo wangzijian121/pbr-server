@@ -53,6 +53,17 @@ public class ReviewController extends BaseController {
         return reviewServices.queryReviewList(loginUser, currentPage, pageSize, name);
     }
 
+    /**
+     * 查询已添加审核
+     *
+     * @return review
+     */
+    @ApiOperation(value = "查询已添加审核", notes = "查询已添加审核")
+    @GetMapping(value = "/getReviewMap")
+    @ResponseStatus(HttpStatus.OK)
+    public Result getReviewMap(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser) {
+        return reviewServices.queryReviewMap(loginUser);
+    }
 
     /**
      * 更新审核状态
