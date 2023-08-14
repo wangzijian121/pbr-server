@@ -82,7 +82,7 @@ public class SportServicesImpl extends BaseServiceImpl<Sport> implements SportSe
             putMsg(map, 400, "该体育类型下已存在该体育！");
             return map;
         }
-
+        sport.setUserId(loginUser.getId());
         int resNum = sportMapper.insert(sport);
         if (resNum >= 1) {
             putMsg(map, Status.SUCCESS.getCode(), "新建体育成功！");
@@ -121,6 +121,7 @@ public class SportServicesImpl extends BaseServiceImpl<Sport> implements SportSe
 
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("id", id);
+        sport.setUserId(loginUser.getId());
         int update = sportMapper.update(sport, queryWrapper);
         if (update >= 1) {
             putMsg(map, Status.SUCCESS.getCode(), "更新体育成功！");

@@ -58,6 +58,7 @@ public class AuthInstitutionAlgServicesImpl extends BaseServiceImpl<AuthInstitut
             putMsg(map, 400, "机构授权已存在!");
             return map;
         }
+        authInstitutionAlg.setAuthAdmin(loginUser.getId());
         int resNum = authInstitutionAlgMapper.insert(authInstitutionAlg);
         if (resNum >= 1) {
             putMsg(map, Status.SUCCESS.getCode(), "创建授权成功！");
@@ -77,19 +78,25 @@ public class AuthInstitutionAlgServicesImpl extends BaseServiceImpl<AuthInstitut
             putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
             return map;
         }
+
         //check Exist
         if (!checkAuthExistById(id)) {
             logger.error("所更新机构不存在！");
             putMsg(map, 400, "所更新机构不存在！");
             return map;
         }
-
-        //check Duplication
-        if (checkAuthDuplication(authInstitutionAlg)) {
+        QueryWrapper checkWrapper = new QueryWrapper<>();
+        checkWrapper.eq("institution_id", authInstitutionAlg.getInstitution_id());
+        checkWrapper.eq("auth_alg_id", authInstitutionAlg.getAuth_alg_id());
+        checkWrapper.ne("id", id);
+        //exist?
+        if (authInstitutionAlgMapper.exists(checkWrapper)) {
             putMsg(map, 400, "机构授权已存在!");
             return map;
         }
+
         authInstitutionAlg.setId(id);
+        authInstitutionAlg.setAuthAdmin(loginUser.getId());
         int update = authInstitutionAlgMapper.updateById(authInstitutionAlg);
         if (update >= 1) {
             putMsg(map, Status.SUCCESS.getCode(), "更新授权成功！");

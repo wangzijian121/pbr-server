@@ -16,6 +16,7 @@ public interface CommissionMapper extends BaseMapper<Commission> {
     @Select("select * from (select c.id, " +
             "dr.id as commit_id , " +
             "dr.commit_name, " +
+            "c.review_id, " +
             "c.money, " +
             "c.status," +
             " c.mark," +
