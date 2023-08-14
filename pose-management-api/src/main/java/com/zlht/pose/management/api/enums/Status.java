@@ -11,8 +11,7 @@ import java.util.Optional;
  */
 public enum Status {
 
-    SUCCESS(0, "success", "成功"),
-
+    SUCCESS(200, "success", "成功"),
     INTERNAL_SERVER_ERROR_ARGS(10000, "Internal Server Error: {0}", "服务端异常: {0}"),
 
     REQUEST_PARAMS_NOT_VALID_ERROR(10001, "request parameter {0} is not valid", "请求参数[{0}]无效"),
