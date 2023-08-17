@@ -140,6 +140,7 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
     public boolean checkUserExistByIdName(int id, User user) {
         QueryWrapper queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", user.getUsername());
+        queryWrapper.eq("type", user.getType());
         queryWrapper.ne("id", id);
         return userMapper.exists(queryWrapper);
     }
@@ -154,6 +155,7 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
     public boolean checkUserExistByUserName(User user) {
         QueryWrapper queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", user.getUsername());
+        queryWrapper.eq("type", user.getType());
         return userMapper.exists(queryWrapper);
     }
 

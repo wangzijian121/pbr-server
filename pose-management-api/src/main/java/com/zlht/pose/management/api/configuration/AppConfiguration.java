@@ -42,7 +42,7 @@ public class AppConfiguration implements WebMvcConfigurer {
 
     public static final String LOGIN_INTERCEPTOR_PATH_PATTERN = "/**/*";
     public static final String LOGIN_PATH_PATTERN = "/login";
-    public static final String LOGIN_PATH_PATTERN_DEVELOPER = "/developerLogin";
+    public static final String LOGIN_PATH_PATTERN_DEVELOPER = "/developer_login";
     public static final String REGISTER_PATH_PATTERN = "/users/register";
     public static final String PATH_PATTERN = "/**";
     public static final String LOCALE_LANGUAGE_COOKIE = "language";

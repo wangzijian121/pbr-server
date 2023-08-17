@@ -56,7 +56,7 @@ public class AbstractAuthenticator extends BaseServiceImpl<User> implements Auth
             putMsg(map, 400, "请输入密码！");
             return map;
         }
-        User user = userMapper.queryUserByUserName(username);
+        User user = userMapper.queryUserByUserName(username,userType);
 
         if (user != null) {
             if (user.getType() != userType) {

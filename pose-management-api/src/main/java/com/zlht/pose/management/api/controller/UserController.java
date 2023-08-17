@@ -107,8 +107,8 @@ public class UserController extends BaseController {
     @DeleteMapping(value = "/deleteUser")
     @ResponseStatus(HttpStatus.OK)
     public Map<String, Object> deleteUser(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
-                                          @RequestParam int userId) {
-        Map<String, Object> map = userServices.deleteUser(loginUser, userId);
+                                          @RequestParam int id) {
+        Map<String, Object> map = userServices.deleteUser(loginUser, id);
         return map;
     }
 

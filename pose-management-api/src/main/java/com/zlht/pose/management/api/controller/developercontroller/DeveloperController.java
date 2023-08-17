@@ -1,4 +1,4 @@
-package com.zlht.pose.management.api.controller.developerController;
+package com.zlht.pose.management.api.controller.developercontroller;
 
 
 import com.zlht.pose.management.api.controller.BaseController;
@@ -61,7 +61,7 @@ public class DeveloperController extends BaseController {
         }
         Map<String, Object> map = null;
         try {
-            map = authenticator.authenticate(response,username, password, ip, 1);
+            map = authenticator.authenticate(response, username, password, ip, 1);
             if (Integer.valueOf(map.get("code").toString()) != 0) {
                 return returnDataList(map);
             }

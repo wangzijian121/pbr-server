@@ -11,8 +11,8 @@ import java.util.Date;
 
 public interface UserMapper extends BaseMapper<User> {
 
-    @Select("select * from user where username = #{username}")
-    User queryUserByUserName(@Param("username") String username);
+    @Select("select * from user where username = #{username} and  type=#{userType}")
+    User queryUserByUserName(@Param("username") String username, @Param("userType") int userType);
 
     @Select("select *\n" +
             "from user u,\n" +
