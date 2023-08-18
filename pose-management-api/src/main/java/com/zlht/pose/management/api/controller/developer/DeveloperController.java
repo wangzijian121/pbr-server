@@ -1,4 +1,4 @@
-package com.zlht.pose.management.api.controller.developercontroller;
+package com.zlht.pose.management.api.controller.developer;
 
 
 import com.zlht.pose.management.api.controller.BaseController;

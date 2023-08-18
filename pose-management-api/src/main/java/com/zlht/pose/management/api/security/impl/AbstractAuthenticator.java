@@ -76,6 +76,7 @@ public class AbstractAuthenticator extends BaseServiceImpl<User> implements Auth
                 Map<String, Object> userMap = new HashMap<>();
                 userMap.put("session_id", sessionId);
                 userMap.put("nickname", user.getNickname());
+                userMap.put("id", user.getId());
 
                 map.put("data", userMap);
                 Cookie cookie = new Cookie("sessionId", sessionId);

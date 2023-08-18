@@ -63,22 +63,20 @@ public class BaseController {
     }
 
     public static String getClientIpAddress(HttpServletRequest request) {
-        String clientIp = request.getHeader("X-Forwarded-For");
 
-        if (StringUtils.isNotEmpty(clientIp) && !clientIp.equalsIgnoreCase("unKnown")) {
-            int index = clientIp.indexOf(",");
+        String realIp = request.getHeader("X-Real-IP");
+        if (StringUtils.isNotEmpty(realIp) && !realIp.equalsIgnoreCase("unKnown")) {
+            return realIp;
+        }
+        String forwardedIp = request.getHeader("X-Forwarded-For");
+        if (StringUtils.isNotEmpty(forwardedIp) && !forwardedIp.equalsIgnoreCase("unKnown")) {
+            int index = forwardedIp.indexOf(",");
             if (index != -1) {
-                return clientIp.substring(0, index);
+                return forwardedIp.substring(0, index);
             } else {
-                return clientIp;
+                return forwardedIp;
             }
         }
-
-        clientIp = request.getHeader("X-Real-IP");
-        if (StringUtils.isNotEmpty(clientIp) && !clientIp.equalsIgnoreCase("unKnown")) {
-            return clientIp;
-        }
-
         return request.getRemoteAddr();
     }
 }
