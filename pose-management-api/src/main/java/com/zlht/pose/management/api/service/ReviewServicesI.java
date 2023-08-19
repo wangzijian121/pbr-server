@@ -2,6 +2,7 @@ package com.zlht.pose.management.api.service;
 
 import com.zlht.pose.management.api.utils.PageInfo;
 import com.zlht.pose.management.api.utils.Result;
+import com.zlht.pose.management.dao.entity.Review;
 import com.zlht.pose.management.dao.entity.User;
 
 import java.util.Map;
@@ -41,4 +42,22 @@ public interface ReviewServicesI {
      * @return
      */
     boolean checkReviewExistById(int id);
+
+    /**
+     * 通过提交者名和提交名判断是否有重复
+     *
+     * @param reviewName
+     * @param user
+     * @return
+     */
+    boolean checkReviewExistByName(String reviewName, User user);
+
+    /**
+     * 开发者提交审核
+     *
+     * @param loginUser
+     * @param review
+     * @return
+     */
+    Map<String, Object> developCommitReview(User loginUser, Review review);
 }

@@ -1,11 +1,17 @@
 package com.zlht.pose.management.api.controller.developer;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zlht.pose.management.api.controller.BaseController;
 import com.zlht.pose.management.api.enums.Status;
 import com.zlht.pose.management.api.security.impl.AbstractAuthenticator;
+import com.zlht.pose.management.api.service.ReviewServicesI;
 import com.zlht.pose.management.api.service.UserServicesI;
 import com.zlht.pose.management.api.utils.Result;
+import com.zlht.pose.management.dao.entity.Charge;
+import com.zlht.pose.management.dao.entity.Review;
+import com.zlht.pose.management.dao.entity.User;
+import com.zlht.pose.management.dao.mapper.ReviewMapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -15,10 +21,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -36,6 +40,9 @@ public class DeveloperController extends BaseController {
     @Autowired
     AbstractAuthenticator authenticator;
 
+    @Autowired
+    ReviewServicesI reviewServicesI;
+
     /**
      * 登录
      *
@@ -48,7 +55,7 @@ public class DeveloperController extends BaseController {
             @ApiImplicitParam(name = "username", value = "用户名", required = true, dataTypeClass = String.class),
             @ApiImplicitParam(name = "password", value = "密码", required = true, dataTypeClass = String.class)
     })
-    @PostMapping(value = "/developer_login")
+    @PostMapping(value = "/developer/login")
     @ResponseStatus(HttpStatus.OK)
     public Result developerLogin(@RequestParam String username,
                                  @RequestParam String password,
@@ -72,6 +79,21 @@ public class DeveloperController extends BaseController {
         Cookie cookie = new Cookie("sessionId", map.get("data").toString());
         cookie.setHttpOnly(true);
         response.addCookie(cookie);
+        return returnDataList(map);
+    }
+
+    /**
+     * 开发者-提交审核
+     *
+     * @return Result
+     */
+    @ApiOperation(value = "开发者-提交审核", notes = "开发者-提交审核")
+    @PostMapping(value = "developer/commitReview")
+    @ResponseStatus(HttpStatus.OK)
+    @JsonIgnoreProperties(value = "id")
+    public Result<Review> createReview(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                                       @RequestBody Review review) {
+        Map<String, Object> map = reviewServicesI.developCommitReview(loginUser, review);
         return returnDataList(map);
     }
 }

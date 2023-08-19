@@ -3,7 +3,9 @@ package com.zlht.pose.management.dao.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zlht.pose.management.dao.entity.Charge;
 import com.zlht.pose.management.dao.entity.Review;
+import com.zlht.pose.management.dao.entity.User;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -43,4 +45,6 @@ public interface ReviewMapper extends BaseMapper<Review> {
 
     @Select("select id,commit_name from  developer_review  group by id,commit_name")
     List<Map<String,Object>> queryReviewMap();
+
+
 }

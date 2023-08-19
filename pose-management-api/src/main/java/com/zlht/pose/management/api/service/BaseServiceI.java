@@ -18,4 +18,12 @@ public interface BaseServiceI<T> {
      */
     boolean canOperator(User operateUser);
 
+    /**
+     * 检查权限
+     *
+     * @param operateUser
+     * @return
+     */
+    boolean canCommit(User operateUser);
+
 }
