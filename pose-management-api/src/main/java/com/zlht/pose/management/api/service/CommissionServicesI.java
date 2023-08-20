@@ -1,7 +1,7 @@
 package com.zlht.pose.management.api.service;
 
-import com.zlht.pose.management.api.utils.PageInfo;
-import com.zlht.pose.management.api.utils.Result;
+import com.zlht.pose.utils.PageInfo;
+import com.zlht.pose.utils.Result;
 import com.zlht.pose.management.dao.entity.Commission;
 import com.zlht.pose.management.dao.entity.User;
 

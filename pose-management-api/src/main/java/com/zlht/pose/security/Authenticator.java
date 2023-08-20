@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.zlht.pose.management.api.security;
+package com.zlht.pose.security;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;

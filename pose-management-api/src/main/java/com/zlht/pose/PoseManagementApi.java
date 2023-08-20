@@ -1,4 +1,4 @@
-package com.zlht.pose.management.api;
+package com.zlht.pose;
 
 
 import com.zlht.pose.management.tools.service.EnvService;
@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import springfox.documentation.oas.annotations.EnableOpenApi;
 
-@ComponentScan("com.zlht.pose.management")
+
 @SpringBootApplication
 @EnableOpenApi
 public class PoseManagementApi implements ApplicationRunner {

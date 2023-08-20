@@ -1,8 +1,8 @@
 package com.zlht.pose.management.api.service.impl;
 
 
-import com.zlht.pose.management.api.enums.Status;
-import com.zlht.pose.management.api.service.BaseServiceI;
+import com.zlht.pose.enums.Status;
+import com.zlht.pose.base.BaseServiceI;
 import com.zlht.pose.management.dao.entity.User;
 
 import java.util.Map;

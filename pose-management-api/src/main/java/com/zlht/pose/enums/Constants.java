@@ -1,4 +1,4 @@
-package com.zlht.pose.management.api.enums;
+package com.zlht.pose.enums;
 
 public final class Constants {
 

@@ -15,12 +15,12 @@
  * limitations under the License.
  */
 
-package com.zlht.pose.management.api.configuration;
+package com.zlht.pose.configuration;
 
 
 import java.util.Locale;
 
-import com.zlht.pose.management.api.interceptor.LoginHandlerInterceptor;
+import com.zlht.pose.interceptor.LoginHandlerInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;

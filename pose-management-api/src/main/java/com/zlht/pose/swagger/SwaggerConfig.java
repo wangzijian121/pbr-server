@@ -1,4 +1,4 @@
-package com.zlht.pose.management.api.swagger;
+package com.zlht.pose.swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,7 +34,7 @@ public class SwaggerConfig {
                 .groupName("developer")
                 .apiInfo(Developer())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.zlht.pose.management.api.controller.developer")) // 设置扫描路径
+                .apis(RequestHandlerSelectors.basePackage("com.zlht.pose.developer.api.controller")) // 设置扫描路径
                 .build();
     }
 

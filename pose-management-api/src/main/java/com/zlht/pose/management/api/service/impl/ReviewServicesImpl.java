@@ -3,10 +3,10 @@ package com.zlht.pose.management.api.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.zlht.pose.management.api.enums.Status;
+import com.zlht.pose.enums.Status;
 import com.zlht.pose.management.api.service.ReviewServicesI;
-import com.zlht.pose.management.api.utils.PageInfo;
-import com.zlht.pose.management.api.utils.Result;
+import com.zlht.pose.utils.PageInfo;
+import com.zlht.pose.utils.Result;
 import com.zlht.pose.management.dao.entity.Review;
 import com.zlht.pose.management.dao.entity.User;
 import com.zlht.pose.management.dao.mapper.ReviewMapper;
@@ -84,26 +84,6 @@ public class ReviewServicesImpl extends BaseServiceImpl<Review> implements Revie
         return map;
     }
 
-    @Override
-    public Map<String, Object> developCommitReview(User loginUser, Review review) {
-        Map<String, Object> map = new HashMap<>();
-        if (!canCommit(loginUser)) {
-            putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
-            return map;
-        }
-        if (checkReviewExistByName(review.getCommitName(), loginUser)) {
-            putMsg(map, 400, "所提交审核已经存在！");
-            return map;
-        }
-        int resNum = reviewMapper.insert(review);
-        if (resNum >= 1) {
-            putMsg(map, Status.SUCCESS.getCode(), "提交审核成功！");
-        } else {
-            putMsg(map, 400, "提交审核失败！");
-        }
-        return map;
-    }
-
 
     @Override
     public boolean checkReviewExistById(int id) {
@@ -112,12 +92,5 @@ public class ReviewServicesImpl extends BaseServiceImpl<Review> implements Revie
         return reviewMapper.exists(queryWrapper);
     }
 
-    @Override
-    public boolean checkReviewExistByName(String reviewName, User user) {
-        QueryWrapper queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("commit_name", reviewName);
-        queryWrapper.eq("developer_id", user.getId());
-        return reviewMapper.exists(queryWrapper);
-    }
 
 }

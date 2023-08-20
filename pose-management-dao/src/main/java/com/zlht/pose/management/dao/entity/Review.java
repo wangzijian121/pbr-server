@@ -27,12 +27,14 @@ public class Review {
 
 
     @ApiModelProperty(value = "开发者ID", required = true)
-    private Integer developer_id;
+    private Integer developerId;
 
 
     @ApiModelProperty(value = "数据集类型(0普通数据集 1专用数据集)", required = true)
     private int type;
 
+    @ApiModelProperty(value = "支持的体育类型", required = true)
+    private String  sportType;
 
     @ApiModelProperty(value = "算法或数据集文件", required = true)
     private String file;

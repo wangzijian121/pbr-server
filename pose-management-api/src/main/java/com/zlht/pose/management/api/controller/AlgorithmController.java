@@ -1,9 +1,10 @@
 package com.zlht.pose.management.api.controller;
 
 
+import com.zlht.pose.base.BaseController;
 import com.zlht.pose.management.api.service.AlgorithmServicesI;
-import com.zlht.pose.management.api.utils.PageInfo;
-import com.zlht.pose.management.api.utils.Result;
+import com.zlht.pose.utils.PageInfo;
+import com.zlht.pose.utils.Result;
 import com.zlht.pose.management.dao.entity.Algorithm;
 import com.zlht.pose.management.dao.entity.User;
 import io.swagger.annotations.Api;

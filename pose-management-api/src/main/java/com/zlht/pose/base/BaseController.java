@@ -1,8 +1,8 @@
-package com.zlht.pose.management.api.controller;
+package com.zlht.pose.base;
 
-import com.zlht.pose.management.api.enums.Constants;
-import com.zlht.pose.management.api.enums.Status;
-import com.zlht.pose.management.api.utils.Result;
+import com.zlht.pose.enums.Constants;
+import com.zlht.pose.enums.Status;
+import com.zlht.pose.utils.Result;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;

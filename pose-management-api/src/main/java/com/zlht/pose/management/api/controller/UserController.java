@@ -1,12 +1,13 @@
 package com.zlht.pose.management.api.controller;
 
 
-import com.zlht.pose.management.api.enums.Status;
-import com.zlht.pose.management.api.security.impl.AbstractAuthenticator;
+import com.zlht.pose.base.BaseController;
+import com.zlht.pose.enums.Status;
+import com.zlht.pose.security.impl.AbstractAuthenticator;
 import com.zlht.pose.management.api.service.SessionServiceI;
 import com.zlht.pose.management.api.service.UserServicesI;
-import com.zlht.pose.management.api.utils.PageInfo;
-import com.zlht.pose.management.api.utils.Result;
+import com.zlht.pose.utils.PageInfo;
+import com.zlht.pose.utils.Result;
 import com.zlht.pose.management.dao.entity.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -20,7 +21,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;

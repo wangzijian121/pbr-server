@@ -2,9 +2,10 @@ package com.zlht.pose.management.api.controller;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.zlht.pose.base.BaseController;
 import com.zlht.pose.management.api.service.AuthInstitutionAlgServicesI;
-import com.zlht.pose.management.api.utils.PageInfo;
-import com.zlht.pose.management.api.utils.Result;
+import com.zlht.pose.utils.PageInfo;
+import com.zlht.pose.utils.Result;
 import com.zlht.pose.management.dao.entity.AuthInstitutionAlg;
 import com.zlht.pose.management.dao.entity.User;
 import io.swagger.annotations.Api;

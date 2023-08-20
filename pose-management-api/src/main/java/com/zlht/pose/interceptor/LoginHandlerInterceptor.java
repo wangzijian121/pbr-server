@@ -1,7 +1,7 @@
-package com.zlht.pose.management.api.interceptor;
+package com.zlht.pose.interceptor;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.zlht.pose.management.api.controller.BaseController;
+import com.zlht.pose.base.BaseController;
 import com.zlht.pose.management.dao.entity.Session;
 import com.zlht.pose.management.dao.entity.User;
 import com.zlht.pose.management.dao.mapper.SessionMapper;

@@ -1,4 +1,4 @@
-package com.zlht.pose.management.api.service;
+package com.zlht.pose.base;
 
 
 import com.zlht.pose.management.dao.entity.User;

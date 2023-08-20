@@ -1,5 +1,5 @@
 
-package com.zlht.pose.management.api.utils;
+package com.zlht.pose.utils;
 
 import io.swagger.annotations.ApiModelProperty;
 

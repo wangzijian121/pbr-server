@@ -1,9 +1,10 @@
 package com.zlht.pose.management.api.controller;
 
 
+import com.zlht.pose.base.BaseController;
 import com.zlht.pose.management.api.service.ReviewServicesI;
-import com.zlht.pose.management.api.utils.PageInfo;
-import com.zlht.pose.management.api.utils.Result;
+import com.zlht.pose.utils.PageInfo;
+import com.zlht.pose.utils.Result;
 import com.zlht.pose.management.dao.entity.Review;
 import com.zlht.pose.management.dao.entity.User;
 import io.swagger.annotations.Api;
@@ -73,7 +74,7 @@ public class ReviewController extends BaseController {
     @ApiOperation(value = "更新审核状态", notes = "更新审核状态")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "需要更新状态的审核ID", required = true, dataTypeClass = int.class),
-            @ApiImplicitParam(name = "status", value = "审核状态(0:未审核 1：审核通过 2：审核未通过)", required = true, dataTypeClass = int.class)
+            @ApiImplicitParam(name = "status", value = "审核状态（0：未提交 1：已提交未审核 2： 已提交未通过 3： 已提交已通过）", required = true, dataTypeClass = int.class)
     })
     @PutMapping(value = "/updateReviewStatus")
     @ResponseStatus(HttpStatus.OK)
@@ -84,6 +85,5 @@ public class ReviewController extends BaseController {
         Map<String, Object> map = reviewServices.updateReviewStatus(loginUser, id, status, mark);
         return returnDataList(map);
     }
-
 
 }

@@ -1,10 +1,12 @@
-package com.zlht.pose.management.api.service.impl;
+package com.zlht.pose.developer.api.service.impl;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.zlht.pose.developer.api.service.DeveloperResourceServiceI;
 import com.zlht.pose.enums.Status;
 import com.zlht.pose.management.api.service.ResourceServiceI;
+import com.zlht.pose.management.api.service.impl.BaseServiceImpl;
 import com.zlht.pose.management.dao.entity.Resource;
 import com.zlht.pose.management.dao.entity.User;
 import com.zlht.pose.management.dao.mapper.ResourceMapper;
@@ -25,7 +27,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @Service
-public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServiceI {
+public class DeveloperResourceServiceImpl extends BaseServiceImpl implements DeveloperResourceServiceI {
 
 
     private final String[] ACCEPT_TYPES = new String[]{"zip"};
@@ -45,7 +47,7 @@ public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServ
     public Map<String, Object> createResource(User loginUser, MultipartFile file) {
 
         Map<String, Object> map = new HashMap<>();
-        if (!canOperator(loginUser)) {
+        if (!canCommit(loginUser)) {
             putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
             return map;
         }
@@ -80,42 +82,11 @@ public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServ
         return map;
     }
 
-    @Override
-    public Map<String, Object> deleteResource(User loginUser, String uuid) {
-
-        Map<String, Object> map = new HashMap<>();
-        if (!canOperator(loginUser)) {
-            putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
-            return map;
-        }
-        if (!resourceExist(uuid)) {
-            putMsg(map, 400, "删除文件不存在！");
-            return map;
-        }
-        QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.eq("alias", uuid);
-        Resource resource = resourceMapper.selectOne(queryWrapper);
-        //local
-        File deleteResource = new File(fileUploadPath + uuid + "." + resource.getSuffix());
-        boolean local_delete = deleteResource.delete();
-        int delete = 0;
-        if (local_delete) {
-            //database
-            delete = resourceMapper.delete(queryWrapper);
-        }
-        if (local_delete && delete > 0) {
-            putMsg(map, Status.SUCCESS.getCode(), "删除成功！");
-        } else {
-            putMsg(map, 400, "刪除失败！");
-        }
-        return map;
-    }
-
 
     @Override
     public ResponseEntity downloadResource(User loginUser, String uuid) {
         Map<String, Object> map = new HashMap<>();
-        if (!canOperator(loginUser)) {
+        if (!canCommit(loginUser)) {
             putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
             return (ResponseEntity) ResponseEntity.status(401);
         }

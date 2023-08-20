@@ -1,8 +1,9 @@
 package com.zlht.pose.management.api.controller;
 
 
+import com.zlht.pose.base.BaseController;
 import com.zlht.pose.management.api.service.ChartServicesI;
-import com.zlht.pose.management.api.utils.Result;
+import com.zlht.pose.utils.Result;
 import com.zlht.pose.management.dao.entity.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

@@ -1,7 +1,7 @@
 package com.zlht.pose.management.api.service;
 
-import com.zlht.pose.management.api.utils.PageInfo;
-import com.zlht.pose.management.api.utils.Result;
+import com.zlht.pose.utils.PageInfo;
+import com.zlht.pose.utils.Result;
 import com.zlht.pose.management.dao.entity.Review;
 import com.zlht.pose.management.dao.entity.User;
 
@@ -17,6 +17,7 @@ public interface ReviewServicesI {
      * @return
      */
     Result<PageInfo> queryReviewList(User loginUser, int currentPage, int pageSize, String keyword);
+
 
     /**
      * 查询提交的审核(去重)
@@ -43,21 +44,4 @@ public interface ReviewServicesI {
      */
     boolean checkReviewExistById(int id);
 
-    /**
-     * 通过提交者名和提交名判断是否有重复
-     *
-     * @param reviewName
-     * @param user
-     * @return
-     */
-    boolean checkReviewExistByName(String reviewName, User user);
-
-    /**
-     * 开发者提交审核
-     *
-     * @param loginUser
-     * @param review
-     * @return
-     */
-    Map<String, Object> developCommitReview(User loginUser, Review review);
 }

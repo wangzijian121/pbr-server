@@ -1,5 +1,5 @@
 
-package com.zlht.pose.management.api.enums;
+package com.zlht.pose.enums;
 
 import org.springframework.context.i18n.LocaleContextHolder;
 

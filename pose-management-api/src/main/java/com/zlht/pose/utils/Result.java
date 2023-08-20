@@ -1,7 +1,7 @@
 
-package com.zlht.pose.management.api.utils;
+package com.zlht.pose.utils;
 
-import com.zlht.pose.management.api.enums.Status;
+import com.zlht.pose.enums.Status;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
