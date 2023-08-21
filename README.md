@@ -1,2 +1,2 @@
-#  AI-Pose-Algorithm-Web-Manager😎
+# AI-algorithm-Algorithm-Web-Manager😎
 this is docs
