@@ -17,11 +17,13 @@ public interface ReviewMapper extends BaseMapper<Review> {
     @Select("select * from (select dr.id,\n" +
             "             dr.commit_name,\n" +
             "             dr.developer_id,\n" +
+            "             dr.type,\n" +
             "             u.id as user_id,\n" +
             "             u.nickname,\n" +
-            "             dr.type,\n" +
+            "             dr.sport_type,\n" +
             "             dr.file as file_uuid,\n" +
             "             r.full_name as file_name,\n" +
+            "             dr.docs,\n" +
             "             dr.demo,\n" +
             "             dr.mark,\n" +
             "             dr.status,\n" +
@@ -39,8 +41,10 @@ public interface ReviewMapper extends BaseMapper<Review> {
             "             u.id as user_id,\n" +
             "             u.nickname,\n" +
             "             dr.type,\n" +
+            "             dr.sport_type,\n" +
             "             dr.file as file_uuid,\n" +
             "             r.full_name as file_name,\n" +
+            "             dr.docs,\n" +
             "             dr.demo,\n" +
             "             dr.mark,\n" +
             "             dr.status,\n" +
