@@ -12,11 +12,12 @@ public interface DeveloperReviewServicesI {
 
     /**
      * 开发者获取提交的审核
+     *
      * @param loginUser
      * @return
      */
 
-    Result<PageInfo> developerQueryReviewList(User loginUser, int currentPage, int pageSize, String keyword);
+    Result<PageInfo> developerQueryReviewList(User loginUser, int currentPage, int pageSize, String keyword, String type);
 
 
     /**

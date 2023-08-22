@@ -3,11 +3,11 @@ package com.zlht.pbr.algorithm.management.api.developer.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zlht.pbr.algorithm.management.api.developer.service.DeveloperReviewServicesI;
-import com.zlht.pbr.algorithm.management.enums.Status;
 import com.zlht.pbr.algorithm.management.base.impl.BaseServiceImpl;
 import com.zlht.pbr.algorithm.management.dao.entity.Review;
 import com.zlht.pbr.algorithm.management.dao.entity.User;
 import com.zlht.pbr.algorithm.management.dao.mapper.ReviewMapper;
+import com.zlht.pbr.algorithm.management.enums.Status;
 import com.zlht.pbr.algorithm.management.utils.PageInfo;
 import com.zlht.pbr.algorithm.management.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +43,7 @@ public class DeveloperReviewServiceImpl extends BaseServiceImpl<Review> implemen
     }
 
     @Override
-    public Result<PageInfo> developerQueryReviewList(User loginUser, int currentPage, int pageSize, String keyword) {
+    public Result<PageInfo> developerQueryReviewList(User loginUser, int currentPage, int pageSize, String keyword, String type) {
 
         Result result = new Result();
         if (!canCommit(loginUser)) {
@@ -52,7 +52,7 @@ public class DeveloperReviewServiceImpl extends BaseServiceImpl<Review> implemen
             return result;
         }
         Page page = new Page<>(currentPage, pageSize);
-        Page<Map<String, Object>> reviewPage = reviewMapper.selectDeveloperReview(page, keyword, loginUser.getId());
+        Page<Map<String, Object>> reviewPage = reviewMapper.selectDeveloperReview(page, keyword, loginUser.getId(), type);
         PageInfo pageInfo = new PageInfo(currentPage, pageSize);
         pageInfo.setTotal((int) page.getTotal());
         pageInfo.setTotalList(reviewPage.getRecords());

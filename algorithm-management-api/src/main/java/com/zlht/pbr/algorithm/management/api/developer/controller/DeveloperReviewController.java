@@ -2,8 +2,8 @@ package com.zlht.pbr.algorithm.management.api.developer.controller;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.zlht.pbr.algorithm.management.base.BaseController;
 import com.zlht.pbr.algorithm.management.api.developer.service.DeveloperReviewServicesI;
+import com.zlht.pbr.algorithm.management.base.BaseController;
 import com.zlht.pbr.algorithm.management.dao.entity.Review;
 import com.zlht.pbr.algorithm.management.dao.entity.User;
 import com.zlht.pbr.algorithm.management.utils.PageInfo;
@@ -46,7 +46,7 @@ public class DeveloperReviewController extends BaseController {
     }
 
     /**
-     * 开发者-查询审核信息
+     * 开发者-查询审核信息(算法)
      *
      * @return review
      */
@@ -54,19 +54,21 @@ public class DeveloperReviewController extends BaseController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "currentPage", value = "页数(默认1)", dataTypeClass = int.class),
             @ApiImplicitParam(name = "pageSize", value = "页大小(默认10)", dataTypeClass = int.class),
-            @ApiImplicitParam(name = "name", value = "算法名", dataTypeClass = String.class)
+            @ApiImplicitParam(name = "name", value = "算法名", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "type", value = "数据类型(0普通算法 1专用算法  2普通数据集 3 专用数据集)", dataTypeClass = String.class)
     })
     @GetMapping(value = "/developer/getReview")
     @ResponseStatus(HttpStatus.OK)
     public Result<PageInfo> queryReviewList(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
                                             @RequestParam(required = false, defaultValue = "1") int currentPage,
                                             @RequestParam(required = false, defaultValue = "10") int pageSize,
-                                            @RequestParam(required = false) String name) {
+                                            @RequestParam(required = false) String name,
+                                            @RequestParam(required = false) String type) {
 
         Result result = checkPageParams(currentPage, pageSize);
         if (!result.checkResult()) {
             return result;
         }
-        return developerReviewServicesI.developerQueryReviewList(loginUser, currentPage, pageSize, name);
+        return developerReviewServicesI.developerQueryReviewList(loginUser, currentPage, pageSize, name, type);
     }
 }

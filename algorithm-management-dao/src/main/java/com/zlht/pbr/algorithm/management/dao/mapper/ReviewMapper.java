@@ -52,10 +52,11 @@ public interface ReviewMapper extends BaseMapper<Review> {
             "      from developer_review dr\n" +
             "               left join resources r  on r.alias = dr.file\n" +
             "               left join user u on dr.developer_id = u.id) res \n" +
-            "where   (#{keyword} IS NULL OR res.commit_name LIKE CONCAT('%', #{keyword}, '%')) and developer_id =#{developerId} ")
+            "where   (#{keyword} IS NULL OR res.commit_name LIKE CONCAT('%', #{keyword}, '%')) and developer_id =#{developerId} and res.type in ( ${type} )")
     Page<Map<String, Object>> selectDeveloperReview(Page<?> page,
                                                     @Param("keyword") String keyword,
-                                                    @Param("developerId") int developerId);
+                                                    @Param("developerId") int developerId,
+                                                    @Param("type") String type);
 
     @Update("update developer_review " +
             "set status=#{status} , " +
