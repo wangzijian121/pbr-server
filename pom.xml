@@ -4,7 +4,7 @@
     <!-- 基本信息 -->
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
-    <name>pbr-algorithm-management</name>
+    <name>pbr-server</name>
     <description>AI Posture Body Recognition Algorithm Management System</description>
 
     <!-- 项目说明：这里作为聚合工程的父工程 -->
