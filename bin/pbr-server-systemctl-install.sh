@@ -17,6 +17,7 @@ After=network.target
 
 [Service]
 User=root
+Type=forking
 WorkingDirectory=$SYSTEMCTL_DIR
 ExecStart=$START_SCRIPT_PATH
 ExecStop=$STOP_SCRIPT_PATH
