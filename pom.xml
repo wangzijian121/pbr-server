@@ -50,6 +50,7 @@
         <jackson.version>2.12.5</jackson.version>
         <commons-lang3.version>3.12.0</commons-lang3.version>
         <hutool-all.version>5.7.20</hutool-all.version>
+        <poi-ooxml.version>5.0.0</poi-ooxml.version>
 
     </properties>
 
@@ -216,6 +217,12 @@
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool-all.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
+                <version>${poi-ooxml.version}</version>
             </dependency>
         </dependencies>
 
