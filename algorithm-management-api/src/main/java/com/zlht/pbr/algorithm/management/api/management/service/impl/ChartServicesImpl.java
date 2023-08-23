@@ -2,7 +2,7 @@ package com.zlht.pbr.algorithm.management.api.management.service.impl;
 
 
 import com.zlht.pbr.algorithm.management.api.management.service.ChartServicesI;
-import com.zlht.pbr.algorithm.management.api.management.service.PointServicesI;
+import com.zlht.pbr.algorithm.management.api.management.service.DataPointServicesI;
 import com.zlht.pbr.algorithm.management.base.impl.BaseServiceImpl;
 import com.zlht.pbr.algorithm.management.dao.chart.ChartCollect;
 import com.zlht.pbr.algorithm.management.dao.chart.LineTypeChart;
@@ -36,7 +36,7 @@ public class ChartServicesImpl extends BaseServiceImpl<Charge> implements ChartS
     private static final Logger logger = LogManager.getLogger(ChartServicesImpl.class);
 
     @Autowired
-    private PointServicesI pointServicesI;
+    private DataPointServicesI dataPointServicesI;
 
     @Override
     public Result getChart(User loginUser, String date) {
@@ -106,27 +106,27 @@ public class ChartServicesImpl extends BaseServiceImpl<Charge> implements ChartS
 
     private Map<String, ValueTypeChart> assemblyValueTypeChartMap(String date) {
         Map<String, ValueTypeChart> valueTypeChartMap = new HashMap<>();
-        valueTypeChartMap.put("user_count", pointServicesI.getUserCount(date));
-        valueTypeChartMap.put("algorithm_count", pointServicesI.getAlgorithmCount(date));
-        valueTypeChartMap.put("algorithm_usage_count", pointServicesI.getAlgorithmUsageCount(date));
-        valueTypeChartMap.put("dataset_access_count", pointServicesI.getDatasetAccessCount(date));
-        valueTypeChartMap.put("new_action_recognition_category", pointServicesI.newActionRecognitionCategory(date));
-        valueTypeChartMap.put("institution_count", pointServicesI.getInstitutionCount(date));
+        valueTypeChartMap.put("user_count", dataPointServicesI.getUserCount(date));
+        valueTypeChartMap.put("algorithm_count", dataPointServicesI.getAlgorithmCount(date));
+        valueTypeChartMap.put("algorithm_usage_count", dataPointServicesI.getAlgorithmUsageCount(date));
+        valueTypeChartMap.put("dataset_access_count", dataPointServicesI.getDatasetAccessCount(date));
+        valueTypeChartMap.put("new_action_recognition_category", dataPointServicesI.newActionRecognitionCategory(date));
+        valueTypeChartMap.put("institution_count", dataPointServicesI.getInstitutionCount(date));
         return valueTypeChartMap;
     }
 
     private Map<String, List<PieTypeChart>> assemblyPieTypeChartMap(String date) {
         Map<String, List<PieTypeChart>> pieChartDataMap = new HashMap<>();
-        pieChartDataMap.put("institution_algorithm_ranking", pointServicesI.getInstitutionAlgorithmRanking());
+        pieChartDataMap.put("institution_algorithm_ranking", dataPointServicesI.getInstitutionAlgorithmRanking());
         return pieChartDataMap;
     }
 
 
     private Map<String, LineTypeChart> assemblyLineTypeChartMap() {
         Map<String, LineTypeChart> lineTypeChartMap = new HashMap<>();
-        lineTypeChartMap.put("top10_institution_algorithm_usage", pointServicesI.getTop10InstitutionAlgorithmUsage());
-        lineTypeChartMap.put("monthly_average_usage_duration", pointServicesI.getMonthlyAverageUserUsageDuration());
-        lineTypeChartMap.put("monthly_institution_algorithm_usage_count", pointServicesI.getMonthlyInstitutionAlgorithmUsageCount());
+        lineTypeChartMap.put("top10_institution_algorithm_usage", dataPointServicesI.getTop10InstitutionAlgorithmUsage());
+        lineTypeChartMap.put("monthly_average_usage_duration", dataPointServicesI.getMonthlyAverageUserUsageDuration());
+        lineTypeChartMap.put("monthly_institution_algorithm_usage_count", dataPointServicesI.getMonthlyInstitutionAlgorithmUsageCount());
         return lineTypeChartMap;
     }
 

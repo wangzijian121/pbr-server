@@ -7,7 +7,7 @@ import com.zlht.pbr.algorithm.management.dao.chart.ValueTypeChart;
 
 import java.util.List;
 
-public interface PointServicesI extends BaseServiceI {
+public interface DataPointServicesI extends BaseServiceI {
 
     /**
      * 今日用户量,累计用户量
