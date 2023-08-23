@@ -11,12 +11,19 @@ import com.zlht.pbr.algorithm.management.dao.entity.Charge;
 import com.zlht.pbr.algorithm.management.dao.entity.User;
 import com.zlht.pbr.algorithm.management.dao.mapper.ChartMapper;
 import com.zlht.pbr.algorithm.management.enums.Status;
+import com.zlht.pbr.algorithm.management.factory.WorkBookFactory;
 import com.zlht.pbr.algorithm.management.utils.Result;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -61,6 +68,38 @@ public class ChartServicesImpl extends BaseServiceImpl<Charge> implements ChartS
         result.setData(chartCollect);
         return result;
     }
+
+    @Override
+    public ResponseEntity downloadChart(User loginUser, String date) {
+        if (!canOperator(loginUser)) {
+            return (ResponseEntity) ResponseEntity.status(401);
+        }
+        Workbook workbook = WorkBookFactory.getWorkbook("dataReport");
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        try {
+            workbook.write(outputStream);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                workbook.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        byte[] bytes = outputStream.toByteArray();
+        HttpHeaders headers = new HttpHeaders();
+        String fileName = LocalDate.now() + "-" + UUID.randomUUID();
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileName);
+        headers.add(HttpHeaders.CONTENT_TYPE, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .body(bytes);
+    }
+
 
     //今日用户量,累计用户量
     ValueTypeChart getUserCount(String date) {

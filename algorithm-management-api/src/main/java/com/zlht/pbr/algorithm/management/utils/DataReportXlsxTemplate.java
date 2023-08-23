@@ -3,11 +3,7 @@ package com.zlht.pbr.algorithm.management.utils;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.apache.poi.ss.usermodel.Workbook;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,7 +26,7 @@ public class DataReportXlsxTemplate {
         loadSheet4(workbook, sheet4);
 
         // 将Workbook写入到文件系统
-        String fileName = "E:\\表格\\" + System.currentTimeMillis() + ".xlsx";
+  /*      String fileName = "D:\\表格\\" + System.currentTimeMillis() + ".xlsx";
         System.out.println(fileName);
         FileOutputStream outputStream = null;
         try {
@@ -44,7 +40,7 @@ public class DataReportXlsxTemplate {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-        }
+        }*/
         return workbook;
     }
 
