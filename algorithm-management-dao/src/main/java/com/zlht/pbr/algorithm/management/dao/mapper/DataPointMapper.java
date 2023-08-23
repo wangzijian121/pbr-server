@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
-public interface ChartMapper extends BaseMapper<Charge> {
+public interface DataPointMapper extends BaseMapper<Charge> {
 
     @Select("SELECT COUNT(*)   AS today,\n" +
             "       (SELECT COUNT(*) FROM user) AS total\n" +
