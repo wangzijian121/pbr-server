@@ -19,6 +19,12 @@ public interface DeveloperResourceServiceI {
     ResponseEntity downloadResource(User loginUser, String uuid);
 
     /**
+     * 删除文件
+     */
+    Map<String, Object> deleteResource(User loginUser, String uuid);
+
+
+    /**
      * 校验资源类型
      */
     boolean checkFileType(String type);

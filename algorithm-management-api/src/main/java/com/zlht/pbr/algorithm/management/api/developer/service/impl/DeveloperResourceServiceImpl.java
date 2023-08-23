@@ -80,7 +80,36 @@ public class DeveloperResourceServiceImpl extends BaseServiceImpl implements Dev
         }
         return map;
     }
+    @Override
+    public Map<String, Object> deleteResource(User loginUser, String uuid) {
 
+        Map<String, Object> map = new HashMap<>();
+        if (!canCommit(loginUser)) {
+            putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
+            return map;
+        }
+        if (!resourceExist(uuid)) {
+            putMsg(map, 400, "删除文件不存在！");
+            return map;
+        }
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("alias", uuid);
+        Resource resource = resourceMapper.selectOne(queryWrapper);
+        //local
+        File deleteResource = new File(fileUploadPath + uuid + "." + resource.getSuffix());
+        boolean local_delete = deleteResource.delete();
+        int delete = 0;
+        if (local_delete) {
+            //database
+            delete = resourceMapper.delete(queryWrapper);
+        }
+        if (local_delete && delete > 0) {
+            putMsg(map, Status.SUCCESS.getCode(), "删除成功！");
+        } else {
+            putMsg(map, 400, "刪除失败！");
+        }
+        return map;
+    }
 
     @Override
     public ResponseEntity downloadResource(User loginUser, String uuid) {

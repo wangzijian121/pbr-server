@@ -47,7 +47,20 @@ public class DeveloperFileController extends BaseController {
         return returnDataList(map);
     }
 
-    @ApiOperation(value = "开发者-文件管理")
+    @ApiOperation(value = "删除资源", notes = "删除资源")
+    @DeleteMapping(value = "/developer/delete")
+    public Result delete(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                         @RequestParam String uuid) {
+        Map<String, Object> map = null;
+        try {
+            map = developerResourceServiceI.deleteResource(loginUser, uuid);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), "文件上传失败！");
+        }
+        return returnDataList(map);
+    }
+
+    @ApiOperation(value = "开发者-文件下载")
     @ApiImplicitParam(name = "uuid", value = "资源的uuid", paramType = "query", required = true, dataType = "String")
     @GetMapping("/developer/download")
     public ResponseEntity download(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,

@@ -1,7 +1,10 @@
 package com.zlht.pbr.algorithm.management.api.developer.controller;
 
 
+import com.zlht.pbr.algorithm.management.api.management.service.SessionServiceI;
 import com.zlht.pbr.algorithm.management.base.BaseController;
+import com.zlht.pbr.algorithm.management.dao.entity.User;
+import com.zlht.pbr.algorithm.management.dao.mapper.SessionMapper;
 import com.zlht.pbr.algorithm.management.enums.Status;
 import com.zlht.pbr.algorithm.management.security.impl.AbstractAuthenticator;
 import com.zlht.pbr.algorithm.management.utils.Result;
@@ -14,10 +17,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -32,6 +33,9 @@ public class DeveloperLoginController extends BaseController {
 
     @Autowired
     AbstractAuthenticator authenticator;
+
+    @Autowired
+    private SessionServiceI sessionServiceI;
 
     /**
      * 开发者-登录
@@ -69,6 +73,22 @@ public class DeveloperLoginController extends BaseController {
         Cookie cookie = new Cookie("sessionId", map.get("data").toString());
         cookie.setHttpOnly(true);
         response.addCookie(cookie);
+        return returnDataList(map);
+    }
+
+    /**
+     * 用户注销
+     *
+     * @return
+     */
+    @ApiOperation(value = "开发者登出", notes = "开发者登出")
+    @PostMapping(value = "/developer/logout")
+    @ResponseStatus(HttpStatus.OK)
+    public Result logout(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
+                         HttpServletRequest request) {
+        String ip = getClientIpAddress(request);
+        Map<String, Object> map = sessionServiceI.signOut(ip, loginUser);
+        request.removeAttribute("session.user");
         return returnDataList(map);
     }
 }

@@ -1,6 +1,6 @@
 package com.zlht.pbr.algorithm.management.api.management.service.impl;
 
-import com.zlht.pbr.algorithm.management.api.management.service.PointServicesI;
+import com.zlht.pbr.algorithm.management.api.management.service.DataPointServicesI;
 import com.zlht.pbr.algorithm.management.base.impl.BaseServiceImpl;
 import com.zlht.pbr.algorithm.management.dao.chart.LineTypeChart;
 import com.zlht.pbr.algorithm.management.dao.chart.PieTypeChart;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
-public class PointServicesImpl extends BaseServiceImpl implements PointServicesI {
+public class DataPointServicesImpl extends BaseServiceImpl implements DataPointServicesI {
 
 
     @Autowired
