@@ -41,8 +41,8 @@ public class DataPointServicesImpl extends BaseServiceImpl implements DataPointS
     }
 
     //新增动作识别种类,支持识别总数
-    public ValueTypeChart newActionRecognitionCategory(String date) {
-        return dataPointMapper.newActionRecognitionCategory(date);
+    public ValueTypeChart developerCommitCount(String date) {
+        return new ValueTypeChart("12", "120");
     }
 
     //今日接入机构数,累计接入

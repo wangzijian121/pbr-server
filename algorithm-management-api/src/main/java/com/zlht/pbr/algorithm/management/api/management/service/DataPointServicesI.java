@@ -40,12 +40,12 @@ public interface DataPointServicesI extends BaseServiceI {
     ValueTypeChart getDatasetAccessCount(String date);
 
     /**
-     * 新增动作识别种类,支持识别总数
+     * 开发者提交次数
      *
      * @param date
      * @return
      */
-    ValueTypeChart newActionRecognitionCategory(String date);
+    ValueTypeChart developerCommitCount(String date);
 
     /**
      * 今日接入机构数,累计接入

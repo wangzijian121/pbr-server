@@ -24,23 +24,6 @@ public class DataReportXlsxTemplate {
         loadSheet2(workbook, sheet2);
         loadSheet3(workbook, sheet3);
         loadSheet4(workbook, sheet4);
-
-        // 将Workbook写入到文件系统
-  /*      String fileName = "D:\\表格\\" + System.currentTimeMillis() + ".xlsx";
-        System.out.println(fileName);
-        FileOutputStream outputStream = null;
-        try {
-            outputStream = new FileOutputStream(fileName);
-            workbook.write(outputStream);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } finally {
-            try {
-                workbook.close();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }*/
         return workbook;
     }
 
@@ -49,7 +32,7 @@ public class DataReportXlsxTemplate {
         CellStyle headerCellStyle = setCellStyle(workbook);
         // 创建一个List来存储你的标题
         List<String> list = Arrays.asList("今日新增算法", "累计算法量", "今日算法使用量", "累计算法使用量",
-                "今日数据集接入", "累计数据集接入", "新增体育种类", "累计支持体育种类", "今日机构接入数", "累计机构接入数");
+                "今日数据集接入", "累计数据集接入", "今日机构接入数", "累计机构接入数");
         // 创建第一行并设置其值
         Row headerRow = sheet1.createRow(0);
         for (int i = 0; i < list.size(); i++) {
@@ -76,27 +59,29 @@ public class DataReportXlsxTemplate {
     }
 
     public static void loadSheet3(Workbook workbook, Sheet sheet3) {
-
         CellStyle headerCellStyle = setCellStyle(workbook);
-        sheet3.addMergedRegion(new CellRangeAddress(0, 0, 1, 2));
+        sheet3.addMergedRegion(new CellRangeAddress(0, 0, 0, 1));
+        sheet3.addMergedRegion(new CellRangeAddress(0, 0, 2, 3));
         // 创建一个List来存储你的标题
         List<String> list = Arrays.asList("机构算法使用次数Top10", "机构购买算法种类排行");
         // 创建第一行并设置其值
         Row headerRow = sheet3.createRow(0);
+        int j = 0;
         for (int i = 0; i < list.size(); i++) {
-            Cell cell = headerRow.createCell(i);
+            Cell cell = headerRow.createCell(j);
             cell.setCellValue(list.get(i));
             cell.setCellStyle(headerCellStyle);
             sheet3.setColumnWidth(i, 630 * 20);
+            j += 2;
         }
         // 创建一个List来存储你的标题
-        List<String> listOther = Arrays.asList("种类", "购买次数");
-        Row row = sheet3.createRow(1);
+        List<String> listOther = Arrays.asList("排名", "使用次数", "种类", "购买次数");
+        Row dataRow = sheet3.createRow(1);
         for (int i = 0; i < listOther.size(); i++) {
-            Cell cell = row.createCell(i + 1);
+            Cell cell = dataRow.createCell(i);
             cell.setCellValue(listOther.get(i));
             cell.setCellStyle(headerCellStyle);
-            sheet3.setColumnWidth(0, 530 * 20);
+            sheet3.setColumnWidth(i, 530 * 20);
         }
     }
 
@@ -120,7 +105,7 @@ public class DataReportXlsxTemplate {
             cell.setCellStyle(headerCellStyle);
             sheet4.setColumnWidth(i, 430 * 20);  // 设置列宽为250个字符
         }
-        List<String> listOther = Arrays.asList("日期", "本月", "上月");
+        List<String> listOther = Arrays.asList("今日日期", "本月", "上月");
         Row row = sheet4.createRow(1);
         for (int i = 0; i < listOther.size(); i++) {
             Cell cell = row.createCell(i + listOther.size());
