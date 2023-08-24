@@ -23,7 +23,7 @@ public interface WeChatMapper extends BaseMapper<WeChat> {
             "wc.create_time\n" +
             "      from wechat wc" +
             "               left join institution i on i.id = wc.institution_id) res\n" +
-            " where (#{keyword} IS NULL OR res.name LIKE CONCAT('%', #{keyword}, '%'))  and  (#{status}  = -1 OR res.status =#{status}) ")
+            " where (#{keyword} IS NULL OR res.name LIKE CONCAT('%', #{keyword}, '%'))  and  (#{status}  = -1 OR res.status =#{status})  order by id desc")
     Page<Map<String, Object>> selectWechat(Page<?> page,
                                            @Param("keyword") String keyword,
                                            @Param("status") int status);

@@ -10,7 +10,7 @@ import java.util.Date;
 
 public interface UserMapper extends BaseMapper<User> {
 
-    @Select("select * from user where username = #{username} and  type=#{userType}")
+    @Select("select * from user where username = #{username} and  type=#{userType} order by id desc ")
     User queryUserByUserName(@Param("username") String username, @Param("userType") int userType);
 
     @Select("select *\n" +
@@ -18,7 +18,7 @@ public interface UserMapper extends BaseMapper<User> {
             "     session s\n" +
             "where u.id = s.user_id\n" +
             "  and s.id = #{sessionId}\n" +
-            "  and #{now} < #{expireTime}")
+            "  and #{now} < #{expireTime} ")
     User queryUserByToken(@Param("sessionId") String sessionId,
                           @Param("expireTime") Date expireTime,
                           @Param("now") Date now);

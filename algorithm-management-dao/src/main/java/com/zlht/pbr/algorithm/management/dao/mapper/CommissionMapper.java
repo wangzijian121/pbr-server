@@ -22,7 +22,7 @@ public interface CommissionMapper extends BaseMapper<Commission> {
             " c.create_time\n" +
             "from commission c\n" +
             "         left join developer_review dr on c.review_id = dr.id) res " +
-            "where   (#{keyword} IS NULL OR res.commit_name LIKE CONCAT('%', #{keyword}, '%'))")
+            "where   (#{keyword} IS NULL OR res.commit_name LIKE CONCAT('%', #{keyword}, '%')) order by id desc")
     Page<Map<String, Object>> selectCommission(Page<?> page, @Param("keyword") String keyword);
 
 
@@ -36,8 +36,7 @@ public interface CommissionMapper extends BaseMapper<Commission> {
             " c.create_time\n" +
             "from commission c\n" +
             "         left join developer_review dr on c.review_id = dr.id where dr.developer_id=#{developerId}) res " +
-            "where   (#{keyword} IS NULL OR res.commit_name LIKE CONCAT('%', #{keyword}, '%'))")
+            "where   (#{keyword} IS NULL OR res.commit_name LIKE CONCAT('%', #{keyword}, '%')) order by id desc")
     Page<Map<String, Object>> selectDeveloperCommission(Page<?> page, @Param("keyword") String keyword,
                                                         @Param("developerId") int developerId);
-
 }

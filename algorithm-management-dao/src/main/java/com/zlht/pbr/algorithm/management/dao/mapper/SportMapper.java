@@ -20,7 +20,7 @@ public interface SportMapper extends BaseMapper<Sport> {
             "       sc.create_time\n" +
             "from sport_category sc\n" +
             "         left join user u on u.id = sc.user_id) res " +
-            "where   (#{keyword} IS NULL OR res.name LIKE CONCAT('%', #{keyword}, '%'))")
+            "where   (#{keyword} IS NULL OR res.name LIKE CONCAT('%', #{keyword}, '%')) order by id desc")
     Page<Map<String, Object>> selectSport(Page<?> page, @Param("keyword") String keyword);
 
     @Select("select id,name from  sport_category  group by id,name")

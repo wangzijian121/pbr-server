@@ -12,6 +12,6 @@ public interface InstitutionMapper extends BaseMapper<Institution> {
 
 
 
-    @Select("select id,name from  institution  group by id,name")
+    @Select("select id,name from  institution  group by id,name order by id desc")
     List<Map<String,Object>> queryInstitutionMap();
 }

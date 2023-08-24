@@ -31,12 +31,12 @@ public interface AlgorithmMapper extends BaseMapper<Algorithm> {
             "               left join sport_category sc on a.sport_category = sc.id\n" +
             "               left join user u on a.uploader = u.id\n " +
             "               left join resources r  on r.alias = a.file) res\n  " +
-            "where (#{keyword} IS NULL OR res.name LIKE CONCAT('%', #{keyword}, '%')) and  (#{type}  = -1 OR res.type =#{type})")
+            "where (#{keyword} IS NULL OR res.name LIKE CONCAT('%', #{keyword}, '%')) and  (#{type}  = -1 OR res.type =#{type}) order by id desc ")
     Page<Map<String, Object>> selectAlgorithm(Page<?> page, @Param("keyword") String keyword,
                                               @Param("type") int type);
 
 
-    @Select("select id,name from  algorithm  group by id,name")
+    @Select("select id,name from  algorithm  group by id,name order by id desc")
     List<Map<String,Object>> queryAlgorithmMap();
 }
 

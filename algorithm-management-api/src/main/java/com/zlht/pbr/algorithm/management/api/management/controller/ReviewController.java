@@ -74,7 +74,7 @@ public class ReviewController extends BaseController {
     @ApiOperation(value = "更新审核状态", notes = "更新审核状态")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "需要更新状态的审核ID", required = true, dataTypeClass = int.class),
-            @ApiImplicitParam(name = "status", value = "审核状态（0：未提交 1：已提交未审核 2： 已提交未通过 3： 已提交已通过）", required = true, dataTypeClass = int.class)
+            @ApiImplicitParam(name = "status", value = "审核状态（ 1：已提交未审核 2： 已提交未通过 3： 已提交已通过）", required = true, dataTypeClass = int.class)
     })
     @PutMapping(value = "/updateReviewStatus")
     @ResponseStatus(HttpStatus.OK)

@@ -9,6 +9,6 @@ import java.util.List;
 import java.util.Map;
 
 public interface TemplateMapper extends BaseMapper<Template> {
-    @Select("select id,name from  template  group by id,name")
+    @Select("select id,name from  template  group by id,name order by id desc")
     List<Map<String,Object>> queryTemplateMap();
 }
