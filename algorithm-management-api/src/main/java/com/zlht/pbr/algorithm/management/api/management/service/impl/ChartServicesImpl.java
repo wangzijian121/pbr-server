@@ -94,7 +94,7 @@ public class ChartServicesImpl extends BaseServiceImpl<Charge> implements ChartS
         }
         byte[] bytes = outputStream.toByteArray();
         HttpHeaders headers = new HttpHeaders();
-        String fileName = LocalDate.now() + "-" + UUID.randomUUID();
+        String fileName = LocalDate.now() + "-" + UUID.randomUUID()+".xlsx";
         headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileName);
         headers.add(HttpHeaders.CONTENT_TYPE, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
 
