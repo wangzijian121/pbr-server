@@ -40,9 +40,9 @@ public class DataPointServicesImpl extends BaseServiceImpl implements DataPointS
         return dataPointMapper.getDatasetAccessCount(date);
     }
 
-    //新增动作识别种类,支持识别总数
+    //开发者提交量
     public ValueTypeChart developerCommitCount(String date) {
-        return new ValueTypeChart("12", "120");
+        return dataPointMapper.getDeveloperCommitCount(date);
     }
 
     //今日接入机构数,累计接入
