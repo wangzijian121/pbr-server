@@ -18,7 +18,7 @@ public interface DataPointMapper extends BaseMapper<Charge> {
             "WHERE DATE(create_time) = #{date}")
     ValueTypeChart getUserCount(@Param("date") String date);
 
-    @Select("select count(*) as today, (SELECT COUNT(*) FROM user) AS total\n" +
+    @Select("select count(*) as today, (SELECT COUNT(*) FROM algorithm) AS total\n" +
             "from algorithm\n" +
             "WHERE DATE(create_time) = #{date}")
     ValueTypeChart getAlgorithmCount(@Param("date") String date);
@@ -32,13 +32,11 @@ public interface DataPointMapper extends BaseMapper<Charge> {
     ValueTypeChart getDatasetAccessCount(@Param("date") String date);
 
 
-    @Select("select count(*) as today, (SELECT COUNT(*) FROM user) AS total\n" +
-            "from sport_category\n" +
-            "WHERE DATE(create_time) = #{date};")
-    ValueTypeChart newActionRecognitionCategory(@Param("date") String date);
+    @Select("select  count(*) as today, (SELECT COUNT(*) FROM developer_review ) AS total from developer_review where DATE(create_time) =#{date};")
+    ValueTypeChart getDeveloperCommitCount(@Param("date") String date);
 
 
-    @Select("select count(*) as today, (SELECT COUNT(*) FROM user) AS total\n" +
+    @Select("select count(*) as today, (SELECT COUNT(*) FROM institution) AS total\n" +
             "from institution\n" +
             "WHERE DATE(create_time) = #{date};")
     ValueTypeChart getInstitutionCount(@Param("date") String date);
