@@ -26,16 +26,16 @@ public class Charge {
     private Integer type;
 
     @ApiModelProperty(value = "付款机构ID", required = true)
-    private Integer institution_id;
+    private Integer institutionId;
 
     @ApiModelProperty(value = "确认人ID", required = true)
-    private Integer confirm_people;
+    private Integer confirmPeople;
 
     @ApiModelProperty(value = "收款时间 iso:YYYY-MM-DDTHH:mm:ss.sssZ", required = true)
-    private Date charge_time;
+    private Date chargeTime;
 
     @ApiModelProperty(value = "确认时间 iso:YYYY-MM-DDTHH:mm:ss.sssZ", required = true)
-    private Date confirm_time;
+    private Date confirmTime;
 
     @ApiModelProperty(value = "到账状态（0：已到账，1：未到账）", required = true)
     private Integer status;
@@ -45,6 +45,5 @@ public class Charge {
 
     @ApiModelProperty(value = "录入时间 iso:YYYY-MM-DDTHH:mm:ss.sssZ", required = true)
     private Date createTime;
-
 
 }

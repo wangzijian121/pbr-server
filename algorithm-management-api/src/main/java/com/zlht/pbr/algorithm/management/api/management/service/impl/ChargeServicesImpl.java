@@ -54,7 +54,7 @@ public class ChargeServicesImpl extends BaseServiceImpl<Charge> implements Charg
             putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
             return map;
         }
-        charge.setConfirm_people(loginUser.getId());
+        charge.setConfirmPeople(loginUser.getId());
         int resNum = chargeMapper.insert(charge);
         if (resNum >= 1) {
             putMsg(map, Status.SUCCESS.getCode(), "创建收款项成功！");
@@ -80,7 +80,7 @@ public class ChargeServicesImpl extends BaseServiceImpl<Charge> implements Charg
         }
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("id", id);
-        charge.setConfirm_people(loginUser.getId());
+        charge.setConfirmPeople(loginUser.getId());
         int update = chargeMapper.update(charge, queryWrapper);
         if (update >= 1) {
             putMsg(map, Status.SUCCESS.getCode(), "更新收款项成功！");

@@ -24,7 +24,7 @@ public class AuthInstitutionAlg {
 
 
     @ApiModelProperty(name = "institution_id", value = "授权机构ID", required = true)
-    private Integer institution_id;
+    private Integer institutionId;
 
 
     @ApiModelProperty(name = "authType", value = "授权类型", required = true)
@@ -32,7 +32,7 @@ public class AuthInstitutionAlg {
 
 
     @ApiModelProperty(name = "auth_alg_id", value = "授权算法ID", required = true)
-    private Integer auth_alg_id;
+    private Integer authAlgId;
 
 
     @ApiModelProperty(name = "authAdmin", value = "授权人", required = true)

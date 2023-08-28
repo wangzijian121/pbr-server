@@ -87,8 +87,8 @@ public class AuthInstitutionAlgServicesImpl extends BaseServiceImpl<AuthInstitut
             return map;
         }
         QueryWrapper checkWrapper = new QueryWrapper<>();
-        checkWrapper.eq("institution_id", authInstitutionAlg.getInstitution_id());
-        checkWrapper.eq("auth_alg_id", authInstitutionAlg.getAuth_alg_id());
+        checkWrapper.eq("institution_id", authInstitutionAlg.getInstitutionId());
+        checkWrapper.eq("auth_alg_id", authInstitutionAlg.getInstitutionId());
         checkWrapper.ne("id", id);
         //exist?
         if (authInstitutionAlgMapper.exists(checkWrapper)) {
@@ -141,8 +141,8 @@ public class AuthInstitutionAlgServicesImpl extends BaseServiceImpl<AuthInstitut
     @Override
     public boolean checkAuthDuplication(AuthInstitutionAlg authInstitutionAlg) {
         QueryWrapper queryWrapper = new QueryWrapper<AuthInstitutionAlg>();
-        queryWrapper.eq("institution_id", authInstitutionAlg.getInstitution_id());
-        queryWrapper.eq("auth_alg_id", authInstitutionAlg.getAuth_alg_id());
+        queryWrapper.eq("institution_id", authInstitutionAlg.getInstitutionId());
+        queryWrapper.eq("auth_alg_id", authInstitutionAlg.getAuthAlgId());
         return authInstitutionAlgMapper.exists(queryWrapper);
     }
 

@@ -23,13 +23,13 @@ public class WeChat {
     private Integer id;
 
     @ApiModelProperty(value = "微信小程序ID", required = true)
-    private String wechat_id;
+    private String wechatId;
 
     @ApiModelProperty(value = "小程序名", required = true)
     private String name;
 
     @ApiModelProperty(value = "机构ID", required = true)
-    private Integer institution_id;
+    private Integer institutionId;
 
     @ApiModelProperty(value = "进度(0已部署，1审核中)", required = true)
     private Integer status;
