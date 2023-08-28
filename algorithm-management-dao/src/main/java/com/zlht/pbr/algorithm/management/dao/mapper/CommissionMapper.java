@@ -28,7 +28,7 @@ public interface CommissionMapper extends BaseMapper<Commission> {
 
     @Select("select * from (" +
             "select c.id, " +
-            "dr.id as commit_id as commitId, " +
+            "dr.id as commitId, " +
             "dr.commit_name as commitName, " +
             "c.review_id as reviewId , " +
             "c.money, " +
@@ -36,7 +36,7 @@ public interface CommissionMapper extends BaseMapper<Commission> {
             " c.mark," +
             " c.create_time as createTime\n" +
             "from commission c\n" +
-            "left join developer_review dr on c.reviewId = dr.id where dr.developer_id=#{developerId}) res \n" +
+            "left join developer_review dr on c.review_id = dr.id where dr.developer_id=#{developerId}) res \n" +
             "where ( #{keyword} IS NULL OR res.commitName LIKE CONCAT('%', #{keyword}, '%')) order by id desc")
     Page<Map<String, Object>> selectDeveloperCommission(Page<?> page, @Param("keyword") String keyword,
                                                         @Param("developerId") int developerId);
