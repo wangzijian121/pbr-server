@@ -7,8 +7,8 @@ import com.zlht.pbr.algorithm.management.dao.mapper.UserMapper;
 import com.zlht.pbr.algorithm.management.enums.Status;
 import com.zlht.pbr.algorithm.management.security.Authenticator;
 import com.zlht.pbr.algorithm.management.tools.service.Argon2PasswordEncoder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +19,7 @@ import java.util.Map;
 
 @Service
 public class AbstractAuthenticator extends BaseServiceImpl<User> implements Authenticator {
-    private static final Logger logger = LoggerFactory.getLogger(AbstractAuthenticator.class);
+    private static final Logger logger = LogManager.getLogger(AbstractAuthenticator.class);
 
     @Autowired
     protected UserMapper userMapper;
@@ -30,6 +30,8 @@ public class AbstractAuthenticator extends BaseServiceImpl<User> implements Auth
 
     @Override
     public Map<String, Object> authenticate(HttpServletResponse response, String username, String password, String ip, int userType) {
+
+        logger.info("authenticate() method. username={}, ip={}, userType={}", username, ip, userType);
         Map<String, Object> map = new HashMap<>();
         if (username == null) {
             putMsg(map, 400, "请输入用户名！");
@@ -39,7 +41,7 @@ public class AbstractAuthenticator extends BaseServiceImpl<User> implements Auth
             putMsg(map, 400, "请输入密码！");
             return map;
         }
-        User user = userMapper.queryUserByUserName(username,userType);
+        User user = userMapper.queryUserByUserName(username, userType);
 
         if (user != null) {
             if (user.getType() != userType) {
@@ -57,7 +59,7 @@ public class AbstractAuthenticator extends BaseServiceImpl<User> implements Auth
                 putMsg(map, Status.SUCCESS.getCode(), "登录成功！");
                 map.put("nickname", user.getNickname());
                 Map<String, Object> userMap = new HashMap<>();
-                userMap.put("session_id", sessionId);
+                userMap.put("sessionId", sessionId);
                 userMap.put("nickname", user.getNickname());
                 userMap.put("id", user.getId());
 

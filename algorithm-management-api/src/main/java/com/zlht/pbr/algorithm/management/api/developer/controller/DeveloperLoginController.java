@@ -54,6 +54,7 @@ public class DeveloperLoginController extends BaseController {
                                  @RequestParam String password,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
+        int userType = 1;
         // user ip check
         String ip = getClientIpAddress(request);
         if (StringUtils.isEmpty(ip)) {
@@ -61,7 +62,7 @@ public class DeveloperLoginController extends BaseController {
         }
         Map<String, Object> map = null;
         try {
-            map = authenticator.authenticate(response, username, password, ip, 1);
+            map = authenticator.authenticate(response, username, password, ip, userType);
             if (Integer.valueOf(map.get("code").toString()) != 0) {
                 return returnDataList(map);
             }
