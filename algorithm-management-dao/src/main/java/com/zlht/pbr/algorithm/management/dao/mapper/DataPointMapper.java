@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface DataPointMapper extends BaseMapper<Charge> {
 
-    @Select("SELECT COUNT(*)   AS today,\n" +
+    @Select("SELECT COUNT(*)  AS today,\n" +
             "       (SELECT COUNT(*) FROM user) AS total\n" +
             "FROM user\n" +
             "WHERE DATE(create_time) = #{date}")
@@ -25,7 +25,7 @@ public interface DataPointMapper extends BaseMapper<Charge> {
 
 
     @Select("select COALESCE(CEIL(SUM(ress.size) / 1024),0) as today,COALESCE(CEIL((SELECT SUM(ress.size) / 1024)),0) AS total\n" +
-            "from (select  size ,ds.create_time\n" +
+            "from (select  size ,ds.create_time  \n" +
             "      from data_set ds\n" +
             "               left join resources r on r.alias = ds.file) ress\n" +
             "WHERE DATE(create_time) = #{date};")

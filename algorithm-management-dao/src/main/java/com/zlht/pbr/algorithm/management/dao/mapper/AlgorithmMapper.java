@@ -15,17 +15,17 @@ public interface AlgorithmMapper extends BaseMapper<Algorithm> {
             "from (select a.id,\n" +
             "             a.name,\n" +
             "             a.type,\n" +
-            "             sc.id as sport_category_id,\n" +
-            "             sc.name as sport_category_name,\n" +
-            "             t.id as template_id,\n" +
-            "             t.name as template_name,\n" +
-            "             a.install_type,\n" +
+            "             sc.id as sportCategoryId ,\n" +
+            "             sc.name as sportCategoryName,\n" +
+            "             t.id as templateId,\n" +
+            "             t.name as templateName,\n" +
+            "             a.install_type as installType,\n" +
             "             u.nickname,\n" +
-            "             a.file as file_uuid,\n" +
-            "             r.full_name as file_name,\n" +
+            "             a.file as fileUuid,\n" +
+            "             r.full_name as fileName,\n" +
             "             a.docs,\n" +
             "             a.example,\n" +
-            "             a.create_time\n" +
+            "             a.create_time as createTime \n" +
             "      from algorithm a\n" +
             "               left join template t on t.id = a.template_id\n" +
             "               left join sport_category sc on a.sport_category = sc.id\n" +

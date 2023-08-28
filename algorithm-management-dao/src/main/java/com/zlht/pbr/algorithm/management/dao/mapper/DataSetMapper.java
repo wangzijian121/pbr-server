@@ -14,15 +14,15 @@ public interface DataSetMapper extends BaseMapper<DataSet> {
             "from (select ds.id,\n" +
             "             ds.name,\n" +
             "             ds.type,\n" +
-            "             sc.id as sport_category_id,\n" +
-            "             sc.name as sport_category_name,\n" +
-            "             ds.file as file_uuid,\n" +
-            "             r.full_name as file_name,\n" +
+            "             sc.id as sportCategoryId,\n" +
+            "             sc.name as sportCategoryName,\n" +
+            "             ds.file as fileUuid,\n" +
+            "             r.full_name as fileName,\n" +
             "             ds.demo,\n" +
-            "             ds.install_type,\n" +
-            "             u.id as user_id,\n" +
+            "             ds.install_type as installType,\n" +
+            "             u.id as userId,\n" +
             "             u.nickname,\n" +
-            "             ds.create_time\n" +
+            "             ds.create_time as createTime\n" +
             "      from data_set ds\n" +
             "               left join user u on ds.uploader = u.id\n" +
             "               left join resources r  on r.alias = ds.file\n" +

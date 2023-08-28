@@ -15,19 +15,19 @@ public interface ChargeMapper extends BaseMapper<Charge> {
     @Select("select *\n" +
             "from (select c.id,\n" +
             "             c.type,\n" +
-            "             i.id as institution_id,\n" +
-            "             i.name as institution_name,\n" +
-            "             c.charge_time,\n" +
-            "             u.nickname as user_id,\n" +
-            "             u.nickname as confirm_people,\n" +
-            "             c.confirm_time,\n" +
+            "             i.id as institutionId,\n" +
+            "             i.name as institutionName,\n" +
+            "             c.charge_time as chargeTime,\n" +
+            "             u.nickname as userId,\n" +
+            "             u.nickname as confirmPeople,\n" +
+            "             c.confirm_time as confirmTime,\n" +
             "             c.status,\n" +
             "             c.mark,\n" +
-            "             c.create_time\n" +
+            "             c.create_time as createTime\n" +
             "      from charge c\n" +
             "               left join institution i on i.id = c.institution_id\n" +
             "               left join user u on u.id = c.confirm_people) res" +
-            "  where (#{keyword} IS NULL OR res.institution_name LIKE CONCAT('%', #{keyword}, '%')) and  (#{type}  = -1 OR res.type =#{type}) order by id desc")
+            "  where (#{keyword} IS NULL OR res.institutionName LIKE CONCAT('%', #{keyword}, '%')) and  (#{type}  = -1 OR res.type =#{type}) order by id desc")
     Page<Map<String, Object>> selectCharge(Page<?> page, @Param("keyword") String keyword,
                                            @Param("type") int type);
 

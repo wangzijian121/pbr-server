@@ -14,10 +14,10 @@ public interface SportMapper extends BaseMapper<Sport> {
     @Select("select * from (select sc.id,\n" +
             "       sc.type,\n" +
             "       sc.name,\n" +
-            "       sc.user_id,\n" +
+            "       sc.user_id as userId,\n" +
             "       u.nickname,\n" +
             "       sc.mark,\n" +
-            "       sc.create_time\n" +
+            "       sc.create_time as createTime\n" +
             "from sport_category sc\n" +
             "         left join user u on u.id = sc.user_id) res " +
             "where   (#{keyword} IS NULL OR res.name LIKE CONCAT('%', #{keyword}, '%')) order by id desc")

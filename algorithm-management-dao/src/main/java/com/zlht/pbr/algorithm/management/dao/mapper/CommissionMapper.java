@@ -13,30 +13,31 @@ public interface CommissionMapper extends BaseMapper<Commission> {
 
 
     @Select("select * from (select c.id, " +
-            "dr.id as commit_id , " +
-            "dr.commit_name, " +
-            "c.review_id, " +
+            "dr.id as commitId, " +
+            "dr.commit_name as commitName, " +
+            "c.review_id as reviewId, " +
             "c.money, " +
             "c.status," +
-            " c.mark," +
-            " c.create_time\n" +
+            "c.mark," +
+            "c.create_time as createTime\n" +
             "from commission c\n" +
-            "         left join developer_review dr on c.review_id = dr.id) res " +
-            "where   (#{keyword} IS NULL OR res.commit_name LIKE CONCAT('%', #{keyword}, '%')) order by id desc")
+            "left join developer_review dr on c.review_id = dr.id) res\n" +
+            "where ( #{keyword} IS NULL OR res.commitName LIKE CONCAT('%', #{keyword}, '%')) order by id desc")
     Page<Map<String, Object>> selectCommission(Page<?> page, @Param("keyword") String keyword);
 
 
-    @Select("select * from (select c.id, " +
-            "dr.id as commit_id , " +
-            "dr.commit_name, " +
-            "c.review_id, " +
+    @Select("select * from (" +
+            "select c.id, " +
+            "dr.id as commit_id as commitId, " +
+            "dr.commit_name as commitName, " +
+            "c.review_id as reviewId , " +
             "c.money, " +
             "c.status," +
             " c.mark," +
-            " c.create_time\n" +
+            " c.create_time as createTime\n" +
             "from commission c\n" +
-            "         left join developer_review dr on c.review_id = dr.id where dr.developer_id=#{developerId}) res " +
-            "where   (#{keyword} IS NULL OR res.commit_name LIKE CONCAT('%', #{keyword}, '%')) order by id desc")
+            "left join developer_review dr on c.reviewId = dr.id where dr.developer_id=#{developerId}) res \n" +
+            "where ( #{keyword} IS NULL OR res.commitName LIKE CONCAT('%', #{keyword}, '%')) order by id desc")
     Page<Map<String, Object>> selectDeveloperCommission(Page<?> page, @Param("keyword") String keyword,
                                                         @Param("developerId") int developerId);
 }

@@ -86,8 +86,8 @@ public class DataPointServicesImpl extends BaseServiceImpl implements DataPointS
         Map<String, List<String>> mapY = new HashMap<>();
         List<String> lastMonthList = Arrays.asList("88", "5", "13", "10", "6", "12", "11", "6", "2", "12", "19", "12", "14", "9", "12", "34", "6", "2", "1", "11", "5", "2", "5", "7", "9", "8", "7", "6", "9", "14");
         List<String> thisMonthList = Arrays.asList("78", "45", "23", "12", "67", "89", "34", "56", "90", "1", "76", "88", "33", "9", "52", "71", "17", "81", "29", "63", "95", "42", "5", "70", "19", "84", "37", "60", "93", "14");
-        mapY.put("last_month_list", lastMonthList);
-        mapY.put("this_month_list", thisMonthList);
+        mapY.put("lastMonthList", lastMonthList);
+        mapY.put("thisMonthList", thisMonthList);
         return new LineTypeChart(xList, mapY);
     }
 

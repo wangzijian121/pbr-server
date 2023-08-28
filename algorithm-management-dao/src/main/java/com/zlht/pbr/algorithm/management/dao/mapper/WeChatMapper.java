@@ -12,17 +12,17 @@ import java.util.Map;
 public interface WeChatMapper extends BaseMapper<WeChat> {
 
 
-    @Select("select *\n" +
+    @Select("select * \n" +
             "from (select wc.id, " +
-            "wc.wechat_id, " +
+            "wc.wechat_id as wechatId,  " +
             "wc.name as name ," +
-            " i.id as institution_id," +
-            " i.name as institution_name," +
+            " i.id as institutionId," +
+            " i.name as institutionName," +
             " wc.status, " +
             "wc.mark, " +
-            "wc.create_time\n" +
-            "      from wechat wc" +
-            "               left join institution i on i.id = wc.institution_id) res\n" +
+            "wc.create_time as createTime\n" +
+            "from wechat wc" +
+            " left join institution i on i.id = wc.institution_id) res\n" +
             " where (#{keyword} IS NULL OR res.name LIKE CONCAT('%', #{keyword}, '%'))  and  (#{status}  = -1 OR res.status =#{status})  order by id desc")
     Page<Map<String, Object>> selectWechat(Page<?> page,
                                            @Param("keyword") String keyword,

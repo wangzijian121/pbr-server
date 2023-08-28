@@ -106,32 +106,32 @@ public class ChartServicesImpl extends BaseServiceImpl<Charge> implements ChartS
 
     private Map<String, ValueTypeChart> assemblyValueTypeChartMap(String date) {
         Map<String, ValueTypeChart> valueTypeChartMap = new HashMap<>();
-        valueTypeChartMap.put("user_count", dataPointServicesI.getUserCount(date));
-        valueTypeChartMap.put("algorithm_count", dataPointServicesI.getAlgorithmCount(date));
-        valueTypeChartMap.put("`algorithm_usage_count`", dataPointServicesI.getAlgorithmUsageCount(date));
-        valueTypeChartMap.put("dataset_access_count", dataPointServicesI.getDatasetAccessCount(date));
-        valueTypeChartMap.put("developer_commit_count", dataPointServicesI.developerCommitCount(date));
-        valueTypeChartMap.put("institution_count", dataPointServicesI.getInstitutionCount(date));
+        valueTypeChartMap.put("userCount", dataPointServicesI.getUserCount(date));
+        valueTypeChartMap.put("algorithmCount", dataPointServicesI.getAlgorithmCount(date));
+        valueTypeChartMap.put("`algorithmUsageCount`", dataPointServicesI.getAlgorithmUsageCount(date));
+        valueTypeChartMap.put("datasetAccessCount", dataPointServicesI.getDatasetAccessCount(date));
+        valueTypeChartMap.put("developerCommitCount", dataPointServicesI.developerCommitCount(date));
+        valueTypeChartMap.put("institutionCount", dataPointServicesI.getInstitutionCount(date));
         return valueTypeChartMap;
     }
 
     private Map<String, List<PieTypeChart>> assemblyPieTypeChartMap(String date) {
         Map<String, List<PieTypeChart>> pieChartDataMap = new HashMap<>();
-        pieChartDataMap.put("institution_algorithm_ranking", dataPointServicesI.getInstitutionAlgorithmRanking());
+        pieChartDataMap.put("institutionAlgorithmRanking", dataPointServicesI.getInstitutionAlgorithmRanking());
         return pieChartDataMap;
     }
 
     private Map<String, LineTypeChart> assemblyLineTypeChartMap() {
         Map<String, LineTypeChart> lineTypeChartMap = new HashMap<>();
-        lineTypeChartMap.put("top10_institution_algorithm_usage", dataPointServicesI.getTop10InstitutionAlgorithmUsage());
-        lineTypeChartMap.put("monthly_average_usage_duration", dataPointServicesI.getMonthlyAverageUserUsageDuration());
-        lineTypeChartMap.put("monthly_institution_algorithm_usage_count", dataPointServicesI.getMonthlyInstitutionAlgorithmUsageCount());
+        lineTypeChartMap.put("top10InstitutionAlgorithmUsage", dataPointServicesI.getTop10InstitutionAlgorithmUsage());
+        lineTypeChartMap.put("monthlyAverageUsageDuration", dataPointServicesI.getMonthlyAverageUserUsageDuration());
+        lineTypeChartMap.put("monthlyInstitutionAlgorithmUsageCount", dataPointServicesI.getMonthlyInstitutionAlgorithmUsageCount());
         return lineTypeChartMap;
     }
 
     public void addSheet1Data(Workbook workbook, Map<String, ValueTypeChart> valueTypeChartMap) {
 
-        List<String> list = Arrays.asList("user_count", "algorithm_count", "dataset_access_count", "institution_count");
+        List<String> list = Arrays.asList("userCount", "algorithmCount", "datasetAccessCount", "institutionCount");
         Row row = workbook.getSheetAt(0).createRow(1);
         CellStyle headerCellStyle = setCellStyle(workbook);
 
@@ -159,16 +159,16 @@ public class ChartServicesImpl extends BaseServiceImpl<Charge> implements ChartS
         Cell cellTotal = row.createCell(1);
         cellToday.setCellStyle(headerCellStyle);
         cellTotal.setCellStyle(headerCellStyle);
-        cellToday.setCellValue(map.get("developer_commit_count").getToday());
-        cellTotal.setCellValue(map.get("developer_commit_count").getTotal());
+        cellToday.setCellValue(map.get("developerCommitCount").getToday());
+        cellTotal.setCellValue(map.get("developerCommitCount").getTotal());
     }
 
     public void addSheet3Data(Workbook workbook, Map<String, LineTypeChart> lineTypeChartMap, Map<String, List<PieTypeChart>> pieChartDataMap) {
 
         CellStyle headerCellStyle = setCellStyle(workbook);
-        LineTypeChart lineTypeChart = lineTypeChartMap.get("top10_institution_algorithm_usage");
+        LineTypeChart lineTypeChart = lineTypeChartMap.get("top10InstitutionAlgorithmUsage");
         List<String> listX = lineTypeChart.getXList();
-        List<String> listY = lineTypeChart.getYList().get("algorithm_usage");
+        List<String> listY = lineTypeChart.getYList().get("algorithmUsage");
 
         int i = 0;
         for (String index : listX) {
@@ -181,7 +181,7 @@ public class ChartServicesImpl extends BaseServiceImpl<Charge> implements ChartS
             cellNum.setCellStyle(headerCellStyle);
             i++;
         }
-        List<PieTypeChart> institutionAlgorithmRankingList = pieChartDataMap.get("institution_algorithm_ranking");
+        List<PieTypeChart> institutionAlgorithmRankingList = pieChartDataMap.get("institutionAlgorithmRanking");
 
         int j = 0;
         for (PieTypeChart pieTypeChart : institutionAlgorithmRankingList) {
@@ -200,7 +200,7 @@ public class ChartServicesImpl extends BaseServiceImpl<Charge> implements ChartS
     }
 
     public void addSheet4Data(Workbook workbook, Map<String, ValueTypeChart> valueTypeChartMap, Map<String, LineTypeChart> lineTypeChartMap) {
-        List<String> list = Arrays.asList("user_count");
+        List<String> list = Arrays.asList("userCount");
         Row row = workbook.getSheetAt(3).createRow(2);
         CellStyle headerCellStyle = setCellStyle(workbook);
 
@@ -212,13 +212,13 @@ public class ChartServicesImpl extends BaseServiceImpl<Charge> implements ChartS
             Cell cellDate = row.createCell(i + 2);
             cellDate.setCellStyle(headerCellStyle);
 
-            cellUserCountToday.setCellValue(valueTypeChartMap.get("user_count").getToday());
-            cellUserCountTotal.setCellValue(valueTypeChartMap.get("user_count").getTotal());
+            cellUserCountToday.setCellValue(valueTypeChartMap.get("userCount").getToday());
+            cellUserCountTotal.setCellValue(valueTypeChartMap.get("userCount").getTotal());
             cellDate.setCellValue(LocalDate.now().toString());
         }
 
-        List<String> listDate = lineTypeChartMap.get("monthly_average_usage_duration").getXList();
-        Map<String, List<String>> map = lineTypeChartMap.get("monthly_average_usage_duration").getYList();
+        List<String> listDate = lineTypeChartMap.get("monthlyAverageUsageDuration").getXList();
+        Map<String, List<String>> map = lineTypeChartMap.get("monthlyAverageUsageDuration").getYList();
         for (int i = 0; i < listDate.size(); i++) {
             Row rowDate = workbook.getSheetAt(3).getRow(i + 2);
             if (rowDate == null) {
@@ -230,14 +230,14 @@ public class ChartServicesImpl extends BaseServiceImpl<Charge> implements ChartS
             cellDate.setCellValue(i + 1);
 
             //thisMonthList
-            List<String> thisMonthList = map.get("this_month_list");
+            List<String> thisMonthList = map.get("thisMonthList");
             if (i < thisMonthList.size()) {
                 Cell cellThisMonthList = rowDate.createCell(4);
                 cellThisMonthList.setCellStyle(headerCellStyle);
                 cellThisMonthList.setCellValue(thisMonthList.get(i));
             }
             //last_month_list
-            List<String> last_month_list = map.get("last_month_list");
+            List<String> last_month_list = map.get("lastMonthList");
             if (i < last_month_list.size()) {
                 Cell cellLastMonthList = rowDate.createCell(5);
                 cellLastMonthList.setCellStyle(headerCellStyle);
