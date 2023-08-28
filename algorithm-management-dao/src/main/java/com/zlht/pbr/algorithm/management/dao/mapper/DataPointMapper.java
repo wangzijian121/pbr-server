@@ -47,7 +47,7 @@ public interface DataPointMapper extends BaseMapper<Charge> {
             "         left join institution i on i.id = aia.institution_id\n" +
             "         left join algorithm a on a.id = aia.auth_alg_id\n" +
             "         left join sport_category sc on a.sport_category = sc.id\n" +
-            "group by auth_alg_id order by value;")
+            "group by auth_alg_id order by value  limit 10  ;")
     List<PieTypeChart> getInstitutionAlgorithmRanking();
 
 }
