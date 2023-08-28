@@ -23,6 +23,8 @@ public interface DataPointMapper extends BaseMapper<Charge> {
             "WHERE DATE(create_time) = #{date}")
     ValueTypeChart getAlgorithmCount(@Param("date") String date);
 
+    @Select("select  count(*) as today, (SELECT COUNT(*) FROM developer_review ) AS total from developer_review where DATE(create_time) =#{date};")
+    ValueTypeChart getDeveloperCommitCount(@Param("date") String date);
 
     @Select("select COALESCE(CEIL(SUM(ress.size) / 1024),0) as today,COALESCE(CEIL((SELECT SUM(ress.size) / 1024)),0) AS total\n" +
             "from (select  size ,ds.create_time  \n" +
@@ -31,10 +33,10 @@ public interface DataPointMapper extends BaseMapper<Charge> {
             "WHERE DATE(create_time) = #{date};")
     ValueTypeChart getDatasetAccessCount(@Param("date") String date);
 
-
-    @Select("select  count(*) as today, (SELECT COUNT(*) FROM developer_review ) AS total from developer_review where DATE(create_time) =#{date};")
-    ValueTypeChart getDeveloperCommitCount(@Param("date") String date);
-
+    @Select("select count(*) as today, (SELECT COUNT(*) FROM user) AS total\n" +
+            "from sport_category\n" +
+            "WHERE DATE(create_time) = #{date};")
+    ValueTypeChart newActionRecognitionCategory(@Param("date") String date);
 
     @Select("select count(*) as today, (SELECT COUNT(*) FROM institution) AS total\n" +
             "from institution\n" +

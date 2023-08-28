@@ -23,28 +23,25 @@ public class DataPointServicesImpl extends BaseServiceImpl implements DataPointS
         //TODO
         return new ValueTypeChart("10", "100");
     }
-
     //今日新增算法,累计算法量
     public ValueTypeChart getAlgorithmCount(String date) {
         return dataPointMapper.getAlgorithmCount(date);
-    }
-
-    //今日算法使用量,累计使用量
-    public ValueTypeChart getAlgorithmUsageCount(String date) {
-        //TODO
-        return new ValueTypeChart("10", "100");
-    }
-
-    //今日数据集接入,累计数据集
-    public ValueTypeChart getDatasetAccessCount(String date) {
-        return dataPointMapper.getDatasetAccessCount(date);
     }
 
     //开发者提交量
     public ValueTypeChart developerCommitCount(String date) {
         return dataPointMapper.getDeveloperCommitCount(date);
     }
+    //今日数据集接入,累计数据集
+    public ValueTypeChart getDatasetAccessCount(String date) {
+        return dataPointMapper.getDatasetAccessCount(date);
+    }
 
+    //新动作识别类别
+    public ValueTypeChart newActionRecognitionCategory(String date) {
+        //TODO
+        return dataPointMapper.newActionRecognitionCategory(date);
+    }
     //今日接入机构数,累计接入
     public ValueTypeChart getInstitutionCount(String date) {
         return dataPointMapper.getInstitutionCount(date);
@@ -68,7 +65,7 @@ public class DataPointServicesImpl extends BaseServiceImpl implements DataPointS
 
         Map<String, List<String>> mapY = new HashMap<>();
         List<String> yList = Arrays.asList("1240", "690", "590", "240", "189", "100", "35", "12");
-        mapY.put("algorithm_usage", yList);
+        mapY.put("algorithmUsage", yList);
         return new LineTypeChart(xList, mapY);
     }
 

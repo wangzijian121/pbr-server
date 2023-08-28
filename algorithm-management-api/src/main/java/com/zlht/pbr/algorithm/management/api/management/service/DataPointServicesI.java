@@ -13,8 +13,6 @@ public interface DataPointServicesI extends BaseServiceI {
      * 今日用户量,累计用户量
      */
     ValueTypeChart getUserCount(String date);
-
-
     /**
      * 今日新增算法,累计算法量
      *
@@ -22,23 +20,6 @@ public interface DataPointServicesI extends BaseServiceI {
      * @return
      */
     ValueTypeChart getAlgorithmCount(String date);
-
-    /**
-     * 今日算法使用量,累计使用量
-     *
-     * @param date
-     * @return
-     */
-    ValueTypeChart getAlgorithmUsageCount(String date);
-
-    /**
-     * 今日数据集接入,累计数据集
-     *
-     * @param date
-     * @return
-     */
-    ValueTypeChart getDatasetAccessCount(String date);
-
     /**
      * 开发者提交次数
      *
@@ -46,7 +27,20 @@ public interface DataPointServicesI extends BaseServiceI {
      * @return
      */
     ValueTypeChart developerCommitCount(String date);
-
+    /**
+     * 今日数据集接入,累计数据集
+     *
+     * @param date
+     * @return
+     */
+    ValueTypeChart getDatasetAccessCount(String date);
+    /**
+     * 新动作识别类别
+     *
+     * @param date
+     * @return
+     */
+    ValueTypeChart newActionRecognitionCategory(String date);
     /**
      * 今日接入机构数,累计接入
      *

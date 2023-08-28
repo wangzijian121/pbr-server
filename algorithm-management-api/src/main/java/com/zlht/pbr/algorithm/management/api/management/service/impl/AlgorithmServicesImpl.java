@@ -32,6 +32,7 @@ public class AlgorithmServicesImpl extends BaseServiceImpl<Algorithm> implements
     @Override
     public Result<PageInfo<Algorithm>> queryAlgorithmList(User loginUser, int type, int currentPage, int pageSize, String keyword) {
 
+
         Result result = new Result();
         PageInfo pageInfo = new PageInfo(currentPage, pageSize);
         if (!canOperator(loginUser)) {
@@ -42,7 +43,7 @@ public class AlgorithmServicesImpl extends BaseServiceImpl<Algorithm> implements
 
         Page<Algorithm> page = new Page<>(currentPage, pageSize);
         Page<Map<String, Object>> algorithmPage = algorithmMapper.selectAlgorithm(page, keyword, type);
-
+        logger.info("queryAlgorithmList() method. type={}, currentPage={}, pageSize={},keyword={}", type, currentPage, pageSize, keyword);
         result.setCode(Status.SUCCESS.getCode());
         result.setMsg(Status.SUCCESS.getMsg());
         pageInfo.setTotal((int) page.getTotal());
@@ -61,6 +62,7 @@ public class AlgorithmServicesImpl extends BaseServiceImpl<Algorithm> implements
             return result;
         }
         List<Map<String, Object>> list = algorithmMapper.queryAlgorithmMap();
+        logger.info("queryAlgorithmMap() method.");
         result.setCode(Status.SUCCESS.getCode());
         result.setMsg(Status.SUCCESS.getMsg());
         result.setData(list);
@@ -93,8 +95,10 @@ public class AlgorithmServicesImpl extends BaseServiceImpl<Algorithm> implements
         int resNum = algorithmMapper.insert(algorithm);
         if (resNum >= 1) {
             putMsg(map, Status.SUCCESS.getCode(), "新建算法成功！");
+            logger.info("createAlgorithm() method. algorithm={}", algorithm);
         } else {
             putMsg(map, 400, "新建算法失败！");
+            logger.error("queryAlgorithmMap() method .message={}, algorithm={}", "新建算法失败", algorithm);
         }
         return map;
     }
@@ -131,8 +135,10 @@ public class AlgorithmServicesImpl extends BaseServiceImpl<Algorithm> implements
         int update = algorithmMapper.update(algorithm, updateWrapper);
         if (update >= 1) {
             putMsg(map, Status.SUCCESS.getCode(), "更新算法成功！");
+            logger.info("updateAlgorithm() method. algorithm={}", algorithm);
         } else {
             putMsg(map, 400, "更新算法失败！");
+            logger.error("updateAlgorithm() method .message={}, algorithm={}", "更新算法失败", algorithm);
         }
         return map;
     }
@@ -153,8 +159,10 @@ public class AlgorithmServicesImpl extends BaseServiceImpl<Algorithm> implements
         int delete = algorithmMapper.delete(queryWrapper);
         if (delete >= 1) {
             putMsg(map, Status.SUCCESS.getCode(), "删除算法成功！");
+            logger.info("deleteAlgorithm() method. id={}", id);
         } else {
             putMsg(map, 400, "删除算法失败！");
+            logger.error("deleteAlgorithm() method .message={}, id={}", "删除算法失败", id);
         }
         return map;
     }

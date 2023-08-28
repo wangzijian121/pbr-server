@@ -108,9 +108,9 @@ public class ChartServicesImpl extends BaseServiceImpl<Charge> implements ChartS
         Map<String, ValueTypeChart> valueTypeChartMap = new HashMap<>();
         valueTypeChartMap.put("userCount", dataPointServicesI.getUserCount(date));
         valueTypeChartMap.put("algorithmCount", dataPointServicesI.getAlgorithmCount(date));
-        valueTypeChartMap.put("`algorithmUsageCount`", dataPointServicesI.getAlgorithmUsageCount(date));
-        valueTypeChartMap.put("datasetAccessCount", dataPointServicesI.getDatasetAccessCount(date));
         valueTypeChartMap.put("developerCommitCount", dataPointServicesI.developerCommitCount(date));
+        valueTypeChartMap.put("datasetAccessCount", dataPointServicesI.getDatasetAccessCount(date));
+        valueTypeChartMap.put("newActionRecognitionCategory", dataPointServicesI.newActionRecognitionCategory(date));
         valueTypeChartMap.put("institutionCount", dataPointServicesI.getInstitutionCount(date));
         return valueTypeChartMap;
     }
