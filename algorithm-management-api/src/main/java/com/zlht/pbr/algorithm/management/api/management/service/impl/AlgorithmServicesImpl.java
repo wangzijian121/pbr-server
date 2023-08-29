@@ -90,15 +90,14 @@ public class AlgorithmServicesImpl extends BaseServiceImpl<Algorithm> implements
             putMsg(map, 400, "该算法类型下已存在该算法！");
             return map;
         }
-
         algorithm.setUploader(loginUser.getId());
-        int resNum = algorithmMapper.insert(algorithm);
-        if (resNum >= 1) {
+        try {
+            algorithmMapper.insert(algorithm);
             putMsg(map, Status.SUCCESS.getCode(), "新建算法成功！");
-            logger.info("createAlgorithm() method. algorithm={}", algorithm);
-        } else {
-            putMsg(map, 400, "新建算法失败！");
-            logger.error("queryAlgorithmMap() method .message={}, algorithm={}", "新建算法失败", algorithm);
+        } catch (Exception e) {
+            String errMsg = "新建算法失败";
+            putMsg(map, 400, errMsg);
+            logger.error("queryAlgorithmMap() method .message={}, algorithm={}", errMsg, algorithm, e);
         }
         return map;
     }
@@ -132,14 +131,14 @@ public class AlgorithmServicesImpl extends BaseServiceImpl<Algorithm> implements
 
         QueryWrapper updateWrapper = new QueryWrapper();
         updateWrapper.eq("id", id);
-        int update = algorithmMapper.update(algorithm, updateWrapper);
-        if (update >= 1) {
+        try {
+            algorithmMapper.update(algorithm, updateWrapper);
             putMsg(map, Status.SUCCESS.getCode(), "更新算法成功！");
-            logger.info("updateAlgorithm() method. algorithm={}", algorithm);
-        } else {
+        } catch (Exception e) {
             putMsg(map, 400, "更新算法失败！");
-            logger.error("updateAlgorithm() method .message={}, algorithm={}", "更新算法失败", algorithm);
+            logger.error("updateAlgorithm() method .message={}, algorithm={}", "更新算法失败", algorithm, e);
         }
+
         return map;
     }
 
@@ -155,15 +154,16 @@ public class AlgorithmServicesImpl extends BaseServiceImpl<Algorithm> implements
             return map;
         }
         QueryWrapper queryWrapper = new QueryWrapper();
+
         queryWrapper.eq("id", id);
-        int delete = algorithmMapper.delete(queryWrapper);
-        if (delete >= 1) {
+        try {
+            algorithmMapper.delete(queryWrapper);
             putMsg(map, Status.SUCCESS.getCode(), "删除算法成功！");
-            logger.info("deleteAlgorithm() method. id={}", id);
-        } else {
+        } catch (Exception e) {
             putMsg(map, 400, "删除算法失败！");
-            logger.error("deleteAlgorithm() method .message={}, id={}", "删除算法失败", id);
+            logger.error("deleteAlgorithm() method .message={}, id={}", "删除算法失败", id, e);
         }
+
         return map;
     }
 

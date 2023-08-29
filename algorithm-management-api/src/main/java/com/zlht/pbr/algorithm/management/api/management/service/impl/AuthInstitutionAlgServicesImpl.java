@@ -39,6 +39,8 @@ public class AuthInstitutionAlgServicesImpl extends BaseServiceImpl<AuthInstitut
         }
         Page page = new Page<>(currentPage, pageSize);
         Page<Map<String, Object>> institutionPage = authInstitutionAlgMapper.selectAuthInstitutionsWithNickname(page, keyword, auth_type);
+        logger.info("queryAuthInstitutionAlgList() method. username={}, auth_type={}, currentPage={},pageSize={},keyword={}",
+                loginUser.getUsername(), auth_type, currentPage, pageSize, keyword);
         pageInfo.setTotal((int) page.getTotal());
         pageInfo.setTotalList(institutionPage.getRecords());
         result.setData(pageInfo);
@@ -60,11 +62,13 @@ public class AuthInstitutionAlgServicesImpl extends BaseServiceImpl<AuthInstitut
             return map;
         }
         authInstitutionAlg.setAuthAdmin(loginUser.getId());
-        int resNum = authInstitutionAlgMapper.insert(authInstitutionAlg);
-        if (resNum >= 1) {
-            putMsg(map, Status.SUCCESS.getCode(), "创建授权成功！");
-        } else {
-            putMsg(map, 400, "新建机构授权失败！");
+        try {
+            authInstitutionAlgMapper.insert(authInstitutionAlg);
+            putMsg(map, Status.SUCCESS.getCode(), "新建机构授权成功！");
+        } catch (Exception e) {
+            String errMsg = "新建机构授权失败";
+            logger.error("deleteAlgorithm() method .message={}, authInstitutionAlg={}", errMsg, authInstitutionAlg, e);
+            putMsg(map, 400, errMsg);
         }
         return map;
 
@@ -82,8 +86,9 @@ public class AuthInstitutionAlgServicesImpl extends BaseServiceImpl<AuthInstitut
 
         //check Exist
         if (!checkAuthExistById(id)) {
-            logger.error("所更新机构不存在！");
-            putMsg(map, 400, "所更新机构不存在！");
+            String errorMsg = "所更新机构不存在";
+            logger.error("updateAuthInstitution() method .message={}, id={},authInstitutionAlg={}", errorMsg, id, authInstitutionAlg);
+            putMsg(map, 400, errorMsg);
             return map;
         }
         QueryWrapper checkWrapper = new QueryWrapper<>();
@@ -98,11 +103,13 @@ public class AuthInstitutionAlgServicesImpl extends BaseServiceImpl<AuthInstitut
 
         authInstitutionAlg.setId(id);
         authInstitutionAlg.setAuthAdmin(loginUser.getId());
-        int update = authInstitutionAlgMapper.updateById(authInstitutionAlg);
-        if (update >= 1) {
-            putMsg(map, Status.SUCCESS.getCode(), "更新授权成功！");
-        } else {
-            putMsg(map, 400, "更新授权失败！");
+        try {
+            authInstitutionAlgMapper.updateById(authInstitutionAlg);
+            putMsg(map, Status.SUCCESS.getCode(), "更新机构授权成功！");
+        } catch (Exception e) {
+            String errMsg = "更新授权失败";
+            logger.error("updateAuthInstitution() method .message={}, id={}", errMsg, id, e);
+            putMsg(map, 400, errMsg);
         }
         return map;
     }
@@ -115,17 +122,20 @@ public class AuthInstitutionAlgServicesImpl extends BaseServiceImpl<AuthInstitut
             return map;
         }
         if (!checkAuthExistById(id)) {
-            logger.error("所删除机构不存在！");
-            putMsg(map, 400, "所删除机构不存在！");
+            String errorMsg = "删除的机构不存在";
+            logger.error("deleteAuthInstitution() method .message={}, id={}", errorMsg, id);
+            putMsg(map, 400, errorMsg);
             return map;
         }
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("id", id);
-        int delete = authInstitutionAlgMapper.delete(queryWrapper);
-        if (delete >= 1) {
-            putMsg(map, Status.SUCCESS.getCode(), "删除授权成功！");
-        } else {
-            putMsg(map, 400, "删除机构失败！");
+        try {
+            authInstitutionAlgMapper.delete(queryWrapper);
+            putMsg(map, Status.SUCCESS.getCode(), "删除机构授权成功！");
+        } catch (Exception e) {
+            String errMsg = "删除机构失败";
+            logger.error("deleteAuthInstitution() method .message={}, id={}", errMsg, id, e);
+            putMsg(map, 400, errMsg);
         }
         return map;
 

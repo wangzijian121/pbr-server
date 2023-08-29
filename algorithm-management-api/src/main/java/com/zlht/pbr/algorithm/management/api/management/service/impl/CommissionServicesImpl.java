@@ -39,6 +39,8 @@ public class CommissionServicesImpl extends BaseServiceImpl<Commission> implemen
         Page<Commission> page = new Page<>(currentPage, pageSize);
 
         Page<Map<String, Object>> commissionPage = commissionMapper.selectCommission(page, keyword);
+        logger.info("queryCommissionList() method. username={},currentPage={},pageSize={},keyword={}",
+                loginUser.getUsername(), currentPage, pageSize, keyword);
         PageInfo pageInfo = new PageInfo(currentPage, pageSize);
         pageInfo.setTotal((int) page.getTotal());
         pageInfo.setTotalList(commissionPage.getRecords());
@@ -62,12 +64,13 @@ public class CommissionServicesImpl extends BaseServiceImpl<Commission> implemen
             putMsg(map, 400, "该佣金项类型下已存在该佣金项！");
             return map;
         }
-
-        int resNum = commissionMapper.insert(commission);
-        if (resNum >= 1) {
+        try {
+            commissionMapper.insert(commission);
             putMsg(map, Status.SUCCESS.getCode(), "新建佣金项成功！");
-        } else {
-            putMsg(map, 400, "新建佣金项失败！");
+        } catch (Exception e) {
+            String errMsg = "新建佣金项失败";
+            logger.error("createCommission() method .message={}, commission={}", errMsg, commission, e);
+            putMsg(map, 400, errMsg);
         }
         return map;
     }
@@ -81,7 +84,9 @@ public class CommissionServicesImpl extends BaseServiceImpl<Commission> implemen
             return map;
         }
         if (!checkCommissionExistById(id)) {
-            putMsg(map, 400, "更新的佣金项ID不存在！");
+            String errMsg = "更新的佣金项ID不存在";
+            logger.error("updateCommission() method .message={}, id ={}, commission={}", errMsg, id, commission);
+            putMsg(map, 400, errMsg);
             return map;
         }
         QueryWrapper checkWrapper = new QueryWrapper();
@@ -95,11 +100,13 @@ public class CommissionServicesImpl extends BaseServiceImpl<Commission> implemen
 
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("id", id);
-        int update = commissionMapper.update(commission, queryWrapper);
-        if (update >= 1) {
+        try {
+            commissionMapper.update(commission, queryWrapper);
             putMsg(map, Status.SUCCESS.getCode(), "更新佣金项成功！");
-        } else {
-            putMsg(map, 400, "更新佣金项失败！");
+        } catch (Exception e) {
+            String errMsg = "更新佣金项失败";
+            logger.error("updateCommission() method .message={}, id ={}, commission={}", errMsg, id, commission, e);
+            putMsg(map, 400, errMsg);
         }
         return map;
     }
@@ -117,11 +124,13 @@ public class CommissionServicesImpl extends BaseServiceImpl<Commission> implemen
         }
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("id", id);
-        int delete = commissionMapper.delete(queryWrapper);
-        if (delete >= 1) {
+        try {
+            commissionMapper.delete(queryWrapper);
             putMsg(map, Status.SUCCESS.getCode(), "删除佣金项成功！");
-        } else {
-            putMsg(map, 400, "删除佣金项失败！");
+        } catch (Exception e) {
+            String errMsg = "删除佣金项失败";
+            logger.error("deleteCommission() method .message={}, id ={}", errMsg, id, e);
+            putMsg(map, 400, errMsg);
         }
         return map;
     }

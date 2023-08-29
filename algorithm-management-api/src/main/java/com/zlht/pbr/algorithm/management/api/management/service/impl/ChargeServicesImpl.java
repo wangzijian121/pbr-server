@@ -38,6 +38,8 @@ public class ChargeServicesImpl extends BaseServiceImpl<Charge> implements Charg
         }
         Page page = new Page<>(currentPage, pageSize);
         Page<Map<String, Object>> chargePage = chargeMapper.selectCharge(page, keyword, type);
+        logger.info("queryChargeList() method. username={},type={}, currentPage={},pageSize={},keyword={}",
+                loginUser.getUsername(), type, currentPage, pageSize, keyword);
         PageInfo pageInfo = new PageInfo(currentPage, pageSize);
         pageInfo.setTotal((int) page.getTotal());
         pageInfo.setTotalList(chargePage.getRecords());
@@ -55,11 +57,13 @@ public class ChargeServicesImpl extends BaseServiceImpl<Charge> implements Charg
             return map;
         }
         charge.setConfirmPeople(loginUser.getId());
-        int resNum = chargeMapper.insert(charge);
-        if (resNum >= 1) {
+        try {
+            chargeMapper.insert(charge);
             putMsg(map, Status.SUCCESS.getCode(), "创建收款项成功！");
-        } else {
-            putMsg(map, 400, "创建收款项失败！");
+        } catch (Exception e) {
+            String errMsg = "创建收款项失败";
+            logger.error("deleteAlgorithm() method .message={}, charge={}", errMsg, charge, e);
+            putMsg(map, 400, errMsg);
         }
         return map;
 
@@ -81,11 +85,13 @@ public class ChargeServicesImpl extends BaseServiceImpl<Charge> implements Charg
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("id", id);
         charge.setConfirmPeople(loginUser.getId());
-        int update = chargeMapper.update(charge, queryWrapper);
-        if (update >= 1) {
+        try {
+            chargeMapper.update(charge, queryWrapper);
             putMsg(map, Status.SUCCESS.getCode(), "更新收款项成功！");
-        } else {
-            putMsg(map, 400, "更新收款项失败");
+        } catch (Exception e) {
+            String errMsg = "更新收款项失败";
+            logger.error("updateCharge() method .message={}, id={},charge={}", errMsg, id, charge, e);
+            putMsg(map, 400, errMsg);
         }
         return map;
     }
@@ -99,16 +105,20 @@ public class ChargeServicesImpl extends BaseServiceImpl<Charge> implements Charg
             return map;
         }
         if (!checkChargeExistById(id)) {
-            putMsg(map, 400, "所删除的收款项ID不存在!");
+            String errMsg = "所删除的收款项ID不存在";
+            logger.error("deleteCharge() method .message={}, id={}", errMsg, id);
+            putMsg(map, 400, errMsg);
             return map;
         }
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("id", id);
-        int delete = chargeMapper.delete(queryWrapper);
-        if (delete >= 1) {
+        try {
+            chargeMapper.delete(queryWrapper);
             putMsg(map, Status.SUCCESS.getCode(), "删除收款项成功！");
-        } else {
-            putMsg(map, 400, "删除收款项失败！");
+        } catch (Exception e) {
+            String errMsg = "删除收款项失败";
+            logger.error("deleteCharge() method .message={}, id={}", errMsg, id, e);
+            putMsg(map, 400, errMsg);
         }
         return map;
     }

@@ -39,6 +39,8 @@ public class DataSetServicesImpl extends BaseServiceImpl<DataSet> implements Dat
         }
         Page<DataSet> page = new Page<>(currentPage, pageSize);
         Page<Map<String, Object>> dataSetPage = dataSetMapper.selectDataSet(page, keyword, type);
+        logger.info("queryDataSetList() method. username={},type={} currentPage={},pageSize={},keyword={}",
+                loginUser.getUsername(), type, currentPage, pageSize, keyword);
         PageInfo pageInfo = new PageInfo(currentPage, pageSize);
         pageInfo.setTotal((int) page.getTotal());
         pageInfo.setTotalList(dataSetPage.getRecords());
@@ -70,12 +72,15 @@ public class DataSetServicesImpl extends BaseServiceImpl<DataSet> implements Dat
             return map;
         }
         dataSet.setUploader(loginUser.getId());
-        int resNum = dataSetMapper.insert(dataSet);
-        if (resNum >= 1) {
+        try {
+            dataSetMapper.insert(dataSet);
             putMsg(map, Status.SUCCESS.getCode(), "新建数据集成功！");
-        } else {
-            putMsg(map, 400, "新建数据集失败！");
+        } catch (Exception e) {
+            String errMsg = "新建数据集失败";
+            logger.error("createDataSet() method .message={}, dataSet={}", errMsg, dataSet, e);
+            putMsg(map, 400, errMsg);
         }
+
         return map;
     }
 
@@ -109,11 +114,13 @@ public class DataSetServicesImpl extends BaseServiceImpl<DataSet> implements Dat
 
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("id", id);
-        int update = dataSetMapper.update(dataSet, queryWrapper);
-        if (update >= 1) {
+        try {
+            dataSetMapper.update(dataSet, queryWrapper);
             putMsg(map, Status.SUCCESS.getCode(), "更新数据集成功！");
-        } else {
-            putMsg(map, 400, "更新数据集失败！");
+        } catch (Exception e) {
+            String errMsg = "更新数据集失败";
+            logger.error("updateDataSet() method .message={}, dataSet={}", errMsg, dataSet, e);
+            putMsg(map, 400, errMsg);
         }
         return map;
     }
@@ -131,11 +138,13 @@ public class DataSetServicesImpl extends BaseServiceImpl<DataSet> implements Dat
         }
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("id", id);
-        int delete = dataSetMapper.delete(queryWrapper);
-        if (delete >= 1) {
+        try {
+            dataSetMapper.delete(queryWrapper);
             putMsg(map, Status.SUCCESS.getCode(), "删除数据集成功！");
-        } else {
-            putMsg(map, 400, "删除数据集失败！");
+        } catch (Exception e) {
+            String errMsg = "删除数据集失败";
+            logger.error("deleteDataSet() method .message={}, id={}", errMsg, id, e);
+            putMsg(map, 400, errMsg);
         }
         return map;
     }

@@ -53,6 +53,7 @@ public class AbstractAuthenticator extends BaseServiceImpl<User> implements Auth
             if (check) {
                 String sessionId = sessionServiceI.createSession(user, ip);
                 if (sessionId == null) {
+                    logger.error("deleteAlgorithm() method .message={}, sessionId={}", "创建sessionId失败", sessionId);
                     putMsg(map, 400, "session创建错误,登录失败!");
                     return map;
                 }
