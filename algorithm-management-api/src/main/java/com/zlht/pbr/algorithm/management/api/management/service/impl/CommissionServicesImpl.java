@@ -85,7 +85,6 @@ public class CommissionServicesImpl extends BaseServiceImpl<Commission> implemen
         }
         if (!checkCommissionExistById(id)) {
             String errMsg = "更新的佣金项ID不存在";
-            logger.error("updateCommission() method .message={}, id ={}, commission={}", errMsg, id, commission);
             putMsg(map, 400, errMsg);
             return map;
         }

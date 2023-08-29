@@ -10,6 +10,8 @@ import com.zlht.pbr.algorithm.management.dao.mapper.TemplateMapper;
 import com.zlht.pbr.algorithm.management.enums.Status;
 import com.zlht.pbr.algorithm.management.utils.PageInfo;
 import com.zlht.pbr.algorithm.management.utils.Result;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,8 @@ import java.util.Map;
 
 @Service
 public class TemplateServicesImpl extends BaseServiceImpl implements TemplateServicesI {
+
+    private static final Logger logger = LogManager.getLogger(TemplateServicesImpl.class);
     @Autowired
     TemplateMapper templateMapper;
 
@@ -34,6 +38,8 @@ public class TemplateServicesImpl extends BaseServiceImpl implements TemplateSer
         QueryWrapper queryWrapper = new QueryWrapper();
         if (keyword != null) queryWrapper.eq("name", keyword);
         Page<Template> templatePage = templateMapper.selectPage(page, queryWrapper);
+        logger.info("queryTemplateList() method. username={}, currentPage={},pageSize={},keyword={}",
+                loginUser.getUsername(), currentPage, pageSize, keyword);
         PageInfo pageInfo = new PageInfo(currentPage, pageSize);
         pageInfo.setTotal((int) page.getTotal());
         pageInfo.setTotalList(templatePage.getRecords());
@@ -72,14 +78,15 @@ public class TemplateServicesImpl extends BaseServiceImpl implements TemplateSer
             putMsg(map, 400, "模板信息已存在！");
             return map;
         }
-        int resNum = templateMapper.insert(template);
-        if (resNum >= 1) {
+        try {
+            templateMapper.insert(template);
             putMsg(map, Status.SUCCESS.getCode(), "创建模板信息成功！");
-        } else {
-            putMsg(map, 400, "创建模板信息失败！");
+        } catch (Exception e) {
+            String errMsg = "创建模板信息失败";
+            logger.error("createTemplate() method .message={}, template={}", errMsg, template, e);
+            putMsg(map, 400, errMsg);
         }
         return map;
-
     }
 
 
@@ -104,11 +111,13 @@ public class TemplateServicesImpl extends BaseServiceImpl implements TemplateSer
         }
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("id", id);
-        int update = templateMapper.update(template, queryWrapper);
-        if (update >= 1) {
+        try {
+            templateMapper.update(template, queryWrapper);
             putMsg(map, Status.SUCCESS.getCode(), "更新模板信息成功！");
-        } else {
-            putMsg(map, 400, "更新模板信息失败");
+        } catch (Exception e) {
+            String errMsg = "更新模板信息失败";
+            logger.error("updateTemplate() method .message={}, template={}", errMsg, template, e);
+            putMsg(map, 400, errMsg);
         }
         return map;
     }
@@ -127,11 +136,13 @@ public class TemplateServicesImpl extends BaseServiceImpl implements TemplateSer
         }
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("id", id);
-        int delete = templateMapper.delete(queryWrapper);
-        if (delete >= 1) {
+        try {
+            templateMapper.delete(queryWrapper);
             putMsg(map, Status.SUCCESS.getCode(), "删除模板信息成功！");
-        } else {
-            putMsg(map, 400, "删除模板信息失败！");
+        } catch (Exception e) {
+            String errMsg = "删除模板信息失败";
+            logger.error("deleteTemplate() method .message={}, id={}", errMsg, id, e);
+            putMsg(map, 400, errMsg);
         }
         return map;
     }

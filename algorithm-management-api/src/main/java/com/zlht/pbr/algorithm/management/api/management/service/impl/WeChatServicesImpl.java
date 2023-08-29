@@ -10,6 +10,8 @@ import com.zlht.pbr.algorithm.management.dao.mapper.WeChatMapper;
 import com.zlht.pbr.algorithm.management.enums.Status;
 import com.zlht.pbr.algorithm.management.utils.PageInfo;
 import com.zlht.pbr.algorithm.management.utils.Result;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +20,11 @@ import java.util.Map;
 
 @Service
 public class WeChatServicesImpl extends BaseServiceImpl implements WeChatServicesI {
+
+    private static final Logger logger = LogManager.getLogger(UserServicesImpl.class);
+
     @Autowired
-    WeChatMapper weChatMapper;
+    private WeChatMapper weChatMapper;
 
     @Override
     public Result<PageInfo<WeChat>> queryWeChatList(User loginUser, int currentPage, int pageSize, int status, String keyword) {
@@ -31,6 +36,8 @@ public class WeChatServicesImpl extends BaseServiceImpl implements WeChatService
         }
         Page page = new Page<>(currentPage, pageSize);
         Page<Map<String, Object>> weChatPage = weChatMapper.selectWechat(page, keyword, status);
+        logger.info("queryWeChatList() method. username={},type={}, currentPage={},pageSize={},keyword={}",
+                loginUser.getUsername(), currentPage, pageSize, keyword);
         PageInfo pageInfo = new PageInfo(currentPage, pageSize);
         pageInfo.setTotal((int) page.getTotal());
         pageInfo.setTotalList(weChatPage.getRecords());
@@ -54,14 +61,15 @@ public class WeChatServicesImpl extends BaseServiceImpl implements WeChatService
             putMsg(map, 400, "小程序信息已存在！");
             return map;
         }
-        int resNum = weChatMapper.insert(weChat);
-        if (resNum >= 1) {
+        try {
+            weChatMapper.insert(weChat);
             putMsg(map, Status.SUCCESS.getCode(), "创建小程序信息成功！");
-        } else {
-            putMsg(map, 400, "创建小程序信息失败！");
+        } catch (Exception e) {
+            String errMsg = "创建小程序信息失败";
+            logger.error("createWeChat() method .message={}, weChat={}", errMsg, weChat, e);
+            putMsg(map, 400, errMsg);
         }
         return map;
-
     }
 
 
@@ -87,12 +95,16 @@ public class WeChatServicesImpl extends BaseServiceImpl implements WeChatService
         }
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("id", id);
-        int update = weChatMapper.update(weChat, queryWrapper);
-        if (update >= 1) {
+        try {
+            weChatMapper.update(weChat, queryWrapper);
             putMsg(map, Status.SUCCESS.getCode(), "更新小程序信息成功！");
-        } else {
-            putMsg(map, 400, "更新小程序信息失败");
+        } catch (Exception e) {
+            String errMsg = "更新小程序信息失败";
+            logger.error("updateWeChat() method .message={}, weChat={}", errMsg, weChat, e);
+            putMsg(map, 400, errMsg);
+
         }
+
         return map;
     }
 
@@ -110,12 +122,16 @@ public class WeChatServicesImpl extends BaseServiceImpl implements WeChatService
         }
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("id", id);
-        int delete = weChatMapper.delete(queryWrapper);
-        if (delete >= 1) {
+
+        try {
+            weChatMapper.delete(queryWrapper);
             putMsg(map, Status.SUCCESS.getCode(), "删除小程序信息成功！");
-        } else {
-            putMsg(map, 400, "删除小程序信息失败！");
+        } catch (Exception e) {
+            String errMsg = "删除小程序信息失败";
+            logger.error("deleteWeChat() method .message={}, id={}", errMsg, id, e);
+            putMsg(map, 400, errMsg);
         }
+
         return map;
     }
 

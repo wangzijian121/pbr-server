@@ -40,6 +40,8 @@ public class SportServicesImpl extends BaseServiceImpl<Sport> implements SportSe
         }
         Page<Sport> page = new Page<>(currentPage, pageSize);
         Page sportPage = sportMapper.selectSport(page, keyword);
+        logger.info("querySportList() method. username={},type={}, currentPage={},pageSize={},keyword={}",
+                loginUser.getUsername(), type, currentPage, pageSize, keyword);
         PageInfo pageInfo = new PageInfo(currentPage, pageSize);
         pageInfo.setTotal((int) page.getTotal());
         pageInfo.setTotalList(sportPage.getRecords());
@@ -84,12 +86,15 @@ public class SportServicesImpl extends BaseServiceImpl<Sport> implements SportSe
             return map;
         }
         sport.setUserId(loginUser.getId());
-        int resNum = sportMapper.insert(sport);
-        if (resNum >= 1) {
+        try {
+            sportMapper.insert(sport);
             putMsg(map, Status.SUCCESS.getCode(), "新建体育成功！");
-        } else {
-            putMsg(map, 400, "新建体育失败！");
+        } catch (Exception e) {
+            String errMsg = "新建体育失败";
+            logger.error("createSport() method .message={}, sport={}", errMsg, sport, e);
+            putMsg(map, 400, errMsg);
         }
+
         return map;
     }
 
@@ -123,11 +128,13 @@ public class SportServicesImpl extends BaseServiceImpl<Sport> implements SportSe
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("id", id);
         sport.setUserId(loginUser.getId());
-        int update = sportMapper.update(sport, queryWrapper);
-        if (update >= 1) {
+        try {
+            sportMapper.update(sport, queryWrapper);
             putMsg(map, Status.SUCCESS.getCode(), "更新体育成功！");
-        } else {
-            putMsg(map, 400, "更新体育失败！");
+        } catch (Exception e) {
+            String errMsg = "更新体育失败";
+            logger.error("updateSport() method .message={}, sport={}", errMsg, sport, e);
+            putMsg(map, 400, errMsg);
         }
         return map;
     }
@@ -145,12 +152,15 @@ public class SportServicesImpl extends BaseServiceImpl<Sport> implements SportSe
         }
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("id", id);
-        int delete = sportMapper.delete(queryWrapper);
-        if (delete >= 1) {
+        try {
+            sportMapper.delete(queryWrapper);
             putMsg(map, Status.SUCCESS.getCode(), "删除体育成功！");
-        } else {
-            putMsg(map, 400, "删除体育失败！");
+        } catch (Exception e) {
+            String errMsg = "删除体育失败";
+            logger.error("deleteSport() method .message={}, id={}", errMsg, id, e);
+            putMsg(map, 400, errMsg);
         }
+
         return map;
     }
 

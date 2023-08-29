@@ -39,6 +39,8 @@ public class ReviewServicesImpl extends BaseServiceImpl<Review> implements Revie
         }
         Page page = new Page<>(currentPage, pageSize);
         Page<Map<String, Object>> reviewPage = reviewMapper.selectReview(page, keyword);
+        logger.info("queryReviewList() method. username={},currentPage={},pageSize={},keyword={}",
+                loginUser.getUsername(), currentPage, pageSize, keyword);
         PageInfo pageInfo = new PageInfo(currentPage, pageSize);
         pageInfo.setTotal((int) page.getTotal());
         pageInfo.setTotalList(reviewPage.getRecords());
@@ -76,11 +78,13 @@ public class ReviewServicesImpl extends BaseServiceImpl<Review> implements Revie
             putMsg(map, 400, "所更新的审核ID不存在!");
             return map;
         }
-        int update = reviewMapper.updateReviewStatus(id, status, mark);
-        if (update >= 1) {
+        try {
+            reviewMapper.updateReviewStatus(id, status, mark);
             putMsg(map, Status.SUCCESS.getCode(), "更新审核状态成功！");
-        } else {
-            putMsg(map, 400, "更新审核状态失败");
+        } catch (Exception e) {
+            String errMsg = "更新审核状态失败";
+            logger.error("updateReviewStatus() method .message={}", errMsg, e);
+            putMsg(map, 400, errMsg);
         }
         return map;
     }

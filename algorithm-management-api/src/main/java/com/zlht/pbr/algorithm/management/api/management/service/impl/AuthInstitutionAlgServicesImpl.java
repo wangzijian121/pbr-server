@@ -67,7 +67,7 @@ public class AuthInstitutionAlgServicesImpl extends BaseServiceImpl<AuthInstitut
             putMsg(map, Status.SUCCESS.getCode(), "新建机构授权成功！");
         } catch (Exception e) {
             String errMsg = "新建机构授权失败";
-            logger.error("deleteAlgorithm() method .message={}, authInstitutionAlg={}", errMsg, authInstitutionAlg, e);
+            logger.error("createAuthInstitution() method .message={}, authInstitutionAlg={}", errMsg, authInstitutionAlg, e);
             putMsg(map, 400, errMsg);
         }
         return map;

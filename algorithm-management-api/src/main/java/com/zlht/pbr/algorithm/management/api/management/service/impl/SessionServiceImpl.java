@@ -48,34 +48,6 @@ public class SessionServiceImpl extends BaseServiceImpl implements SessionServic
     private SessionMapper sessionMapper;
 
     /**
-     * get user session from request
-     *
-     * @param request request
-     * @return session
-     */
-//    @Override
-/*    public Session getSession(HttpServletRequest request) {
-        String sessionId = request.getHeader("sessionId");
-
-        if (StringUtils.isBlank(sessionId)) {
-            Cookie cookie = WebUtils.getCookie(request, "sessionId");
-
-            if (cookie != null) {
-                sessionId = cookie.getValue();
-            }
-        }
-
-        if (StringUtils.isBlank(sessionId)) {
-            return null;
-        }
-
-        String ip = BaseController.getClientIpAddress(request);
-        logger.debug("get session: {}, ip: {}", sessionId, ip);
-
-        return sessionMapper.selectById(sessionId);
-    }*/
-
-    /**
      * create session
      *
      * @param user user
@@ -116,7 +88,7 @@ public class SessionServiceImpl extends BaseServiceImpl implements SessionServic
      */
     @Override
     public Map<String, Object> signOut(String ip, User loginUser) {
-        Map<String, Object> map =new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
 
         try {
             QueryWrapper queryWrapper = new QueryWrapper();
@@ -124,9 +96,9 @@ public class SessionServiceImpl extends BaseServiceImpl implements SessionServic
             queryWrapper.eq("ip", ip);
             Session session = sessionMapper.selectOne(queryWrapper);
             //delete session
-            int  delete=sessionMapper.deleteById(session.getId());
-            if (delete>0){
-                putMsg(map,Status.SUCCESS.getCode(), Status.SUCCESS.getMsg());
+            int delete = sessionMapper.deleteById(session.getId());
+            if (delete > 0) {
+                putMsg(map, Status.SUCCESS.getCode(), Status.SUCCESS.getMsg());
                 return map;
             }
         } catch (Exception e) {

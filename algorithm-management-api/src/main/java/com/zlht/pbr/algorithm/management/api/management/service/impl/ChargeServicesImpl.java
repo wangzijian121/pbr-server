@@ -62,7 +62,7 @@ public class ChargeServicesImpl extends BaseServiceImpl<Charge> implements Charg
             putMsg(map, Status.SUCCESS.getCode(), "创建收款项成功！");
         } catch (Exception e) {
             String errMsg = "创建收款项失败";
-            logger.error("deleteAlgorithm() method .message={}, charge={}", errMsg, charge, e);
+            logger.error("createCharge() method .message={}, charge={}", errMsg, charge, e);
             putMsg(map, 400, errMsg);
         }
         return map;
@@ -106,7 +106,6 @@ public class ChargeServicesImpl extends BaseServiceImpl<Charge> implements Charg
         }
         if (!checkChargeExistById(id)) {
             String errMsg = "所删除的收款项ID不存在";
-            logger.error("deleteCharge() method .message={}, id={}", errMsg, id);
             putMsg(map, 400, errMsg);
             return map;
         }

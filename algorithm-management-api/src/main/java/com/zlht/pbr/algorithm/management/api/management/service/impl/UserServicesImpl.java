@@ -50,6 +50,8 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
             wapper.like("nickname", keyword);
         }
         Page<User> userPage = userMapper.selectPage(page, wapper);
+        logger.info("queryUserList() method. username={},type={}, currentPage={},pageSize={},keyword={}",
+                loginUser.getUsername(), type, currentPage, pageSize, keyword);
         PageInfo pageInfo = new PageInfo(currentPage, pageSize);
         pageInfo.setTotal((int) page.getTotal());
         pageInfo.setTotalList(userPage.getRecords());
@@ -76,13 +78,15 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
             return map;
         }
         //管理员的话加密 密码
-
-        int resNum = userMapper.insert(encipher(user));
-        if (resNum >= 1) {
+        try {
+            userMapper.insert(encipher(user));
             putMsg(map, Status.SUCCESS.getCode(), "新建用户成功！");
-        } else {
-            putMsg(map, 400, "新建用户失败！");
+        } catch (Exception e) {
+            String errMsg = "新建用户失败";
+            logger.error("createUser() method .message={}, username={}", errMsg, user.getUsername(), e);
+            putMsg(map, 400, errMsg);
         }
+
         return map;
     }
 
@@ -103,12 +107,15 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
 
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("id", id);
-        int update = userMapper.update(encipher(user), queryWrapper);
-        if (update >= 1) {
+        try {
+            userMapper.update(encipher(user), queryWrapper);
             putMsg(map, Status.SUCCESS.getCode(), "更新用户成功！");
-        } else {
-            putMsg(map, 400, "更新用户失败！");
+        } catch (Exception e) {
+            String errMsg = "更新用户失败";
+            logger.error("updateUser() method .message={}, username={}", errMsg, user.getUsername(), e);
+            putMsg(map, 400, errMsg);
         }
+
         return map;
     }
 
@@ -121,11 +128,13 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
         }
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("id", id);
-        int delete = userMapper.delete(queryWrapper);
-        if (delete >= 1) {
+        try {
+            userMapper.delete(queryWrapper);
             putMsg(map, Status.SUCCESS.getCode(), "删除用户成功！");
-        } else {
-            putMsg(map, 400, "删除用户失败！");
+        } catch (Exception e) {
+            String errMsg = "删除用户失败";
+            logger.error("deleteUser() method .message={}, id={}", errMsg, id, e);
+            putMsg(map, 400, errMsg);
         }
         return map;
     }

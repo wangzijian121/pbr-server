@@ -9,6 +9,8 @@ import com.zlht.pbr.algorithm.management.dao.entity.Resource;
 import com.zlht.pbr.algorithm.management.dao.entity.User;
 import com.zlht.pbr.algorithm.management.dao.mapper.ResourceMapper;
 import com.zlht.pbr.algorithm.management.enums.Status;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamResource;
@@ -28,7 +30,7 @@ import java.util.UUID;
 @Service
 public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServiceI {
 
-
+    private static final Logger logger = LogManager.getLogger(ResourceServiceImpl.class);
     private final String[] ACCEPT_TYPES = new String[]{"zip"};
     /**
      * 文件磁盘路径
@@ -67,15 +69,22 @@ public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServ
         String uuid = UUID.randomUUID().toString();
         String fileName = fileUploadPath + uuid + StrUtil.DOT;
         Resource resource = new Resource(fullName, uuid, suffix, size, new Date(), new Date());
-        resourceMapper.insert(resource);
-        putMsg(map, Status.SUCCESS.getCode(), "上传成功");
+        try {
+            resourceMapper.insert(resource);
+            putMsg(map, Status.SUCCESS.getCode(), "上传成功");
+        } catch (Exception e) {
+            String errMsg = "创建机构失败";
+            logger.error("createResource() method .message={}", errMsg, e);
+            putMsg(map, 400, errMsg);
+        }
         map.put("data", uuid);
         File uploadResource = new File(fileName + suffix);
         //将临时文件转存到指定磁盘位置
         try {
             file.transferTo(uploadResource);
-        } catch (
-                IOException e) {
+        } catch (IOException e) {
+            String errMsg = "资源文件存储失败";
+            logger.error("createResource() method .message={}", errMsg, e);
             throw new RuntimeException(e);
         }
         return map;
@@ -98,16 +107,14 @@ public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServ
         Resource resource = resourceMapper.selectOne(queryWrapper);
         //local
         File deleteResource = new File(fileUploadPath + uuid + "." + resource.getSuffix());
-        boolean local_delete = deleteResource.delete();
-        int delete = 0;
-        if (local_delete) {
-            //database
-            delete = resourceMapper.delete(queryWrapper);
-        }
-        if (local_delete && delete > 0) {
+        try {
+            deleteResource.delete();
+            resourceMapper.delete(queryWrapper);
             putMsg(map, Status.SUCCESS.getCode(), "删除成功！");
-        } else {
-            putMsg(map, 400, "刪除失败！");
+        } catch (Exception e) {
+            String errMsg = "删除资源失败!";
+            logger.error("deleteResource() method .message={}", errMsg, e);
+            putMsg(map, 400, errMsg);
         }
         return map;
     }
@@ -132,6 +139,8 @@ public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServ
         try {
             inputStreamResource = new InputStreamResource(new FileInputStream(file));
         } catch (FileNotFoundException e) {
+            String errMsg="文件未找到";
+            logger.error("downloadResource() method .message={}", errMsg, e);
             throw new RuntimeException(e);
         }
         // 设置HTTP头

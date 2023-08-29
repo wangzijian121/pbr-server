@@ -62,7 +62,6 @@ public class AlgorithmServicesImpl extends BaseServiceImpl<Algorithm> implements
             return result;
         }
         List<Map<String, Object>> list = algorithmMapper.queryAlgorithmMap();
-        logger.info("queryAlgorithmMap() method.");
         result.setCode(Status.SUCCESS.getCode());
         result.setMsg(Status.SUCCESS.getMsg());
         result.setData(list);
@@ -96,8 +95,8 @@ public class AlgorithmServicesImpl extends BaseServiceImpl<Algorithm> implements
             putMsg(map, Status.SUCCESS.getCode(), "新建算法成功！");
         } catch (Exception e) {
             String errMsg = "新建算法失败";
+            logger.error("createAlgorithm() method .message={}, algorithm={}", errMsg, algorithm, e);
             putMsg(map, 400, errMsg);
-            logger.error("queryAlgorithmMap() method .message={}, algorithm={}", errMsg, algorithm, e);
         }
         return map;
     }
@@ -135,8 +134,9 @@ public class AlgorithmServicesImpl extends BaseServiceImpl<Algorithm> implements
             algorithmMapper.update(algorithm, updateWrapper);
             putMsg(map, Status.SUCCESS.getCode(), "更新算法成功！");
         } catch (Exception e) {
-            putMsg(map, 400, "更新算法失败！");
-            logger.error("updateAlgorithm() method .message={}, algorithm={}", "更新算法失败", algorithm, e);
+            String errMsg = "更新算法失败";
+            logger.error("updateAlgorithm() method .message={}, algorithm={}", errMsg, algorithm, e);
+            putMsg(map, 400, errMsg);
         }
 
         return map;
@@ -160,8 +160,9 @@ public class AlgorithmServicesImpl extends BaseServiceImpl<Algorithm> implements
             algorithmMapper.delete(queryWrapper);
             putMsg(map, Status.SUCCESS.getCode(), "删除算法成功！");
         } catch (Exception e) {
-            putMsg(map, 400, "删除算法失败！");
-            logger.error("deleteAlgorithm() method .message={}, id={}", "删除算法失败", id, e);
+            String errMsg = "删除算法失败";
+            putMsg(map, 400, errMsg);
+            logger.error("deleteAlgorithm() method .message={}, id={}", errMsg, id, e);
         }
 
         return map;

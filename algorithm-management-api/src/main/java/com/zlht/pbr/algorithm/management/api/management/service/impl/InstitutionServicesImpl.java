@@ -45,6 +45,8 @@ public class InstitutionServicesImpl extends BaseServiceImpl<Institution> implem
         if (type != -1) wapper.eq("type", type);
         if (keyword != null) wapper.and(nc -> nc.like("name", keyword));
         Page<Institution> institutionPage = institutionMapper.selectPage(page, wapper);
+        logger.info("queryInstitutionList() method. username={},type={}, currentPage={},pageSize={},keyword={}",
+                loginUser.getUsername(), type, currentPage, pageSize, keyword);
         PageInfo pageInfo = new PageInfo(currentPage, pageSize);
         pageInfo.setTotal((int) page.getTotal());
         pageInfo.setTotalList(institutionPage.getRecords());
@@ -92,15 +94,15 @@ public class InstitutionServicesImpl extends BaseServiceImpl<Institution> implem
             putMsg(map, 400, "邮箱格式不满足！");
             return map;
         }
-
-        int resNum = institutionMapper.insert(institution);
-        if (resNum >= 1) {
+        try {
+            institutionMapper.insert(institution);
             putMsg(map, Status.SUCCESS.getCode(), "创建机构成功！");
-        } else {
-            putMsg(map, 400, "创建机构失败！");
+        } catch (Exception e) {
+            String errMsg = "创建机构失败";
+            logger.error("createInstitution() method .message={}, institution={}", errMsg, institution, e);
+            putMsg(map, 400, errMsg);
         }
         return map;
-
     }
 
 
@@ -137,11 +139,13 @@ public class InstitutionServicesImpl extends BaseServiceImpl<Institution> implem
 
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("id", id);
-        int update = institutionMapper.update(institution, queryWrapper);
-        if (update >= 1) {
+        try {
             putMsg(map, Status.SUCCESS.getCode(), "更新机构成功！");
-        } else {
-            putMsg(map, 400, "更新机构失败");
+            institutionMapper.update(institution, queryWrapper);
+        } catch (Exception e) {
+            String errMsg = "更新机构失败";
+            logger.error("updateInstitution() method .message={}, institution={}", errMsg, institution, e);
+            putMsg(map, 400, errMsg);
         }
         return map;
     }
@@ -160,11 +164,13 @@ public class InstitutionServicesImpl extends BaseServiceImpl<Institution> implem
         }
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("id", id);
-        int delete = institutionMapper.delete(queryWrapper);
-        if (delete >= 1) {
+        try {
+            institutionMapper.delete(queryWrapper);
             putMsg(map, Status.SUCCESS.getCode(), "删除机构成功！");
-        } else {
-            putMsg(map, 400, "删除机构失败！");
+        } catch (Exception e) {
+            String errMsg = "删除机构失败";
+            logger.error("deleteInstitution() method .message={}, id={}", errMsg, id, e);
+            putMsg(map, 400, errMsg);
         }
         return map;
     }
