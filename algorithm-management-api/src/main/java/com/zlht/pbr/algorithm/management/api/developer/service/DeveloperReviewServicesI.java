@@ -7,6 +7,9 @@ import com.zlht.pbr.algorithm.management.utils.Result;
 
 import java.util.Map;
 
+/**
+ * @author zi jian Wang
+ */
 public interface DeveloperReviewServicesI {
 
 
@@ -14,9 +17,12 @@ public interface DeveloperReviewServicesI {
      * 开发者获取提交的审核
      *
      * @param loginUser
+     * @param currentPage
+     * @param pageSize
+     * @param keyword
+     * @param type
      * @return
      */
-
     Result<PageInfo> developerQueryReviewList(User loginUser, int currentPage, int pageSize, String keyword, String type);
 
 

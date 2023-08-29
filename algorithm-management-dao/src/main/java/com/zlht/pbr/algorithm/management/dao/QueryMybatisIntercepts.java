@@ -20,9 +20,12 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Properties;
 
+/**
+ * @author Administrator
+ */
 @Slf4j
-public class queryMybatisIntercepts implements InnerInterceptor {
-    private static final Logger logger = LogManager.getLogger(queryMybatisIntercepts.class);
+public class QueryMybatisIntercepts implements InnerInterceptor {
+    private static final Logger logger = LogManager.getLogger(QueryMybatisIntercepts.class);
 
     @Override
     public boolean willDoQuery(Executor executor, MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) throws SQLException {

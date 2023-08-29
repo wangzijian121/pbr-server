@@ -7,14 +7,19 @@ import com.zlht.pbr.algorithm.management.utils.Result;
 
 import java.util.Map;
 
+/**
+ * @author zi jian Wang
+ */
 public interface InstitutionServicesI {
 
     /**
      * 查询机构
      *
+     * @param loginUser
      * @param type
      * @param currentPage
      * @param pageSize
+     * @param name
      * @return
      */
     Result<PageInfo<Institution>> queryInstitutionList(User loginUser, int type, int currentPage, int pageSize, String name);
@@ -22,6 +27,7 @@ public interface InstitutionServicesI {
     /**
      * 查询已添加的机构(去重)
      *
+     * @param loginUser
      * @return
      */
     Result queryInstitutionMap(User loginUser);
@@ -29,6 +35,7 @@ public interface InstitutionServicesI {
     /**
      * 创建机构
      *
+     * @param loginUser
      * @param institution
      * @return
      */
@@ -38,6 +45,7 @@ public interface InstitutionServicesI {
     /**
      * 更新机构
      *
+     * @param loginUser
      * @param id
      * @param institution
      * @return
@@ -47,6 +55,7 @@ public interface InstitutionServicesI {
     /**
      * 删除机构
      *
+     * @param loginUser
      * @param id
      * @return
      */

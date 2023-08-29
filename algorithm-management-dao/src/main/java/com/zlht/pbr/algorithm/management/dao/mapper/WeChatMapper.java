@@ -9,9 +9,20 @@ import org.apache.ibatis.annotations.Select;
 
 import java.util.Map;
 
+/**
+ * @author zi jian Wang
+ */
 public interface WeChatMapper extends BaseMapper<WeChat> {
 
 
+    /**
+     * 查询小程序
+     *
+     * @param page
+     * @param keyword
+     * @param status
+     * @return
+     */
     @Select("select * \n" +
             "from (select wc.id, " +
             "wc.wechat_id as wechatId,  " +

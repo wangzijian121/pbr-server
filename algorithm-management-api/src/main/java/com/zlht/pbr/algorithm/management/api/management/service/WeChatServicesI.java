@@ -7,14 +7,19 @@ import com.zlht.pbr.algorithm.management.utils.Result;
 
 import java.util.Map;
 
+/**
+ * @author zi jian Wang
+ */
 public interface WeChatServicesI {
 
     /**
      * 查询小程序信息
      *
-     * @param status
+     * @param loginUser
      * @param currentPage
      * @param pageSize
+     * @param status
+     * @param keyword
      * @return
      */
     Result<PageInfo<WeChat>> queryWeChatList(User loginUser, int currentPage, int pageSize, int status, String keyword);
@@ -23,6 +28,7 @@ public interface WeChatServicesI {
     /**
      * 创建小程序信息
      *
+     * @param loginUser
      * @param wechat
      * @return
      */
@@ -32,6 +38,7 @@ public interface WeChatServicesI {
     /**
      * 更新小程序信息
      *
+     * @param loginUser
      * @param id
      * @param wechat
      * @return
@@ -41,18 +48,12 @@ public interface WeChatServicesI {
     /**
      * 删除小程序信息
      *
+     * @param loginUser
      * @param id
      * @return
      */
     Map<String, Object> deleteWeChat(User loginUser, int id);
 
-    /**
-     * 判断是否已存在
-     *
-     * @param weChat
-     * @return
-     */
-    boolean checkSportExistByName(WeChat weChat);
 
     /**
      * 通过小程序信息ID判断是否存在

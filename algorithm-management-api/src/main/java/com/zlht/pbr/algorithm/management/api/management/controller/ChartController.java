@@ -7,8 +7,6 @@ import com.zlht.pbr.algorithm.management.dao.entity.User;
 import com.zlht.pbr.algorithm.management.utils.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,13 +19,15 @@ import springfox.documentation.annotations.ApiIgnore;
 import java.io.IOException;
 import java.time.LocalDate;
 
+/**
+ * @author zi jian Wang
+ */
 @RestController
-@Api(tags = "图表信息", description = "图表信息")
+@Api(tags = "图表信息")
 public class ChartController extends BaseController {
 
-    private static final Logger logger = LogManager.getLogger(ChartController.class);
     @Autowired
-    ChartServicesI chartServicesI;
+    private ChartServicesI chartServicesI;
 
 
     /**

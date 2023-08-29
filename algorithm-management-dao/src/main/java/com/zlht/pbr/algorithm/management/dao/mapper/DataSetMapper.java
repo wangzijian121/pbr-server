@@ -9,7 +9,18 @@ import org.apache.ibatis.annotations.Select;
 
 import java.util.Map;
 
+/**
+ * @author zi jian Wang
+ */
 public interface DataSetMapper extends BaseMapper<DataSet> {
+    /**
+     * 查询数据集
+     *
+     * @param page
+     * @param keyword
+     * @param type
+     * @return
+     */
     @Select("select *\n" +
             "from (select ds.id,\n" +
             "             ds.name,\n" +

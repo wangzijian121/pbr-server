@@ -16,13 +16,14 @@ public class DataPointServicesImpl extends BaseServiceImpl implements DataPointS
 
 
     @Autowired
-    DataPointMapper dataPointMapper;
+    private DataPointMapper dataPointMapper;
 
     //今日用户量,累计用户量
     public ValueTypeChart getUserCount(String date) {
         //TODO
         return new ValueTypeChart("10", "100");
     }
+
     //今日新增算法,累计算法量
     public ValueTypeChart getAlgorithmCount(String date) {
         return dataPointMapper.getAlgorithmCount(date);
@@ -32,6 +33,7 @@ public class DataPointServicesImpl extends BaseServiceImpl implements DataPointS
     public ValueTypeChart developerCommitCount(String date) {
         return dataPointMapper.getDeveloperCommitCount(date);
     }
+
     //今日数据集接入,累计数据集
     public ValueTypeChart getDatasetAccessCount(String date) {
         return dataPointMapper.getDatasetAccessCount(date);
@@ -42,6 +44,7 @@ public class DataPointServicesImpl extends BaseServiceImpl implements DataPointS
         //TODO
         return dataPointMapper.newActionRecognitionCategory(date);
     }
+
     //今日接入机构数,累计接入
     public ValueTypeChart getInstitutionCount(String date) {
         return dataPointMapper.getInstitutionCount(date);

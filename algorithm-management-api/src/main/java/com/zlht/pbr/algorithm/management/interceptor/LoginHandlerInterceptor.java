@@ -19,6 +19,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
+/**
+ * @author zi jian Wang
+ */
 public class LoginHandlerInterceptor implements HandlerInterceptor {
 
     private static final Logger logger = LogManager.getLogger(LoginHandlerInterceptor.class);
@@ -65,7 +68,9 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
             // sessionId in header
             session = getSession(request, response, sessionId, ip);
         }
-        if (session == null) return false;
+        if (session == null) {
+            return false;
+        }
         User user = userMapper.selectById(session.getUserId());
         if (user == null) {
             response.setStatus(402);

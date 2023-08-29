@@ -7,6 +7,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * @author zi jian Wang
+ */
 public class DataReportXlsxTemplate {
 
     public static Workbook getWorkbook() {
@@ -39,7 +42,8 @@ public class DataReportXlsxTemplate {
             Cell cell = headerRow.createCell(i);
             cell.setCellValue(list.get(i));
             cell.setCellStyle(headerCellStyle);
-            sheet1.setColumnWidth(i, 250 * 20);  // 设置列宽为250个字符
+            /*设置列宽为250个字符*/
+            sheet1.setColumnWidth(i, 250 * 20);
         }
     }
 
@@ -54,7 +58,7 @@ public class DataReportXlsxTemplate {
             Cell cell = headerRow.createCell(i);
             cell.setCellValue(list.get(i));
             cell.setCellStyle(headerCellStyle);
-            sheet2.setColumnWidth(i, 350 * 20);  // 设置列宽为250个字符
+            sheet2.setColumnWidth(i, 350 * 20);
         }
     }
 
@@ -103,7 +107,7 @@ public class DataReportXlsxTemplate {
             Cell cell = headerRow.createCell(i);
             cell.setCellValue(list.get(i));
             cell.setCellStyle(headerCellStyle);
-            sheet4.setColumnWidth(i, 430 * 20);  // 设置列宽为250个字符
+            sheet4.setColumnWidth(i, 430 * 20);
         }
         List<String> listOther = Arrays.asList("今日日期", "本月", "上月");
         Row row = sheet4.createRow(1);
@@ -111,7 +115,7 @@ public class DataReportXlsxTemplate {
             Cell cell = row.createCell(i + listOther.size());
             cell.setCellValue(listOther.get(i));
             cell.setCellStyle(headerCellStyle);
-            sheet4.setColumnWidth(0, 430 * 20);  // 设置列宽为250个字符
+            sheet4.setColumnWidth(0, 430 * 20);
         }
     }
 

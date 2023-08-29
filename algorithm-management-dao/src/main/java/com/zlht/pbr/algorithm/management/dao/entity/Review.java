@@ -12,6 +12,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
+/**
+ * @author zi jian Wang
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,7 +26,7 @@ public class Review {
     @ApiModelProperty(value = "提交名", required = true)
     private String commitName;
     @ApiModelProperty(value = "支持的体育类型", required = true)
-    private String  sportType;
+    private String sportType;
     @ApiModelProperty(value = "开发者ID", required = true)
     private Integer developerId;
     @ApiModelProperty(value = "数据集类型(0普通数据集 1专用数据集)", required = true)

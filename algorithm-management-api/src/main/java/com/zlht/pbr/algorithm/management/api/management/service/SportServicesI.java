@@ -7,14 +7,19 @@ import com.zlht.pbr.algorithm.management.utils.Result;
 
 import java.util.Map;
 
+/**
+ * @author zi jian Wang
+ */
 public interface SportServicesI {
 
     /**
      * 查询体育
      *
+     * @param loginUser
      * @param type
      * @param currentPage
      * @param pageSize
+     * @param sportName
      * @return
      */
     Result<PageInfo<Sport>> querySportList(User loginUser, int type, int currentPage, int pageSize, String sportName);
@@ -22,6 +27,7 @@ public interface SportServicesI {
     /**
      * 查询已添加的体育
      *
+     * @param loginUser
      * @return
      */
     Result<Sport> querySportMap(User loginUser);
@@ -29,6 +35,7 @@ public interface SportServicesI {
     /**
      * 创建体育
      *
+     * @param loginUser
      * @param sport
      * @return
      */
@@ -38,6 +45,7 @@ public interface SportServicesI {
     /**
      * 更新体育
      *
+     * @param loginUser
      * @param id
      * @param sport
      * @return
@@ -47,6 +55,7 @@ public interface SportServicesI {
     /**
      * 删除体育
      *
+     * @param loginUser
      * @param id
      * @return
      */

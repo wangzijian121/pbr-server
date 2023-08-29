@@ -20,13 +20,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author zi jian Wang
+ */
 @Service
 public class ReviewServicesImpl extends BaseServiceImpl<Review> implements ReviewServicesI {
 
     private static final Logger logger = LogManager.getLogger(ReviewServicesImpl.class);
 
     @Autowired
-    ReviewMapper reviewMapper;
+    private ReviewMapper reviewMapper;
 
     @Override
     public Result<PageInfo> queryReviewList(User loginUser, int currentPage, int pageSize, String keyword) {
@@ -69,7 +72,7 @@ public class ReviewServicesImpl extends BaseServiceImpl<Review> implements Revie
     @Override
     public Map<String, Object> updateReviewStatus(User loginUser, int id, int status, String mark) {
 
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(3);
         if (!canOperator(loginUser)) {
             putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
             return map;

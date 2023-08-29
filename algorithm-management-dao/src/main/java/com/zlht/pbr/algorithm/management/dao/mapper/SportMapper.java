@@ -10,7 +10,17 @@ import org.apache.ibatis.annotations.Select;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author zi jian Wang
+ */
 public interface SportMapper extends BaseMapper<Sport> {
+    /**
+     * 查询体育信息
+     *
+     * @param page
+     * @param keyword
+     * @return
+     */
     @Select("select * from (select sc.id,\n" +
             "       sc.type,\n" +
             "       sc.name,\n" +
@@ -23,6 +33,11 @@ public interface SportMapper extends BaseMapper<Sport> {
             "where   (#{keyword} IS NULL OR res.name LIKE CONCAT('%', #{keyword}, '%')) order by id desc")
     Page<Map<String, Object>> selectSport(Page<?> page, @Param("keyword") String keyword);
 
+    /**
+     * 查询已添加映射
+     *
+     * @return
+     */
     @Select("select id,name from  sport_category  group by id,name")
     List<Map<String, Object>> querySportMap();
 }

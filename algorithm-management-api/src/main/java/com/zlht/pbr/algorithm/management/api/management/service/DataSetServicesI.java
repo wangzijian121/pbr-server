@@ -7,14 +7,19 @@ import com.zlht.pbr.algorithm.management.utils.Result;
 
 import java.util.Map;
 
+/**
+ * @author zi jian Wang
+ */
 public interface DataSetServicesI {
 
     /**
      * 查询数据集
      *
+     * @param loginUser
      * @param type
      * @param currentPage
      * @param pageSize
+     * @param dataSetName
      * @return
      */
     Result<PageInfo<DataSet>> queryDataSetList(User loginUser, int type, int currentPage, int pageSize, String dataSetName);
@@ -23,6 +28,7 @@ public interface DataSetServicesI {
     /**
      * 创建数据集
      *
+     * @param loginUser
      * @param dataSet
      * @return
      */
@@ -32,6 +38,7 @@ public interface DataSetServicesI {
     /**
      * 更新数据集
      *
+     * @param loginUser
      * @param id
      * @param dataSet
      * @return
@@ -41,6 +48,7 @@ public interface DataSetServicesI {
     /**
      * 删除数据集
      *
+     * @param loginUser
      * @param id
      * @return
      */

@@ -10,7 +10,18 @@ import org.apache.ibatis.annotations.Select;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author ziji Wang
+ */
 public interface AlgorithmMapper extends BaseMapper<Algorithm> {
+    /**
+     * 查询算法
+     *
+     * @param page
+     * @param keyword
+     * @param type
+     * @return
+     */
     @Select("select *\n" +
             "from (select a.id,\n" +
             "             a.name,\n" +
@@ -36,7 +47,12 @@ public interface AlgorithmMapper extends BaseMapper<Algorithm> {
                                               @Param("type") int type);
 
 
+    /**
+     * 查询算法图
+     *
+     * @return
+     */
     @Select("select id,name from  algorithm  group by id,name order by id desc")
-    List<Map<String,Object>> queryAlgorithmMap();
+    List<Map<String, Object>> queryAlgorithmMap();
 }
 

@@ -19,13 +19,16 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author zi jian Wang
+ */
 @Service
 public class ChargeServicesImpl extends BaseServiceImpl<Charge> implements ChargeServicesI {
 
     private static final Logger logger = LogManager.getLogger(ChargeServicesImpl.class);
 
     @Autowired
-    ChargeMapper chargeMapper;
+    private ChargeMapper chargeMapper;
 
     @Override
     public Result<PageInfo<Charge>> queryChargeList(User loginUser, int type, int currentPage, int pageSize, String keyword) {
@@ -51,7 +54,7 @@ public class ChargeServicesImpl extends BaseServiceImpl<Charge> implements Charg
 
     @Override
     public Map<String, Object> createCharge(User loginUser, Charge charge) {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(3);
         if (!canOperator(loginUser)) {
             putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
             return map;
@@ -73,7 +76,7 @@ public class ChargeServicesImpl extends BaseServiceImpl<Charge> implements Charg
     @Override
     public Map<String, Object> updateCharge(User loginUser, int id, Charge charge) {
 
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(3);
         if (!canOperator(loginUser)) {
             putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
             return map;
@@ -99,7 +102,7 @@ public class ChargeServicesImpl extends BaseServiceImpl<Charge> implements Charg
     @Override
     public Map<String, Object> deleteCharge(User loginUser, int id) {
 
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(3);
         if (!canOperator(loginUser)) {
             putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
             return map;

@@ -4,15 +4,10 @@ import com.zlht.pbr.algorithm.management.dao.entity.User;
 
 import java.util.Map;
 
+/**
+ * @author zi jian Wang
+ */
 public interface SessionServiceI {
-
-    /**
-     * get user session from request
-     *
-     * @param request request
-     * @return session
-     */
-//    Session getSession(HttpServletRequest request);
 
     /**
      * create session
@@ -26,10 +21,10 @@ public interface SessionServiceI {
 
     /**
      * sign out
-     * remove ip restrictions
      *
-     * @param ip        no use
-     * @param loginUser login user
+     * @param ip
+     * @param loginUser
+     * @return
      */
     Map<String, Object> signOut(String ip, User loginUser);
 }

@@ -21,17 +21,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author zijian Wang
+ */
 @Service
 public class AlgorithmServicesImpl extends BaseServiceImpl<Algorithm> implements AlgorithmServicesI {
 
     private static final Logger logger = LogManager.getLogger(AlgorithmServicesImpl.class);
 
     @Autowired
-    AlgorithmMapper algorithmMapper;
+    private AlgorithmMapper algorithmMapper;
 
     @Override
     public Result<PageInfo<Algorithm>> queryAlgorithmList(User loginUser, int type, int currentPage, int pageSize, String keyword) {
-
 
         Result result = new Result();
         PageInfo pageInfo = new PageInfo(currentPage, pageSize);
@@ -72,7 +74,7 @@ public class AlgorithmServicesImpl extends BaseServiceImpl<Algorithm> implements
 
     @Override
     public Map<String, Object> createAlgorithm(User loginUser, Algorithm algorithm) {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(16);
         if (!canOperator(loginUser)) {
             putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
             return map;
@@ -104,7 +106,7 @@ public class AlgorithmServicesImpl extends BaseServiceImpl<Algorithm> implements
 
     @Override
     public Map<String, Object> updateAlgorithm(User loginUser, int id, Algorithm algorithm) {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(16);
         if (!canOperator(loginUser)) {
             putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
             return map;
@@ -144,7 +146,7 @@ public class AlgorithmServicesImpl extends BaseServiceImpl<Algorithm> implements
 
     @Override
     public Map<String, Object> deleteAlgorithm(User loginUser, int id) {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(16);
         if (!canOperator(loginUser)) {
             putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
             return map;

@@ -8,6 +8,9 @@ import org.springframework.stereotype.Component;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+/**
+ * @author zi jian Wang
+ */
 @Component
 public class EnvHelper {
 

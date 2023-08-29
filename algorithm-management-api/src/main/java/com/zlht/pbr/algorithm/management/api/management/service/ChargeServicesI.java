@@ -7,14 +7,19 @@ import com.zlht.pbr.algorithm.management.utils.Result;
 
 import java.util.Map;
 
+/**
+ * @author zi jian Wang
+ */
 public interface ChargeServicesI {
 
     /**
      * 查询收费信息
      *
+     * @param loginUser
      * @param type
      * @param currentPage
      * @param pageSize
+     * @param keyword
      * @return
      */
     Result<PageInfo<Charge>> queryChargeList(User loginUser, int type, int currentPage, int pageSize, String keyword);
@@ -23,6 +28,7 @@ public interface ChargeServicesI {
     /**
      * 创建收费信息
      *
+     * @param loginUser
      * @param charge
      * @return
      */
@@ -32,6 +38,7 @@ public interface ChargeServicesI {
     /**
      * 更新收费信息
      *
+     * @param loginUser
      * @param id
      * @param charge
      * @return
@@ -41,6 +48,7 @@ public interface ChargeServicesI {
     /**
      * 删除收费信息
      *
+     * @param loginUser
      * @param id
      * @return
      */

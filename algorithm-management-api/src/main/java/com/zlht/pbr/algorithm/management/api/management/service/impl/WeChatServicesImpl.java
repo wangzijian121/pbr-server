@@ -18,6 +18,9 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author zi jian Wang
+ */
 @Service
 public class WeChatServicesImpl extends BaseServiceImpl implements WeChatServicesI {
 
@@ -50,7 +53,7 @@ public class WeChatServicesImpl extends BaseServiceImpl implements WeChatService
     @Override
     public Map<String, Object> createWeChat(User loginUser, WeChat weChat) {
 
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(3);
         if (!canOperator(loginUser)) {
             putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
             return map;
@@ -76,7 +79,7 @@ public class WeChatServicesImpl extends BaseServiceImpl implements WeChatService
     @Override
     public Map<String, Object> updateWeChat(User loginUser, int id, WeChat weChat) {
 
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(3);
         if (!canOperator(loginUser)) {
             putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
             return map;
@@ -111,7 +114,7 @@ public class WeChatServicesImpl extends BaseServiceImpl implements WeChatService
     @Override
     public Map<String, Object> deleteWeChat(User loginUser, int id) {
 
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(3);
         if (!canOperator(loginUser)) {
             putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
             return map;
@@ -134,15 +137,6 @@ public class WeChatServicesImpl extends BaseServiceImpl implements WeChatService
 
         return map;
     }
-
-    @Override
-    public boolean checkSportExistByName(WeChat weChat) {
-
-        QueryWrapper queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("name", weChat.getName());
-        return weChatMapper.exists(queryWrapper);
-    }
-
 
     @Override
     public boolean checkWeChatExistById(int id) {

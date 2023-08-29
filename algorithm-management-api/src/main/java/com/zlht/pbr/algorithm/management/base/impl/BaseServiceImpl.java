@@ -16,6 +16,7 @@ public class BaseServiceImpl<T> implements BaseServiceI<T> {
             result.put("status", Status.SUCCESS);
         }
     }
+
     @Override
     public boolean canOperator(User operateUser) {
         return operateUser != null && operateUser.getType() == 0;

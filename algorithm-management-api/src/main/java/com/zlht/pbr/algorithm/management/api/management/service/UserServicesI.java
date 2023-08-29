@@ -6,14 +6,19 @@ import com.zlht.pbr.algorithm.management.utils.Result;
 
 import java.util.Map;
 
+/**
+ * @author zi jian Wang
+ */
 public interface UserServicesI {
 
     /**
      * 查询用户
      *
+     * @param loginUser
      * @param type
      * @param currentPage
      * @param pageSize
+     * @param nickname
      * @return
      */
     Result<PageInfo<User>> queryUserList(User loginUser, int type, int currentPage, int pageSize, String nickname);
@@ -21,6 +26,7 @@ public interface UserServicesI {
     /**
      * 创建用户
      *
+     * @param loginUser
      * @param user
      * @return
      */
@@ -30,6 +36,7 @@ public interface UserServicesI {
     /**
      * 更新用户
      *
+     * @param loginUser
      * @param id
      * @param user
      * @return
@@ -39,6 +46,7 @@ public interface UserServicesI {
     /**
      * 删除用户
      *
+     * @param loginUser
      * @param id
      * @return
      */
@@ -48,6 +56,7 @@ public interface UserServicesI {
     /**
      * 检查用户是否已存在
      *
+     * @param id
      * @param user
      * @return
      */

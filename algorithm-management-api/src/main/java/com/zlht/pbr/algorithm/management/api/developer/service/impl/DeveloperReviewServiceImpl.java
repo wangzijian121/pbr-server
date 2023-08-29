@@ -16,6 +16,9 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author zi jian Wang
+ */
 @Service
 public class DeveloperReviewServiceImpl extends BaseServiceImpl<Review> implements DeveloperReviewServicesI {
     @Autowired
@@ -24,7 +27,7 @@ public class DeveloperReviewServiceImpl extends BaseServiceImpl<Review> implemen
 
     @Override
     public Map<String, Object> developCommitReview(User loginUser, Review review) {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(3);
         if (!canCommit(loginUser)) {
             putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
             return map;

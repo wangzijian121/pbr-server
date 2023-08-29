@@ -21,8 +21,11 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.Map;
 
+/**
+ * @author zi jian Wang
+ */
 @RestController
-@Api(tags = "开发者审核管理", description = "开发者审核管理")
+@Api(tags = "开发者审核管理")
 public class DeveloperReviewController extends BaseController {
 
     private static final Logger logger = LogManager.getLogger(DeveloperReviewController.class);

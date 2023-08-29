@@ -17,6 +17,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
+/**
+ * @author zi jian Wang
+ */
 @Service
 public class DeveloperCommissionServicesImpl extends BaseServiceImpl<Commission> implements DeveloperCommissionServicesI {
 
@@ -37,7 +40,7 @@ public class DeveloperCommissionServicesImpl extends BaseServiceImpl<Commission>
         }
         Page<Commission> page = new Page<>(currentPage, pageSize);
 
-        Page<Map<String, Object>> commissionPage = commissionMapper.selectDeveloperCommission(page, keyword,loginUser.getId());
+        Page<Map<String, Object>> commissionPage = commissionMapper.selectDeveloperCommission(page, keyword, loginUser.getId());
         PageInfo pageInfo = new PageInfo(currentPage, pageSize);
         pageInfo.setTotal((int) page.getTotal());
         pageInfo.setTotalList(commissionPage.getRecords());

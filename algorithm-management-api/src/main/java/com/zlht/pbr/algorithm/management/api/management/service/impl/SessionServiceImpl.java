@@ -29,7 +29,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -38,6 +37,8 @@ import java.util.UUID;
 
 /**
  * session service implement
+ *
+ * @author zi jian Wang
  */
 @Service
 public class SessionServiceImpl extends BaseServiceImpl implements SessionServiceI {
@@ -55,7 +56,6 @@ public class SessionServiceImpl extends BaseServiceImpl implements SessionServic
      * @return session string
      */
     @Override
-    @Transactional
     public String createSession(User user, String ip) {
         Session session = null;
 
@@ -88,7 +88,7 @@ public class SessionServiceImpl extends BaseServiceImpl implements SessionServic
      */
     @Override
     public Map<String, Object> signOut(String ip, User loginUser) {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(3);
 
         try {
             QueryWrapper queryWrapper = new QueryWrapper();

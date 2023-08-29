@@ -25,6 +25,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+/**
+ * @author zi jian Wang
+ */
 @Service
 public class DeveloperResourceServiceImpl extends BaseServiceImpl implements DeveloperResourceServiceI {
 
@@ -45,7 +48,7 @@ public class DeveloperResourceServiceImpl extends BaseServiceImpl implements Dev
     @Override
     public Map<String, Object> createResource(User loginUser, MultipartFile file) {
 
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(3);
         if (!canCommit(loginUser)) {
             putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
             return map;
@@ -80,10 +83,11 @@ public class DeveloperResourceServiceImpl extends BaseServiceImpl implements Dev
         }
         return map;
     }
+
     @Override
     public Map<String, Object> deleteResource(User loginUser, String uuid) {
 
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(3);
         if (!canCommit(loginUser)) {
             putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
             return map;
@@ -97,13 +101,13 @@ public class DeveloperResourceServiceImpl extends BaseServiceImpl implements Dev
         Resource resource = resourceMapper.selectOne(queryWrapper);
         //local
         File deleteResource = new File(fileUploadPath + uuid + "." + resource.getSuffix());
-        boolean local_delete = deleteResource.delete();
+        boolean localDelete = deleteResource.delete();
         int delete = 0;
-        if (local_delete) {
+        if (localDelete) {
             //database
             delete = resourceMapper.delete(queryWrapper);
         }
-        if (local_delete && delete > 0) {
+        if (localDelete && delete > 0) {
             putMsg(map, Status.SUCCESS.getCode(), "删除成功！");
         } else {
             putMsg(map, 400, "刪除失败！");
@@ -113,7 +117,7 @@ public class DeveloperResourceServiceImpl extends BaseServiceImpl implements Dev
 
     @Override
     public ResponseEntity downloadResource(User loginUser, String uuid) {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(3);
         if (!canCommit(loginUser)) {
             putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
             return (ResponseEntity) ResponseEntity.status(401);
@@ -150,9 +154,13 @@ public class DeveloperResourceServiceImpl extends BaseServiceImpl implements Dev
 
     @Override
     public boolean checkFileType(String type) {
-        if (type == null || type.equals("")) return false;
+        if (type == null || "".equals(type)) {
+            return false;
+        }
         for (String item : ACCEPT_TYPES) {
-            if (item.equals(type.toLowerCase())) return true;
+            if (item.equals(type.toLowerCase())) {
+                return true;
+            }
         }
         return false;
     }

@@ -20,13 +20,16 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author zi jian Wang
+ */
 @Service
 public class DataSetServicesImpl extends BaseServiceImpl<DataSet> implements DataSetServicesI {
 
     private static final Logger logger = LogManager.getLogger(DataSetServicesImpl.class);
 
     @Autowired
-    DataSetMapper dataSetMapper;
+    private DataSetMapper dataSetMapper;
 
     @Override
     public Result<PageInfo<DataSet>> queryDataSetList(User loginUser, int type, int currentPage, int pageSize, String keyword) {
@@ -53,7 +56,7 @@ public class DataSetServicesImpl extends BaseServiceImpl<DataSet> implements Dat
 
     @Override
     public Map<String, Object> createDataSet(User loginUser, DataSet dataSet) {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(3);
         if (!canOperator(loginUser)) {
             putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
             return map;
@@ -87,7 +90,7 @@ public class DataSetServicesImpl extends BaseServiceImpl<DataSet> implements Dat
 
     @Override
     public Map<String, Object> updateDataSet(User loginUser, int id, DataSet dataSet) {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(3);
         if (!canOperator(loginUser)) {
             putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
             return map;
@@ -127,7 +130,7 @@ public class DataSetServicesImpl extends BaseServiceImpl<DataSet> implements Dat
 
     @Override
     public Map<String, Object> deleteDataSet(User loginUser, int id) {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(3);
         if (!canOperator(loginUser)) {
             putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
             return map;

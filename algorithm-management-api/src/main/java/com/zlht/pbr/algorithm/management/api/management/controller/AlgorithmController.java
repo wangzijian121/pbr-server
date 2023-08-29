@@ -1,6 +1,5 @@
 package com.zlht.pbr.algorithm.management.api.management.controller;
 
-
 import com.zlht.pbr.algorithm.management.api.management.service.AlgorithmServicesI;
 import com.zlht.pbr.algorithm.management.base.BaseController;
 import com.zlht.pbr.algorithm.management.dao.entity.Algorithm;
@@ -20,13 +19,15 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.Map;
 
-@RestController
-@Api(tags = "算法管理", description = "算法管理")
+/**
+ * @author ziji Wang
+ */
+@Api(tags = "算法管理")
 public class AlgorithmController extends BaseController {
 
     private static final Logger logger = LogManager.getLogger(AlgorithmController.class);
     @Autowired
-    AlgorithmServicesI algorithmServices;
+    private AlgorithmServicesI algorithmServices;
 
 
     /**
@@ -55,6 +56,7 @@ public class AlgorithmController extends BaseController {
         }
         return algorithmServices.queryAlgorithmList(loginUser, type, currentPage, pageSize, name);
     }
+
     /**
      * 查询已添加算法
      *
@@ -66,6 +68,7 @@ public class AlgorithmController extends BaseController {
     public Result queryAlgorithmMap(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser) {
         return algorithmServices.queryAlgorithmMap(loginUser);
     }
+
     /**
      * 创建算法
      *

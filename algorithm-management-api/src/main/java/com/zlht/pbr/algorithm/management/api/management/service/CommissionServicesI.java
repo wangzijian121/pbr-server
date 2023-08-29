@@ -7,13 +7,18 @@ import com.zlht.pbr.algorithm.management.utils.Result;
 
 import java.util.Map;
 
+/**
+ * @author zi jian Wang
+ */
 public interface CommissionServicesI {
 
     /**
      * 查询佣金
      *
+     * @param loginUser
      * @param currentPage
      * @param pageSize
+     * @param reviewName
      * @return
      */
     Result<PageInfo<Commission>> queryCommissionList(User loginUser, int currentPage, int pageSize, String reviewName);
@@ -21,6 +26,7 @@ public interface CommissionServicesI {
     /**
      * 创建佣金
      *
+     * @param loginUser
      * @param commission
      * @return
      */
@@ -30,6 +36,7 @@ public interface CommissionServicesI {
     /**
      * 更新佣金
      *
+     * @param loginUser
      * @param id
      * @param commission
      * @return
@@ -39,6 +46,7 @@ public interface CommissionServicesI {
     /**
      * 删除佣金
      *
+     * @param loginUser
      * @param id
      * @return
      */

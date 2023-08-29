@@ -21,16 +21,19 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author zi jian Wang
+ */
 @Service
 public class UserServicesImpl extends BaseServiceImpl<User> implements UserServicesI {
 
     private static final Logger logger = LogManager.getLogger(UserServicesImpl.class);
 
     @Autowired
-    UserMapper userMapper;
+    private UserMapper userMapper;
 
     @Autowired
-    SessionServiceI sessionServiceI;
+    private SessionServiceI sessionServiceI;
 
 
     @Override
@@ -45,7 +48,9 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
         Page<User> page = new Page<>(currentPage, pageSize);
 
         QueryWrapper<User> wapper = new QueryWrapper<User>();
-        if (type != -1) wapper.eq("type", type);
+        if (type != -1) {
+            wapper.eq("type", type);
+        }
         if (keyword != null) {
             wapper.like("nickname", keyword);
         }
@@ -64,7 +69,7 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
     @Override
     public Map<String, Object> createUser(User loginUser, User user) {
 
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(3);
         if (!canOperator(loginUser)) {
             putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
             return map;
@@ -94,7 +99,7 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
     @Override
     public Map<String, Object> updateUser(User loginUser, int id, User user) {
 
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(3);
         if (!checkUserExistById(id)) {
             putMsg(map, 400, "所更新用户不存在！");
             return map;
@@ -121,7 +126,7 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
 
     @Override
     public Map<String, Object> deleteUser(User loginUser, int id) {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(3);
         if (!checkUserExistById(id)) {
             putMsg(map, 400, "所更新用户不存在！");
             return map;

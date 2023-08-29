@@ -12,8 +12,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -21,13 +19,15 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.Map;
 
+/**
+ * @author zi jian Wang
+ */
 @RestController
-@Api(tags = "机构授权管理", description = "机构授权管理")
+@Api(tags = "机构授权管理")
 public class AuthInstitutionAlgController extends BaseController {
 
-    private static final Logger logger = LogManager.getLogger(AuthInstitutionAlgController.class);
     @Autowired
-    AuthInstitutionAlgServicesI institutionServices;
+    private AuthInstitutionAlgServicesI institutionServices;
 
 
     /**
@@ -45,7 +45,7 @@ public class AuthInstitutionAlgController extends BaseController {
     @GetMapping(value = "/getAuthInstitution")
     @ResponseStatus(HttpStatus.OK)
     public Result<PageInfo> queryAuthInstitutionList(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
-                                                     @RequestParam(required = false, defaultValue = "-1") int auth_type,
+                                                     @RequestParam(required = false, defaultValue = "-1") int authType,
                                                      @RequestParam(required = false, defaultValue = "1") int currentPage,
                                                      @RequestParam(required = false, defaultValue = "10") int pageSize,
                                                      @RequestParam(required = false) String keyword) {
@@ -54,7 +54,7 @@ public class AuthInstitutionAlgController extends BaseController {
         if (!result.checkResult()) {
             return result;
         }
-        Result res = institutionServices.queryAuthInstitutionAlgList(loginUser, auth_type, currentPage, pageSize, keyword);
+        Result res = institutionServices.queryAuthInstitutionAlgList(loginUser, authType, currentPage, pageSize, keyword);
         return res;
     }
 

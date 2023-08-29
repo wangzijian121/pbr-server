@@ -1,4 +1,3 @@
-
 package com.zlht.pbr.algorithm.management.utils;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -10,6 +9,7 @@ import java.util.List;
  * page info
  *
  * @param <T> model
+ * @author zi jian Wang
  */
 public class PageInfo<T> {
 

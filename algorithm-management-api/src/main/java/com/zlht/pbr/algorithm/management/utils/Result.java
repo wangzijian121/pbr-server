@@ -1,4 +1,3 @@
-
 package com.zlht.pbr.algorithm.management.utils;
 
 import com.zlht.pbr.algorithm.management.enums.Status;
@@ -10,6 +9,7 @@ import lombok.NoArgsConstructor;
  * result
  *
  * @param <T> T
+ * @author zi jian Wang
  */
 @Data
 @AllArgsConstructor

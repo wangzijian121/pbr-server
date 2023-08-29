@@ -9,9 +9,19 @@ import org.apache.ibatis.annotations.Select;
 
 import java.util.Map;
 
+/**
+ * @author zi jian Wang
+ */
 public interface CommissionMapper extends BaseMapper<Commission> {
 
 
+    /**
+     * 查询佣金
+     *
+     * @param page
+     * @param keyword
+     * @return
+     */
     @Select("select * from (select c.id, " +
             "dr.id as commitId, " +
             "dr.commit_name as commitName, " +
@@ -26,6 +36,14 @@ public interface CommissionMapper extends BaseMapper<Commission> {
     Page<Map<String, Object>> selectCommission(Page<?> page, @Param("keyword") String keyword);
 
 
+    /**
+     * 查询开发者佣金
+     *
+     * @param page
+     * @param keyword
+     * @param developerId
+     * @return
+     */
     @Select("select * from (" +
             "select c.id, " +
             "dr.id as commitId, " +

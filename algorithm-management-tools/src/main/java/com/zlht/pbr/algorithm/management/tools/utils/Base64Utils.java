@@ -2,6 +2,9 @@ package com.zlht.pbr.algorithm.management.tools.utils;
 
 import java.util.Base64;
 
+/**
+ * @author zi jian Wang
+ */
 public class Base64Utils {
     /**
      * 将字符串进行 Base64 编码

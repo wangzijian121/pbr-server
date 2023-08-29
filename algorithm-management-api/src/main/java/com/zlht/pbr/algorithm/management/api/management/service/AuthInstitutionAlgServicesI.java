@@ -7,21 +7,27 @@ import com.zlht.pbr.algorithm.management.utils.Result;
 
 import java.util.Map;
 
+/**
+ * @author zi jian Wang
+ */
 public interface AuthInstitutionAlgServicesI {
 
     /**
      * 查询机构
      *
-     * @param auth_type
+     * @param loginUser
+     * @param authType
      * @param currentPage
      * @param pageSize
+     * @param keyword
      * @return
      */
-    Result<PageInfo> queryAuthInstitutionAlgList(User loginUser, int auth_type, int currentPage, int pageSize, String keyword);
+    Result<PageInfo> queryAuthInstitutionAlgList(User loginUser, int authType, int currentPage, int pageSize, String keyword);
 
     /**
      * 创建机构
      *
+     * @param loginUser
      * @param institution
      * @return
      */
@@ -31,6 +37,7 @@ public interface AuthInstitutionAlgServicesI {
     /**
      * 更新机构
      *
+     * @param loginUser
      * @param id
      * @param authInstitutionAlg
      * @return
@@ -40,13 +47,26 @@ public interface AuthInstitutionAlgServicesI {
     /**
      * 删除机构
      *
+     * @param loginUser
      * @param id
      * @return
      */
     Map<String, Object> deleteAuthInstitution(User loginUser, int id);
 
+    /**
+     * 检查验证复制
+     *
+     * @param authInstitutionAlg
+     * @return
+     */
     boolean checkAuthDuplication(AuthInstitutionAlg authInstitutionAlg);
 
+    /**
+     * 检查认证存在Id
+     *
+     * @param id
+     * @return
+     */
     boolean checkAuthExistById(int id);
 
 }

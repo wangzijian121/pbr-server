@@ -21,13 +21,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author zi jian Wang
+ */
 @Service
 public class SportServicesImpl extends BaseServiceImpl<Sport> implements SportServicesI {
 
     private static final Logger logger = LogManager.getLogger(SportServicesImpl.class);
 
     @Autowired
-    SportMapper sportMapper;
+    private SportMapper sportMapper;
 
     @Override
     public Result<PageInfo<Sport>> querySportList(User loginUser, int type, int currentPage, int pageSize, String keyword) {
@@ -68,7 +71,7 @@ public class SportServicesImpl extends BaseServiceImpl<Sport> implements SportSe
 
     @Override
     public Map<String, Object> createSport(User loginUser, Sport sport) {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(3);
         if (!canOperator(loginUser)) {
             putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
             return map;
@@ -101,7 +104,7 @@ public class SportServicesImpl extends BaseServiceImpl<Sport> implements SportSe
 
     @Override
     public Map<String, Object> updateSport(User loginUser, int id, Sport sport) {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(3);
         if (!canOperator(loginUser)) {
             putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
             return map;
@@ -141,7 +144,7 @@ public class SportServicesImpl extends BaseServiceImpl<Sport> implements SportSe
 
     @Override
     public Map<String, Object> deleteSport(User loginUser, int id) {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(3);
         if (!canOperator(loginUser)) {
             putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
             return map;

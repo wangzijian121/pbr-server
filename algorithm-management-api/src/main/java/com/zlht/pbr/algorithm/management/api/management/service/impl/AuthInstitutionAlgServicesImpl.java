@@ -19,16 +19,19 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author zi jian Wang
+ */
 @Service
 public class AuthInstitutionAlgServicesImpl extends BaseServiceImpl<AuthInstitutionAlg> implements AuthInstitutionAlgServicesI {
 
     private static final Logger logger = LogManager.getLogger(AuthInstitutionAlgServicesImpl.class);
 
     @Autowired
-    AuthInstitutionAlgMapper authInstitutionAlgMapper;
+    private AuthInstitutionAlgMapper authInstitutionAlgMapper;
 
     @Override
-    public Result<PageInfo> queryAuthInstitutionAlgList(User loginUser, int auth_type, int currentPage, int pageSize, String keyword) {
+    public Result<PageInfo> queryAuthInstitutionAlgList(User loginUser, int authType, int currentPage, int pageSize, String keyword) {
 
         Result result = new Result();
         PageInfo pageInfo = new PageInfo(currentPage, pageSize);
@@ -38,9 +41,9 @@ public class AuthInstitutionAlgServicesImpl extends BaseServiceImpl<AuthInstitut
             return result;
         }
         Page page = new Page<>(currentPage, pageSize);
-        Page<Map<String, Object>> institutionPage = authInstitutionAlgMapper.selectAuthInstitutionsWithNickname(page, keyword, auth_type);
+        Page<Map<String, Object>> institutionPage = authInstitutionAlgMapper.selectAuthInstitutionsWithNickname(page, keyword, authType);
         logger.info("queryAuthInstitutionAlgList() method. username={}, auth_type={}, currentPage={},pageSize={},keyword={}",
-                loginUser.getUsername(), auth_type, currentPage, pageSize, keyword);
+                loginUser.getUsername(), authType, currentPage, pageSize, keyword);
         pageInfo.setTotal((int) page.getTotal());
         pageInfo.setTotalList(institutionPage.getRecords());
         result.setData(pageInfo);
@@ -51,7 +54,7 @@ public class AuthInstitutionAlgServicesImpl extends BaseServiceImpl<AuthInstitut
 
     @Override
     public Map<String, Object> createAuthInstitution(User loginUser, AuthInstitutionAlg authInstitutionAlg) {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(3);
         if (!canOperator(loginUser)) {
             putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
             return map;
@@ -78,7 +81,7 @@ public class AuthInstitutionAlgServicesImpl extends BaseServiceImpl<AuthInstitut
     @Override
     public Map<String, Object> updateAuthInstitution(User loginUser, int id, AuthInstitutionAlg authInstitutionAlg) {
 
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(3);
         if (!canOperator(loginUser)) {
             putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
             return map;
@@ -116,7 +119,7 @@ public class AuthInstitutionAlgServicesImpl extends BaseServiceImpl<AuthInstitut
 
     @Override
     public Map<String, Object> deleteAuthInstitution(User loginUser, int id) {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(3);
         if (!canOperator(loginUser)) {
             putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
             return map;

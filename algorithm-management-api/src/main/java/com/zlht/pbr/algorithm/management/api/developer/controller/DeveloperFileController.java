@@ -24,12 +24,12 @@ import java.util.Map;
  */
 
 @RestController
-@Api(tags = "开发者-文件管理", description = "开发者-文件管理")
+@Api(tags = "开发者-文件管理")
 public class DeveloperFileController extends BaseController {
 
     private static final Logger logger = LogManager.getLogger(DeveloperFileController.class);
     @Autowired
-    DeveloperResourceServiceI  developerResourceServiceI;
+    DeveloperResourceServiceI developerResourceServiceI;
 
     @ApiOperation(value = "上传资源", notes = "上传资源")
     @ApiImplicitParams({

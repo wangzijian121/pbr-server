@@ -12,6 +12,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
+/**
+ * @author zi jian Wang
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,7 +24,6 @@ public class Commission {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Integer id;
 
-    //TODO 重复属性
     @ApiModelProperty(value = "佣金项ID", required = true)
     private String reviewId;
 

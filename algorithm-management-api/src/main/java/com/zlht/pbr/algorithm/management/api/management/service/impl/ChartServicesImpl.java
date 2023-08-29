@@ -26,6 +26,9 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
 
+/**
+ * @author zi jian Wang
+ */
 @Service
 public class ChartServicesImpl extends BaseServiceImpl<Charge> implements ChartServicesI {
 
@@ -94,7 +97,7 @@ public class ChartServicesImpl extends BaseServiceImpl<Charge> implements ChartS
         }
         byte[] bytes = outputStream.toByteArray();
         HttpHeaders headers = new HttpHeaders();
-        String fileName = LocalDate.now() + "-" + UUID.randomUUID()+".xlsx";
+        String fileName = LocalDate.now() + "-" + UUID.randomUUID() + ".xlsx";
         headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileName);
         headers.add(HttpHeaders.CONTENT_TYPE, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
 
@@ -105,7 +108,7 @@ public class ChartServicesImpl extends BaseServiceImpl<Charge> implements ChartS
     }
 
     private Map<String, ValueTypeChart> assemblyValueTypeChartMap(String date) {
-        Map<String, ValueTypeChart> valueTypeChartMap = new HashMap<>();
+        Map<String, ValueTypeChart> valueTypeChartMap = new HashMap<>(6);
         valueTypeChartMap.put("userCount", dataPointServicesI.getUserCount(date));
         valueTypeChartMap.put("algorithmCount", dataPointServicesI.getAlgorithmCount(date));
         valueTypeChartMap.put("developerCommitCount", dataPointServicesI.developerCommitCount(date));
@@ -116,13 +119,13 @@ public class ChartServicesImpl extends BaseServiceImpl<Charge> implements ChartS
     }
 
     private Map<String, List<PieTypeChart>> assemblyPieTypeChartMap(String date) {
-        Map<String, List<PieTypeChart>> pieChartDataMap = new HashMap<>();
+        Map<String, List<PieTypeChart>> pieChartDataMap = new HashMap<>(3);
         pieChartDataMap.put("institutionAlgorithmRanking", dataPointServicesI.getInstitutionAlgorithmRanking());
         return pieChartDataMap;
     }
 
     private Map<String, LineTypeChart> assemblyLineTypeChartMap() {
-        Map<String, LineTypeChart> lineTypeChartMap = new HashMap<>();
+        Map<String, LineTypeChart> lineTypeChartMap = new HashMap<>(3);
         lineTypeChartMap.put("top10InstitutionAlgorithmUsage", dataPointServicesI.getTop10InstitutionAlgorithmUsage());
         lineTypeChartMap.put("monthlyAverageUsageDuration", dataPointServicesI.getMonthlyAverageUserUsageDuration());
         lineTypeChartMap.put("monthlyInstitutionAlgorithmUsageCount", dataPointServicesI.getMonthlyInstitutionAlgorithmUsageCount());
@@ -237,11 +240,11 @@ public class ChartServicesImpl extends BaseServiceImpl<Charge> implements ChartS
                 cellThisMonthList.setCellValue(thisMonthList.get(i));
             }
             //last_month_list
-            List<String> last_month_list = map.get("lastMonthList");
-            if (i < last_month_list.size()) {
+            List<String> lastMonthList = map.get("lastMonthList");
+            if (i < lastMonthList.size()) {
                 Cell cellLastMonthList = rowDate.createCell(5);
                 cellLastMonthList.setCellStyle(headerCellStyle);
-                cellLastMonthList.setCellValue(last_month_list.get(i));
+                cellLastMonthList.setCellValue(lastMonthList.get(i));
             }
         }
     }

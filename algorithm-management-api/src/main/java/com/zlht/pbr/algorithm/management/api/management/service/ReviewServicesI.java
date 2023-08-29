@@ -6,13 +6,18 @@ import com.zlht.pbr.algorithm.management.utils.Result;
 
 import java.util.Map;
 
+/**
+ * @author zi jian Wang
+ */
 public interface ReviewServicesI {
 
     /**
      * 查询审核信息
      *
+     * @param loginUser
      * @param currentPage
      * @param pageSize
+     * @param keyword
      * @return
      */
     Result<PageInfo> queryReviewList(User loginUser, int currentPage, int pageSize, String keyword);
@@ -21,6 +26,7 @@ public interface ReviewServicesI {
     /**
      * 查询提交的审核(去重)
      *
+     * @param loginUser
      * @return
      */
     Result queryReviewMap(User loginUser);
@@ -28,7 +34,9 @@ public interface ReviewServicesI {
     /**
      * 更新审核状态
      *
+     * @param loginUser
      * @param id
+     * @param status
      * @param mark
      * @return
      */

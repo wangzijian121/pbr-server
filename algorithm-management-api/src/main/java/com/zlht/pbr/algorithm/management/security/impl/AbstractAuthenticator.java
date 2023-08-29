@@ -17,6 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author ziji Wang
+ */
 @Service
 public class AbstractAuthenticator extends BaseServiceImpl<User> implements Authenticator {
     private static final Logger logger = LogManager.getLogger(AbstractAuthenticator.class);
@@ -32,7 +35,7 @@ public class AbstractAuthenticator extends BaseServiceImpl<User> implements Auth
     public Map<String, Object> authenticate(HttpServletResponse response, String username, String password, String ip, int userType) {
 
         logger.info("authenticate() method. username={}, ip={}, userType={}", username, ip, userType);
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(3);
         if (username == null) {
             putMsg(map, 400, "请输入用户名！");
             return map;
@@ -59,7 +62,7 @@ public class AbstractAuthenticator extends BaseServiceImpl<User> implements Auth
                 }
                 putMsg(map, Status.SUCCESS.getCode(), "登录成功！");
                 map.put("nickname", user.getNickname());
-                Map<String, Object> userMap = new HashMap<>();
+                Map<String, Object> userMap = new HashMap<>(4);
                 userMap.put("sessionId", sessionId);
                 userMap.put("nickname", user.getNickname());
                 userMap.put("id", user.getId());

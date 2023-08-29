@@ -1,4 +1,3 @@
-
 package com.zlht.pbr.algorithm.management.dao.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -13,6 +12,8 @@ import java.util.Date;
 
 /**
  * session
+ *
+ * @author zi jian Wang
  */
 @Data
 @AllArgsConstructor

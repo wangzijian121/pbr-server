@@ -18,8 +18,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+/**
+ * @author zi jian Wang
+ */
 @RestController
-@Api(tags = "开发者-佣金项管理", description = "开发者-佣金项管理")
+@Api(tags = "开发者-佣金项管理")
 public class DeveloperCommissionController extends BaseController {
 
     private static final Logger logger = LogManager.getLogger(DeveloperCommissionController.class);

@@ -8,11 +8,29 @@ import org.apache.ibatis.annotations.Select;
 
 import java.util.Date;
 
+/**
+ * @author zi jian Wang
+ */
 public interface UserMapper extends BaseMapper<User> {
 
+    /**
+     * 按用户名查询用户
+     *
+     * @param username
+     * @param userType
+     * @return
+     */
     @Select("select * from user where username = #{username} and  type=#{userType} order by id desc ")
     User queryUserByUserName(@Param("username") String username, @Param("userType") int userType);
 
+    /**
+     * 查询令牌用户
+     *
+     * @param sessionId
+     * @param expireTime
+     * @param now
+     * @return
+     */
     @Select("select *\n" +
             "from user u,\n" +
             "     session s\n" +

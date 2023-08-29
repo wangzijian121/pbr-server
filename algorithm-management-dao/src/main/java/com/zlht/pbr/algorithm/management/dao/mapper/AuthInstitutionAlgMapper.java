@@ -10,8 +10,19 @@ import org.apache.ibatis.annotations.Select;
 import java.util.Map;
 
 
+/**
+ * @author zi jian Wang
+ */
 public interface AuthInstitutionAlgMapper extends BaseMapper<AuthInstitutionAlg> {
 
+    /**
+     * 选择“带昵称的机构”
+     *
+     * @param page
+     * @param keyword
+     * @param authType
+     * @return
+     */
     @Select("select *\n" +
             "from (select a.id," +
             " a.auth_type as authType," +

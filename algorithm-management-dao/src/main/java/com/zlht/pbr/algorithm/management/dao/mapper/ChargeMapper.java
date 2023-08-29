@@ -9,9 +9,19 @@ import org.apache.ibatis.annotations.Select;
 
 import java.util.Map;
 
+/**
+ * @author zi jian Wang
+ */
 public interface ChargeMapper extends BaseMapper<Charge> {
 
-
+    /**
+     * 查询费用
+     *
+     * @param page
+     * @param keyword
+     * @param type
+     * @return
+     */
     @Select("select *\n" +
             "from (select c.id,\n" +
             "             c.type,\n" +

@@ -25,19 +25,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
+/**
+ * @author zi jian Wang
+ */
 @RestController
-@Api(tags = "用户管理", description = "用户管理与用户登录校验")
+@Api(tags = "用户管理")
 public class UserController extends BaseController {
 
     private static final Logger logger = LogManager.getLogger(UserController.class);
     @Autowired
-    UserServicesI userServices;
+    private UserServicesI userServices;
 
     @Autowired
-    AbstractAuthenticator authenticator;
+    private AbstractAuthenticator authenticator;
 
     @Autowired
-    SessionServiceI sessionServiceI;
+    private SessionServiceI sessionServiceI;
 
     /**
      * 查询用户信息
@@ -137,9 +140,9 @@ public class UserController extends BaseController {
         }
         Map<String, Object> map = null;
         try {
-            map = authenticator.authenticate(response,username, password, ip, 0);
-
-            if (Integer.valueOf(map.get("code").toString()) != 0) {
+            map = authenticator.authenticate(response, username, password, ip, 0);
+            String code = "code";
+            if (Integer.valueOf(map.get(code).toString()) != 0) {
                 return returnDataList(map);
             }
         } catch (Exception e) {
@@ -148,8 +151,6 @@ public class UserController extends BaseController {
         returnDataList(map);
         return returnDataList(map);
     }
-
-
 
 
     /**

@@ -25,12 +25,12 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/file")
-@Api(tags = "文件管理", description = "文件管理")
+@Api(tags = "文件管理")
 public class FileController extends BaseController {
 
     private static final Logger logger = LogManager.getLogger(FileController.class);
     @Autowired
-    ResourceServiceI resourceServiceI;
+    private ResourceServiceI resourceServiceI;
 
     @ApiOperation(value = "上传资源", notes = "上传资源")
     @ApiImplicitParams({

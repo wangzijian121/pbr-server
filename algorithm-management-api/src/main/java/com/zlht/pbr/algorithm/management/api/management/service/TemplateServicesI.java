@@ -7,14 +7,19 @@ import com.zlht.pbr.algorithm.management.utils.Result;
 
 import java.util.Map;
 
+/**
+ * @author zi jian Wang
+ */
 public interface TemplateServicesI {
 
     /**
      * 查询模板信息
      *
-     * @param status
+     * @param loginUser
      * @param currentPage
      * @param pageSize
+     * @param status
+     * @param keyword
      * @return
      */
     Result<PageInfo<Template>> queryTemplateList(User loginUser, int currentPage, int pageSize, int status, String keyword);
@@ -22,6 +27,7 @@ public interface TemplateServicesI {
     /**
      * 查询已添加的体育
      *
+     * @param loginUser
      * @return
      */
     Result<Template> queryTemplateMap(User loginUser);
@@ -29,6 +35,7 @@ public interface TemplateServicesI {
     /**
      * 创建模板信息
      *
+     * @param loginUser
      * @param wechat
      * @return
      */
@@ -38,6 +45,7 @@ public interface TemplateServicesI {
     /**
      * 更新模板信息
      *
+     * @param loginUser
      * @param id
      * @param wechat
      * @return
@@ -47,6 +55,7 @@ public interface TemplateServicesI {
     /**
      * 删除模板信息
      *
+     * @param loginUser
      * @param id
      * @return
      */

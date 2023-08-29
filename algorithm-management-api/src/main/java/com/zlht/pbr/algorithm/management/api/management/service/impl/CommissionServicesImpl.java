@@ -19,13 +19,16 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author zi jian Wang
+ */
 @Service
 public class CommissionServicesImpl extends BaseServiceImpl<Commission> implements CommissionServicesI {
 
     private static final Logger logger = LogManager.getLogger(CommissionServicesImpl.class);
 
     @Autowired
-    CommissionMapper commissionMapper;
+    private CommissionMapper commissionMapper;
 
     @Override
     public Result<PageInfo<Commission>> queryCommissionList(User loginUser, int currentPage, int pageSize, String keyword) {
@@ -52,7 +55,7 @@ public class CommissionServicesImpl extends BaseServiceImpl<Commission> implemen
 
     @Override
     public Map<String, Object> createCommission(User loginUser, Commission commission) {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(3);
         if (!canOperator(loginUser)) {
             putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
             return map;
@@ -78,7 +81,7 @@ public class CommissionServicesImpl extends BaseServiceImpl<Commission> implemen
 
     @Override
     public Map<String, Object> updateCommission(User loginUser, int id, Commission commission) {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(3);
         if (!canOperator(loginUser)) {
             putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
             return map;
@@ -112,7 +115,7 @@ public class CommissionServicesImpl extends BaseServiceImpl<Commission> implemen
 
     @Override
     public Map<String, Object> deleteCommission(User loginUser, int id) {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(3);
         if (!canOperator(loginUser)) {
             putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
             return map;

@@ -24,8 +24,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
+/**
+ * @author zi jian Wang
+ */
 @RestController
-@Api(tags = "开发者登录", description = "开发者登录")
+@Api(tags = "开发者登录")
 public class DeveloperLoginController extends BaseController {
 
     private static final Logger logger = LogManager.getLogger(DeveloperLoginController.class);
@@ -63,7 +66,8 @@ public class DeveloperLoginController extends BaseController {
         Map<String, Object> map = null;
         try {
             map = authenticator.authenticate(response, username, password, ip, userType);
-            if (Integer.valueOf(map.get("code").toString()) != 0) {
+            String code = "code";
+            if (Integer.valueOf(map.get(code).toString()) != 0) {
                 return returnDataList(map);
             }
         } catch (Exception e) {

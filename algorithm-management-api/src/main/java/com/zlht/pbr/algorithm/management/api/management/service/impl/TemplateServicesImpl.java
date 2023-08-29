@@ -19,12 +19,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author zi jian Wang
+ */
 @Service
 public class TemplateServicesImpl extends BaseServiceImpl implements TemplateServicesI {
 
     private static final Logger logger = LogManager.getLogger(TemplateServicesImpl.class);
     @Autowired
-    TemplateMapper templateMapper;
+    private TemplateMapper templateMapper;
 
     @Override
     public Result<PageInfo<Template>> queryTemplateList(User loginUser, int currentPage, int pageSize, int status, String keyword) {
@@ -36,7 +39,9 @@ public class TemplateServicesImpl extends BaseServiceImpl implements TemplateSer
         }
         Page page = new Page<>(currentPage, pageSize);
         QueryWrapper queryWrapper = new QueryWrapper();
-        if (keyword != null) queryWrapper.eq("name", keyword);
+        if (keyword != null) {
+            queryWrapper.eq("name", keyword);
+        }
         Page<Template> templatePage = templateMapper.selectPage(page, queryWrapper);
         logger.info("queryTemplateList() method. username={}, currentPage={},pageSize={},keyword={}",
                 loginUser.getUsername(), currentPage, pageSize, keyword);
@@ -67,7 +72,7 @@ public class TemplateServicesImpl extends BaseServiceImpl implements TemplateSer
     @Override
     public Map<String, Object> createTemplate(User loginUser, Template template) {
 
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(3);
         if (!canOperator(loginUser)) {
             putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
             return map;
@@ -93,7 +98,7 @@ public class TemplateServicesImpl extends BaseServiceImpl implements TemplateSer
     @Override
     public Map<String, Object> updateTemplate(User loginUser, int id, Template template) {
 
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(3);
         if (!canOperator(loginUser)) {
             putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
             return map;
@@ -125,7 +130,7 @@ public class TemplateServicesImpl extends BaseServiceImpl implements TemplateSer
     @Override
     public Map<String, Object> deleteTemplate(User loginUser, int id) {
 
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(3);
         if (!canOperator(loginUser)) {
             putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
             return map;

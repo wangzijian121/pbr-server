@@ -13,6 +13,9 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 
 
+/**
+ * @author ziji Wang
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,7 +26,7 @@ public class Algorithm {
     private Integer id;
 
     @ApiModelProperty(value = "算法名", required = true)
-    private String  name;
+    private String name;
 
     @ApiModelProperty(value = "算法类型(0普通算法 1专用算法)", required = true)
     private Integer type;

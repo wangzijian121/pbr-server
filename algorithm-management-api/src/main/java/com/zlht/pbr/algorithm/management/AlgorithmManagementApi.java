@@ -9,6 +9,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import springfox.documentation.oas.annotations.EnableOpenApi;
 
+/**
+ * @author ziji Wang
+ */
 @SpringBootApplication
 @EnableOpenApi
 public class AlgorithmManagementApi implements ApplicationRunner {

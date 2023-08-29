@@ -22,13 +22,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author zi jian Wang
+ */
 @Service
 public class InstitutionServicesImpl extends BaseServiceImpl<Institution> implements InstitutionServicesI {
 
     private static final Logger logger = LogManager.getLogger(InstitutionServicesImpl.class);
 
     @Autowired
-    InstitutionMapper institutionMapper;
+    private InstitutionMapper institutionMapper;
 
     @Override
     public Result<PageInfo<Institution>> queryInstitutionList(User loginUser, int type, int currentPage, int pageSize, String keyword) {
@@ -42,8 +45,12 @@ public class InstitutionServicesImpl extends BaseServiceImpl<Institution> implem
         Page<Institution> page = new Page<>(currentPage, pageSize);
 
         QueryWrapper<Institution> wapper = new QueryWrapper<Institution>();
-        if (type != -1) wapper.eq("type", type);
-        if (keyword != null) wapper.and(nc -> nc.like("name", keyword));
+        if (type != -1) {
+            wapper.eq("type", type);
+        }
+        if (keyword != null) {
+            wapper.and(nc -> nc.like("name", keyword));
+        }
         Page<Institution> institutionPage = institutionMapper.selectPage(page, wapper);
         logger.info("queryInstitutionList() method. username={},type={}, currentPage={},pageSize={},keyword={}",
                 loginUser.getUsername(), type, currentPage, pageSize, keyword);
@@ -74,7 +81,7 @@ public class InstitutionServicesImpl extends BaseServiceImpl<Institution> implem
 
     @Override
     public Map<String, Object> createInstitution(User loginUser, Institution institution) {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(3);
         if (!canOperator(loginUser)) {
             putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
             return map;
@@ -109,7 +116,7 @@ public class InstitutionServicesImpl extends BaseServiceImpl<Institution> implem
     @Override
     public Map<String, Object> updateInstitution(User loginUser, int id, Institution institution) {
 
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(3);
         if (!canOperator(loginUser)) {
             putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
             return map;
@@ -153,7 +160,7 @@ public class InstitutionServicesImpl extends BaseServiceImpl<Institution> implem
     @Override
     public Map<String, Object> deleteInstitution(User loginUser, int id) {
 
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(3);
         if (!canOperator(loginUser)) {
             putMsg(map, Status.USER_NO_OPERATION_PERM.getCode(), Status.USER_NO_OPERATION_PERM.getMsg());
             return map;

@@ -11,9 +11,19 @@ import org.apache.ibatis.annotations.Update;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author zi jian Wang
+ */
 public interface ReviewMapper extends BaseMapper<Review> {
 
 
+    /**
+     * 查询审核
+     *
+     * @param page
+     * @param keyword
+     * @return
+     */
     @Select("select * from (select dr.id,\n" +
             "             dr.commit_name as commitName,\n" +
             "             dr.developer_id as  developerId,\n" +
@@ -35,6 +45,15 @@ public interface ReviewMapper extends BaseMapper<Review> {
     Page<Map<String, Object>> selectReview(Page<?> page,
                                            @Param("keyword") String keyword);
 
+    /**
+     * 查询开发者提交的审核
+     *
+     * @param page
+     * @param keyword
+     * @param developerId
+     * @param type
+     * @return
+     */
     @Select("select * from (select dr.id,\n" +
             "             dr.commit_name as commitName,\n" +
             "             dr.developer_id as developerId ,\n" +
@@ -58,6 +77,14 @@ public interface ReviewMapper extends BaseMapper<Review> {
                                                     @Param("developerId") int developerId,
                                                     @Param("type") String type);
 
+    /**
+     * 更新审核状态
+     *
+     * @param id
+     * @param status
+     * @param mark
+     * @return
+     */
     @Update("update developer_review " +
             "set status=#{status} , " +
             "mark=#{mark} " +
@@ -66,6 +93,11 @@ public interface ReviewMapper extends BaseMapper<Review> {
                            @Param("status") int status,
                            @Param("mark") String mark);
 
+    /**
+     * 查询审核映射
+     *
+     * @return
+     */
     @Select("select id,commit_name as commitName from  developer_review  group by id,commit_name")
     List<Map<String, Object>> queryReviewMap();
 

@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.text.MessageFormat;
 import java.util.Map;
 
+/**
+ * @author zi jian Wang
+ */
 public class BaseController {
 
     private final static int SUCCESS_CODE = 200;
@@ -63,13 +66,13 @@ public class BaseController {
     }
 
     public static String getClientIpAddress(HttpServletRequest request) {
-
+        String unKnown = "unKnown";
         String realIp = request.getHeader("X-Real-IP");
-        if (StringUtils.isNotEmpty(realIp) && !realIp.equalsIgnoreCase("unKnown")) {
+        if (StringUtils.isNotEmpty(realIp) && !unKnown.equalsIgnoreCase(realIp)) {
             return realIp;
         }
         String forwardedIp = request.getHeader("X-Forwarded-For");
-        if (StringUtils.isNotEmpty(forwardedIp) && !forwardedIp.equalsIgnoreCase("unKnown")) {
+        if (StringUtils.isNotEmpty(forwardedIp) && !unKnown.equalsIgnoreCase(forwardedIp)) {
             int index = forwardedIp.indexOf(",");
             if (index != -1) {
                 return forwardedIp.substring(0, index);
