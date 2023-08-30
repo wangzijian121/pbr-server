@@ -13,8 +13,6 @@ import com.zlht.pbr.algorithm.management.dao.entity.User;
 import com.zlht.pbr.algorithm.management.enums.Status;
 import com.zlht.pbr.algorithm.management.factory.WorkBookFactory;
 import com.zlht.pbr.algorithm.management.utils.Result;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.apache.poi.ss.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -32,7 +30,6 @@ import java.util.*;
 @Service
 public class ChartServicesImpl extends BaseServiceImpl<Charge> implements ChartServicesI {
 
-    private static final Logger logger = LogManager.getLogger(ChartServicesImpl.class);
 
     @Autowired
     private DataPointServicesI dataPointServicesI;
