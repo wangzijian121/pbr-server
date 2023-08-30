@@ -4,6 +4,8 @@ import com.zlht.pbr.algorithm.management.enums.Constants;
 import com.zlht.pbr.algorithm.management.enums.Status;
 import com.zlht.pbr.algorithm.management.utils.Result;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.MessageFormat;
@@ -13,7 +15,7 @@ import java.util.Map;
  * @author zi jian Wang
  */
 public class BaseController {
-
+    private static final Logger logger = LogManager.getLogger(BaseController.class);
     private final static int SUCCESS_CODE = 200;
     private final static String SUCCESS_MSG = "success";
     private final static String PAGE_NUMBER = "currentPage";
@@ -68,6 +70,7 @@ public class BaseController {
     public static String getClientIpAddress(HttpServletRequest request) {
         String unKnown = "unKnown";
         String realIp = request.getHeader("X-Real-IP");
+
         if (StringUtils.isNotEmpty(realIp) && !unKnown.equalsIgnoreCase(realIp)) {
             return realIp;
         }
@@ -80,6 +83,10 @@ public class BaseController {
                 return forwardedIp;
             }
         }
+        logger.info("请求方信息：");
+        logger.info("realIp:" + realIp);
+        logger.info("forwardedIp:" + forwardedIp);
+        logger.info("RemoteAddr:" + request.getRemoteAddr());
         return request.getRemoteAddr();
     }
 }

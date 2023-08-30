@@ -22,10 +22,10 @@ import java.util.Map;
 /**
  * @author ziji Wang
  */
+@RestController
 @Api(tags = "算法管理")
 public class AlgorithmController extends BaseController {
 
-    private static final Logger logger = LogManager.getLogger(AlgorithmController.class);
     @Autowired
     private AlgorithmServicesI algorithmServices;
 
