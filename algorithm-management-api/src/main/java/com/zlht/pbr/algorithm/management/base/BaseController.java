@@ -68,24 +68,24 @@ public class BaseController {
     }
 
     public static String getClientIpAddress(HttpServletRequest request) {
+        logger.info("请求方信息：");
         String unKnown = "unKnown";
         String realIp = request.getHeader("X-Real-IP");
 
         if (StringUtils.isNotEmpty(realIp) && !unKnown.equalsIgnoreCase(realIp)) {
+            logger.info("realIp:" + realIp);
             return realIp;
         }
         String forwardedIp = request.getHeader("X-Forwarded-For");
         if (StringUtils.isNotEmpty(forwardedIp) && !unKnown.equalsIgnoreCase(forwardedIp)) {
             int index = forwardedIp.indexOf(",");
             if (index != -1) {
+                logger.info("forwardedIp:" + forwardedIp);
                 return forwardedIp.substring(0, index);
             } else {
                 return forwardedIp;
             }
         }
-        logger.info("请求方信息：");
-        logger.info("realIp:" + realIp);
-        logger.info("forwardedIp:" + forwardedIp);
         logger.info("RemoteAddr:" + request.getRemoteAddr());
         return request.getRemoteAddr();
     }

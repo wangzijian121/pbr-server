@@ -37,7 +37,7 @@ public class WeChatController extends BaseController {
      */
     @ApiOperation(value = "查询小程序信息", notes = "查询小程序信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "status", value = "小程序审核进度(0已部署，1审核中)", dataTypeClass = int.class),
+            @ApiImplicitParam(name = "type", value = "小程序审核进度(0已部署，1审核中)", dataTypeClass = int.class),
             @ApiImplicitParam(name = "currentPage", value = "页数(默认1)", dataTypeClass = int.class),
             @ApiImplicitParam(name = "pageSize", value = "页大小(默认10)", dataTypeClass = int.class),
             @ApiImplicitParam(name = "keyword", value = "小程序信息名", dataTypeClass = String.class)
@@ -45,7 +45,7 @@ public class WeChatController extends BaseController {
     @GetMapping(value = "/getWeChat")
     @ResponseStatus(HttpStatus.OK)
     public Result<PageInfo<WeChat>> queryWeChatList(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser,
-                                                    @RequestParam(required = false, defaultValue = "-1") int status,
+                                                    @RequestParam(required = false, defaultValue = "-1") int type,
                                                     @RequestParam(required = false, defaultValue = "1") int currentPage,
                                                     @RequestParam(required = false, defaultValue = "10") int pageSize,
                                                     @RequestParam(required = false) String keyword) {
@@ -54,7 +54,7 @@ public class WeChatController extends BaseController {
         if (!result.checkResult()) {
             return result;
         }
-        return weChatServices.queryWeChatList(loginUser, currentPage, pageSize, status, keyword);
+        return weChatServices.queryWeChatList(loginUser, currentPage, pageSize, type, keyword);
     }
 
     /**

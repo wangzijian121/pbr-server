@@ -30,7 +30,7 @@ public class TemplateServicesImpl extends BaseServiceImpl implements TemplateSer
     private TemplateMapper templateMapper;
 
     @Override
-    public Result<PageInfo<Template>> queryTemplateList(User loginUser, int currentPage, int pageSize, int status, String keyword) {
+    public Result<PageInfo<Template>> queryTemplateList(User loginUser, int currentPage, int pageSize, int type, String keyword) {
         Result result = new Result();
         if (!canOperator(loginUser)) {
             result.setMsg(Status.USER_NO_OPERATION_PERM.getMsg());
@@ -39,8 +39,8 @@ public class TemplateServicesImpl extends BaseServiceImpl implements TemplateSer
         }
         Page page = new Page<>(currentPage, pageSize);
         QueryWrapper queryWrapper = new QueryWrapper();
-        if (keyword != null) {
-            queryWrapper.eq("name", keyword);
+        if (keyword != null && !("").equals(keyword)) {
+            queryWrapper.like("name", keyword);
         }
         Page<Template> templatePage = templateMapper.selectPage(page, queryWrapper);
         logger.info("queryTemplateList() method. username={}, currentPage={},pageSize={},keyword={}",

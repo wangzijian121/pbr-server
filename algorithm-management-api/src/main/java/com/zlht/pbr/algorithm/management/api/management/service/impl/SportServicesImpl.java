@@ -42,7 +42,7 @@ public class SportServicesImpl extends BaseServiceImpl<Sport> implements SportSe
             return result;
         }
         Page<Sport> page = new Page<>(currentPage, pageSize);
-        Page sportPage = sportMapper.selectSport(page, keyword);
+        Page sportPage = sportMapper.selectSport(page, keyword,type);
         logger.info("querySportList() method. username={},type={}, currentPage={},pageSize={},keyword={}",
                 loginUser.getUsername(), type, currentPage, pageSize, keyword);
         PageInfo pageInfo = new PageInfo(currentPage, pageSize);

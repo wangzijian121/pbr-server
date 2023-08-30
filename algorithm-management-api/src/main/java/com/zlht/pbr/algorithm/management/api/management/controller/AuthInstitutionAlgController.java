@@ -40,7 +40,7 @@ public class AuthInstitutionAlgController extends BaseController {
             @ApiImplicitParam(name = "auth_type", value = "授权类型:(0：算法授权，1：功能授权)", dataTypeClass = int.class),
             @ApiImplicitParam(name = "currentPage", value = "页数(默认1)", dataTypeClass = int.class),
             @ApiImplicitParam(name = "pageSize", value = "页大小(默认10)", dataTypeClass = int.class),
-            @ApiImplicitParam(name = "keyword", value = "机构名搜索关键字", dataTypeClass = String.class)
+            @ApiImplicitParam(name = "name", value = "机构名搜索关键字", dataTypeClass = String.class)
     })
     @GetMapping(value = "/getAuthInstitution")
     @ResponseStatus(HttpStatus.OK)
@@ -48,13 +48,13 @@ public class AuthInstitutionAlgController extends BaseController {
                                                      @RequestParam(required = false, defaultValue = "-1") int authType,
                                                      @RequestParam(required = false, defaultValue = "1") int currentPage,
                                                      @RequestParam(required = false, defaultValue = "10") int pageSize,
-                                                     @RequestParam(required = false) String keyword) {
+                                                     @RequestParam(required = false) String name) {
 
         Result result = checkPageParams(currentPage, pageSize);
         if (!result.checkResult()) {
             return result;
         }
-        Result res = institutionServices.queryAuthInstitutionAlgList(loginUser, authType, currentPage, pageSize, keyword);
+        Result res = institutionServices.queryAuthInstitutionAlgList(loginUser, authType, currentPage, pageSize, name);
         return res;
     }
 

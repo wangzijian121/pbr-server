@@ -18,11 +18,11 @@ public interface TemplateServicesI {
      * @param loginUser
      * @param currentPage
      * @param pageSize
-     * @param status
+     * @param type
      * @param keyword
      * @return
      */
-    Result<PageInfo<Template>> queryTemplateList(User loginUser, int currentPage, int pageSize, int status, String keyword);
+    Result<PageInfo<Template>> queryTemplateList(User loginUser, int currentPage, int pageSize, int type, String keyword);
 
     /**
      * 查询已添加的体育

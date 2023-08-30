@@ -30,8 +30,8 @@ public interface SportMapper extends BaseMapper<Sport> {
             "       sc.create_time as createTime\n" +
             "from sport_category sc\n" +
             "         left join user u on u.id = sc.user_id) res " +
-            "where   (#{keyword} IS NULL OR res.name LIKE CONCAT('%', #{keyword}, '%')) order by id desc")
-    Page<Map<String, Object>> selectSport(Page<?> page, @Param("keyword") String keyword);
+            "where   (#{keyword} IS NULL OR res.name LIKE CONCAT('%', #{keyword}, '%')) and  (#{type}  = -1 OR res.type =#{type})  order by id desc")
+    Page<Map<String, Object>> selectSport(Page<?> page, @Param("keyword") String keyword, @Param("type") int type);
 
     /**
      * 查询已添加映射

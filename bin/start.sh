@@ -1,7 +1,7 @@
-  #!/bin/bash
+#!/bin/bash
 
-  BIN_DIR=$(dirname $0)
-  PROJECT_HOME=${PROJECT_HOME:-$(
+BIN_DIR=$(dirname $0)
+ PROJECT_HOME=${PROJECT_HOME:-$(
     cd $BIN_DIR/..
     pwd
   )}
@@ -15,6 +15,9 @@
    -Xloggc:gc.log
    -XX:+HeapDumpOnOutOfMemoryError
    -XX:HeapDumpPath=dump.hprof"}
+  echo "$JAVA_HOME/bin/java $JAVA_OPTS \
+            -cp "$PROJECT_HOME/conf":"$PROJECT_HOME/libs/*" \
+            com.zlht.pbr.algorithm.management.AlgorithmManagementApi"
 
   nohup $JAVA_HOME/bin/java $JAVA_OPTS \
     -cp "$PROJECT_HOME/conf":"$PROJECT_HOME/libs/*" \
