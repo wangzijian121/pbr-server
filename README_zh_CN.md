@@ -1,8 +1,8 @@
 # 体态识别AI算法管理系统（Posture Body Recognition AI algorithm management system）
 
 #⛹🏻‍♀️🤸🏻‍♂️🏋🏻‍♂️🏊🏻‍♀️🚴🏻‍♂️💪🏻🦵🏻🤾🏻‍♀️🏇🏻
-![image](images/登录.png)
-![image](images/首页.png)
+![image](images/login.png)
+![image](images/index.png)
 
 ## 简介
 
@@ -32,7 +32,7 @@ sh bin/start.sh
 
 Alibaba Java Coding Guidelines
 
-![image](images/代码审查.png)
+![image](images/code_check.png)
 
 
 
