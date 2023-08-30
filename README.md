@@ -2,7 +2,7 @@
 
 #⛹🏻‍♀️🤸🏻‍♂️🏋🏻‍♂️🏊🏻‍♀️🚴🏻‍♂️💪🏻🦵🏻🤾🏻‍♀️🏇🏻
 ![image](images/login.png)
-![image](images/Home.png)
+![image](images/index.png)
 
 ## Introduction
 
@@ -34,4 +34,4 @@ sh bin/start.sh
 
 Alibaba Java Coding Guidelines
 
-![image](images/code review.png)
+![image](images/code_review.png)

@@ -32,7 +32,7 @@ sh bin/start.sh
 
 Alibaba Java Coding Guidelines
 
-![image](images/code_check.png)
+![image](images/code review.png)
 
 
 
