@@ -48,4 +48,22 @@ public class SwaggerConfig {
                 .version("1.0.0")
                 .build();
     }
+
+    @Bean
+    public Docket createWeChatRestApi() {
+        return new Docket(DocumentationType.OAS_30)
+                .groupName("wechat")
+                .apiInfo(developer())
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.zlht.pbr.algorithm.management.api.wechat.controller"))
+                .build();
+    }
+
+    private ApiInfo wechat() {
+        return new ApiInfoBuilder()
+                .title("AI体态识别系统-微信交互接口")
+                .description("AI body recognition system-algorithm business background Wechat interactive interface")
+                .version("1.0.0")
+                .build();
+    }
 }

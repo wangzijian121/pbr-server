@@ -52,7 +52,7 @@ public interface DataPointMapper extends BaseMapper<Charge> {
      * @param date
      * @return
      */
-    @Select("select COALESCE(CEIL(SUM(ress.size) / 1024),0) as today,COALESCE(CEIL((SELECT SUM(ress.size) / 1024)),0) AS total\n" +
+    @Select("select COALESCE(CEIL(SUM(ress.size) / 1024/1024 ),0) as today,COALESCE(CEIL((SELECT SUM(ress.size) / 1024/1024)),0) AS total\n" +
             "from (select  size ,ds.create_time  \n" +
             "      from data_set ds\n" +
             "               left join resources r on r.alias = ds.file) ress\n" +

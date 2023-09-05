@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.32, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: pose-management-rel
+-- Host: 127.0.0.1    Database: pose-management
 -- ------------------------------------------------------
 -- Server version	8.0.32
 
@@ -235,10 +235,10 @@ DROP TABLE IF EXISTS `session`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `session` (
-                           `id` varchar(255) NOT NULL COMMENT 'id',
-                           `user_id` int DEFAULT NULL COMMENT '用户ID',
-                           `ip` varchar(255) DEFAULT NULL COMMENT 'ip地址',
-                           `last_login_time` datetime DEFAULT NULL COMMENT '最后登录时间'
+                           `id`              varchar(255) NOT NULL COMMENT 'id',
+                           `user_id`         int          DEFAULT NULL COMMENT '用户ID',
+                           `ip`              varchar(255) DEFAULT NULL COMMENT 'ip地址',
+                           `last_login_time` datetime     DEFAULT NULL COMMENT '最后登录时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='登录session表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -246,7 +246,11 @@ CREATE TABLE `session` (
 -- Dumping data for table `session`
 --
 
-INSERT INTO `session` VALUES ('8d88dc18-99e4-45b1-b871-e50f929ae54e',1,'192.168.0.100','2023-08-31 20:28:10'),('f65fea20-5087-4b1e-974f-6644871a5401',1,'192.168.0.104','2023-08-31 20:56:33'),('82d8532c-a082-4b7c-971f-0543c39f6ad5',13,'192.168.0.104','2023-08-31 20:56:44');
+INSERT INTO `session`
+VALUES ('8d88dc18-99e4-45b1-b871-e50f929ae54e', 1, '192.168.0.100', '2023-08-31 20:28:10'),
+       ('f65fea20-5087-4b1e-974f-6644871a5401', 1, '192.168.0.104', '2023-08-31 20:56:33'),
+       ('82d8532c-a082-4b7c-971f-0543c39f6ad5', 13, '192.168.0.104', '2023-08-31 20:56:44'),
+       ('78c93c64-f617-4de4-a834-926fe185d850', 1, '127.0.0.1', '2023-09-05 14:46:33');
 
 --
 -- Table structure for table `sport_category`
@@ -255,8 +259,9 @@ INSERT INTO `session` VALUES ('8d88dc18-99e4-45b1-b871-e50f929ae54e',1,'192.168.
 DROP TABLE IF EXISTS `sport_category`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `sport_category` (
-                                  `id` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `sport_category`
+(
+    `id`                                        int NOT NULL AUTO_INCREMENT,
                                   `type` varchar(255) DEFAULT NULL COMMENT '体育类型(0:学校体育 1:群众体育 2:竞技体育)',
                                   `name` varchar(255) DEFAULT NULL COMMENT '分类名',
                                   `user_id` int DEFAULT NULL COMMENT '添加人',
@@ -302,24 +307,47 @@ INSERT INTO `template` VALUES (1,'通用模板','{\"distance\": \"number\", \"pl
 DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `user` (
-                        `id` int NOT NULL AUTO_INCREMENT,
-                        `type` int DEFAULT NULL,
-                        `nickname` varchar(255) DEFAULT NULL COMMENT '昵称',
-                        `username` varchar(255) DEFAULT NULL,
-                        `password` varchar(255) DEFAULT NULL,
-                        `mark` text,
-                        `create_time` datetime DEFAULT NULL COMMENT '授权时间',
-                        `attr` json DEFAULT NULL,
-                        PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户表';
+CREATE TABLE `user`
+(
+    `id`          int NOT NULL AUTO_INCREMENT,
+    `type`        int          DEFAULT NULL,
+    `nickname`    varchar(255) DEFAULT NULL COMMENT '昵称',
+    `username`    varchar(255) DEFAULT NULL,
+    `password`    varchar(255) DEFAULT NULL,
+    `mark`        text,
+    `create_time` datetime     DEFAULT NULL COMMENT '授权时间',
+    `attr`        json         DEFAULT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` VALUES (1,0,'王子健','root','$argon2id$v=19$m=65536,t=2,p=1$1VdMY/Yxaal5oXNyd10g5A$jNxdp7UHCVNgp8M5EV9lkRi15ZheMaRbSqKGpWuNCbI','密码123456','2023-07-27 15:02:54','{}'),(4,0,'程序员小王','wangzijian121','$argon2id$v=19$m=65536,t=2,p=1$Qpo5pGW3a20epFq6MXHbaA$out6LUQ8s7AcFi1USfCMQ4cfNQ9NZczA9Q4QRE9/Ht4','小明','2023-07-27 15:08:12','{}'),(6,0,'程序员小王','wangzijian123','$argon2id$v=19$m=65536,t=2,p=1$8DLavyqz+npDmF3DT2wI5g$XE/GCCbR5K7TDFmdxenuByhfMhdaFLals2APTPYtwWo','开发者','2023-07-23 22:24:19','{}'),(12,1,'程序员小王12','wangzijian','$argon2id$v=19$m=65536,t=2,p=1$g6qS43s+np6mh2r0x4Hp7w$/vzi1nsJrmpXl4sFJpWDX1yZSasWO0fqOHduk218uj4','支付宝：10086','2023-08-26 04:22:48','{\"phone\": \"18846922264\"}'),(13,1,'程序员小王13','wangzijian13','$argon2id$v=19$m=65536,t=2,p=1$qLOynwPpnMNMD9rvPUYdSw$sJwlQGaHl3brLdzvy7mzIxw+6PgGHg2fO1L4cKQXkl8','支付宝：10086','2023-08-26 04:23:05','{\"phone\": \"10086\"}'),(14,0,'admin','admin','$argon2id$v=19$m=65536,t=2,p=1$azoAkY126sM6d8rkKX+7OA$CXq1B2tm27jC3tkzAVbJKk3yunK9aOti+gE2WzLgin0',NULL,'2023-08-31 00:05:19',NULL);
+INSERT INTO `user`
+VALUES (1, 0, '王子健', 'root',
+        '$argon2id$v=19$m=65536,t=2,p=1$1VdMY/Yxaal5oXNyd10g5A$jNxdp7UHCVNgp8M5EV9lkRi15ZheMaRbSqKGpWuNCbI',
+        '密码123456', '2023-07-27 15:02:54', '{}'),
+       (4, 0, '程序员小王', 'wangzijian121',
+        '$argon2id$v=19$m=65536,t=2,p=1$Qpo5pGW3a20epFq6MXHbaA$out6LUQ8s7AcFi1USfCMQ4cfNQ9NZczA9Q4QRE9/Ht4', '小明',
+        '2023-07-27 15:08:12', '{}'),
+       (6, 0, '程序员小王', 'wangzijian123',
+        '$argon2id$v=19$m=65536,t=2,p=1$8DLavyqz+npDmF3DT2wI5g$XE/GCCbR5K7TDFmdxenuByhfMhdaFLals2APTPYtwWo', '开发者',
+        '2023-07-23 22:24:19', '{}'),
+       (12, 1, '程序员小王12', 'wangzijian',
+        '$argon2id$v=19$m=65536,t=2,p=1$g6qS43s+np6mh2r0x4Hp7w$/vzi1nsJrmpXl4sFJpWDX1yZSasWO0fqOHduk218uj4',
+        '支付宝：10086', '2023-08-26 04:22:48', '{
+         \"phone\": \"18846922264\"}'),
+       (13, 1, '程序员小王13', 'wangzijian13',
+        '$argon2id$v=19$m=65536,t=2,p=1$qLOynwPpnMNMD9rvPUYdSw$sJwlQGaHl3brLdzvy7mzIxw+6PgGHg2fO1L4cKQXkl8',
+        '支付宝：10086', '2023-08-26 04:23:05', '{
+         \"phone\": \"10086\"}'),
+       (14, 0, 'admin', 'admin',
+        '$argon2id$v=19$m=65536,t=2,p=1$azoAkY126sM6d8rkKX+7OA$CXq1B2tm27jC3tkzAVbJKk3yunK9aOti+gE2WzLgin0', NULL,
+        '2023-08-31 00:05:19', NULL),
+       (15, 3, '学生小王', '18846922264', NULL, NULL, NULL, '{
+         \"login_count\": 5, \"lastLogintime\": \"2023-09-05 00:05:00\"}');
 
 --
 -- Table structure for table `wechat`
@@ -328,15 +356,16 @@ INSERT INTO `user` VALUES (1,0,'王子健','root','$argon2id$v=19$m=65536,t=2,p=
 DROP TABLE IF EXISTS `wechat`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `wechat` (
-                          `id` int NOT NULL AUTO_INCREMENT,
-                          `wechat_id` varchar(255) DEFAULT NULL COMMENT '小程序ID',
-                          `name` varchar(255) DEFAULT NULL COMMENT '小程序名',
-                          `institution_id` int DEFAULT NULL COMMENT '机构ID',
-                          `status` int DEFAULT NULL COMMENT '进度(0已部署，1审核中)',
-                          `mark` text COMMENT '备注',
-                          `create_time` datetime DEFAULT NULL COMMENT '授权时间',
-                          PRIMARY KEY (`id`)
+CREATE TABLE `wechat`
+(
+    `id`             int NOT NULL AUTO_INCREMENT,
+    `wechat_id`      varchar(255) DEFAULT NULL COMMENT '小程序ID',
+    `name`           varchar(255) DEFAULT NULL COMMENT '小程序名',
+    `institution_id` int          DEFAULT NULL COMMENT '机构ID',
+    `status`         int          DEFAULT NULL COMMENT '进度(0已部署，1审核中)',
+    `mark`           text COMMENT '备注',
+    `create_time`    datetime     DEFAULT NULL COMMENT '授权时间',
+    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='小程序表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -344,7 +373,37 @@ CREATE TABLE `wechat` (
 -- Dumping data for table `wechat`
 --
 
-INSERT INTO `wechat` VALUES (1,'1289371982739123','润迪体育助手',1,0,'润迪开通的小助手','2023-07-28 09:49:59'),(2,'321546','王子健小程序',1,1,'备注','2023-07-28 11:31:30'),(4,'1234567898','润迪专属小程序',2,1,NULL,'2023-08-14 07:34:45');
+INSERT INTO `wechat`
+VALUES (1, '1289371982739123', '润迪体育助手', 1, 0, '润迪开通的小助手', '2023-07-28 09:49:59'),
+       (2, '321546', '王子健小程序', 1, 1, '备注', '2023-07-28 11:31:30'),
+       (4, '1234567898', '润迪专属小程序', 2, 1, NULL, '2023-08-14 07:34:45');
+
+--
+-- Table structure for table `wx_report_data`
+--
+
+DROP TABLE IF EXISTS `wx_report_data`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `wx_report_data`
+(
+    `id`                        int NOT NULL AUTO_INCREMENT COMMENT 'ID',
+    `app_id`                    int  DEFAULT NULL COMMENT '小程序ID',
+    `use_count_today`           int  DEFAULT NULL COMMENT '今日使用人数',
+    `user_usage_time_today`     int  DEFAULT NULL COMMENT '今日用户使用时长总和(秒)',
+    `use_algorithm_count_today` int  DEFAULT NULL COMMENT '算法使用次数',
+    `algorithm_type_today`      json DEFAULT NULL COMMENT '{算法种类 : 使用次数}',
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='微信用户数据上报表';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `wx_report_data`
+--
+
+INSERT INTO `wx_report_data`
+VALUES (1, 1, 8, 800, 20, '{
+  \"篮球\": 4, \"足球\": 16}');
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -355,4 +414,4 @@ INSERT INTO `wechat` VALUES (1,'1289371982739123','润迪体育助手',1,0,'润�
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-09-01 15:14:14
+-- Dump completed on 2023-09-05 18:02:55
