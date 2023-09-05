@@ -9,6 +9,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 /**
  * 微信上报数据类
  *
@@ -24,7 +26,7 @@ public class WxReportData {
     private Integer id;
 
     @ApiModelProperty(value = "小程序ID")
-    private Integer AppId;
+    private String AppId;
 
     @ApiModelProperty(value = "今日使用人数")
     private Integer useCountToday;
@@ -37,4 +39,7 @@ public class WxReportData {
 
     @ApiModelProperty(value = "算法种类: 使用次数")
     private String algorithmTypeToday;
+
+    @ApiModelProperty(value = "创建时间 iso:YYYY-MM-DDTHH:mm:ss.sssZ", required = true)
+    private Date createTime;
 }

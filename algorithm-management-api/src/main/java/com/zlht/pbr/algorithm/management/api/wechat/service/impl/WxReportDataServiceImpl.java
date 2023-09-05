@@ -28,6 +28,7 @@ public class WxReportDataServiceImpl extends BaseServiceImpl implements WxReport
     public Map<String, Object> report(WxReportData wxReportData) {
         Map<String, Object> map = new HashMap<>(3);
         try {
+            wxReportDataMapper.deleteDuplicateData(wxReportData.getAppId());
             wxReportDataMapper.insert(wxReportData);
             logger.info("report() method. wxReportData={}", wxReportData);
             putMsg(map, Status.SUCCESS.getCode(), Status.SUCCESS.getMsg());
