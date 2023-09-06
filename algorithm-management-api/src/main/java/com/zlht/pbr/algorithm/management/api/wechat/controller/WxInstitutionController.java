@@ -33,7 +33,7 @@ public class WxInstitutionController extends BaseController {
     @ApiOperation(value = "获取机构已授权的算法", notes = "获取机构已授权的算法")
     @GetMapping(value = "/wechat/getInstitutionAlgorithm")
     @ResponseStatus(HttpStatus.OK)
-    public Result<List<Algorithm>> getInstitutionAlgorithm(@RequestParam("appId") String appId) {
+    public Result<List<Object>> getInstitutionAlgorithm(@RequestParam("appId") String appId) {
         return wxReportDataServiceI.getInstitutionAlgorithm(appId);
     }
 }

@@ -20,11 +20,10 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName(value = "algorithm", autoResultMap = true)
-public class Algorithm {
+public class WxAlgorithm {
     @TableId(type = IdType.AUTO)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Integer id;
-
 
     @ApiModelProperty(value = "算法名", required = true)
     private String name;

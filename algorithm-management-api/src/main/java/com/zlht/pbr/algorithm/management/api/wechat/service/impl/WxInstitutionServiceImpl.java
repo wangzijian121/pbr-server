@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author zijian Wang
@@ -21,9 +22,9 @@ public class WxInstitutionServiceImpl extends BaseServiceImpl implements WxInsti
     private WxInstitutionMapper wxInstitutionMapper;
 
     @Override
-    public Result<List<Algorithm>> getInstitutionAlgorithm(String appId) {
+    public Result<List<Object>> getInstitutionAlgorithm(String appId) {
         Result result = new Result();
-        List<Algorithm> list = wxInstitutionMapper.getInstitutionAlgorithm(appId);
+        List<Map<String, Object>> list = wxInstitutionMapper.getInstitutionAlgorithm(appId);
         result.setCode(Status.SUCCESS.getCode());
         result.setMsg(Status.SUCCESS.getMsg());
         result.setData(list);
