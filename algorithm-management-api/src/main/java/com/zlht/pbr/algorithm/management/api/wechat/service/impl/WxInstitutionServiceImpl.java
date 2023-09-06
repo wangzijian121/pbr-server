@@ -22,9 +22,9 @@ public class WxInstitutionServiceImpl extends BaseServiceImpl implements WxInsti
     private WxInstitutionMapper wxInstitutionMapper;
 
     @Override
-    public Result<List<Object>> getInstitutionAlgorithm(String appId) {
+    public Result<List<Object>> getInstitutionAlgorithm() {
         Result result = new Result();
-        List<Map<String, Object>> list = wxInstitutionMapper.getInstitutionAlgorithm(appId);
+        List<Map<String, Object>> list = wxInstitutionMapper.getInstitutionAlgorithm();
         result.setCode(Status.SUCCESS.getCode());
         result.setMsg(Status.SUCCESS.getMsg());
         result.setData(list);

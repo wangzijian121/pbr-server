@@ -19,6 +19,6 @@ public interface WxInstitutionServiceI {
      * @param appId
      * @return
      */
-    Result<List<Object>> getInstitutionAlgorithm(String appId);
+    Result<List<Object>> getInstitutionAlgorithm();
 
 }
