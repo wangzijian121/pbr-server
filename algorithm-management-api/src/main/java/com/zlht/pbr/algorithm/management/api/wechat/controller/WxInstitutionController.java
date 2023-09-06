@@ -8,10 +8,12 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * @author ziji Wang
@@ -29,9 +31,9 @@ public class WxInstitutionController extends BaseController {
      * @return WxReportData
      */
     @ApiOperation(value = "获取机构已授权的算法", notes = "获取机构已授权的算法")
-    @PostMapping(value = "/wechat/getInstitutionAlgorithm")
+    @GetMapping(value = "/wechat/getInstitutionAlgorithm")
     @ResponseStatus(HttpStatus.OK)
-    public Result<Algorithm> getInstitutionAlgorithm(@RequestParam("appId") String appId) {
+    public Result<List<Algorithm>> getInstitutionAlgorithm(@RequestParam("appId") String appId) {
         return wxReportDataServiceI.getInstitutionAlgorithm(appId);
     }
 }

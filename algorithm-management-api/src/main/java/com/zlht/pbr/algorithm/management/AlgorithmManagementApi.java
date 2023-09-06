@@ -14,6 +14,7 @@ import springfox.documentation.oas.annotations.EnableOpenApi;
  */
 @SpringBootApplication
 @EnableOpenApi
+
 public class AlgorithmManagementApi implements ApplicationRunner {
 
     @Autowired

@@ -1,6 +1,5 @@
 package com.zlht.pbr.algorithm.management.api.wechat.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zlht.pbr.algorithm.management.api.wechat.service.WxInstitutionServiceI;
 import com.zlht.pbr.algorithm.management.base.impl.BaseServiceImpl;
 import com.zlht.pbr.algorithm.management.dao.entity.Algorithm;
@@ -10,9 +9,6 @@ import com.zlht.pbr.algorithm.management.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 
 /**
@@ -25,7 +21,7 @@ public class WxInstitutionServiceImpl extends BaseServiceImpl implements WxInsti
     private WxInstitutionMapper wxInstitutionMapper;
 
     @Override
-    public Result<Algorithm> getInstitutionAlgorithm(String appId) {
+    public Result<List<Algorithm>> getInstitutionAlgorithm(String appId) {
         Result result = new Result();
         List<Algorithm> list = wxInstitutionMapper.getInstitutionAlgorithm(appId);
         result.setCode(Status.SUCCESS.getCode());
