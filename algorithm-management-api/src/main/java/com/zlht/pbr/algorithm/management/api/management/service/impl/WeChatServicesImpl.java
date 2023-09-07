@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * @author zi jian Wang
@@ -65,6 +66,7 @@ public class WeChatServicesImpl extends BaseServiceImpl implements WeChatService
             return map;
         }
         try {
+            weChat.setLinkCode(UUID.randomUUID().toString());
             weChatMapper.insert(weChat);
             putMsg(map, Status.SUCCESS.getCode(), "创建小程序信息成功！");
         } catch (Exception e) {

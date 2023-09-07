@@ -319,7 +319,7 @@ CREATE TABLE `session` (
 -- Dumping data for table `session`
 --
 
-INSERT INTO `session` VALUES ('8d88dc18-99e4-45b1-b871-e50f929ae54e',1,'192.168.0.100','2023-08-31 20:28:10'),('f65fea20-5087-4b1e-974f-6644871a5401',1,'192.168.0.104','2023-08-31 20:56:33'),('82d8532c-a082-4b7c-971f-0543c39f6ad5',13,'192.168.0.104','2023-08-31 20:56:44'),('78c93c64-f617-4de4-a834-926fe185d850',1,'127.0.0.1','2023-09-05 14:46:33');
+INSERT INTO `session` VALUES ('8d88dc18-99e4-45b1-b871-e50f929ae54e',1,'192.168.0.100','2023-08-31 20:28:10'),('f65fea20-5087-4b1e-974f-6644871a5401',1,'192.168.0.104','2023-08-31 20:56:33'),('82d8532c-a082-4b7c-971f-0543c39f6ad5',13,'192.168.0.104','2023-08-31 20:56:44'),('78c93c64-f617-4de4-a834-926fe185d850',1,'127.0.0.1','2023-09-05 14:46:33'),('35b5a3ce-b514-4aa1-9835-8eb7c7de7b42',1,'169.254.35.13','2023-09-08 00:39:29');
 
 --
 -- Table structure for table `sport_category`
@@ -476,20 +476,21 @@ DROP TABLE IF EXISTS `wechat`;
 CREATE TABLE `wechat` (
                           `id` int NOT NULL AUTO_INCREMENT,
                           `wechat_id` varchar(255) DEFAULT NULL COMMENT '小程序ID',
+                          `link_code` varchar(36) DEFAULT NULL COMMENT '小程序链接码',
                           `name` varchar(255) DEFAULT NULL COMMENT '小程序名',
                           `institution_id` int DEFAULT NULL COMMENT '机构ID',
                           `status` int DEFAULT NULL COMMENT '进度(0已部署，1审核中)',
                           `mark` text COMMENT '备注',
                           `create_time` datetime DEFAULT NULL COMMENT '授权时间',
                           PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='小程序表';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='小程序表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `wechat`
 --
 
-INSERT INTO `wechat` VALUES (1,'wxc62afc1444173666','汇通小程序',1,0,'润迪开通的小助手','2023-07-28 09:49:59'),(2,'wxc62afc1444173777','王子健小程序',3,1,'备注','2023-07-28 11:31:30'),(3,'wxc62afc1444173999','哈尔滨2小程序',16,1,'123','2023-09-07 01:07:02'),(4,'wxc62afc1444173888','润迪专属小程序',2,1,NULL,'2023-08-14 07:34:45');
+INSERT INTO `wechat` VALUES (1,'wxc62afc1444173666','po80bb43-4a86-463e-8a64-86af145af212','汇通小程序',1,0,'润迪开通的小助手','2023-07-28 09:49:59'),(2,'wxc62afc1444173555','4180bb43-4a86-463e-8a64-86af145af2op','王子健小程序',3,1,'备注','2023-07-28 11:31:30'),(3,'wxc62afc1444173999','8180bb43-4a86-463e-8a64-86af145af2gf','哈尔滨2小程序',16,1,'123','2023-09-07 01:07:02'),(4,'wxc62afc1444173888','3180bb43-4a86-463e-8a64-86af145af245','润迪专属小程序',2,1,NULL,'2023-08-14 07:34:45'),(6,'wxc62afc1444173777','2180bb43-4a86-463e-8a64-86af145af27e','润迪小程序',2,0,'润迪小程序','2023-09-08 00:38:54');
 
 --
 -- Table structure for table `wx_report_data`
@@ -525,4 +526,4 @@ INSERT INTO `wx_report_data` VALUES (1,'1',8,800,20,'{\"篮球\": 4, \"足球\":
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-09-07  2:15:50
+-- Dump completed on 2023-09-08  2:34:20

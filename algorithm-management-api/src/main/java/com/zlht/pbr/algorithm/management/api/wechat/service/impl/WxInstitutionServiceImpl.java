@@ -30,4 +30,14 @@ public class WxInstitutionServiceImpl extends BaseServiceImpl implements WxInsti
         result.setData(list);
         return result;
     }
+
+    @Override
+    public Result<List<Object>> getInstitutionLinkCodeAndAppId() {
+        Result result = new Result();
+        List<Map<String, Object>> list = wxInstitutionMapper.getInstitutionLinkCodeAppIdMap();
+        result.setCode(Status.SUCCESS.getCode());
+        result.setMsg(Status.SUCCESS.getMsg());
+        result.setData(list);
+        return  result;
+    }
 }

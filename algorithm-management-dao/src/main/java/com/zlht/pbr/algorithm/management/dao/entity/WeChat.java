@@ -28,6 +28,9 @@ public class WeChat {
     @ApiModelProperty(value = "微信小程序ID", required = true)
     private String wechatId;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private String linkCode;
+
     @ApiModelProperty(value = "小程序名", required = true)
     private String name;
 

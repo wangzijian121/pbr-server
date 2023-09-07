@@ -35,5 +35,12 @@ public interface WxInstitutionMapper extends BaseMapper<Algorithm> {
     List<Map<String, Object>> getInstitutionAlgorithm();
 
 
+    /**
+     * 获取机构链接代码与appID 的映射
+     *
+     * @return
+     */
+    @Select("select link_code as linkCode ,  wechat_id as appId  from wechat")
+    List<Map<String, Object>> getInstitutionLinkCodeAppIdMap();
 }
 

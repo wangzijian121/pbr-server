@@ -34,4 +34,17 @@ public class WxInstitutionController extends BaseController {
     public Result<List<Object>> getInstitutionAlgorithm() {
         return wxReportDataServiceI.getInstitutionAlgorithm();
     }
+
+
+    /**
+     * 获取机构已授权的算法
+     *
+     * @return WxReportData
+     */
+    @ApiOperation(value = "获取机构链接代码与appID 的映射", notes = "获取机构链接代码与appID 的映射")
+    @GetMapping(value = "/wechat/getInstitutionLinkCodeAndAppId")
+    @ResponseStatus(HttpStatus.OK)
+    public Result<List<Object>> getInstitutionLinkCodeAndAppId() {
+        return wxReportDataServiceI.getInstitutionLinkCodeAndAppId();
+    }
 }
