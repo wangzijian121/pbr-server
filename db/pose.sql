@@ -475,7 +475,8 @@ DROP TABLE IF EXISTS `wechat`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `wechat` (
                           `id` int NOT NULL AUTO_INCREMENT,
-                          `wechat_id` varchar(255) DEFAULT NULL COMMENT '小程序ID',
+                          `app_id` varchar(255) DEFAULT NULL COMMENT '小程序ID',
+                          `app_secret` varchar(255) DEFAULT NULL COMMENT '小程序秘钥',
                           `link_code` varchar(36) DEFAULT NULL COMMENT '小程序链接码',
                           `name` varchar(255) DEFAULT NULL COMMENT '小程序名',
                           `institution_id` int DEFAULT NULL COMMENT '机构ID',
@@ -490,7 +491,7 @@ CREATE TABLE `wechat` (
 -- Dumping data for table `wechat`
 --
 
-INSERT INTO `wechat` VALUES (1,'wxc62afc1444173666','po80bb43-4a86-463e-8a64-86af145af212','汇通小程序',1,0,'润迪开通的小助手','2023-07-28 09:49:59'),(2,'wxc62afc1444173555','4180bb43-4a86-463e-8a64-86af145af2op','王子健小程序',3,1,'备注','2023-07-28 11:31:30'),(3,'wxc62afc1444173999','8180bb43-4a86-463e-8a64-86af145af2gf','哈尔滨2小程序',16,1,'123','2023-09-07 01:07:02'),(4,'wxc62afc1444173888','3180bb43-4a86-463e-8a64-86af145af245','润迪专属小程序',2,1,NULL,'2023-08-14 07:34:45'),(6,'wxc62afc1444173777','2180bb43-4a86-463e-8a64-86af145af27e','润迪小程序',2,0,'润迪小程序','2023-09-08 00:38:54');
+INSERT INTO `wechat` VALUES (1,'wxc62afc144417346e','2387d60cc0a34703ae8ec0acedd2a635','po80bb43-4a86-463e-8a64-86af145af212','汇通小程序',1,0,'润迪开通的小助手','2023-07-28 09:49:59'),(2,'wxc62afc1444173555','b5a7ea8dcee900d1f1663076ac8dba3b','4180bb43-4a86-463e-8a64-86af145af2op','王子健小程序',3,1,'备注','2023-07-28 11:31:30'),(3,'wxc62afc1444173999','b5a7ea8dcee900d1f1663076ac8dba3b','8180bb43-4a86-463e-8a64-86af145af2gf','哈尔滨2小程序',16,1,'123','2023-09-07 01:07:02'),(4,'wxc62afc1444173888','b5a7ea8dcee900d1f1663076ac8dba3b','3180bb43-4a86-463e-8a64-86af145af245','润迪专属小程序',2,1,NULL,'2023-08-14 07:34:45'),(6,'wxc62afc1444173777','b5a7ea8dcee900d1f1663076ac8dba3b','2180bb43-4a86-463e-8a64-86af145af27e','润迪小程序',2,0,'润迪小程序','2023-09-08 00:38:54');
 
 --
 -- Table structure for table `wx_report_data`
@@ -526,4 +527,4 @@ INSERT INTO `wx_report_data` VALUES (1,'1',8,800,20,'{\"篮球\": 4, \"足球\":
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-09-08  2:34:20
+-- Dump completed on 2023-09-11  9:26:18

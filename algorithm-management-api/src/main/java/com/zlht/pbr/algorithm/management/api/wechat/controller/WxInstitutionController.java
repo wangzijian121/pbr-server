@@ -37,7 +37,7 @@ public class WxInstitutionController extends BaseController {
 
 
     /**
-     * 获取机构已授权的算法
+     * 获取机构链接代码与appID的映射
      *
      * @return WxReportData
      */

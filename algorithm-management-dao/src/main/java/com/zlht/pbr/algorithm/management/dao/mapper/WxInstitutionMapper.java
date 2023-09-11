@@ -20,7 +20,7 @@ public interface WxInstitutionMapper extends BaseMapper<Algorithm> {
      * @return
      */
     @Select("select *\n" +
-            "from (select wc.wechat_id as appId,\n" +
+            "from (select wc.app_id as appId,\n" +
             "             a.id  as algorithmId,\n" +
             "             a.name,\n" +
             "             (select sc.name from sport_category sc where sc.id = a.sport_category) as sportCategory,\n" +
@@ -40,7 +40,7 @@ public interface WxInstitutionMapper extends BaseMapper<Algorithm> {
      *
      * @return
      */
-    @Select("select link_code as linkCode ,  wechat_id as appId  from wechat")
+    @Select("select link_code as linkCode ,  app_id as appId ,app_secret as appSecret  from wechat")
     List<Map<String, Object>> getInstitutionLinkCodeAppIdMap();
 }
 
