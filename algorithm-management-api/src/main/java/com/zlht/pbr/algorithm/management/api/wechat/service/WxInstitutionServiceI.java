@@ -26,4 +26,5 @@ public interface WxInstitutionServiceI {
      */
     Result<List<Object>> getInstitutionLinkCodeAndAppId();
 
+
 }
