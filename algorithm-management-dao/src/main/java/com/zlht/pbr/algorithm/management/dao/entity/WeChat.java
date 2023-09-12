@@ -31,9 +31,6 @@ public class WeChat {
     @ApiModelProperty(value = "微信小程序秘钥", required = true)
     private String appSecret;
 
-    @ApiModelProperty(value = "管理员Openid", required = true)
-    private String adminOpenid;
-
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String linkCode;
 

@@ -15,10 +15,9 @@ public interface WxWeChatServiceI extends BaseServiceI {
     /**
      * 通过链接码和openId判断是否是小程序admin
      *
-     * @param linkCode
      * @param openId
      * @return
      */
-    Map<String, Object> adminOrNot(String linkCode, String openId);
+    Map<String, Object> adminOrNot(String openId);
 
 }

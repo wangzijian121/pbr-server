@@ -31,14 +31,12 @@ public class WxWeChatController extends BaseController {
      */
     @ApiOperation(value = "判断是否为admin", notes = "判断是否为admin")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "linkCode", value = "linkCode", dataTypeClass = String.class),
             @ApiImplicitParam(name = "openId", value = "openId", dataTypeClass = String.class)
     })
     @PostMapping(value = "/adminOrNot")
     @ResponseStatus(HttpStatus.OK)
-    public Result<List<Object>> adminOrNot(@RequestParam String linkCode,
-                                           @RequestParam String openId) {
-        return returnDataList(weChatServiceI.adminOrNot(linkCode, openId));
+    public Result<List<Object>> adminOrNot(@RequestParam String openId) {
+        return returnDataList(weChatServiceI.adminOrNot(openId));
     }
 
 }

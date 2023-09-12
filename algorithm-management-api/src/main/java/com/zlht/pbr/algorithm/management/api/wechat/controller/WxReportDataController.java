@@ -19,7 +19,7 @@ import java.util.Map;
  * @author ziji Wang
  */
 @RestController
-@Api(tags = "微信上报数据管理")
+@Api(tags = "微信数据管理")
 public class WxReportDataController extends BaseController {
 
     @Autowired
@@ -37,4 +37,5 @@ public class WxReportDataController extends BaseController {
         Map<String, Object> map = wxReportDataServiceI.report(wxReportData);
         return returnDataList(map);
     }
+
 }
