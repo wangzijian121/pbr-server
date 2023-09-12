@@ -40,4 +40,6 @@ public interface UserMapper extends BaseMapper<User> {
     User queryUserByToken(@Param("sessionId") String sessionId,
                           @Param("expireTime") Date expireTime,
                           @Param("now") Date now);
+
+
 }

@@ -1,7 +1,6 @@
 package com.zlht.pbr.algorithm.management.api.wechat.service;
 
 import com.zlht.pbr.algorithm.management.base.BaseServiceI;
-import com.zlht.pbr.algorithm.management.dao.entity.WxReportData;
 
 import java.util.Map;
 
@@ -12,11 +11,12 @@ public interface WxReportUserServiceI extends BaseServiceI {
 
 
     /**
-     * 上报微信用户数据
+     * 同步微信用户数据（插入+更新）
      *
-     * @param wxReportData
-     * @return Map<String, Object>
+     * @param map
+     * @param event
+     * @return
      */
-    Map<String, Object> report(WxReportData wxReportData);
+    void reportUser(Map<String, Object> map, int event);
 
 }

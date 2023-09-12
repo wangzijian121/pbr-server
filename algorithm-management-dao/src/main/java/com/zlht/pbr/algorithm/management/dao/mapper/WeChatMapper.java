@@ -39,4 +39,5 @@ public interface WeChatMapper extends BaseMapper<WeChat> {
     Page<Map<String, Object>> selectWechat(Page<?> page,
                                            @Param("keyword") String keyword,
                                            @Param("status") int status);
+
 }
