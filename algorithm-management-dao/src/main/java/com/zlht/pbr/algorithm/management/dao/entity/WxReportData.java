@@ -26,7 +26,7 @@ public class WxReportData {
     private Integer id;
 
     @ApiModelProperty(value = "小程序ID")
-    private String AppId;
+    private String appId;
 
     @ApiModelProperty(value = "今日使用人数")
     private Integer useCountToday;
