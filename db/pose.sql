@@ -51,23 +51,35 @@ INSERT INTO `algorithm` VALUES (1,'足球射门姿势算法',0,1,1,1,1,'ea','文
 DROP TABLE IF EXISTS `auth_institution_alg`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `auth_institution_alg` (
-                                        `id` int NOT NULL AUTO_INCREMENT,
-                                        `institution_id` int DEFAULT NULL COMMENT '授权机构',
-                                        `auth_type` int DEFAULT NULL COMMENT '授权类型(0：算法，1：功能)',
-                                        `auth_alg_id` int DEFAULT NULL COMMENT '授权ID',
-                                        `auth_admin` int DEFAULT NULL COMMENT '授权人',
-                                        `mark` varchar(255) DEFAULT NULL COMMENT '备注',
-                                        `auth_time` datetime DEFAULT NULL COMMENT '授权时间',
-                                        PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='授权机构算法表';
+CREATE TABLE `auth_institution_alg`
+(
+    `id`             int NOT NULL AUTO_INCREMENT,
+    `institution_id` int          DEFAULT NULL COMMENT '授权机构',
+    `auth_type`      int          DEFAULT NULL COMMENT '授权类型(0：算法，1：功能)',
+    `auth_alg_id`    int          DEFAULT NULL COMMENT '授权ID',
+    `auth_admin`     int          DEFAULT NULL COMMENT '授权人',
+    `mark`           varchar(255) DEFAULT NULL COMMENT '备注',
+    `auth_time`      datetime     DEFAULT NULL COMMENT '授权时间',
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='授权机构算法表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `auth_institution_alg`
 --
 
-INSERT INTO `auth_institution_alg` VALUES (1,1,0,1,1,'备注','2023-08-14 08:19:49'),(2,2,0,1,1,'备注','2023-07-26 00:00:00'),(3,3,0,1,1,'备注','2023-07-26 00:00:00'),(28,3,0,14,1,'234567890','2023-08-14 09:03:32'),(29,16,0,20,1,NULL,'2023-08-31 00:09:19'),(30,2,0,3,1,'123','2023-09-05 21:38:40'),(31,3,0,16,1,'备注','2023-07-26 00:00:00');
+INSERT INTO `auth_institution_alg`
+VALUES (1, 1, 0, 1, 1, '备注', '2023-08-14 08:19:49'),
+       (2, 2, 0, 1, 1, '备注', '2023-07-26 00:00:00'),
+       (3, 3, 0, 1, 1, '备注', '2023-07-26 00:00:00'),
+       (28, 3, 0, 14, 1, '备注', '2023-08-14 09:03:32'),
+       (29, 16, 0, 20, 1, '备注', '2023-08-31 00:09:19'),
+       (30, 2, 0, 3, 1, '备注', '2023-09-05 21:38:40'),
+       (31, 3, 0, 16, 1, '备注', '2023-09-05 21:38:40'),
+       (32, 1, 0, 20, 1, '备注', '2023-09-05 21:38:40'),
+       (33, 1, 0, 14, 1, '备注', '2023-09-05 21:38:40'),
+       (34, 1, 0, 15, 1, '备注', '2023-09-05 21:38:40'),
+       (35, 1, 0, 16, 1, '备注', '2023-09-05 21:38:40');
 
 --
 -- Table structure for table `charge`
@@ -76,8 +88,9 @@ INSERT INTO `auth_institution_alg` VALUES (1,1,0,1,1,'备注','2023-08-14 08:19:
 DROP TABLE IF EXISTS `charge`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `charge` (
-                          `id` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `charge`
+(
+    `id`                                   int NOT NULL AUTO_INCREMENT,
                           `type` int DEFAULT NULL COMMENT '收费类型（0免费 1按次付费 2按月付费 3按季付费 4 按年付费 5永久） ',
                           `institution_id` int DEFAULT NULL COMMENT '机构ID',
                           `charge_time` datetime DEFAULT NULL COMMENT '收款时间时间',
@@ -119,30 +132,6 @@ CREATE TABLE `commission` (
 --
 
 INSERT INTO `commission` VALUES (24,42,999,1,'支付宝10086','2023-08-26 04:21:56'),(26,48,9999,1,'已付款到支付宝10086','2023-08-26 04:56:43');
-
---
--- Table structure for table `course`
---
-
-DROP TABLE IF EXISTS `course`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `course` (
-                          `id` int NOT NULL AUTO_INCREMENT,
-                          `name` varchar(50) NOT NULL COMMENT '课程名称',
-                          `cover` varchar(100) DEFAULT NULL COMMENT '课程封面',
-                          `resource_id` int DEFAULT NULL COMMENT '资源ID',
-                          `description` varchar(500) DEFAULT NULL COMMENT '课程描述',
-                          `create_time` datetime NOT NULL COMMENT '创建时间',
-                          `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-                          PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='学习表';
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `course`
---
-
 
 --
 -- Table structure for table `data_set`
@@ -201,32 +190,6 @@ CREATE TABLE `developer_review` (
 INSERT INTO `developer_review` VALUES (24,'羽毛球羽翼飞行结构数据集','羽毛球',13,3,'1fa01764-82ec-42ed-b1bb-1a72604bae3f','文档','这是一个案例','{\"id\":24,\"createTime\":\"2023-08-24T23:35:24.892Z\",\"status\":2,\"mark\":\"123\"}',2,'2023-08-21 21:57:43'),(41,'篮球起跳算法','篮球',13,0,'1fa01764-82ec-42ed-b1bb-1a72604bae3f','水电费','这是一个案例','{\"id\":41,\"createTime\":\"2023-08-25T00:08:46.673Z\",\"status\":2,\"mark\":\"123\"}',2,'2023-08-25 08:08:10'),(42,'足球运球算法','足球',13,0,'b2602fcb-1e9a-48d6-bc30-83e63ca53cca','算法文档说明','demo','{\"id\":42,\"createTime\":\"2023-08-25T19:39:48.268Z\",\"status\":3,\"mark\":\"恭喜你通过了\"}',3,'2023-08-26 03:38:52'),(43,'足球运球数据集','足球',13,2,'a0b7a696-8230-4837-ac50-c4f0ef80bb12','文档说明','demo','{\"id\":43,\"createTime\":\"2023-08-25T19:42:50.857Z\",\"status\":2,\"mark\":\"数据集数据格式不对\"}',2,'2023-08-26 03:41:52'),(44,'羽毛球拍打分析算法','羽毛球',13,1,'276ccd67-800c-419f-9033-3f4c0663877d','算法步骤\n选择一个基准元素，通常选择第一个元素作为基准元素。\n将序列分为两部分，左边部分都小于基准元素，右边部分都大于基准元素。\n对左右两部分递归执行步骤1和步骤2，直到序列长度为1。','def quick_sort(arr):\n    if len(arr) <= 1:\n        return arr\n    pivot = arr[0]\n    left = [x for x in arr[1:] if x < pivot]\n    right = [x for x in arr[1:] if x >= pivot]\n    return quick_sort(left) + [pivot] + quick_sort(right)\n','{\"id\":44,\"createTime\":\"2023-08-25T20:13:46.823Z\",\"status\":3,\"mark\":\"恭喜你通过了\"}',3,'2023-08-26 04:10:35'),(45,'羽毛球拍打算法数据集','羽毛球',13,3,'b400d278-0612-42e7-b5da-203f0b5e8cd8','文档','demo','{\"id\":45,\"createTime\":\"2023-08-25T20:14:41.642Z\",\"status\":2,\"mark\":\"对不起，格式不对\"}',2,'2023-08-26 04:14:04'),(48,'乒乓球挥拍算法','乒乓球',13,1,'f8ac5980-1e50-4ab3-a169-b2711eacbca1','docs','demo','{\"id\":48,\"createTime\":\"2023-08-25T20:55:17.779Z\",\"status\":3,\"mark\":\"恭喜 ~你算法通过了！\"}',3,'2023-08-26 04:53:40'),(49,'乒乓球挥拍数据集','乒乓球',13,3,'dad4a009-2e9b-4797-8079-07339eddfe62','docs','demo','{\"id\":49,\"createTime\":\"2023-08-25T20:55:40.123Z\",\"status\":2,\"mark\":\"对不起，数据格式不对！\"}',2,'2023-08-26 04:54:15'),(50,'游泳算法','游泳',13,1,'dd9441e3-8eec-4252-a28a-05e93273b5d2','算法文档1','算法样例2',NULL,1,'2023-08-26 05:15:33'),(51,'新游泳算法','游泳',13,0,'f0751326-1a51-40fe-a759-2c3cb6247221','算法文档\n','算法样例\n',NULL,1,'2023-08-26 05:20:35'),(52,'1234','体育',13,0,'123','123','1234','123',1,'2023-08-28 14:24:52'),(53,'王子健测试的算法','走路',13,0,'6e2eefb3-fc25-4baf-83c3-fad4a432e9fe','123','123','{\"id\":53,\"createTime\":\"2023-08-29T16:43:12.013Z\",\"status\":3,\"mark\":\"123\"}',3,'2023-08-30 00:42:37');
 
 --
--- Table structure for table `exam`
---
-
-DROP TABLE IF EXISTS `exam`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `exam` (
-                        `id` int NOT NULL AUTO_INCREMENT,
-                        `name` varchar(50) NOT NULL COMMENT '考试名称',
-                        `description` varchar(500) DEFAULT NULL COMMENT '考试描述',
-                        `start_time` datetime NOT NULL COMMENT '开始时间',
-                        `end_time` datetime NOT NULL COMMENT '结束时间',
-                        `resource_id` int DEFAULT NULL COMMENT '资源ID',
-                        `exam_count` int DEFAULT NULL COMMENT '考试次数',
-                        `create_time` datetime NOT NULL COMMENT '创建时间',
-                        `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-                        PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='考试表';
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `exam`
---
-
-
---
 -- Table structure for table `institution`
 --
 
@@ -251,29 +214,6 @@ CREATE TABLE `institution` (
 --
 
 INSERT INTO `institution` VALUES (1,'乐刻健身',2,'10086','123@qq.com','beijing','https://map.baidu.com/poi/%E5%93%88%E5%B0%94%E6%BB%A8%E4%BD%93%E8%82%B2%E5%AD%A6%E9%99%A2/@14102582.756673405,5712157.242628686,17.38z?uid=2fff5b7869fe25d72b3a9f13&ugc_type=3&ugc_ver=1&device_ratio=2&compat=1&pcevaname=pc4.1&querytype=detailConInfo&da_src=shareurl','2023-07-27 13:50:06'),(2,'润迪2',1,'10085','123456@qq.com','中国','https://map.baidu.com/poi/%E5%93%88%E5%B0%94%E6%BB%A8%E4%BD%93%E8%82%B2%E5%AD%A6%E9%99%A2/@14102582.756673405,5712157.242628686,17.38z?uid=2fff5b7869fe25d72b3a9f13&ugc_type=3&ugc_ver=1&device_ratio=2&compat=1&pcevaname=pc4.1&querytype=detailConInfo&da_src=shareurl','2023-07-25 22:09:53'),(3,'XT体育',1,'10085','123456@qq.com','中国','https://map.baidu.com/poi/%E5%93%88%E5%B0%94%E6%BB%A8%E4%BD%93%E8%82%B2%E5%AD%A6%E9%99%A2/@14102582.756673405,5712157.242628686,17.38z?uid=2fff5b7869fe25d72b3a9f13&ugc_type=3&ugc_ver=1&device_ratio=2&compat=1&pcevaname=pc4.1&querytype=detailConInfo&da_src=shareurl','2023-08-08 22:09:53'),(17,'子健云123',0,'18846922264','1219116968@qq.com','北京市','https://map.baidu.com/poi/%E6%8C%91%E6%88%98%E8%80%85%E5%B0%84%E5%87%BB%E4%BF%B1%E4%B9%90%E9%83%A8/@14083751.53,5730661.98,12z?uid=723286a1924ee2143c9a5e8f&ugc_type=3&ugc_ver=1&device_ratio=2&compat=1&pcevaname=pc4.1&querytype=detailConInfo&da_src=shareurl','2023-08-30 23:43:21'),(198,'哈尔滨体育俱乐部',0,'10086','1219116968@qq.com','黑龙江省哈尔滨市呼兰区利民西六大街学院路950号哈尔滨信息工程学院东侧','https://map.baidu.com/poi/%E6%8C%91%E6%88%98%E8%80%85%E5%B0%84%E5%87%BB%E4%BF%B1%E4%B9%90%E9%83%A8/@14083751.53,5730661.98,12z?uid=723286a1924ee2143c9a5e8f&ugc_type=3&ugc_ver=1&device_ratio=2&compat=1&pcevaname=pc4.1&querytype=detailConInfo&da_src=shareurl',NULL);
-
---
--- Table structure for table `report`
---
-
-DROP TABLE IF EXISTS `report`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `report` (
-                          `id` int NOT NULL AUTO_INCREMENT,
-                          `user_id` int NOT NULL COMMENT '用户ID',
-                          `algorithm_id` int NOT NULL COMMENT '算法ID',
-                          `result` json DEFAULT NULL COMMENT '识别结果',
-                          `create_time` datetime NOT NULL COMMENT '创建时间',
-                          `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-                          PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='识别报告';
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `report`
---
-
 
 --
 -- Table structure for table `resources`
@@ -344,78 +284,6 @@ CREATE TABLE `sport_category` (
 --
 
 INSERT INTO `sport_category` VALUES (1,'0','田径',1,'备注','2023-08-14 17:47:35'),(2,'0','铅球',1,'备注','2023-07-26 13:47:32'),(5,'0','立定跳远',1,'备注','2023-07-26 13:47:32'),(6,'1','羽毛球',1,'备注','2023-07-26 13:47:32'),(7,'1','篮球',1,'备注','2023-07-26 13:47:32'),(8,'1','游泳',1,'备注','2023-07-26 13:47:32'),(9,'2','击剑',1,'备注','2023-07-26 13:47:32'),(11,'2','乒乓球',1,'备注','2023-07-26 13:47:32'),(12,'0','网球',1,'网球添加2','2023-08-14 17:49:36'),(13,'1','铅球',1,'汪汪汪','2023-07-27 15:26:35');
-
---
--- Table structure for table `sports_ability`
---
-
-DROP TABLE IF EXISTS `sports_ability`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `sports_ability` (
-                                  `id` int NOT NULL AUTO_INCREMENT,
-                                  `user_id` int NOT NULL COMMENT '用户ID',
-                                  `ability_type` tinyint(1) NOT NULL COMMENT '0有氧能力,1肌肉力量,2柔韧伸展,3灵活敏捷,4动作准确',
-                                  `value` int NOT NULL DEFAULT '0' COMMENT '能力值',
-                                  `create_time` datetime NOT NULL COMMENT '创建时间',
-                                  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-                                  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户体育能力表';
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `sports_ability`
---
-
-
---
--- Table structure for table `study_data`
---
-
-DROP TABLE IF EXISTS `study_data`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `study_data` (
-                              `id` int NOT NULL AUTO_INCREMENT,
-                              `user_id` int NOT NULL COMMENT '用户ID',
-                              `course_id` int NOT NULL COMMENT '课程ID',
-                              `duration` int NOT NULL DEFAULT '0' COMMENT '学习时长（秒）',
-                              `create_time` datetime NOT NULL COMMENT '创建时间',
-                              `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-                              PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户学习数据表';
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `study_data`
---
-
-
---
--- Table structure for table `study_record`
---
-
-DROP TABLE IF EXISTS `study_record`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `study_record` (
-                                `id` int NOT NULL AUTO_INCREMENT,
-                                `user_id` int NOT NULL COMMENT '用户ID',
-                                `course_id` int NOT NULL COMMENT '课程ID',
-                                `lesson_id` int NOT NULL COMMENT '课时ID',
-                                `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '学习状态，0-未学习，1-学习中，2-已学完',
-                                `start_time` datetime DEFAULT NULL COMMENT '开始学习时间',
-                                `end_time` datetime DEFAULT NULL COMMENT '结束学习时间',
-                                `create_time` datetime NOT NULL COMMENT '创建时间',
-                                `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-                                PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户学习记录表';
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `study_record`
---
-
 
 --
 -- Table structure for table `template`
@@ -527,4 +395,4 @@ INSERT INTO `wx_report_data` VALUES (1,'1',8,800,20,'{\"篮球\": 4, \"足球\":
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-09-14  9:06:29
+-- Dump completed on 2023-09-18 17:50:42
