@@ -20,7 +20,7 @@ public interface WxInstitutionMapper extends BaseMapper<Algorithm> {
      * @return
      */
     @Select("select *\n" +
-            "from (select wc.app_id as appId,\n" +
+            "from (select wc.link_code as linkCode,\n" +
             "             a.id  as algorithmId,\n" +
             "             a.name,\n" +
             "             (select sc.name from sport_category sc where sc.id = a.sport_category) as sportCategory,\n" +
@@ -31,7 +31,7 @@ public interface WxInstitutionMapper extends BaseMapper<Algorithm> {
             "               left join institution i on wc.institution_id = i.id\n" +
             "               left join auth_institution_alg aig on aig.institution_id = i.id\n" +
             "               left join algorithm a on a.id = aig.auth_alg_id) res\n" +
-            "where  appId is not  null and res.algorithmId  is not null\n")
+            "where  linkCode is not  null and res.algorithmId  is not null\n")
     List<Map<String, Object>> getInstitutionAlgorithm();
 
 
