@@ -23,17 +23,17 @@ DROP TABLE IF EXISTS `algorithm`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `algorithm` (
-                             `id` int NOT NULL AUTO_INCREMENT,
-                             `name` varchar(255) DEFAULT NULL,
-                             `type` int DEFAULT NULL COMMENT '类型(0普通算法 1专用算法  2普通数据集 3 专用数据集)',
+                             `id`             int NOT NULL AUTO_INCREMENT,
+                             `name`           varchar(255) DEFAULT NULL,
+                             `type`           int DEFAULT NULL COMMENT '类型(0普通算法 1专用算法  2普通数据集 3 专用数据集)',
                              `sport_category` int DEFAULT NULL,
-                             `template_id` int DEFAULT NULL,
-                             `install_type` int DEFAULT NULL COMMENT '部署方式（0：云端部署 1：本地部署）',
-                             `uploader` int DEFAULT NULL,
-                             `file` varchar(255) DEFAULT NULL,
-                             `docs` text,
-                             `example` text,
-                             `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+                             `template_id`    int DEFAULT NULL,
+                             `install_type`   int DEFAULT NULL COMMENT '部署方式（0：云端部署 1：本地部署）',
+                             `uploader`       int DEFAULT NULL,
+                             `file`           varchar(255) DEFAULT NULL,
+                             `docs`           text,
+                             `example`        text,
+                             `create_time`    datetime     DEFAULT NULL COMMENT '创建时间',
                              PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='算法表';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -42,7 +42,19 @@ CREATE TABLE `algorithm` (
 -- Dumping data for table `algorithm`
 --
 
-INSERT INTO `algorithm` VALUES (1,'足球射门姿势算法',0,1,1,1,1,'ea','文档','这是一个案例','2023-08-14 17:47:57'),(3,'游泳姿势优化算法',1,8,1,1,1,'ea','文档','这是一个案例','2023-08-14 17:45:11'),(10,'田径起跑姿势优化算法',1,1,2,2,1,'e1a1f62d-85a4-4a96-8af5-0440d41e0abd','文档','样例','2023-08-14 17:47:20'),(14,'足球专用犯规识别算法',0,7,1,0,1,NULL,'文档','文档demo','2023-08-14 02:27:31'),(15,'篮球手部识别算法',1,7,1,0,1,'a66bd977-82c5-4d3b-9a97-f3aa7c5f24a7','文档','样例demo','2023-08-14 02:32:31'),(16,'乒乓球角度识别算法',1,11,4,0,12,'a45af1c1-a66a-4a80-b3e7-2ae6c743907f','文档','demo','2023-08-30 21:47:10'),(17,'新建铅球算法',0,2,1,0,1,'642df7e3-1318-4457-b621-a08657a81b75','123','456','2023-08-28 22:15:06'),(20,'跳远距离识别',1,9,1,0,1,'ae93811f-3fe9-41ab-8163-279151440323','1234','1234','2023-08-30 23:32:30');
+INSERT INTO `algorithm`
+VALUES (1, '足球射门姿势算法', 0, 14, 1, 1, 1, 'ea', '文档', '这是一个案例', '2023-08-14 17:47:57'),
+       (3, '游泳姿势优化算法', 1, 8, 1, 1, 1, 'ea', '文档', '这是一个案例', '2023-08-14 17:45:11'),
+       (10, '田径起跑姿势优化算法', 1, 1, 2, 2, 1, 'e1a1f62d-85a4-4a96-8af5-0440d41e0abd', '文档', '样例',
+        '2023-08-14 17:47:20'),
+       (14, '足球专用犯规识别算法', 0, 14, 1, 0, 1, NULL, '文档', '文档demo', '2023-08-14 02:27:31'),
+       (15, '篮球手部识别算法', 1, 7, 1, 0, 1, 'a66bd977-82c5-4d3b-9a97-f3aa7c5f24a7', '文档', '样例demo',
+        '2023-08-14 02:32:31'),
+       (16, '乒乓球角度识别算法', 1, 11, 4, 0, 12, 'a45af1c1-a66a-4a80-b3e7-2ae6c743907f', '文档', 'demo',
+        '2023-08-30 21:47:10'),
+       (17, '新建铅球算法', 0, 2, 1, 0, 1, '642df7e3-1318-4457-b621-a08657a81b75', '123', '456', '2023-08-28 22:15:06'),
+       (20, '跳远距离识别', 1, 5, 1, 0, 1, 'ae93811f-3fe9-41ab-8163-279151440323', '1234', '1234',
+        '2023-08-30 23:32:30');
 
 --
 -- Table structure for table `auth_institution_alg`
@@ -90,16 +102,16 @@ DROP TABLE IF EXISTS `charge`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `charge`
 (
-    `id`                                   int NOT NULL AUTO_INCREMENT,
-                          `type` int DEFAULT NULL COMMENT '收费类型（0免费 1按次付费 2按月付费 3按季付费 4 按年付费 5永久） ',
-                          `institution_id` int DEFAULT NULL COMMENT '机构ID',
-                          `charge_time` datetime DEFAULT NULL COMMENT '收款时间时间',
-                          `confirm_people` int DEFAULT NULL COMMENT '确认人',
-                          `confirm_time` datetime DEFAULT NULL COMMENT '到账确认时间',
-                          `status` int DEFAULT NULL COMMENT '状态（0：已到账，1：未到账）',
-                          `mark` text COMMENT '备注信息',
-                          `create_time` datetime DEFAULT NULL COMMENT '录入时间',
-                          PRIMARY KEY (`id`)
+    `id`             int NOT NULL AUTO_INCREMENT,
+    `type`           int      DEFAULT NULL COMMENT '收费类型（0免费 1按次付费 2按月付费 3按季付费 4 按年付费 5永久） ',
+    `institution_id` int      DEFAULT NULL COMMENT '机构ID',
+    `charge_time`    datetime DEFAULT NULL COMMENT '收款时间时间',
+    `confirm_people` int      DEFAULT NULL COMMENT '确认人',
+    `confirm_time`   datetime DEFAULT NULL COMMENT '到账确认时间',
+    `status`         int      DEFAULT NULL COMMENT '状态（0：已到账，1：未到账）',
+    `mark`           text COMMENT '备注信息',
+    `create_time`    datetime DEFAULT NULL COMMENT '录入时间',
+    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='付费表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -269,12 +281,12 @@ DROP TABLE IF EXISTS `sport_category`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `sport_category` (
-                                  `id` int NOT NULL AUTO_INCREMENT,
-                                  `type` varchar(255) DEFAULT NULL COMMENT '体育类型(0:学校体育 1:群众体育 2:竞技体育)',
-                                  `name` varchar(255) DEFAULT NULL COMMENT '分类名',
-                                  `user_id` int DEFAULT NULL COMMENT '添加人',
-                                  `mark` text COMMENT '备注',
-                                  `create_time` datetime DEFAULT NULL COMMENT '授权时间 ',
+                                  `id`          int NOT NULL AUTO_INCREMENT,
+                                  `type`        varchar(255) DEFAULT NULL COMMENT '体育类型(0:学校体育 1:群众体育 2:竞技体育)',
+                                  `name`        varchar(255) DEFAULT NULL COMMENT '分类名',
+                                  `user_id`     int DEFAULT NULL COMMENT '添加人',
+                                  `mark`        text COMMENT '备注',
+                                  `create_time` datetime     DEFAULT NULL COMMENT '授权时间 ',
                                   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='体育类别表';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -283,7 +295,18 @@ CREATE TABLE `sport_category` (
 -- Dumping data for table `sport_category`
 --
 
-INSERT INTO `sport_category` VALUES (1,'0','田径',1,'备注','2023-08-14 17:47:35'),(2,'0','铅球',1,'备注','2023-07-26 13:47:32'),(5,'0','立定跳远',1,'备注','2023-07-26 13:47:32'),(6,'1','羽毛球',1,'备注','2023-07-26 13:47:32'),(7,'1','篮球',1,'备注','2023-07-26 13:47:32'),(8,'1','游泳',1,'备注','2023-07-26 13:47:32'),(9,'2','击剑',1,'备注','2023-07-26 13:47:32'),(11,'2','乒乓球',1,'备注','2023-07-26 13:47:32'),(12,'0','网球',1,'网球添加2','2023-08-14 17:49:36'),(13,'1','铅球',1,'汪汪汪','2023-07-27 15:26:35');
+INSERT INTO `sport_category`
+VALUES (1, '0', '田径', 1, '备注', '2023-08-14 17:47:35'),
+       (2, '0', '铅球', 1, '备注', '2023-07-26 13:47:32'),
+       (5, '0', '跳远', 1, '备注', '2023-07-26 13:47:32'),
+       (6, '1', '羽毛球', 1, '备注', '2023-07-26 13:47:32'),
+       (7, '1', '篮球', 1, '备注', '2023-07-26 13:47:32'),
+       (8, '1', '游泳', 1, '备注', '2023-07-26 13:47:32'),
+       (9, '2', '击剑', 1, '备注', '2023-07-26 13:47:32'),
+       (11, '2', '乒乓球', 1, '备注', '2023-07-26 13:47:32'),
+       (12, '0', '网球', 1, '网球添加2', '2023-08-14 17:49:36'),
+       (13, '1', '铅球', 1, '汪汪汪', '2023-07-27 15:26:35'),
+       (14, '1', '足球', 1, '汪汪汪', '2023-07-27 15:26:35');
 
 --
 -- Table structure for table `template`
@@ -292,13 +315,14 @@ INSERT INTO `sport_category` VALUES (1,'0','田径',1,'备注','2023-08-14 17:47
 DROP TABLE IF EXISTS `template`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `template` (
-                            `id` int NOT NULL AUTO_INCREMENT,
-                            `name` varchar(255) DEFAULT NULL COMMENT '模板名',
-                            `content` json DEFAULT NULL COMMENT '模板内容',
-                            `create_time` datetime DEFAULT NULL,
-                            `mark` text COMMENT '备注',
-                            PRIMARY KEY (`id`)
+CREATE TABLE `template`
+(
+    `id`          int NOT NULL AUTO_INCREMENT,
+    `name`        varchar(255) DEFAULT NULL COMMENT '模板名',
+    `content`     json         DEFAULT NULL COMMENT '模板内容',
+    `create_time` datetime     DEFAULT NULL,
+    `mark`        text COMMENT '备注',
+    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='模板表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -306,7 +330,22 @@ CREATE TABLE `template` (
 -- Dumping data for table `template`
 --
 
-INSERT INTO `template` VALUES (1,'通用模板','{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-08-14 17:49:52','修改后备注'),(2,'篮球类模板','{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-08-14 17:50:06','备注'),(3,'足球类模板','{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-08-14 17:50:16','1211111'),(4,'乒乓球类模板','{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-08-14 17:51:05',NULL),(5,'模板名','{\"distance\": \"number\", \"player_name\": \"string\", \"follow_through\": \"string\"}','2023-08-26 19:33:31','123');
+INSERT INTO `template`
+VALUES (1, '通用模板', '{
+  \"动作准确\": \"起跳姿势评分\", \"有氧能力\": \"投篮命中率评分\", \"柔韧伸展\": \"手腕标准度评分\", \"灵活敏捷\": \"投篮时机评分\", \"肌肉力量\": \"球速评分\"}',
+        '2023-08-14 17:49:52', '修改后备注'),
+       (2, '篮球类模板', '{
+         \"动作准确\": \"起跳姿势评分\", \"有氧能力\": \"投篮命中率评分\", \"柔韧伸展\": \"手腕标准度评分\", \"灵活敏捷\": \"投篮时机评分\", \"肌肉力量\": \"球速评分\"}',
+        '2023-08-14 17:50:06', '备注'),
+       (3, '足球类模板', '{
+         \"动作准确\": \"起跳姿势评分\", \"有氧能力\": \"投篮命中率评分\", \"柔韧伸展\": \"手腕标准度评分\", \"灵活敏捷\": \"投篮时机评分\", \"肌肉力量\": \"球速评分\"}',
+        '2023-08-14 17:50:16', '1211111'),
+       (4, '乒乓球类模板', '{
+         \"动作准确\": \"起跳姿势评分\", \"有氧能力\": \"投篮命中率评分\", \"柔韧伸展\": \"手腕标准度评分\", \"灵活敏捷\": \"投篮时机评分\", \"肌肉力量\": \"球速评分\"}',
+        '2023-08-14 17:51:05', NULL),
+       (5, '模板名', '{
+         \"动作准确\": \"起跳姿势评分\", \"有氧能力\": \"投篮命中率评分\", \"柔韧伸展\": \"手腕标准度评分\", \"灵活敏捷\": \"投篮时机评分\", \"肌肉力量\": \"球速评分\"}',
+        '2023-08-26 19:33:31', '123');
 
 --
 -- Table structure for table `user`
@@ -315,8 +354,9 @@ INSERT INTO `template` VALUES (1,'通用模板','{\"distance\": \"number\", \"pl
 DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `user` (
-                        `id` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `user`
+(
+    `id`                              int NOT NULL AUTO_INCREMENT,
                         `type` int DEFAULT NULL,
                         `nickname` varchar(255) DEFAULT NULL COMMENT '昵称',
                         `username` varchar(255) DEFAULT NULL,
@@ -368,23 +408,26 @@ INSERT INTO `wechat` VALUES (1,'wxc62afc144417346e','2387d60cc0a34703ae8ec0acedd
 DROP TABLE IF EXISTS `wx_report_data`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `wx_report_data` (
-                                  `id` int NOT NULL AUTO_INCREMENT COMMENT 'ID',
-                                  `app_id` varchar(255) DEFAULT NULL COMMENT '小程序ID',
-                                  `use_count_today` int DEFAULT NULL COMMENT '今日使用人数',
-                                  `user_usage_time_today` int DEFAULT NULL COMMENT '今日用户使用时长总和(秒)',
-                                  `use_algorithm_count_today` int DEFAULT NULL COMMENT '算法使用次数',
-                                  `algorithm_type_today` json DEFAULT NULL COMMENT '{算法种类 : 使用次数}',
-                                  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-                                  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='微信用户数据上报表';
+CREATE TABLE `wx_report_data`
+(
+    `id`                    int NOT NULL AUTO_INCREMENT COMMENT 'ID',
+    `link_code`             varchar(255) DEFAULT NULL COMMENT '小程序链接码',
+    `user_count_today`      int          DEFAULT NULL COMMENT '今日使用人数',
+    `user_usage_time_today` int          DEFAULT NULL COMMENT '今日用户使用时长总和(秒)',
+    `algorithm_count_today` int          DEFAULT NULL COMMENT '今日算法使用次数',
+    `create_time`           datetime     DEFAULT NULL COMMENT '创建时间',
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='微信用户数据上报表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `wx_report_data`
 --
 
-INSERT INTO `wx_report_data` VALUES (1,'1',8,800,20,'{\"篮球\": 4, \"足球\": 16}',NULL),(12,'wxc62afc144417346e',1,1,1,'123','2023-09-05 23:25:29');
+INSERT INTO `wx_report_data`
+VALUES (1, '4180bb43-4a86-463e-8a64-86af145af2op', 8, 800, 20, '2023-09-05 23:25:29'),
+       (12, 'po80bb43-4a86-463e-8a64-86af145af212', 1, 1, 1, '2023-09-17 23:25:29'),
+       (16, 'po80bb43-4a86-463e-8a64-86af145af212', 8, 3, 10, '2023-09-19 11:32:55');
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -395,4 +438,4 @@ INSERT INTO `wx_report_data` VALUES (1,'1',8,800,20,'{\"篮球\": 4, \"足球\":
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-09-18 17:50:42
+-- Dump completed on 2023-09-19 17:52:24

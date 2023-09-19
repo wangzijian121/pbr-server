@@ -25,20 +25,17 @@ public class WxReportData {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Integer id;
 
-    @ApiModelProperty(value = "小程序ID")
-    private String appId;
+    @ApiModelProperty(value = "小程序链接码")
+    private String linkCode;
 
     @ApiModelProperty(value = "今日使用人数")
-    private Integer useCountToday;
+    private Integer userCountToday;
 
     @ApiModelProperty(value = "今日用户使用时长总和(秒)")
     private Integer userUsageTimeToday;
 
     @ApiModelProperty(value = "算法使用次数")
-    private Integer useAlgorithmCountToday;
-
-    @ApiModelProperty(value = "算法种类: 使用次数")
-    private String algorithmTypeToday;
+    private Integer AlgorithmCountToday;
 
     @ApiModelProperty(value = "创建时间 iso:YYYY-MM-DDTHH:mm:ss.sssZ", required = true)
     private Date createTime;
