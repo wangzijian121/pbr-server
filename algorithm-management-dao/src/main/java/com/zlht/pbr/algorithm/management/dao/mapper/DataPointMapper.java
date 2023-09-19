@@ -8,26 +8,27 @@ import com.zlht.pbr.algorithm.management.dao.entity.Charge;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author zi jian Wang
  */
 public interface DataPointMapper extends BaseMapper<Charge> {
     /**
-     * 获取用户计数
+     * 数值-获取用户计数
      *
-     * @param date
      * @return
      */
-    @Select("SELECT COUNT(*)  AS today,\n" +
-            "       (SELECT COUNT(*) FROM user) AS total\n" +
-            "FROM user\n" +
-            "WHERE DATE(create_time) = #{date}")
-    ValueTypeChart getUserCount(@Param("date") String date);
+    @Select("select (select user_count_today  from  `pose-management`.wx_report_data where date(create_time) = curdate())    AS today,\n" +
+            "       sum(user_count_today) AS total\n" +
+            "from `pose-management`.wx_report_data \n" +
+            " group by  today")
+    ValueTypeChart getUserCount();
 
     /**
-     * 获取算法计数
+     * 数值-获取算法计数
      *
      * @param date
      * @return
@@ -38,7 +39,7 @@ public interface DataPointMapper extends BaseMapper<Charge> {
     ValueTypeChart getAlgorithmCount(@Param("date") String date);
 
     /**
-     * 获取开发人员提交计数
+     * 数值-获取开发人员提交计数
      *
      * @param date
      * @return
@@ -47,7 +48,7 @@ public interface DataPointMapper extends BaseMapper<Charge> {
     ValueTypeChart getDeveloperCommitCount(@Param("date") String date);
 
     /**
-     * 获取数据集访问计数
+     * 数值-获取数据集访问计数
      *
      * @param date
      * @return
@@ -60,7 +61,7 @@ public interface DataPointMapper extends BaseMapper<Charge> {
     ValueTypeChart getDatasetAccessCount(@Param("date") String date);
 
     /**
-     * 新体育识别类别
+     * 数值-新体育识别类别
      *
      * @param date
      * @return
@@ -71,7 +72,7 @@ public interface DataPointMapper extends BaseMapper<Charge> {
     ValueTypeChart newActionRecognitionCategory(@Param("date") String date);
 
     /**
-     * 获取机构数量
+     * 数值-获取机构数量
      *
      * @param date
      * @return
@@ -83,7 +84,7 @@ public interface DataPointMapper extends BaseMapper<Charge> {
 
 
     /**
-     * 获取机构算法排名
+     * 饼图-获取机构算法排名
      *
      * @return
      */
@@ -95,4 +96,43 @@ public interface DataPointMapper extends BaseMapper<Charge> {
             "group by auth_alg_id order by value  limit 10  ;")
     List<PieTypeChart> getInstitutionAlgorithmRanking();
 
+    /**
+     * 柱形图-机构算法使用量Top10
+     *
+     * @return
+     */
+    @Select("select i.name as xList,sum(algorithm_count_today) as yList\n" +
+            "from wx_report_data wrd\n" +
+            "         left join wechat w on wrd.link_code = w.link_code\n" +
+            "         left join institution i on i.id = w.institution_id group by i.name")
+    List<Map<String, Object>> getTop10InstitutionAlgorithmUsage();
+
+
+    /**
+     * 折线图-获取每月平均用户使用时长
+     *
+     * @param dateStart
+     * @param dateEnd
+     * @return
+     */
+    @Select("select sum(user_usage_time_today) as count, Day(create_time) as day\n" +
+            "from wx_report_data\n" +
+            "where DATE(create_time) >= #{dateStart}\n" +
+            "  and DATE(create_time) <= #{dateEnd}\n" +
+            "group by Day(create_time);")
+    List<Map<String, Object>> getMonthlyAverageUserUsageDuration(Date dateStart, Date dateEnd);
+
+    /**
+     * 折线图-机构算法使用次数统计
+     *
+     * @param dateStart
+     * @param dateEnd
+     * @return
+     */
+    @Select("select sum(algorithm_count_today) as count, Day(create_time) as day\n" +
+            "from wx_report_data\n" +
+            "where DATE(create_time) >= #{dateStart}\n" +
+            "  and DATE(create_time) <= #{dateEnd}\n" +
+            "group by Day(create_time);")
+    List<Map<String, Object>> getMonthlyInstitutionAlgorithmUsageCount(Date dateStart, Date dateEnd);
 }

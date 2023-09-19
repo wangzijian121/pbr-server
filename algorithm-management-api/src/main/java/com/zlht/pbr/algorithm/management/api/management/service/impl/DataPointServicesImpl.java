@@ -6,6 +6,7 @@ import com.zlht.pbr.algorithm.management.dao.chart.LineTypeChart;
 import com.zlht.pbr.algorithm.management.dao.chart.PieTypeChart;
 import com.zlht.pbr.algorithm.management.dao.chart.ValueTypeChart;
 import com.zlht.pbr.algorithm.management.dao.mapper.DataPointMapper;
+import com.zlht.pbr.algorithm.management.utils.TimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +21,7 @@ public class DataPointServicesImpl extends BaseServiceImpl implements DataPointS
 
     //今日用户量,累计用户量
     public ValueTypeChart getUserCount(String date) {
-        //TODO
-        return new ValueTypeChart("10", "100");
+        return dataPointMapper.getUserCount();
     }
 
     //今日新增算法,累计算法量
@@ -41,7 +41,6 @@ public class DataPointServicesImpl extends BaseServiceImpl implements DataPointS
 
     //新动作识别类别
     public ValueTypeChart newActionRecognitionCategory(String date) {
-        //TODO
         return dataPointMapper.newActionRecognitionCategory(date);
     }
 
@@ -63,12 +62,17 @@ public class DataPointServicesImpl extends BaseServiceImpl implements DataPointS
      * 使用识别算法排名Top10的机构
      */
     public LineTypeChart getTop10InstitutionAlgorithmUsage() {
-        //TODO
-        List<String> xList = Arrays.asList("乐刻健身", "润迪体育", "强力健身", "活力俱乐部", "运动乐园", "健美之家", "动感健身", "魅力体育");
 
+        List<String> xList = new ArrayList();
+        List<String> yList = new ArrayList();
         Map<String, List<String>> mapY = new HashMap<>();
-        List<String> yList = Arrays.asList("1240", "690", "590", "240", "189", "100", "35", "12");
+        List<Map<String, Object>> listMap = dataPointMapper.getTop10InstitutionAlgorithmUsage();
+        for (Map<String, Object> map : listMap) {
+            xList.add(map.get("xList").toString());
+            yList.add(map.get("yList").toString());
+        }
         mapY.put("algorithmUsage", yList);
+
         return new LineTypeChart(xList, mapY);
     }
 
@@ -77,34 +81,65 @@ public class DataPointServicesImpl extends BaseServiceImpl implements DataPointS
      * 月用户平均使用时长(分钟)
      */
     public LineTypeChart getMonthlyAverageUserUsageDuration() {
-        //TODO
-        List<String> xList = new ArrayList<>();
-        for (int i = 1; i <= 30; i++) {
-            xList.add(i + "");
-        }
+        Date startOfCurrentMonth = TimeUtils.getCurrentMonthRange(new Date()).get("startOfMonth");
+        Date endOfCurrentMonth = TimeUtils.getCurrentMonthRange(new Date()).get("endOfMonth");
 
-        Map<String, List<String>> mapY = new HashMap<>();
-        List<String> lastMonthList = Arrays.asList("88", "5", "13", "10", "6", "12", "11", "6", "2", "12", "19", "12", "14", "9", "12", "34", "6", "2", "1", "11", "5", "2", "5", "7", "9", "8", "7", "6", "9", "14");
-        List<String> thisMonthList = Arrays.asList("78", "45", "23", "12", "67", "89", "34", "56", "90", "1", "76", "88", "33", "9", "52", "71", "17", "81", "29", "63", "95", "42", "5", "70", "19", "84", "37", "60", "93", "14");
-        mapY.put("lastMonthList", lastMonthList);
-        mapY.put("thisMonthList", thisMonthList);
+        Date startOfPreviousMonth = TimeUtils.getPreviousMonthRange(new Date()).get("startOfMonth");
+        Date endOfPreviousMonth = TimeUtils.getPreviousMonthRange(new Date()).get("endOfMonth");
+
+        //init
+        List<String> xList = new ArrayList<>();
+        List<String> currentMonthList = new ArrayList<>(30);
+        List<String> previousMonthList = new ArrayList<>(30);
+        for (int i = 1; i <= 31; i++) {
+            xList.add(i + "");
+            currentMonthList.add("0");
+            previousMonthList.add("0");
+        }
+        //current map
+        List<Map<String, Object>> mapListCurrent = dataPointMapper.getMonthlyAverageUserUsageDuration(startOfCurrentMonth, endOfCurrentMonth);
+
+        for (Map<String, Object> map : mapListCurrent) {
+            int index = (int) map.get("day");
+            currentMonthList.set(index - 1, map.get("count").toString());
+        }
+        List<Map<String, Object>> mapListPrevious = dataPointMapper.getMonthlyAverageUserUsageDuration(startOfPreviousMonth, endOfPreviousMonth);
+        for (Map<String, Object> map : mapListPrevious) {
+            int index = (int) map.get("day");
+            previousMonthList.set(index - 1, map.get("count").toString());
+        }
+        Map<String, List<String>> mapY = new HashMap<>(2);
+        mapY.put("lastMonthList", previousMonthList);
+        mapY.put("thisMonthList", currentMonthList);
+
         return new LineTypeChart(xList, mapY);
     }
 
     /**
      * mutli-line
-     * 月度 机构算法种类使用次数
+     * 机构算法使用次数统计
      */
     public LineTypeChart getMonthlyInstitutionAlgorithmUsageCount() {
+        Date startOfCurrentMonth = TimeUtils.getCurrentMonthRange(new Date()).get("startOfMonth");
+        Date endOfCurrentMonth = TimeUtils.getCurrentMonthRange(new Date()).get("endOfMonth");
+
+        //init
         List<String> xList = new ArrayList<>();
-        for (int i = 1; i <= 30; i++) {
+        List<String> currentMonthList = new ArrayList<>(30);
+        for (int i = 1; i <= 31; i++) {
             xList.add(i + "");
+            currentMonthList.add("0");
         }
-        Map<String, List<String>> mapY = new HashMap<>();
-        List<String> basketballList = Arrays.asList("12", "6", "7", "9", "5", "11", "1", "14", "2", "34", "2", "6", "7", "8", "6", "9", "5", "10", "12", "11", "88", "9", "19", "13", "12", "5", "6", "2", "12", "14");
-        List<String> swimmingList = Arrays.asList("72", "15", "86", "45", "99", "6", "27", "81", "59", "33", "70", "92", "4", "51", "18", "38", "67", "23", "54", "40", "88", "9", "63", "79", "36", "48", "12", "97", "31", "76");
-        mapY.put("篮球", basketballList);
-        mapY.put("游泳", swimmingList);
+        //current map
+        List<Map<String, Object>> mapListCurrent = dataPointMapper.getMonthlyInstitutionAlgorithmUsageCount(startOfCurrentMonth, endOfCurrentMonth);
+
+        for (Map<String, Object> map : mapListCurrent) {
+            int index = (int) map.get("day");
+            currentMonthList.set(index - 1, map.get("count").toString());
+        }
+
+        Map<String, List<String>> mapY = new HashMap<>(2);
+        mapY.put("thisMonthList", currentMonthList);
         return new LineTypeChart(xList, mapY);
     }
 }
