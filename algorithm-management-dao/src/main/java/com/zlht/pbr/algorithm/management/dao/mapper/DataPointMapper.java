@@ -21,9 +21,9 @@ public interface DataPointMapper extends BaseMapper<Charge> {
      *
      * @return
      */
-    @Select("select (select user_count_today  from  `pose-management`.wx_report_data where date(create_time) = curdate())    AS today,\n" +
-            "       sum(user_count_today) AS total\n" +
-            "from `pose-management`.wx_report_data \n" +
+    @Select("select COALESCE((select user_count_today  from  wx_report_data where date(create_time) = curdate()),0)  AS today," +
+            " COALESCE(sum(user_count_today),0) AS total" +
+            " from wx_report_data " +
             " group by  today")
     ValueTypeChart getUserCount();
 
