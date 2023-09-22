@@ -32,6 +32,7 @@ public interface AuthInstitutionAlgMapper extends BaseMapper<AuthInstitutionAlg>
             " u.nickname as nickname," +
             " alg.id as algorithmId," +
             " alg.name as algorithmName," +
+            " alg.url as url," +
             " a.mark," +
             " a.auth_time as authTime\n" +
             "      from auth_institution_alg a\n" +

@@ -26,7 +26,7 @@ public class WxWeChatServiceImpl extends BaseServiceImpl implements WxWeChatServ
 
         Map<String, Object> map = new HashMap<>(3);
         QueryWrapper<User> queryWrapper = new QueryWrapper();
-
+        queryWrapper.eq("type",2);
         queryWrapper.eq("attr->'$.openId'", openId);
         boolean check = userMapper.exists(queryWrapper);
         Map<String, Object> mapCheck = new HashMap<>(1);

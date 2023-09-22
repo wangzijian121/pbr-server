@@ -36,6 +36,7 @@ public interface AlgorithmMapper extends BaseMapper<Algorithm> {
             "             r.full_name as fileName,\n" +
             "             a.docs,\n" +
             "             a.example,\n" +
+            "             a.url,\n" +
             "             a.create_time as createTime \n" +
             "      from algorithm a\n" +
             "               left join template t on t.id = a.template_id\n" +

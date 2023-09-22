@@ -54,6 +54,9 @@ public class Algorithm {
     @ApiModelProperty(value = "算法案例")
     private String example;
 
+    @ApiModelProperty(value = "算法调用地址")
+    private String url;
+
     @ApiModelProperty(value = "录入时间 iso:YYYY-MM-DDTHH:mm:ss.sssZ", required = true)
     private Date createTime;
 }
