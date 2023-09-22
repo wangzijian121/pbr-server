@@ -13,6 +13,8 @@ import com.zlht.pbr.algorithm.management.dao.entity.User;
 import com.zlht.pbr.algorithm.management.enums.Status;
 import com.zlht.pbr.algorithm.management.factory.WorkBookFactory;
 import com.zlht.pbr.algorithm.management.utils.Result;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.poi.ss.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -30,6 +32,7 @@ import java.util.*;
 @Service
 public class ChartServicesImpl extends BaseServiceImpl<Charge> implements ChartServicesI {
 
+    private static final Logger logger = LogManager.getLogger(ChargeServicesImpl.class);
 
     @Autowired
     private DataPointServicesI dataPointServicesI;
@@ -42,21 +45,26 @@ public class ChartServicesImpl extends BaseServiceImpl<Charge> implements ChartS
             result.setCode(Status.USER_NO_OPERATION_PERM.getCode());
             return result;
         }
-        //value
-        Map<String, ValueTypeChart> valueTypeChartMap = assemblyValueTypeChartMap(date);
-        //pie
-        Map<String, List<PieTypeChart>> pieChartDataMap = assemblyPieTypeChartMap(date);
-        //line
-        Map<String, LineTypeChart> lineTypeChartMap = assemblyLineTypeChartMap();
+        try {
+            //value
+            Map<String, ValueTypeChart> valueTypeChartMap = assemblyValueTypeChartMap(date);
+            //pie
+            Map<String, List<PieTypeChart>> pieChartDataMap = assemblyPieTypeChartMap(date);
+            //line
+            Map<String, LineTypeChart> lineTypeChartMap = assemblyLineTypeChartMap();
 
-        ChartCollect chartCollect = ChartCollect.builder()
-                .valueTypeChartMap(valueTypeChartMap)
-                .pieChartDataMap(pieChartDataMap)
-                .lineChartDataMap(lineTypeChartMap)
-                .build();
-        result.setCode(Status.SUCCESS.getCode());
-        result.setMsg(Status.SUCCESS.getMsg());
-        result.setData(chartCollect);
+            ChartCollect chartCollect = ChartCollect.builder()
+                    .valueTypeChartMap(valueTypeChartMap)
+                    .pieChartDataMap(pieChartDataMap)
+                    .lineChartDataMap(lineTypeChartMap)
+                    .build();
+            result.setCode(Status.SUCCESS.getCode());
+            result.setMsg(Status.SUCCESS.getMsg());
+            result.setData(chartCollect);
+        } catch (Exception e) {
+            logger.error("getChart() method .message={},", "获取图表失败", e);
+        }
+
         return result;
     }
 
@@ -78,7 +86,7 @@ public class ChartServicesImpl extends BaseServiceImpl<Charge> implements ChartS
         //add sheet3
         addSheet3Data(workbook, assemblyLineTypeChartMap(), pieChartDataMap);
         //add sheet4
-        addSheet4Data(workbook, assemblyValueTypeChartMap(date), assemblyLineTypeChartMap());
+        addSheet4Data(workbook, assemblyValueTypeChartMap(date), lineTypeChartMap);
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         try {
@@ -182,10 +190,12 @@ public class ChartServicesImpl extends BaseServiceImpl<Charge> implements ChartS
             i++;
         }
         List<PieTypeChart> institutionAlgorithmRankingList = pieChartDataMap.get("institutionAlgorithmRanking");
-
         int j = 0;
         for (PieTypeChart pieTypeChart : institutionAlgorithmRankingList) {
             Row row = workbook.getSheetAt(2).getRow(j + 2);
+            if (row == null) {
+                row = workbook.getSheetAt(2).createRow(j + 2);
+            }
             Cell cellType = row.createCell(2);
             Cell cellNum = row.createCell(3);
 
