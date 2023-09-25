@@ -23,6 +23,7 @@ public interface WxInstitutionMapper extends BaseMapper<Algorithm> {
             "from (select wc.link_code as linkCode,\n" +
             "             a.id  as algorithmId,\n" +
             "             a.name,\n" +
+            "             a.url,\n" +
             "             (select sc.name from sport_category sc where sc.id = a.sport_category) as sportCategory,\n" +
             "             (SELECT t.content\n" +
             "              FROM template t\n" +

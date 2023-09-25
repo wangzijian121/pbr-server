@@ -2,12 +2,15 @@ package com.zlht.pbr.algorithm.management.api.wechat.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.zlht.pbr.algorithm.management.api.management.service.impl.AlgorithmServicesImpl;
 import com.zlht.pbr.algorithm.management.api.wechat.service.WxReportUserServiceI;
 import com.zlht.pbr.algorithm.management.base.impl.BaseServiceImpl;
 import com.zlht.pbr.algorithm.management.dao.entity.User;
 import com.zlht.pbr.algorithm.management.dao.entity.WeChat;
 import com.zlht.pbr.algorithm.management.dao.mapper.UserMapper;
 import com.zlht.pbr.algorithm.management.dao.mapper.WeChatMapper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +24,7 @@ import java.util.Map;
 @Service
 public class WxReportUserServiceImpl extends BaseServiceImpl implements WxReportUserServiceI {
 
+    private static final Logger logger = LogManager.getLogger(WxReportUserServiceImpl.class);
     @Autowired
     private WeChatMapper weChatMapper;
 
@@ -30,30 +34,34 @@ public class WxReportUserServiceImpl extends BaseServiceImpl implements WxReport
     @Override
     public void reportUser(Map<String, Object> reportMap, int event) {
 
-        QueryWrapper<WeChat> weChatQueryWrapper = new QueryWrapper<>();
-        weChatQueryWrapper.eq("app_id", reportMap.get("appId"));
-        WeChat weChat = weChatMapper.selectOne(weChatQueryWrapper);
+        try{
+            QueryWrapper<WeChat> weChatQueryWrapper = new QueryWrapper<>();
+            weChatQueryWrapper.eq("app_id", reportMap.get("appId"));
+            WeChat weChat = weChatMapper.selectOne(weChatQueryWrapper);
 
-        User user = new User();
-        user.setNickname(reportMap.get("nickname").toString());
-        user.setType(3);
-        user.setCreateTime(new Date());
-        Map<String, Object> map = new HashMap<>(3);
-        map.put("appName", weChat.getName());
-        map.put("openId", reportMap.get("openId"));
-        map.put("appId", reportMap.get("appId"));
-        user.setAttr(map);
+            User user = new User();
+            user.setNickname(reportMap.get("nickname").toString());
+            user.setType(3);
+            user.setCreateTime(new Date());
+            Map<String, Object> map = new HashMap<>(3);
+            map.put("appName", weChat.getName());
+            map.put("openId", reportMap.get("openId"));
+            map.put("appId", reportMap.get("appId"));
+            user.setAttr(map);
 
-        if (event == 0) {
+            if (event == 0) {
 //            insert
-            userMapper.insert(user);
+                userMapper.insert(user);
 
-        } else if (event == 1) {
+            } else if (event == 1) {
 //            update
-            UpdateWrapper queryWrapper = new UpdateWrapper();
-            queryWrapper.eq("attr->'$.appId'", reportMap.get("appId"));
-            queryWrapper.set("nickname", user.getNickname());
-            userMapper.update(null, queryWrapper);
+                UpdateWrapper queryWrapper = new UpdateWrapper();
+                queryWrapper.eq("attr->'$.appId'", reportMap.get("appId"));
+                queryWrapper.set("nickname", user.getNickname());
+                userMapper.update(null, queryWrapper);
+            }
+        }catch (Exception e){
+            logger.error("reportUser 失败！",e);
         }
     }
 }
