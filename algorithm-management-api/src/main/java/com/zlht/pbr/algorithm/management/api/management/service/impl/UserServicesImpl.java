@@ -54,6 +54,7 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
         if (keyword != null) {
             wapper.like("nickname", keyword);
         }
+        wapper.orderByDesc("create_time");
         Page<User> userPage = userMapper.selectPage(page, wapper);
         logger.info("queryUserList() method. username={},type={}, currentPage={},pageSize={},keyword={}",
                 loginUser.getUsername(), type, currentPage, pageSize, keyword);
