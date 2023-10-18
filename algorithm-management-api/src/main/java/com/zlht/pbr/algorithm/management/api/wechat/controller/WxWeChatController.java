@@ -31,6 +31,7 @@ public class WxWeChatController extends BaseController {
      */
     @ApiOperation(value = "判断是否为admin", notes = "判断是否为admin")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "appId", value = "appId", dataTypeClass = String.class),
             @ApiImplicitParam(name = "openId", value = "openId", dataTypeClass = String.class)
     })
     @PostMapping(value = "/adminOrNot")
