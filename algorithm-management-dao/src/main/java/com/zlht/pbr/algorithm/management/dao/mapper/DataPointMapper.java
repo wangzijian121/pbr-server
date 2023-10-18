@@ -101,9 +101,9 @@ public interface DataPointMapper extends BaseMapper<Charge> {
      *
      * @return
      */
-    @Select("select i.name as xList,sum(algorithm_count_today) as yList\n" +
-            "from wx_report_data wrd\n" +
-            "         left join wechat w on wrd.link_code = w.link_code\n" +
+    @Select("select i.name as xList,sum(algorithm_count_today) as yList" +
+            " from wx_report_data wrd" +
+            "         left join wechat w on wrd.link_code = w.link_code" +
             "         left join institution i on i.id = w.institution_id group by i.name")
     List<Map<String, Object>> getTop10InstitutionAlgorithmUsage();
 
