@@ -26,8 +26,8 @@ public interface WeChatMapper extends BaseMapper<WeChat> {
     @Select("select * \n" +
             "from (select wc.id, " +
             "wc.link_code as linkCode,  " +
-            "wc.app_id as appId,  " +
             "wc.app_secret as appSecret,  " +
+            "wc.app_id as appId,  " +
             "wc.name as name ," +
             " i.id as institutionId," +
             " i.name as institutionName," +
