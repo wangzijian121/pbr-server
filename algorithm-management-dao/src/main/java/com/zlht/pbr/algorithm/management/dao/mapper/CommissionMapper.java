@@ -27,12 +27,13 @@ public interface CommissionMapper extends BaseMapper<Commission> {
             "dr.commit_name as commitName, " +
             "c.review_id as reviewId, " +
             "c.money, " +
+            "c.screenshot_of_payment  as screenshotOfPayment, " +
             "c.status," +
             "c.mark," +
-            "c.create_time as createTime\n" +
-            "from commission c\n" +
-            "left join developer_review dr on c.review_id = dr.id) res\n" +
-            "where ( #{keyword} IS NULL OR res.commitName LIKE CONCAT('%', #{keyword}, '%')) order by id desc")
+            "c.create_time as createTime" +
+            " from commission c " +
+            " left join developer_review dr on c.review_id = dr.id) res " +
+            " where ( #{keyword} IS NULL OR res.commitName LIKE CONCAT('%', #{keyword}, '%')) order by id desc")
     Page<Map<String, Object>> selectCommission(Page<?> page, @Param("keyword") String keyword);
 
 
@@ -50,12 +51,13 @@ public interface CommissionMapper extends BaseMapper<Commission> {
             "dr.commit_name as commitName, " +
             "c.review_id as reviewId , " +
             "c.money, " +
+            "c.screenshot_of_payment  as screenshotOfPayment, " +
             "c.status," +
             " c.mark," +
-            " c.create_time as createTime\n" +
-            "from commission c\n" +
-            "left join developer_review dr on c.review_id = dr.id where dr.developer_id=#{developerId}) res \n" +
-            "where ( #{keyword} IS NULL OR res.commitName LIKE CONCAT('%', #{keyword}, '%')) order by id desc")
+            " c.create_time as createTime" +
+            " from commission c" +
+            " left join developer_review dr on c.review_id = dr.id where dr.developer_id=#{developerId}) res" +
+            " where ( #{keyword} IS NULL OR res.commitName LIKE CONCAT('%', #{keyword}, '%')) order by id desc")
     Page<Map<String, Object>> selectDeveloperCommission(Page<?> page, @Param("keyword") String keyword,
                                                         @Param("developerId") int developerId);
 }

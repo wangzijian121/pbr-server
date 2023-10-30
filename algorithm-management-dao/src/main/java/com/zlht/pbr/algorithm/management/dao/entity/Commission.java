@@ -33,6 +33,9 @@ public class Commission {
     @ApiModelProperty(value = "状态(0:未付款，1：已付款)", required = true)
     private Integer status;
 
+    @ApiModelProperty(value = "付款截图", required = true)
+    private String screenshotOfPayment;
+
     @ApiModelProperty(value = "备注", required = false)
     private String mark;
 

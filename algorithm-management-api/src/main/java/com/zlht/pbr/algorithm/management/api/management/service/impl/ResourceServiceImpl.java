@@ -34,7 +34,7 @@ import java.util.UUID;
 public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServiceI {
 
     private static final Logger logger = LogManager.getLogger(ResourceServiceImpl.class);
-    private final String[] ACCEPT_TYPES = new String[]{"zip"};
+    private final String[] ACCEPT_TYPES = new String[]{"zip", "jpg", "jpeg", "png"};
     /**
      * 文件磁盘路径
      */
@@ -137,7 +137,7 @@ public class ResourceServiceImpl extends BaseServiceImpl implements ResourceServ
             return ResponseEntity.badRequest().body("未找到资源！");
         }
         // 从文件存储中读取文件
-        File file = new File(fileUploadPath + resource.getAlias() + ".zip");
+        File file = new File(fileUploadPath + resource.getAlias() + "." + resource.getSuffix());
         InputStreamResource inputStreamResource = null;
         try {
             inputStreamResource = new InputStreamResource(new FileInputStream(file));

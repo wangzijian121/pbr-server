@@ -24,17 +24,18 @@ public class WxReportDataServiceImpl extends BaseServiceImpl implements WxReport
     public void report(String linkCode, String type, int increment) {
         WxReportData wxReportData = null;
         Map mapReportData = null;
+        int num = 0;
 
         Map<String, Integer> resultMap = wxReportDataMapper.getLinkCodeTodayData(linkCode);
         if (resultMap == null) {
             wxReportData = new WxReportData(null, linkCode, 0, 0, 0, new Date());
             wxReportDataMapper.insert(wxReportData);
             mapReportData = BeanUtil.beanToMap(wxReportData);
-
         } else {
             mapReportData = resultMap;
+            num = (int) mapReportData.get(type);
         }
-        int num = (int) mapReportData.get(type);
+
         mapReportData.put(type, num + increment);
 
         try {
