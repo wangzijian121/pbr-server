@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -143,6 +144,26 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
             putMsg(map, 400, errMsg);
         }
         return map;
+    }
+
+    /**
+     * 获取机构管理员映射
+     *
+     * @return
+     */
+    @Override
+    public Result getInstitutionalAdminMap(User loginUser) {
+        Result result = new Result();
+        if (!canOperator(loginUser)) {
+            result.setMsg(Status.USER_NO_OPERATION_PERM.getMsg());
+            result.setCode(Status.USER_NO_OPERATION_PERM.getCode());
+            return result;
+        }
+        List<Map<String, Object>> list = userMapper.queryInstitutionalAdminMap();
+        result.setCode(Status.SUCCESS.getCode());
+        result.setMsg(Status.SUCCESS.getMsg());
+        result.setData(list);
+        return result;
     }
 
 

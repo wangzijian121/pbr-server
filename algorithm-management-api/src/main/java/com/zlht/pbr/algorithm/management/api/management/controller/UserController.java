@@ -168,4 +168,16 @@ public class UserController extends BaseController {
         request.removeAttribute("session.user");
         return returnDataList(map);
     }
+
+    /**
+     * 查询已添加机构管理员
+     *
+     * @return result
+     */
+    @ApiOperation(value = "查询已添加机构管理员", notes = "查询已添加机构管理员")
+    @GetMapping(value = "/getInstitutionalAdminMap")
+    @ResponseStatus(HttpStatus.OK)
+    public Result getInstitutionalAdminMap(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser) {
+        return userServices.getInstitutionalAdminMap(loginUser);
+    }
 }

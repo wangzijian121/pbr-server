@@ -52,6 +52,13 @@ public interface UserServicesI {
      */
     Map<String, Object> deleteUser(User loginUser, int id);
 
+    /**
+     * 获取机构管理员
+     *
+     * @param loginUser
+     * @return
+     */
+    Result getInstitutionalAdminMap(User loginUser);
 
     /**
      * 检查用户是否已存在

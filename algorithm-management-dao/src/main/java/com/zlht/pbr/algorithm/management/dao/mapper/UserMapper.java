@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author zi jian Wang
@@ -41,5 +43,12 @@ public interface UserMapper extends BaseMapper<User> {
                           @Param("expireTime") Date expireTime,
                           @Param("now") Date now);
 
+    /**
+     * 查询机构管理员映射
+     *
+     * @return
+     */
+    @Select("select u.id,u.nickname  from user u  where  type=2")
+    List<Map<String, Object>> queryInstitutionalAdminMap();
 
 }
