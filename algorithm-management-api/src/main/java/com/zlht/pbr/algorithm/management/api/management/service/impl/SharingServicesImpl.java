@@ -131,4 +131,24 @@ public class SharingServicesImpl extends BaseServiceImpl<Sharing> implements Sha
         return sharingMapper.exists(queryWrapper);
     }
 
+    /**
+     * 查询分成统计信息
+     *
+     * @return
+     */
+    @Override
+    public Result querySharingStatistics(User loginUser) {
+
+        Result result = new Result();
+        if (!canOperator(loginUser)) {
+            result.setMsg(Status.USER_NO_OPERATION_PERM.getMsg());
+            result.setCode(Status.USER_NO_OPERATION_PERM.getCode());
+            return result;
+        }
+        result.setData(sharingMapper.querySharingStatistics());
+        result.setCode(Status.SUCCESS.getCode());
+        result.setMsg(Status.SUCCESS.getMsg());
+        return result;
+    }
+
 }

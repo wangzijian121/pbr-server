@@ -34,4 +34,17 @@ public interface SharingMapper extends BaseMapper<Sharing> {
             " where ( #{keyword} IS NULL OR res.nickname LIKE CONCAT('%', #{keyword}, '%')) order by id desc")
     Page<Map<String, Object>> querySharing(Page<?> page, @Param("keyword") String keyword);
 
+
+    /**
+     * 获取分成统计信息
+     *
+     * @return
+     */
+    @Select("SELECT" +
+            "    SUM(money) AS totalSharing," +
+            "    SUM(CASE WHEN DATE(create_time) = CURDATE() THEN money ELSE 0 END) AS todaySharing," +
+            "    COUNT(DISTINCT user_id) AS sharingCount" +
+            " FROM  sharing" +
+            " WHERE status = 1;")
+    Map<String, Object> querySharingStatistics();
 }

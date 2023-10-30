@@ -137,11 +137,32 @@ public class CommissionServicesImpl extends BaseServiceImpl<Commission> implemen
         return map;
     }
 
+    /**
+     * 查询佣金统计信息
+     *
+     * @param loginUser
+     * @return
+     */
+    @Override
+    public Result queryCommissionStatistics(User loginUser) {
+        Result result = new Result();
+        if (!canOperator(loginUser)) {
+            result.setMsg(Status.USER_NO_OPERATION_PERM.getMsg());
+            result.setCode(Status.USER_NO_OPERATION_PERM.getCode());
+            return result;
+        }
+        result.setData(commissionMapper.querySharingStatistics());
+        result.setCode(Status.SUCCESS.getCode());
+        result.setMsg(Status.SUCCESS.getMsg());
+        return result;
+    }
+
     @Override
     public boolean checkCommissionExistById(int id) {
         QueryWrapper queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("id", id);
         return commissionMapper.exists(queryWrapper);
     }
+
 
 }

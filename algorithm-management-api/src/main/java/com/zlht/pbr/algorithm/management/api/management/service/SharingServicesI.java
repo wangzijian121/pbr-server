@@ -63,4 +63,11 @@ public interface SharingServicesI {
     boolean checkSharingExistById(int id);
 
 
+    /**
+     * 查询分成统计信息
+     *
+     * @param loginUser
+     * @return
+     */
+    Result querySharingStatistics(User loginUser);
 }

@@ -60,4 +60,16 @@ public interface CommissionMapper extends BaseMapper<Commission> {
             " where ( #{keyword} IS NULL OR res.commitName LIKE CONCAT('%', #{keyword}, '%')) order by id desc")
     Page<Map<String, Object>> selectDeveloperCommission(Page<?> page, @Param("keyword") String keyword,
                                                         @Param("developerId") int developerId);
+
+    /**
+     * 获取佣金统计信息
+     *
+     * @return
+     */
+    @Select("SELECT" +
+            "    SUM(money) AS totalCommission," +
+            "    SUM(CASE WHEN DATE(create_time) = CURDATE() THEN money ELSE 0 END) AS todayCommission," +
+            "    COUNT(*) AS reviewCount" +
+            " FROM commission;")
+    Map<String, Object> querySharingStatistics();
 }

@@ -100,4 +100,16 @@ public class SharingController extends BaseController {
         Map<String, Object> map = sharingServices.deleteSharing(loginUser, id);
         return returnDataList(map);
     }
+
+    /**
+     * 获取分成项统计
+     *
+     * @return Sharing
+     */
+    @ApiOperation(value = "获取分成项统计", notes = "获取分成项统计")
+    @GetMapping(value = "/querySharingStatistics")
+    @ResponseStatus(HttpStatus.OK)
+    public Result<Sharing> querySharingStatistics(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser) {
+        return sharingServices.querySharingStatistics(loginUser);
+    }
 }

@@ -53,6 +53,14 @@ public interface CommissionServicesI {
     Map<String, Object> deleteCommission(User loginUser, int id);
 
     /**
+     * 查询佣金统计信息
+     *
+     * @param loginUser
+     * @return
+     */
+    Result queryCommissionStatistics(User loginUser);
+
+    /**
      * 通过ID判断是否存在（删除更新判断）
      *
      * @param id

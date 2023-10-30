@@ -4,6 +4,7 @@ package com.zlht.pbr.algorithm.management.api.management.controller;
 import com.zlht.pbr.algorithm.management.api.management.service.CommissionServicesI;
 import com.zlht.pbr.algorithm.management.base.BaseController;
 import com.zlht.pbr.algorithm.management.dao.entity.Commission;
+import com.zlht.pbr.algorithm.management.dao.entity.Sharing;
 import com.zlht.pbr.algorithm.management.dao.entity.User;
 import com.zlht.pbr.algorithm.management.utils.PageInfo;
 import com.zlht.pbr.algorithm.management.utils.Result;
@@ -99,5 +100,17 @@ public class CommissionController extends BaseController {
                                                @RequestParam int id) {
         Map<String, Object> map = commissionServices.deleteCommission(loginUser, id);
         return returnDataList(map);
+    }
+
+    /**
+     * 获取佣金项统计
+     *
+     * @return Sharing
+     */
+    @ApiOperation(value = "获取佣金项统计", notes = "获取佣金项统计")
+    @GetMapping(value = "/queryCommissionStatistics")
+    @ResponseStatus(HttpStatus.OK)
+    public Result<Sharing> queryCommissionStatistics(@ApiIgnore @RequestAttribute(value = "session.user") User loginUser) {
+        return commissionServices.queryCommissionStatistics(loginUser);
     }
 }
