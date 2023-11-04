@@ -24,6 +24,7 @@ public interface SharingMapper extends BaseMapper<Sharing> {
      */
     @Select("select * from (select s.id," +
             " u.nickname ," +
+            " u.id as userId ," +
             " s.money," +
             " s.status," +
             " s.screenshot_of_payment as screenshotOfPayment, " +

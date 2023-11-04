@@ -80,7 +80,8 @@ public class UserServicesImpl extends BaseServiceImpl<User> implements UserServi
             putMsg(map, 400, "用户已存在！");
             return map;
         }
-        if (!validateUserName(user)) {
+        int checkType = 2;
+        if (user.getType() != checkType && !validateUserName(user)) {
             putMsg(map, 400, "用户名或昵称不符合规范！");
             return map;
         }
