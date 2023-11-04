@@ -19,4 +19,12 @@ public interface WxReportUserServiceI extends BaseServiceI {
      */
     void reportUser(Map<String, Object> map, int event);
 
+    /**
+     * 更新上报用户信息
+     *
+     * @param openId
+     * @param nickName
+     */
+    void updateUserInfo(String openId, String nickName);
+
 }

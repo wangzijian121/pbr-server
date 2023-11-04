@@ -32,4 +32,16 @@ public class WxReportUserController extends BaseController {
         wxReportUserServiceI.reportUser(map, event);
     }
 
+
+    /**
+     * 更新上报用户数据
+     *
+     * @return WxReportData
+     */
+    @ApiOperation(value = "更新上报学生用户", notes = "更新上报学生用户")
+    @PutMapping(value = "/wechat/updateReportUserData")
+    @ResponseStatus(HttpStatus.OK)
+    public void updateUserInfo(@RequestParam String openId, @RequestParam String nickName) {
+        wxReportUserServiceI.updateUserInfo(openId, nickName);
+    }
 }

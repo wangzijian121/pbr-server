@@ -2,7 +2,6 @@ package com.zlht.pbr.algorithm.management.api.wechat.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.zlht.pbr.algorithm.management.api.management.service.impl.AlgorithmServicesImpl;
 import com.zlht.pbr.algorithm.management.api.wechat.service.WxReportUserServiceI;
 import com.zlht.pbr.algorithm.management.base.impl.BaseServiceImpl;
 import com.zlht.pbr.algorithm.management.dao.entity.User;
@@ -34,7 +33,7 @@ public class WxReportUserServiceImpl extends BaseServiceImpl implements WxReport
     @Override
     public void reportUser(Map<String, Object> reportMap, int event) {
 
-        try{
+        try {
             QueryWrapper<WeChat> weChatQueryWrapper = new QueryWrapper<>();
             weChatQueryWrapper.eq("app_id", reportMap.get("appId"));
             WeChat weChat = weChatMapper.selectOne(weChatQueryWrapper);
@@ -44,11 +43,11 @@ public class WxReportUserServiceImpl extends BaseServiceImpl implements WxReport
             user.setType(3);
             user.setCreateTime(new Date());
             Map<String, Object> map = new HashMap<>(3);
+            map.put("userId", weChat.getName());
             map.put("appName", weChat.getName());
             map.put("openId", reportMap.get("openId"));
             map.put("appId", reportMap.get("appId"));
             user.setAttr(map);
-
             if (event == 0) {
 //            insert
                 userMapper.insert(user);
@@ -60,8 +59,21 @@ public class WxReportUserServiceImpl extends BaseServiceImpl implements WxReport
                 queryWrapper.set("nickname", user.getNickname());
                 userMapper.update(null, queryWrapper);
             }
-        }catch (Exception e){
-            logger.error("reportUser 失败！",e);
+        } catch (Exception e) {
+            logger.error("reportUser 失败！", e);
+        }
+    }
+
+    public void updateUserInfo(String openId, String nickName) {
+
+        try {
+            UpdateWrapper updateWrapper = new UpdateWrapper();
+            updateWrapper.eq("attr->'$.openId'", openId);
+            updateWrapper.set("nickname", nickName);
+            userMapper.update(null, updateWrapper);
+
+        } catch (Exception e) {
+            logger.error("updateUserInfo 失败！", e);
         }
     }
 }
